@@ -4,15 +4,30 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Sourav Saha</title>
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-    />
-    <link
-      rel="icon"
-      href="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhZYDxjjUb1O55UK2IJCmFvz3_SvuDwdomm9AN6pLhoQlYYg8aFWn78BL47uBXR20lex_0RtgCFhtWgSI-DEHfk5BgyqX2CwEDCXUAY-2HdA-325LbhU_99pawhU9kQdhy8P2lm9xgwNxSvcMC7g8c5MWgWUXnTBetaCbT3lJmYSPBQoG2H2-KR3ovu9sg/s320/100kbfavicon.jpg"
-      type="image/png"
-    />
+
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Sourav Saha — UIU CSE student building something exciting. Stay tuned!" />
+    <meta name="keywords" content="Sourav, Sourav Saha, Sourav Saha Partho, UIU, CSE student, UIU Computer Club, UIU App Forum" />
+    <meta name="author" content="Sourav Saha" />
+    <meta name="robots" content="index, follow" />
+
+    <!-- Open Graph (Facebook, LinkedIn) -->
+    <meta property="og:title" content="Sourav Saha" />
+    <meta property="og:description" content="CSE student at UIU. I'm building something exciting. Stay tuned!" />
+    <meta property="og:image" content="https://cdn-icons-png.flaticon.com/512/25/25231.png" />
+    <meta property="og:url" content="https://sourav.com.bd" />
+    <meta property="og:type" content="website" />
+
+    <!-- Twitter Meta -->
+    <meta name="twitter:title" content="Sourav Saha" />
+    <meta name="twitter:description" content="CSE student at UIU. I'm building something exciting. Stay tuned!" />
+    <meta name="twitter:image" content="https://cdn-icons-png.flaticon.com/512/25/25231.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <!-- Favicon and Icons -->
+    <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/25/25231.png" type="image/png" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
     <style>
       :root {
         --primary-color: #c2003a;
@@ -22,7 +37,6 @@
         --text-main: #4a1c29;
         --text-light: #7a3a4e;
         --social-hover: #ff8392;
-        --countdown-shadow: rgba(194, 0, 58, 0.3);
       }
 
       * {
@@ -43,6 +57,7 @@
         overflow-x: hidden;
       }
 
+      /* Loader */
       #loader {
         position: fixed;
         inset: 0;
@@ -59,45 +74,26 @@
         font-size: 4rem;
         font-weight: 900;
         color: #fff;
-        position: relative;
-        overflow: hidden;
+        display: inline-block;
+        animation: bounce 1.4s infinite ease-in-out;
       }
 
-      #loader span::before {
-        content: "SOURAV";
-        position: absolute;
-        top: 0;
-        left: -100%;
-        width: 200%;
-        height: 100%;
-        background: linear-gradient(
-          120deg,
-          transparent 0%,
-          rgba(255, 255, 255, 0.6) 50%,
-          transparent 100%
-        );
-        animation: shine 2s infinite;
+      #loader span:nth-child(1) { animation-delay: 0s; }
+      #loader span:nth-child(2) { animation-delay: 0.1s; }
+      #loader span:nth-child(3) { animation-delay: 0.2s; }
+      #loader span:nth-child(4) { animation-delay: 0.3s; }
+      #loader span:nth-child(5) { animation-delay: 0.4s; }
+      #loader span:nth-child(6) { animation-delay: 0.5s; }
+
+      @keyframes bounce {
+        0%, 100% { transform: translateY(0); opacity: 0.8; }
+        50% { transform: translateY(-20px); opacity: 1; }
       }
 
       @keyframes gradientShift {
-        0% {
-          background-position: 0% 50%;
-        }
-        50% {
-          background-position: 100% 50%;
-        }
-        100% {
-          background-position: 0% 50%;
-        }
-      }
-
-      @keyframes shine {
-        0% {
-          left: -100%;
-        }
-        100% {
-          left: 100%;
-        }
+        0% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
+        100% { background-position: 0% 50%; }
       }
 
       #main-content {
@@ -117,7 +113,6 @@
         font-size: 3rem;
         margin-bottom: 0.5em;
         color: var(--text-main);
-        animation: fadeIn 2s ease-in-out;
       }
 
       .description {
@@ -147,87 +142,39 @@
         border-radius: 20px;
         color: white;
         font-weight: 700;
-        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
         min-width: 75px;
         max-width: 160px;
         flex: 1 1 75px;
         box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
-        transition: transform 0.3s ease;
-        cursor: default;
-        text-align: center; /* fallback */
+        text-align: center;
       }
 
       .countdown div[data-label="Days"] {
         background: linear-gradient(135deg, #ff6a00, #ee0979);
-        box-shadow: 0 0 20px #ee0979;
       }
       .countdown div[data-label="Hours"] {
         background: linear-gradient(135deg, #2193b0, #6dd5ed);
-        box-shadow: 0 0 20px #2193b0;
       }
       .countdown div[data-label="Minutes"] {
         background: linear-gradient(135deg, #56ab2f, #a8e063);
-        box-shadow: 0 0 20px #56ab2f;
       }
       .countdown div[data-label="Seconds"] {
         background: linear-gradient(135deg, #833ab4, #fd1d1d, #fcb045);
-        box-shadow: 0 0 25px #fd1d1d;
       }
 
       .countdown div span {
-        font-size: clamp(1.8rem, 5vw, 2.5rem);
-        line-height: 1;
-        transition: transform 0.3s ease;
+        font-size: 2rem;
         letter-spacing: 2px;
-        text-shadow: 0 0 8px rgba(0, 0, 0, 0.3);
-        width: 100%;
-        display: block;
-        text-align: center;
-      }
-
-      .countdown div span.animate {
-        animation: pop 0.4s ease forwards;
       }
 
       .countdown div::after {
         content: attr(data-label);
-        position: relative;
-        bottom: 0;
-        left: 0;
-        transform: none;
-        font-size: clamp(0.65rem, 1.5vw, 0.8rem);
+        font-size: 0.8rem;
         font-weight: 600;
         color: rgba(255, 255, 255, 0.9);
-        letter-spacing: 1.2px;
         text-transform: uppercase;
-        pointer-events: none;
         margin-top: 0.4rem;
         display: block;
-      }
-
-      @media (max-width: 480px) {
-        .countdown {
-          max-width: 320px;
-          gap: 0.6rem;
-        }
-
-        .countdown div {
-          min-width: 60px;
-          padding: 0.8rem 1rem;
-          border-radius: 16px;
-          flex: 1 1 60px;
-          max-width: 120px;
-        }
-
-        .countdown div span {
-          font-size: 1.6rem;
-          letter-spacing: 1.5px;
-        }
-
-        .countdown div::after {
-          font-size: 0.6rem;
-          letter-spacing: 1px;
-        }
       }
 
       .contact-section {
@@ -247,16 +194,10 @@
         color: var(--primary-color);
       }
 
-      .contact-section p {
-        font-size: 1.1rem;
-        margin-bottom: 0;
-      }
-
       .contact-section a {
         color: var(--primary-color);
         font-weight: 600;
         text-decoration: none;
-        transition: color 0.3s ease;
       }
 
       .contact-section a:hover {
@@ -274,7 +215,6 @@
       .social-icons a {
         font-size: 2.5rem;
         color: var(--primary-color);
-        transition: color 0.3s ease;
       }
 
       .social-icons a:hover {
@@ -282,44 +222,19 @@
       }
 
       footer {
-        margin-top: 2rem;
         font-size: 1rem;
         color: var(--text-light);
       }
-
-      @keyframes fadeIn {
-        0% {
-          opacity: 0;
-        }
-        100% {
-          opacity: 1;
-        }
-      }
-
-      @keyframes pop {
-        0% {
-          transform: scale(1);
-          color: white;
-          text-shadow: 0 0 0 transparent;
-        }
-        50% {
-          transform: scale(1.3);
-          color: #fff8f8;
-          text-shadow: 0 0 15px #fff;
-        }
-        100% {
-          transform: scale(1);
-          color: white;
-          text-shadow: 0 0 0 transparent;
-        }
-      }
     </style>
   </head>
+
   <body>
+    <!-- Loader with animated letters -->
     <div id="loader">
-      <span>SOURAV</span>
+      <span>S</span><span>O</span><span>U</span><span>R</span><span>A</span><span>V</span>
     </div>
 
+    <!-- Main content -->
     <main id="main-content">
       <h1>Coming Soon!</h1>
       <p class="description">
@@ -336,64 +251,32 @@
       <section class="contact-section">
         <h2>Contact Me</h2>
         <p>
-          Have questions or want to get in touch? Send me an email at<br />
+          Have questions or want to get in touch?<br />
           <a href="mailto:hello@sourav.com.bd">hello@sourav.com.bd</a>
         </p>
       </section>
 
       <div class="social-icons">
-        <a
-          href="https://www.facebook.com/souravsahapartho"
-          aria-label="Facebook"
-          target="_blank"
-          rel="noopener noreferrer"
-          ><i class="fab fa-facebook"></i
-        ></a>
-        <a
-          href="https://www.instagram.com/souravsahapartho"
-          aria-label="Instagram"
-          target="_blank"
-          rel="noopener noreferrer"
-          ><i class="fab fa-instagram"></i
-        ></a>
-        <a
-          href="https://www.linkedin.com/in/souravsahapartho"
-          aria-label="LinkedIn"
-          target="_blank"
-          rel="noopener noreferrer"
-          ><i class="fab fa-linkedin"></i
-        ></a>
+        <a href="https://www.facebook.com/souravsahapartho" target="_blank" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
+        <a href="https://www.instagram.com/souravsahapartho" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+        <a href="https://www.linkedin.com/in/souravsahapartho" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
       </div>
 
       <footer>&copy; 2025 Sourav Saha. All rights reserved.</footer>
     </main>
 
     <script>
+      // Loader delay
       window.addEventListener("load", () => {
         const loader = document.getElementById("loader");
         const mainContent = document.getElementById("main-content");
-
         setTimeout(() => {
           loader.style.display = "none";
           mainContent.style.display = "flex";
-        }, 4000);
+        }, 3000);
       });
 
-      function animateValue(id, start, end, duration) {
-        const obj = document.getElementById(id);
-        let startTimestamp = null;
-        const step = (timestamp) => {
-          if (!startTimestamp) startTimestamp = timestamp;
-          const progress = Math.min((timestamp - startTimestamp) / duration, 1);
-          const value = Math.floor(progress * (end - start) + start);
-          obj.textContent = value.toString().padStart(2, "0");
-          if (progress < 1) {
-            window.requestAnimationFrame(step);
-          }
-        };
-        window.requestAnimationFrame(step);
-      }
-
+      // Countdown
       function updateCountdown() {
         const countdownDate = new Date("2025-12-31T23:59:59").getTime();
         const now = new Date().getTime();
@@ -406,27 +289,14 @@
         }
 
         const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-        const hours = Math.floor(
-          (distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
-        );
+        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
         const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
         const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-        // Animate changes only if digits changed (simple approach)
-        const elems = ["days", "hours", "minutes", "seconds"];
-        const values = [days, hours, minutes, seconds];
-
-        elems.forEach((id, i) => {
-          const elem = document.getElementById(id);
-          const newValue = values[i].toString().padStart(2, "0");
-          if (elem.textContent !== newValue) {
-            elem.textContent = newValue;
-            elem.classList.add("animate");
-            setTimeout(() => {
-              elem.classList.remove("animate");
-            }, 400);
-          }
-        });
+        document.getElementById("days").textContent = String(days).padStart(2, "0");
+        document.getElementById("hours").textContent = String(hours).padStart(2, "0");
+        document.getElementById("minutes").textContent = String(minutes).padStart(2, "0");
+        document.getElementById("seconds").textContent = String(seconds).padStart(2, "0");
       }
 
       updateCountdown();
@@ -434,6 +304,7 @@
     </script>
   </body>
 </html>
+
 
 
 
