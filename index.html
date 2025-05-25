@@ -2,239 +2,173 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Sourav Saha</title>
 
     <!-- SEO Meta Tags -->
-    <meta name="description" content="Sourav Saha — UIU CSE student building something exciting. Stay tuned!" />
-    <meta name="keywords" content="Sourav, Sourav Saha, Sourav Saha Partho, UIU, CSE student, UIU Computer Club, UIU App Forum" />
+    <meta name="description" content="Sourav Saha - CSE student at UIU, passionate about tech, development, and building impactful digital experiences." />
+    <meta name="keywords" content="Sourav, Sourav Saha, Sourav Saha Partho, UIU, CSE student, United International University, developer, programmer, Bangladesh" />
     <meta name="author" content="Sourav Saha" />
-    <meta name="robots" content="index, follow" />
 
-    <!-- Open Graph (Facebook, LinkedIn) -->
-    <meta property="og:title" content="Sourav Saha" />
-    <meta property="og:description" content="CSE student at UIU. I'm building something exciting. Stay tuned!" />
-    <meta property="og:image" content="https://cdn-icons-png.flaticon.com/512/25/25231.png" />
-    <meta property="og:url" content="https://sourav.com.bd" />
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="Sourav Saha - Coming Soon" />
+    <meta property="og:description" content="Hi, I'm Sourav Saha — a CSE student at UIU. I'm building something exciting. Stay tuned!" />
+    <meta property="og:image" content="https://yourdomain.com/thumbnail.jpg" />
+    <meta property="og:url" content="https://yourdomain.com/" />
     <meta property="og:type" content="website" />
 
-    <!-- Twitter Meta -->
-    <meta name="twitter:title" content="Sourav Saha" />
-    <meta name="twitter:description" content="CSE student at UIU. I'm building something exciting. Stay tuned!" />
-    <meta name="twitter:image" content="https://cdn-icons-png.flaticon.com/512/25/25231.png" />
+    <!-- Twitter Card Meta Tags -->
     <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Sourav Saha - Coming Soon" />
+    <meta name="twitter:description" content="Hi, I'm Sourav Saha — a CSE student at UIU. I'm building something exciting. Stay tuned!" />
+    <meta name="twitter:image" content="https://yourdomain.com/thumbnail.jpg" />
 
-    <!-- Favicon and Icons -->
-    <link rel="icon" href="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhZYDxjjUb1O55UK2IJCmFvz3_SvuDwdomm9AN6pLhoQlYYg8aFWn78BL47uBXR20lex_0RtgCFhtWgSI-DEHfk5BgyqX2CwEDCXUAY-2HdA-325LbhU_99pawhU9kQdhy8P2lm9xgwNxSvcMC7g8c5MWgWUXnTBetaCbT3lJmYSPBQoG2H2-KR3ovu9sg/s320/100kbfavicon.jpg" type="image/png" />
+    <!-- Icons -->
+    <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/25/25231.png" type="image/png" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 
     <style>
-      :root {
-        --primary-color: #c2003a;
-        --primary-light: #ff4b6e;
-        --background-main-start: #fff0f3;
-        --background-main-end: #ffe1e8;
-        --text-main: #4a1c29;
-        --text-light: #7a3a4e;
-        --social-hover: #ff8392;
-      }
-
+      /* General Reset */
       * {
+        margin: 0;
+        padding: 0;
         box-sizing: border-box;
       }
 
-      body,
-      html {
-        margin: 0;
-        padding: 0;
+      body {
         font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-        background: linear-gradient(
-          135deg,
-          var(--background-main-start),
-          var(--background-main-end)
-        );
-        color: var(--text-main);
-        overflow-x: hidden;
-      }
-
-      /* Loader */
-      #loader {
-        position: fixed;
-        inset: 0;
-        background: linear-gradient(270deg, #c2003a, #ff4b6e, #ff7a9b, #c2003a);
-        background-size: 800% 800%;
-        animation: gradientShift 8s ease infinite;
+        background-color: #121212;
+        color: #ffffff;
+        min-height: 100vh;
         display: flex;
         justify-content: center;
         align-items: center;
-        z-index: 9999;
+        overflow: hidden;
       }
 
-      #loader span {
-        font-size: 4rem;
-        font-weight: 900;
-        color: #fff;
-        display: inline-block;
-        animation: bounce 1.4s infinite ease-in-out;
+      #loader {
+        font-size: 3rem;
+        font-weight: bold;
+        color: #00adb5;
+        animation: pulse 2s infinite;
       }
 
-      #loader span:nth-child(1) { animation-delay: 0s; }
-      #loader span:nth-child(2) { animation-delay: 0.1s; }
-      #loader span:nth-child(3) { animation-delay: 0.2s; }
-      #loader span:nth-child(4) { animation-delay: 0.3s; }
-      #loader span:nth-child(5) { animation-delay: 0.4s; }
-      #loader span:nth-child(6) { animation-delay: 0.5s; }
-
-      @keyframes bounce {
-        0%, 100% { transform: translateY(0); opacity: 0.8; }
-        50% { transform: translateY(-20px); opacity: 1; }
-      }
-
-      @keyframes gradientShift {
-        0% { background-position: 0% 50%; }
-        50% { background-position: 100% 50%; }
-        100% { background-position: 0% 50%; }
+      @keyframes pulse {
+        0% { opacity: 0.2; }
+        50% { opacity: 1; }
+        100% { opacity: 0.2; }
       }
 
       #main-content {
         display: none;
-        min-height: 100vh;
-        text-align: center;
-        display: flex;
         flex-direction: column;
-        justify-content: center;
         align-items: center;
-        padding: 20px;
-        max-width: 900px;
-        margin: 0 auto;
+        text-align: center;
+        padding: 2rem;
+        max-width: 600px;
       }
 
       h1 {
         font-size: 3rem;
-        margin-bottom: 0.5em;
-        color: var(--text-main);
+        color: #00adb5;
+        margin-bottom: 1rem;
       }
 
       .description {
         font-size: 1.2rem;
-        max-width: 600px;
         margin-bottom: 2rem;
-        color: var(--text-light);
+        line-height: 1.6;
       }
 
       .countdown {
         display: flex;
         gap: 1rem;
-        margin-bottom: 3rem;
+        margin-bottom: 2rem;
         flex-wrap: wrap;
-        justify-content: center;
-        padding: 0 10px;
-        width: 100%;
-        max-width: 600px;
       }
 
       .countdown div {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        padding: 1.2rem 1.8rem;
-        border-radius: 20px;
-        color: white;
-        font-weight: 700;
-        min-width: 75px;
-        max-width: 160px;
-        flex: 1 1 75px;
-        box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
-        text-align: center;
+        background-color: #1f1f1f;
+        padding: 1rem;
+        border-radius: 10px;
+        min-width: 80px;
       }
 
-      .countdown div[data-label="Days"] {
-        background: linear-gradient(135deg, #ff6a00, #ee0979);
-      }
-      .countdown div[data-label="Hours"] {
-        background: linear-gradient(135deg, #2193b0, #6dd5ed);
-      }
-      .countdown div[data-label="Minutes"] {
-        background: linear-gradient(135deg, #56ab2f, #a8e063);
-      }
-      .countdown div[data-label="Seconds"] {
-        background: linear-gradient(135deg, #833ab4, #fd1d1d, #fcb045);
-      }
-
-      .countdown div span {
+      .countdown span {
         font-size: 2rem;
-        letter-spacing: 2px;
+        font-weight: bold;
+        display: block;
       }
 
       .countdown div::after {
         content: attr(data-label);
-        font-size: 0.8rem;
-        font-weight: 600;
-        color: rgba(255, 255, 255, 0.9);
-        text-transform: uppercase;
-        margin-top: 0.4rem;
         display: block;
+        font-size: 0.8rem;
+        color: #cccccc;
+        margin-top: 0.3rem;
       }
 
       .contact-section {
-        background: #fff0f3;
-        border-radius: 20px;
-        padding: 30px 25px;
-        box-shadow: 0 4px 20px rgba(194, 0, 58, 0.15);
-        max-width: 480px;
-        width: 100%;
-        margin-bottom: 3rem;
-        color: var(--text-main);
+        margin-bottom: 2rem;
       }
 
       .contact-section h2 {
-        margin-bottom: 1rem;
-        font-size: 1.8rem;
-        color: var(--primary-color);
+        font-size: 1.5rem;
+        margin-bottom: 0.5rem;
+        color: #00adb5;
       }
 
       .contact-section a {
-        color: var(--primary-color);
-        font-weight: 600;
+        color: #00adb5;
         text-decoration: none;
-      }
-
-      .contact-section a:hover {
-        color: var(--primary-light);
-        text-decoration: underline;
       }
 
       .social-icons {
         display: flex;
         gap: 1.5rem;
         margin-bottom: 2rem;
-        justify-content: center;
+        font-size: 1.8rem;
       }
 
       .social-icons a {
-        font-size: 2.5rem;
-        color: var(--primary-color);
+        color: #00adb5;
+        transition: color 0.3s ease;
       }
 
       .social-icons a:hover {
-        color: var(--social-hover);
+        color: #ffffff;
       }
 
       footer {
-        font-size: 1rem;
-        color: var(--text-light);
+        font-size: 0.9rem;
+        color: #aaaaaa;
+      }
+
+      /* Countdown animation */
+      .countdown span.animate {
+        animation: bounce 0.4s ease;
+      }
+
+      @keyframes bounce {
+        0% { transform: scale(1); }
+        50% { transform: scale(1.3); }
+        100% { transform: scale(1); }
+      }
+
+      @media (max-width: 500px) {
+        .countdown {
+          flex-direction: column;
+          align-items: center;
+        }
       }
     </style>
   </head>
 
   <body>
-    <!-- Loader with animated letters -->
-    <div id="loader">
-      <span>S</span><span>O</span><span>U</span><span>R</span><span>A</span><span>V</span>
-    </div>
+    <!-- Loader -->
+    <div id="loader"><span>SOURAV</span></div>
 
-    <!-- Main content -->
+    <!-- Main Content -->
     <main id="main-content">
       <h1>Coming Soon!</h1>
       <p class="description">
@@ -257,26 +191,27 @@
       </section>
 
       <div class="social-icons">
-        <a href="https://www.facebook.com/souravsahapartho" target="_blank" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
-        <a href="https://www.instagram.com/souravsahapartho" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-        <a href="https://www.linkedin.com/in/souravsahapartho" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+        <a href="https://www.facebook.com/souravsahapartho" target="_blank" aria-label="Facebook" rel="noopener noreferrer"><i class="fab fa-facebook"></i></a>
+        <a href="https://www.instagram.com/souravsahapartho" target="_blank" aria-label="Instagram" rel="noopener noreferrer"><i class="fab fa-instagram"></i></a>
+        <a href="https://www.linkedin.com/in/souravsahapartho" target="_blank" aria-label="LinkedIn" rel="noopener noreferrer"><i class="fab fa-linkedin"></i></a>
       </div>
 
       <footer>&copy; 2025 Sourav Saha. All rights reserved.</footer>
     </main>
 
     <script>
-      // Loader delay
+      // Show loader, then reveal main content
       window.addEventListener("load", () => {
         const loader = document.getElementById("loader");
         const mainContent = document.getElementById("main-content");
+
         setTimeout(() => {
           loader.style.display = "none";
           mainContent.style.display = "flex";
         }, 3000);
       });
 
-      // Countdown
+      // Countdown logic
       function updateCountdown() {
         const countdownDate = new Date("2025-12-31T23:59:59").getTime();
         const now = new Date().getTime();
@@ -293,10 +228,18 @@
         const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
         const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-        document.getElementById("days").textContent = String(days).padStart(2, "0");
-        document.getElementById("hours").textContent = String(hours).padStart(2, "0");
-        document.getElementById("minutes").textContent = String(minutes).padStart(2, "0");
-        document.getElementById("seconds").textContent = String(seconds).padStart(2, "0");
+        const elems = ["days", "hours", "minutes", "seconds"];
+        const values = [days, hours, minutes, seconds];
+
+        elems.forEach((id, i) => {
+          const elem = document.getElementById(id);
+          const newValue = values[i].toString().padStart(2, "0");
+          if (elem.textContent !== newValue) {
+            elem.textContent = newValue;
+            elem.classList.add("animate");
+            setTimeout(() => elem.classList.remove("animate"), 400);
+          }
+        });
       }
 
       updateCountdown();
@@ -304,6 +247,7 @@
     </script>
   </body>
 </html>
+
 
 
 
