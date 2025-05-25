@@ -8,6 +8,8 @@
     rel="stylesheet"
     href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
   />
+  <!-- Favicon -->
+  <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/25/25231.png" type="image/png" />
   <style>
     :root {
       --primary-color: #c2003a;
@@ -55,7 +57,7 @@
     }
 
     #loader span::before {
-      content: 'Sourav';
+      content: 'SOURAV';
       position: absolute;
       top: 0;
       left: -100%;
@@ -117,15 +119,15 @@
     }
 
     .countdown div {
-      padding: 1.5rem 2rem;
+      padding: 1.2rem 1.8rem;
       border-radius: 20px;
       text-align: center;
       color: white;
       font-weight: 700;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      min-width: 90px;
+      min-width: 75px;
       max-width: 140px;
-      flex: 1 1 90px;
+      flex: 1 1 75px;
       box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
       transition: transform 0.3s ease;
       cursor: default;
@@ -157,7 +159,7 @@
 
     .countdown div span {
       display: block;
-      font-size: clamp(2.2rem, 5vw, 3rem);
+      font-size: clamp(1.8rem, 5vw, 2.5rem);
       line-height: 1;
       transition: transform 0.3s ease;
       letter-spacing: 2px;
@@ -174,7 +176,7 @@
       bottom: 0;
       left: 0;
       transform: none;
-      font-size: clamp(0.85rem, 2vw, 1rem);
+      font-size: clamp(0.75rem, 2vw, 0.9rem);
       font-weight: 600;
       color: rgba(255, 255, 255, 0.9);
       letter-spacing: 1.2px;
@@ -182,6 +184,31 @@
       pointer-events: none;
       margin-top: 0.4rem;
       display: block;
+    }
+
+    /* Responsive tweaks for smaller devices */
+    @media (max-width: 480px) {
+      .countdown {
+        max-width: 320px;
+        gap: 0.6rem;
+      }
+
+      .countdown div {
+        min-width: 60px;
+        padding: 0.8rem 1rem;
+        border-radius: 16px;
+        flex: 1 1 60px;
+      }
+
+      .countdown div span {
+        font-size: 1.6rem;
+        letter-spacing: 1.5px;
+      }
+
+      .countdown div::after {
+        font-size: 0.7rem;
+        letter-spacing: 1px;
+      }
     }
 
     /* Contact Section */
@@ -295,9 +322,9 @@
 
     <!-- Social Icons LAST -->
     <div class="social-icons">
-      <a href="#" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
-      <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-      <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+      <a href="https://www.facebook.com/souravsahapartho" aria-label="Facebook" target="_blank" rel="noopener noreferrer"><i class="fab fa-facebook"></i></a>
+      <a href="https://www.instagram.com/souravsahapartho" aria-label="Instagram" target="_blank" rel="noopener noreferrer"><i class="fab fa-instagram"></i></a>
+      <a href="https://www.linkedin.com/in/souravsahapartho" aria-label="LinkedIn" target="_blank" rel="noopener noreferrer"><i class="fab fa-linkedin"></i></a>
     </div>
 
     <footer>© 2025 Sourav. All rights reserved.</footer>
@@ -326,40 +353,45 @@
     const targetDate = new Date("2025-12-31T23:59:59").getTime();
 
     function updateCountdown() {
-      const now = new Date().getTime();
-      const distance = targetDate - now;
+      const now = Date.now();
+      const diff = targetDate - now;
 
-      if (distance < 0) {
-        daysEl.textContent = '00';
-        hoursEl.textContent = '00';
-        minutesEl.textContent = '00';
-        secondsEl.textContent = '00';
+      if (diff <= 0) {
+        daysEl.textContent = "00";
+        hoursEl.textContent = "00";
+        minutesEl.textContent = "00";
+        secondsEl.textContent = "00";
+        clearInterval(interval);
         return;
       }
 
-      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+      const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+      const s = Math.floor((diff % (1000 * 60)) / 1000);
 
-      animateValue(daysEl, days);
-      animateValue(hoursEl, hours);
-      animateValue(minutesEl, minutes);
-      animateValue(secondsEl, seconds);
+      setTime(daysEl, d);
+      setTime(hoursEl, h);
+      setTime(minutesEl, m);
+      setTime(secondsEl, s);
     }
 
-    function animateValue(element, value) {
-      const current = parseInt(element.textContent, 10);
-      if (current !== value) {
-        element.textContent = value.toString().padStart(2, '0');
-        element.classList.add('animate');
-        setTimeout(() => element.classList.remove('animate'), 400);
+    function setTime(el, val) {
+      const oldVal = el.textContent;
+      const newVal = val < 10 ? '0' + val : val.toString();
+      if (oldVal !== newVal) {
+        el.textContent = newVal;
+        el.classList.add('animate');
+        setTimeout(() => {
+          el.classList.remove('animate');
+        }, 400);
       }
     }
 
-    setInterval(updateCountdown, 1000);
     updateCountdown();
+    const interval = setInterval(updateCountdown, 1000);
   </script>
 </body>
 </html>
+
 
