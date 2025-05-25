@@ -1,63 +1,375 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Coming Soon</title>
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            background-color: #222;
-            color: #fff;
-            font-family: Arial, sans-serif;
-            text-align: center;
-        }
-        .container {
-            max-width: 600px;
-        }
-        h1 {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-        }
-        p {
-            font-size: 1.2rem;
-            margin-bottom: 2rem;
-        }
-        .countdown {
-            font-size: 1.5rem;
-            font-weight: bold;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Coming Soon - Sourav</title>
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+  />
+  <style>
+    /* CSS Variables */
+    :root {
+      --primary-color: #c2003a;
+      --primary-light: #ff4b6e;
+      --background-main-start: #fff0f3;
+      --background-main-end: #ffe1e8;
+      --text-main: #4a1c29;
+      --text-light: #7a3a4e;
+      --social-hover: #ff8392;
+      --countdown-shadow: rgba(194, 0, 58, 0.3);
+    }
+
+    /* Reset */
+    * {
+      box-sizing: border-box;
+    }
+
+    body, html {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, var(--background-main-start), var(--background-main-end));
+      color: var(--text-main);
+      overflow-x: hidden;
+    }
+
+    /* Loader */
+    #loader {
+      position: fixed;
+      inset: 0;
+      background: linear-gradient(270deg, #c2003a, #ff4b6e, #ff7a9b, #c2003a);
+      background-size: 800% 800%;
+      animation: gradientShift 8s ease infinite;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+    }
+
+    #loader span {
+      font-size: 4rem;
+      font-weight: 900;
+      color: #fff;
+      position: relative;
+      overflow: hidden;
+    }
+
+    #loader span::before {
+      content: 'Sourav';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 200%;
+      height: 100%;
+      background: linear-gradient(120deg, transparent 0%, rgba(255,255,255,0.6) 50%, transparent 100%);
+      animation: shine 2s infinite;
+    }
+
+    @keyframes gradientShift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    @keyframes shine {
+      0% { left: -100%; }
+      100% { left: 100%; }
+    }
+
+    /* Main Content */
+    #main-content {
+      display: none;
+      min-height: 100vh;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    h1 {
+      font-size: 3rem;
+      margin-bottom: 0.5em;
+      color: var(--text-main);
+      animation: fadeIn 2s ease-in-out;
+    }
+
+    .name {
+      font-size: 2rem;
+      color: var(--primary-color);
+      animation: pulse 3s ease-in-out infinite;
+    }
+
+    .description {
+      font-size: 1.2rem;
+      max-width: 600px;
+      margin-bottom: 2rem;
+      color: var(--text-light);
+    }
+
+    /* Countdown */
+    .countdown {
+      display: flex;
+      gap: 1.5rem;
+      margin-bottom: 3rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .countdown div {
+      padding: 1.8rem 2.5rem;
+      border-radius: 20px;
+      text-align: center;
+      color: white;
+      font-weight: 700;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      min-width: 110px;
+      position: relative;
+      user-select: none;
+      box-shadow: 0 0 15px rgba(0,0,0,0.1);
+      transition: transform 0.3s ease;
+      cursor: default;
+    }
+    .countdown div:hover {
+      transform: scale(1.05);
+      box-shadow:
+        0 0 25px rgba(0,0,0,0.15),
+        0 0 40px currentColor;
+    }
+
+    /* Each block different gradient & shadow */
+    .countdown div[data-label="Days"] {
+      background: linear-gradient(135deg, #ff6a00, #ee0979);
+      box-shadow: 0 0 20px #ee0979;
+    }
+    .countdown div[data-label="Hours"] {
+      background: linear-gradient(135deg, #2193b0, #6dd5ed);
+      box-shadow: 0 0 20px #2193b0;
+    }
+    .countdown div[data-label="Minutes"] {
+      background: linear-gradient(135deg, #56ab2f, #a8e063);
+      box-shadow: 0 0 20px #56ab2f;
+    }
+    .countdown div[data-label="Seconds"] {
+      background: linear-gradient(135deg, #833ab4, #fd1d1d, #fcb045);
+      box-shadow: 0 0 25px #fd1d1d;
+    }
+
+    .countdown div span {
+      display: block;
+      font-size: 3rem;
+      line-height: 1;
+      transition: transform 0.3s ease;
+      letter-spacing: 2px;
+      text-shadow: 0 0 8px rgba(0,0,0,0.3);
+    }
+
+    .countdown div span.animate {
+      animation: pop 0.4s ease forwards;
+    }
+
+    .countdown div::after {
+      content: attr(data-label);
+      position: absolute;
+      bottom: 12px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 1rem;
+      font-weight: 600;
+      color: rgba(255, 255, 255, 0.8);
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      pointer-events: none;
+    }
+
+    @keyframes pop {
+      0% {
+        transform: scale(1);
+        color: white;
+        text-shadow: 0 0 0 transparent;
+      }
+      50% {
+        transform: scale(1.3);
+        color: #fff8f8;
+        text-shadow: 0 0 15px #fff;
+      }
+      100% {
+        transform: scale(1);
+        color: white;
+        text-shadow: 0 0 0 transparent;
+      }
+    }
+
+    /* Social Icons */
+    .social-icons {
+      display: flex;
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+      justify-content: center;
+    }
+
+    .social-icons a {
+      font-size: 2.5rem;
+      color: var(--primary-color);
+      transition: color 0.3s ease;
+    }
+
+    .social-icons a:hover {
+      color: var(--social-hover);
+    }
+
+    /* Contact Section */
+    .contact-section {
+      background: #fff0f3;
+      border-radius: 20px;
+      padding: 30px 25px;
+      box-shadow: 0 4px 20px rgba(194, 0, 58, 0.15);
+      max-width: 480px;
+      width: 100%;
+      margin-bottom: 3rem;
+      color: var(--text-main);
+    }
+
+    .contact-section h2 {
+      margin-bottom: 1rem;
+      font-size: 1.8rem;
+      color: var(--primary-color);
+    }
+
+    .contact-section p {
+      font-size: 1.1rem;
+      margin-bottom: 0;
+    }
+
+    .contact-section a {
+      color: var(--primary-color);
+      font-weight: 600;
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    .contact-section a:hover {
+      color: var(--primary-light);
+      text-decoration: underline;
+    }
+
+    footer {
+      margin-top: 2rem;
+      font-size: 1rem;
+      color: var(--text-light);
+    }
+
+    @keyframes fadeIn {
+      0% { opacity: 0; }
+      100% { opacity: 1; }
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+    }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <h1>We're Coming Soon!</h1>
-        <p>Our website is under construction. Stay tuned for something amazing!</p>
-        <div class="countdown">Launching in: <span id="timer">30 days</span></div>
+  <!-- Loader -->
+  <div id="loader">
+    <span>Sourav</span>
+  </div>
+
+  <!-- Main Content -->
+  <main id="main-content">
+    <h1>Website Coming Soon</h1>
+    <div class="name">— Sourav —</div>
+    <p class="description">Hi, I'm Sourav! I'm building something exciting. Stay tuned!</p>
+
+    <div class="countdown" id="countdown">
+      <div data-label="Days"><span id="days">00</span></div>
+      <div data-label="Hours"><span id="hours">00</span></div>
+      <div data-label="Minutes"><span id="minutes">00</span></div>
+      <div data-label="Seconds"><span id="seconds">00</span></div>
     </div>
-    <script>
-        // Simple countdown script
-        const launchDate = new Date();
-        launchDate.setDate(launchDate.getDate() + 30); // 30 days from now
 
-        function updateTimer() {
-            const now = new Date();
-            const timeLeft = launchDate - now;
+    <div class="social-icons">
+      <a href="#" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
+      <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+      <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+    </div>
 
-            if (timeLeft > 0) {
-                const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
-                document.getElementById('timer').innerText = `${days} days`;
-            } else {
-                document.getElementById('timer').innerText = "We're live!";
-            }
-        }
-        setInterval(updateTimer, 1000);
-        updateTimer();
-    </script>
+    <!-- Contact Section -->
+    <section class="contact-section">
+      <h2>Contact Me</h2>
+      <p>Have questions or want to get in touch? Send me an email at<br />
+      <a href="mailto:sourav@example.com">sourav@example.com</a></p>
+    </section>
+
+    <footer>© 2025 Sourav. All rights reserved.</footer>
+  </main>
+
+  <script>
+    // Loader Fade Out
+    window.addEventListener('load', () => {
+      const loader = document.getElementById('loader');
+      const mainContent = document.getElementById('main-content');
+      setTimeout(() => {
+        loader.style.opacity = '0';
+        setTimeout(() => {
+          loader.style.display = 'none';
+          mainContent.style.display = 'flex';
+        }, 700);
+      }, 1600);
+    });
+
+    // Countdown
+    const countdown = document.getElementById('countdown');
+    const daysEl = document.getElementById('days');
+    const hoursEl = document.getElementById('hours');
+    const minutesEl = document.getElementById('minutes');
+    const secondsEl = document.getElementById('seconds');
+
+    // Set your target date here
+    const targetDate = new Date("2025-12-31T23:59:59").getTime();
+
+    function updateCountdown() {
+      const now = new Date().getTime();
+      const diff = targetDate - now;
+
+      if (diff <= 0) {
+        daysEl.textContent = '00';
+        hoursEl.textContent = '00';
+        minutesEl.textContent = '00';
+        secondsEl.textContent = '00';
+        clearInterval(interval);
+        return;
+      }
+
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+      updateNumber(daysEl, days);
+      updateNumber(hoursEl, hours);
+      updateNumber(minutesEl, minutes);
+      updateNumber(secondsEl, seconds);
+    }
+
+    function updateNumber(element, number) {
+      const formatted = number.toString().padStart(2, '0');
+      if (element.textContent !== formatted) {
+        element.textContent = formatted;
+        element.classList.remove('animate');
+        void element.offsetWidth; // trigger reflow
+        element.classList.add('animate');
+      }
+    }
+
+    updateCountdown();
+    const interval = setInterval(updateCountdown, 1000);
+  </script>
 </body>
 </html>
