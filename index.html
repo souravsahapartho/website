@@ -5,34 +5,30 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Sourav Saha</title>
 
-    <!-- SEO Meta Tags -->
-    <meta name="description" content="Sourav Saha - CSE student at UIU, passionate about tech, development, and building impactful digital experiences." />
-    <meta name="keywords" content="Sourav, Sourav Saha, Sourav Saha Partho, UIU, CSE student, United International University, developer, programmer, Bangladesh" />
+    <!-- SEO -->
+    <meta name="description" content="Sourav Saha - CSE student at UIU, passionate about tech and development." />
+    <meta name="keywords" content="Sourav, Sourav Saha, UIU, CSE student, developer" />
     <meta name="author" content="Sourav Saha" />
 
-    <!-- Open Graph Meta Tags -->
+    <!-- Open Graph -->
     <meta property="og:title" content="Sourav Saha - Coming Soon" />
     <meta property="og:description" content="Hi, I'm Sourav Saha — a CSE student at UIU. I'm building something exciting. Stay tuned!" />
     <meta property="og:image" content="https://yourdomain.com/thumbnail.jpg" />
     <meta property="og:url" content="https://yourdomain.com/" />
-    <meta property="og:type" content="website" />
-
-    <!-- Twitter Card Meta Tags -->
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Sourav Saha - Coming Soon" />
-    <meta name="twitter:description" content="Hi, I'm Sourav Saha — a CSE student at UIU. I'm building something exciting. Stay tuned!" />
-    <meta name="twitter:image" content="https://yourdomain.com/thumbnail.jpg" />
 
     <!-- Icons -->
     <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/25/25231.png" type="image/png" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 
     <style>
-      /* General Reset */
       * {
         margin: 0;
         padding: 0;
         box-sizing: border-box;
+      }
+
+      html {
+        font-size: 16px;
       }
 
       body {
@@ -43,18 +39,18 @@
         display: flex;
         justify-content: center;
         align-items: center;
+        padding: 1rem;
         overflow: hidden;
       }
 
-      /* Enhanced Loader */
+      /* Loader */
       #loader {
-        font-size: 3rem;
+        font-size: 2.5rem;
         font-weight: bold;
-        position: relative;
         animation: colorShift 3s linear infinite;
-        letter-spacing: 0.1em;
         display: flex;
         gap: 0.1em;
+        flex-wrap: wrap;
       }
 
       #loader span {
@@ -62,12 +58,9 @@
         animation: bounceSpin 1.5s infinite ease-in-out;
       }
 
-      #loader span:nth-child(1) { animation-delay: 0s; }
-      #loader span:nth-child(2) { animation-delay: 0.1s; }
-      #loader span:nth-child(3) { animation-delay: 0.2s; }
-      #loader span:nth-child(4) { animation-delay: 0.3s; }
-      #loader span:nth-child(5) { animation-delay: 0.4s; }
-      #loader span:nth-child(6) { animation-delay: 0.5s; }
+      #loader span:nth-child(n) {
+        animation-delay: calc(0.1s * var(--i));
+      }
 
       @keyframes bounceSpin {
         0%, 100% {
@@ -88,43 +81,46 @@
         100% { color: #00adb5; }
       }
 
-      #main-content {
+      main {
         display: none;
         flex-direction: column;
         align-items: center;
         text-align: center;
-        padding: 2rem;
         max-width: 600px;
+        width: 100%;
+        padding: 1rem;
       }
 
       h1 {
-        font-size: 3rem;
+        font-size: 2.5rem;
         color: #00adb5;
         margin-bottom: 1rem;
       }
 
       .description {
-        font-size: 1.2rem;
-        margin-bottom: 2rem;
-        line-height: 1.6;
+        font-size: 1rem;
+        margin-bottom: 1.5rem;
+        line-height: 1.5;
       }
 
       .countdown {
         display: flex;
-        gap: 1rem;
-        margin-bottom: 2rem;
+        justify-content: center;
+        gap: 0.5rem;
         flex-wrap: wrap;
+        margin-bottom: 1.5rem;
       }
 
       .countdown div {
         background-color: #1f1f1f;
-        padding: 1rem;
+        padding: 0.8rem;
         border-radius: 10px;
-        min-width: 80px;
+        min-width: 70px;
+        flex: 1 0 auto;
       }
 
       .countdown span {
-        font-size: 2rem;
+        font-size: 1.5rem;
         font-weight: bold;
         display: block;
       }
@@ -132,45 +128,9 @@
       .countdown div::after {
         content: attr(data-label);
         display: block;
-        font-size: 0.8rem;
+        font-size: 0.7rem;
         color: #cccccc;
-        margin-top: 0.3rem;
-      }
-
-      .contact-section {
-        margin-bottom: 2rem;
-      }
-
-      .contact-section h2 {
-        font-size: 1.5rem;
-        margin-bottom: 0.5rem;
-        color: #00adb5;
-      }
-
-      .contact-section a {
-        color: #00adb5;
-        text-decoration: none;
-      }
-
-      .social-icons {
-        display: flex;
-        gap: 1.5rem;
-        margin-bottom: 2rem;
-        font-size: 1.8rem;
-      }
-
-      .social-icons a {
-        color: #00adb5;
-        transition: color 0.3s ease;
-      }
-
-      .social-icons a:hover {
-        color: #ffffff;
-      }
-
-      footer {
-        font-size: 0.9rem;
-        color: #aaaaaa;
+        margin-top: 0.2rem;
       }
 
       .countdown span.animate {
@@ -183,11 +143,53 @@
         100% { transform: scale(1); }
       }
 
-      @media (max-width: 500px) {
-        .countdown {
-          flex-direction: column;
-          align-items: center;
-        }
+      .contact-section {
+        margin-bottom: 1rem;
+      }
+
+      .contact-section h2 {
+        font-size: 1.2rem;
+        margin-bottom: 0.3rem;
+        color: #00adb5;
+      }
+
+      .contact-section a {
+        color: #00adb5;
+        text-decoration: none;
+        word-break: break-word;
+      }
+
+      .social-icons {
+        display: flex;
+        gap: 1rem;
+        font-size: 1.5rem;
+        margin-bottom: 1rem;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+
+      .social-icons a {
+        color: #00adb5;
+        transition: color 0.3s ease;
+      }
+
+      .social-icons a:hover {
+        color: #ffffff;
+      }
+
+      footer {
+        font-size: 0.8rem;
+        color: #aaaaaa;
+        text-align: center;
+      }
+
+      /* Responsive Fix */
+      @media (max-width: 400px) {
+        html { font-size: 14px; }
+        h1 { font-size: 2rem; }
+        .description { font-size: 0.9rem; }
+        .countdown div { padding: 0.6rem; min-width: 60px; }
+        .countdown span { font-size: 1.2rem; }
       }
     </style>
   </head>
@@ -195,15 +197,14 @@
   <body>
     <!-- Loader -->
     <div id="loader">
-      <span>S</span><span>O</span><span>U</span><span>R</span><span>A</span><span>V</span>
+      <span style="--i:1">S</span><span style="--i:2">O</span><span style="--i:3">U</span>
+      <span style="--i:4">R</span><span style="--i:5">A</span><span style="--i:6">V</span>
     </div>
 
     <!-- Main Content -->
     <main id="main-content">
       <h1>Coming Soon!</h1>
-      <p class="description">
-        Hi, I'm Sourav Saha! I'm building something exciting. Stay tuned!
-      </p>
+      <p class="description">Hi, I'm Sourav Saha! I'm building something exciting. Stay tuned!</p>
 
       <div class="countdown" id="countdown">
         <div data-label="Days"><span id="days">00</span></div>
@@ -214,34 +215,30 @@
 
       <section class="contact-section">
         <h2>Contact Me</h2>
-        <p>
-          Have questions or want to get in touch?<br />
-          <a href="mailto:hello@sourav.com.bd">hello@sourav.com.bd</a>
-        </p>
+        <p><a href="mailto:hello@sourav.com.bd">hello@sourav.com.bd</a></p>
       </section>
 
       <div class="social-icons">
-        <a href="https://www.facebook.com/souravsahapartho" target="_blank" aria-label="Facebook" rel="noopener noreferrer"><i class="fab fa-facebook"></i></a>
-        <a href="https://www.instagram.com/souravsahapartho" target="_blank" aria-label="Instagram" rel="noopener noreferrer"><i class="fab fa-instagram"></i></a>
-        <a href="https://www.linkedin.com/in/souravsahapartho" target="_blank" aria-label="LinkedIn" rel="noopener noreferrer"><i class="fab fa-linkedin"></i></a>
+        <a href="https://www.facebook.com/souravsahapartho" target="_blank"><i class="fab fa-facebook"></i></a>
+        <a href="https://www.instagram.com/souravsahapartho" target="_blank"><i class="fab fa-instagram"></i></a>
+        <a href="https://www.linkedin.com/in/souravsahapartho" target="_blank"><i class="fab fa-linkedin"></i></a>
       </div>
 
       <footer>&copy; 2025 Sourav Saha. All rights reserved.</footer>
     </main>
 
     <script>
-      // Show loader, then reveal main content
+      // Show loader, then show main content
       window.addEventListener("load", () => {
         const loader = document.getElementById("loader");
         const mainContent = document.getElementById("main-content");
-
         setTimeout(() => {
           loader.style.display = "none";
           mainContent.style.display = "flex";
         }, 3000);
       });
 
-      // Countdown logic
+      // Countdown Logic
       function updateCountdown() {
         const countdownDate = new Date("2025-12-31T23:59:59").getTime();
         const now = new Date().getTime();
@@ -277,6 +274,7 @@
     </script>
   </body>
 </html>
+
 
 
 
