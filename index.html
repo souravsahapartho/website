@@ -39,13 +39,13 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        padding: 1rem;
+        padding: 2rem;
         overflow: hidden;
       }
 
       /* Loader */
       #loader {
-        font-size: 2.5rem;
+        font-size: clamp(2rem, 5vw, 3.5rem);
         font-weight: bold;
         animation: colorShift 3s linear infinite;
         display: flex;
@@ -86,41 +86,41 @@
         flex-direction: column;
         align-items: center;
         text-align: center;
-        max-width: 600px;
+        max-width: 800px;
         width: 100%;
-        padding: 1rem;
+        padding: 2rem;
       }
 
       h1 {
-        font-size: 2.5rem;
+        font-size: clamp(2rem, 6vw, 3.5rem);
         color: #00adb5;
         margin-bottom: 1rem;
       }
 
       .description {
-        font-size: 1rem;
+        font-size: clamp(1rem, 2.5vw, 1.4rem);
         margin-bottom: 1.5rem;
-        line-height: 1.5;
+        line-height: 1.6;
       }
 
       .countdown {
         display: flex;
         justify-content: center;
-        gap: 0.5rem;
+        gap: 1rem;
         flex-wrap: wrap;
-        margin-bottom: 1.5rem;
+        margin-bottom: 2rem;
       }
 
       .countdown div {
         background-color: #1f1f1f;
-        padding: 0.8rem;
+        padding: 1rem;
         border-radius: 10px;
-        min-width: 70px;
+        min-width: 80px;
         flex: 1 0 auto;
       }
 
       .countdown span {
-        font-size: 1.5rem;
+        font-size: clamp(1.5rem, 3vw, 2.5rem);
         font-weight: bold;
         display: block;
       }
@@ -128,7 +128,7 @@
       .countdown div::after {
         content: attr(data-label);
         display: block;
-        font-size: 0.7rem;
+        font-size: 0.9rem;
         color: #cccccc;
         margin-top: 0.2rem;
       }
@@ -148,7 +148,7 @@
       }
 
       .contact-section h2 {
-        font-size: 1.2rem;
+        font-size: 1.3rem;
         margin-bottom: 0.3rem;
         color: #00adb5;
       }
@@ -157,13 +157,14 @@
         color: #00adb5;
         text-decoration: none;
         word-break: break-word;
+        font-size: 1rem;
       }
 
       .social-icons {
         display: flex;
-        gap: 1rem;
-        font-size: 1.5rem;
-        margin-bottom: 1rem;
+        gap: 1.5rem;
+        font-size: 2rem;
+        margin-bottom: 1.5rem;
         flex-wrap: wrap;
         justify-content: center;
       }
@@ -178,18 +179,28 @@
       }
 
       footer {
-        font-size: 0.8rem;
+        font-size: 0.9rem;
         color: #aaaaaa;
         text-align: center;
       }
 
-      /* Responsive Fix */
-      @media (max-width: 400px) {
-        html { font-size: 14px; }
-        h1 { font-size: 2rem; }
-        .description { font-size: 0.9rem; }
-        .countdown div { padding: 0.6rem; min-width: 60px; }
-        .countdown span { font-size: 1.2rem; }
+      @media (max-width: 500px) {
+        body {
+          padding: 1rem;
+        }
+
+        main {
+          padding: 1rem;
+        }
+
+        .countdown div {
+          padding: 0.8rem;
+          min-width: 70px;
+        }
+
+        .countdown span {
+          font-size: 1.5rem;
+        }
       }
     </style>
   </head>
@@ -274,6 +285,7 @@
     </script>
   </body>
 </html>
+
 
 
 
