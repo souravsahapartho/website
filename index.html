@@ -46,17 +46,46 @@
         overflow: hidden;
       }
 
+      /* Enhanced Loader */
       #loader {
         font-size: 3rem;
         font-weight: bold;
-        color: #00adb5;
-        animation: pulse 2s infinite;
+        position: relative;
+        animation: colorShift 3s linear infinite;
+        letter-spacing: 0.1em;
+        display: flex;
+        gap: 0.1em;
       }
 
-      @keyframes pulse {
-        0% { opacity: 0.2; }
-        50% { opacity: 1; }
-        100% { opacity: 0.2; }
+      #loader span {
+        display: inline-block;
+        animation: bounceSpin 1.5s infinite ease-in-out;
+      }
+
+      #loader span:nth-child(1) { animation-delay: 0s; }
+      #loader span:nth-child(2) { animation-delay: 0.1s; }
+      #loader span:nth-child(3) { animation-delay: 0.2s; }
+      #loader span:nth-child(4) { animation-delay: 0.3s; }
+      #loader span:nth-child(5) { animation-delay: 0.4s; }
+      #loader span:nth-child(6) { animation-delay: 0.5s; }
+
+      @keyframes bounceSpin {
+        0%, 100% {
+          transform: rotate(0deg) translateY(0);
+          opacity: 0.5;
+        }
+        50% {
+          transform: rotate(360deg) translateY(-10px);
+          opacity: 1;
+        }
+      }
+
+      @keyframes colorShift {
+        0% { color: #00adb5; }
+        25% { color: #5bc0be; }
+        50% { color: #3fc1c9; }
+        75% { color: #6fffe9; }
+        100% { color: #00adb5; }
       }
 
       #main-content {
@@ -144,7 +173,6 @@
         color: #aaaaaa;
       }
 
-      /* Countdown animation */
       .countdown span.animate {
         animation: bounce 0.4s ease;
       }
@@ -166,7 +194,9 @@
 
   <body>
     <!-- Loader -->
-    <div id="loader"><span>SOURAV</span></div>
+    <div id="loader">
+      <span>S</span><span>O</span><span>U</span><span>R</span><span>A</span><span>V</span>
+    </div>
 
     <!-- Main Content -->
     <main id="main-content">
@@ -247,6 +277,7 @@
     </script>
   </body>
 </html>
+
 
 
 
