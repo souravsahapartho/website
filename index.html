@@ -16,6 +16,7 @@
     <style>
       :root {
         --primary-color: #c2003a;
+        --primary-dark: #6d1e30;
         --primary-light: #ff4b6e;
         --background-main-start: #fff0f3;
         --background-main-end: #ffe1e8;
@@ -34,15 +35,26 @@
         margin: 0;
         padding: 0;
         font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-        background: linear-gradient(135deg, var(--background-main-start), var(--background-main-end));
+        background: linear-gradient(
+          135deg,
+          var(--background-main-start),
+          var(--background-main-end)
+        );
         color: var(--text-main);
         overflow-x: hidden;
       }
 
+      /* Darker loader gradient */
       #loader {
         position: fixed;
         inset: 0;
-        background: linear-gradient(270deg, #92002c, #b80033, #a0002e, #92002c);
+        background: linear-gradient(
+          270deg,
+          #8b001f,
+          #a6002e,
+          #b22f4a,
+          #8b001f
+        );
         background-size: 800% 800%;
         animation: gradientShift 8s ease infinite;
         display: flex;
@@ -52,14 +64,11 @@
       }
 
       #loader span {
-        font-size: clamp(2rem, 10vw, 4rem);
+        font-size: 4rem;
         font-weight: 900;
         color: #fff;
         position: relative;
         overflow: hidden;
-        text-align: center;
-        padding: 0 1rem;
-        white-space: nowrap;
       }
 
       #loader span::before {
@@ -67,21 +76,36 @@
         position: absolute;
         top: 0;
         left: -100%;
-        width: 300%;
+        width: 200%;
         height: 100%;
-        background: linear-gradient(120deg, transparent 0%, rgba(255, 255, 255, 0.6) 50%, transparent 100%);
+        background: linear-gradient(
+          120deg,
+          transparent 0%,
+          rgba(255, 255, 255, 0.6) 50%,
+          transparent 100%
+        );
         animation: shine 2s infinite;
       }
 
       @keyframes gradientShift {
-        0% { background-position: 0% 50%; }
-        50% { background-position: 100% 50%; }
-        100% { background-position: 0% 50%; }
+        0% {
+          background-position: 0% 50%;
+        }
+        50% {
+          background-position: 100% 50%;
+        }
+        100% {
+          background-position: 0% 50%;
+        }
       }
 
       @keyframes shine {
-        0% { left: -100%; }
-        100% { left: 100%; }
+        0% {
+          left: -100%;
+        }
+        100% {
+          left: 100%;
+        }
       }
 
       #main-content {
@@ -131,31 +155,35 @@
         border-radius: 20px;
         color: white;
         font-weight: 700;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
         min-width: 75px;
         max-width: 160px;
         flex: 1 1 75px;
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
         transition: transform 0.3s ease;
         cursor: default;
         text-align: center;
       }
 
-      .countdown div[data-label="Days"],
-      .countdown div[data-label="Hours"] {
-        background: linear-gradient(135deg, #c2003a, #ff4b6e);
-        box-shadow: 0 0 20px var(--countdown-shadow);
+      /* Countdown colors: alternate between primary-color and primary-dark */
+      .countdown div:nth-child(odd) {
+        background: var(--primary-color);
+        box-shadow: 0 0 20px var(--primary-color);
       }
 
-      .countdown div[data-label="Minutes"],
-      .countdown div[data-label="Seconds"] {
-        background: linear-gradient(135deg, #7a0024, #c2003a);
-        box-shadow: 0 0 20px #7a0024;
+      .countdown div:nth-child(even) {
+        background: var(--primary-dark);
+        box-shadow: 0 0 20px var(--primary-dark);
       }
 
       .countdown div span {
         font-size: clamp(1.8rem, 5vw, 2.5rem);
+        line-height: 1;
+        transition: transform 0.3s ease;
         letter-spacing: 2px;
         text-shadow: 0 0 8px rgba(0, 0, 0, 0.3);
         width: 100%;
+        display: block;
         text-align: center;
       }
 
@@ -165,11 +193,16 @@
 
       .countdown div::after {
         content: attr(data-label);
+        position: relative;
+        bottom: 0;
+        left: 0;
+        transform: none;
         font-size: clamp(0.65rem, 1.5vw, 0.8rem);
         font-weight: 600;
         color: rgba(255, 255, 255, 0.9);
         letter-spacing: 1.2px;
         text-transform: uppercase;
+        pointer-events: none;
         margin-top: 0.4rem;
         display: block;
       }
@@ -184,6 +217,8 @@
           min-width: 60px;
           padding: 0.8rem 1rem;
           border-radius: 16px;
+          flex: 1 1 60px;
+          max-width: 120px;
         }
 
         .countdown div span {
@@ -193,6 +228,7 @@
 
         .countdown div::after {
           font-size: 0.6rem;
+          letter-spacing: 1px;
         }
       }
 
@@ -215,12 +251,14 @@
 
       .contact-section p {
         font-size: 1.1rem;
+        margin-bottom: 0;
       }
 
       .contact-section a {
         color: var(--primary-color);
         font-weight: 600;
         text-decoration: none;
+        transition: color 0.3s ease;
       }
 
       .contact-section a:hover {
@@ -238,6 +276,7 @@
       .social-icons a {
         font-size: 2.5rem;
         color: var(--primary-color);
+        transition: color 0.3s ease;
       }
 
       .social-icons a:hover {
@@ -251,21 +290,29 @@
       }
 
       @keyframes fadeIn {
-        0% { opacity: 0; }
-        100% { opacity: 1; }
+        0% {
+          opacity: 0;
+        }
+        100% {
+          opacity: 1;
+        }
       }
 
       @keyframes pop {
         0% {
           transform: scale(1);
           color: white;
+          text-shadow: 0 0 0 transparent;
         }
         50% {
           transform: scale(1.3);
+          color: #fff8f8;
           text-shadow: 0 0 15px #fff;
         }
         100% {
           transform: scale(1);
+          color: white;
+          text-shadow: 0 0 0 transparent;
         }
       }
     </style>
@@ -297,9 +344,27 @@
       </section>
 
       <div class="social-icons">
-        <a href="https://www.facebook.com/souravsahapartho" target="_blank"><i class="fab fa-facebook"></i></a>
-        <a href="https://www.instagram.com/souravsahapartho" target="_blank"><i class="fab fa-instagram"></i></a>
-        <a href="https://www.linkedin.com/in/souravsahapartho" target="_blank"><i class="fab fa-linkedin"></i></a>
+        <a
+          href="https://www.facebook.com/souravsahapartho"
+          aria-label="Facebook"
+          target="_blank"
+          rel="noopener noreferrer"
+          ><i class="fab fa-facebook"></i
+        ></a>
+        <a
+          href="https://www.instagram.com/souravsahapartho"
+          aria-label="Instagram"
+          target="_blank"
+          rel="noopener noreferrer"
+          ><i class="fab fa-instagram"></i
+        ></a>
+        <a
+          href="https://www.linkedin.com/in/souravsahapartho"
+          aria-label="LinkedIn"
+          target="_blank"
+          rel="noopener noreferrer"
+          ><i class="fab fa-linkedin"></i
+        ></a>
       </div>
 
       <footer>&copy; 2025 Sourav Saha. All rights reserved.</footer>
@@ -316,6 +381,21 @@
         }, 4000);
       });
 
+      function animateValue(id, start, end, duration) {
+        const obj = document.getElementById(id);
+        let startTimestamp = null;
+        const step = (timestamp) => {
+          if (!startTimestamp) startTimestamp = timestamp;
+          const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+          const value = Math.floor(progress * (end - start) + start);
+          obj.textContent = value.toString().padStart(2, "0");
+          if (progress < 1) {
+            window.requestAnimationFrame(step);
+          }
+        };
+        window.requestAnimationFrame(step);
+      }
+
       function updateCountdown() {
         const countdownDate = new Date("2025-12-31T23:59:59").getTime();
         const now = new Date().getTime();
@@ -328,10 +408,13 @@
         }
 
         const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const hours = Math.floor(
+          (distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+        );
         const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
         const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
+        // Animate changes only if digits changed (simple approach)
         const elems = ["days", "hours", "minutes", "seconds"];
         const values = [days, hours, minutes, seconds];
 
@@ -341,7 +424,9 @@
           if (elem.textContent !== newValue) {
             elem.textContent = newValue;
             elem.classList.add("animate");
-            setTimeout(() => elem.classList.remove("animate"), 400);
+            setTimeout(() => {
+              elem.classList.remove("animate");
+            }, 400);
           }
         });
       }
@@ -351,6 +436,7 @@
     </script>
   </body>
 </html>
+
 
 
 
