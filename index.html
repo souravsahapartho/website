@@ -16,6 +16,7 @@
     <style>
       :root {
         --primary-color: #c2003a;
+        --primary-dark: #6d1e30;
         --primary-light: #ff4b6e;
         --background-main-start: #fff0f3;
         --background-main-end: #ffe1e8;
@@ -43,10 +44,17 @@
         overflow-x: hidden;
       }
 
+      /* Darker loader gradient */
       #loader {
         position: fixed;
         inset: 0;
-        background: linear-gradient(270deg, #c2003a, #ff4b6e, #ff7a9b, #c2003a);
+        background: linear-gradient(
+          270deg,
+          #8b001f,
+          #a6002e,
+          #b22f4a,
+          #8b001f
+        );
         background-size: 800% 800%;
         animation: gradientShift 8s ease infinite;
         display: flex;
@@ -154,24 +162,18 @@
         box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
         transition: transform 0.3s ease;
         cursor: default;
-        text-align: center; /* fallback */
+        text-align: center;
       }
 
-      .countdown div[data-label="Days"] {
-        background: linear-gradient(135deg, #ff6a00, #ee0979);
-        box-shadow: 0 0 20px #ee0979;
+      /* Countdown colors: alternate between primary-color and primary-dark */
+      .countdown div:nth-child(odd) {
+        background: var(--primary-color);
+        box-shadow: 0 0 20px var(--primary-color);
       }
-      .countdown div[data-label="Hours"] {
-        background: linear-gradient(135deg, #2193b0, #6dd5ed);
-        box-shadow: 0 0 20px #2193b0;
-      }
-      .countdown div[data-label="Minutes"] {
-        background: linear-gradient(135deg, #56ab2f, #a8e063);
-        box-shadow: 0 0 20px #56ab2f;
-      }
-      .countdown div[data-label="Seconds"] {
-        background: linear-gradient(135deg, #833ab4, #fd1d1d, #fcb045);
-        box-shadow: 0 0 25px #fd1d1d;
+
+      .countdown div:nth-child(even) {
+        background: var(--primary-dark);
+        box-shadow: 0 0 20px var(--primary-dark);
       }
 
       .countdown div span {
@@ -434,6 +436,7 @@
     </script>
   </body>
 </html>
+
 
 
 
