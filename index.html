@@ -176,7 +176,7 @@
       bottom: 0;
       left: 0;
       transform: none;
-      font-size: clamp(0.75rem, 2vw, 0.9rem);
+      font-size: clamp(0.65rem, 1.5vw, 0.8rem); /* smaller size */
       font-weight: 600;
       color: rgba(255, 255, 255, 0.9);
       letter-spacing: 1.2px;
@@ -206,7 +206,7 @@
       }
 
       .countdown div::after {
-        font-size: 0.7rem;
+        font-size: 0.6rem; /* slightly smaller */
         letter-spacing: 1px;
       }
     }
@@ -297,7 +297,7 @@
 <body>
   <!-- Loader -->
   <div id="loader">
-    <span>Sourav</span>
+    <span>SOURAV</span>
   </div>
 
   <!-- Main Content -->
@@ -317,7 +317,7 @@
     <section class="contact-section">
       <h2>Contact Me</h2>
       <p>Have questions or want to get in touch? Send me an email at<br />
-      <a href="mailto:sourav@example.com">sourav@example.com</a></p>
+      <a href="mailto:hello@sourav.com.bd">hello@sourav.com.bd</a></p>
     </section>
 
     <!-- Social Icons LAST -->
@@ -376,14 +376,14 @@
       setTime(secondsEl, s);
     }
 
-    function setTime(el, val) {
-      const oldVal = el.textContent;
-      const newVal = val < 10 ? '0' + val : val.toString();
-      if (oldVal !== newVal) {
-        el.textContent = newVal;
-        el.classList.add('animate');
+    function setTime(element, value) {
+      const current = element.textContent;
+      const newValue = value.toString().padStart(2, '0');
+      if (current !== newValue) {
+        element.textContent = newValue;
+        element.classList.add('animate');
         setTimeout(() => {
-          el.classList.remove('animate');
+          element.classList.remove('animate');
         }, 400);
       }
     }
@@ -393,5 +393,6 @@
   </script>
 </body>
 </html>
+
 
 
