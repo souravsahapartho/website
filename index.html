@@ -139,18 +139,22 @@
       }
 
       .countdown div {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
         padding: 1.2rem 1.8rem;
         border-radius: 20px;
-        text-align: center; /* keep center alignment */
         color: white;
         font-weight: 700;
         font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
         min-width: 75px;
-        max-width: 160px; /* increase max width to accommodate 3 digits */
+        max-width: 160px;
         flex: 1 1 75px;
         box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
         transition: transform 0.3s ease;
         cursor: default;
+        text-align: center; /* fallback */
       }
 
       .countdown div[data-label="Days"] {
@@ -171,14 +175,14 @@
       }
 
       .countdown div span {
-        display: inline-block; /* inline-block so text-align center on parent works */
         font-size: clamp(1.8rem, 5vw, 2.5rem);
         line-height: 1;
         transition: transform 0.3s ease;
         letter-spacing: 2px;
         text-shadow: 0 0 8px rgba(0, 0, 0, 0.3);
-        width: 100%; /* full width to center text */
-        text-align: center; /* center the numbers */
+        width: 100%;
+        display: block;
+        text-align: center;
       }
 
       .countdown div span.animate {
@@ -212,7 +216,7 @@
           padding: 0.8rem 1rem;
           border-radius: 16px;
           flex: 1 1 60px;
-          max-width: 120px; /* scale down max width */
+          max-width: 120px;
         }
 
         .countdown div span {
@@ -361,56 +365,76 @@
         ></a>
       </div>
 
-      <footer>Copyright © 2025 Sourav. All rights reserved.</footer>
+      <footer>&copy; 2025 Sourav Saha. All rights reserved.</footer>
     </main>
 
     <script>
       window.addEventListener("load", () => {
         const loader = document.getElementById("loader");
         const mainContent = document.getElementById("main-content");
+
         setTimeout(() => {
           loader.style.display = "none";
           mainContent.style.display = "flex";
-        }, 3500);
+        }, 4000);
       });
 
-      // Set your target launch date here (YYYY-MM-DDTHH:mm:ss)
-      const launchDate = new Date("2025-12-31T23:59:59");
-
-      function updateCountdown() {
-        const now = new Date();
-        let diff = Math.floor((launchDate - now) / 1000);
-
-        if (diff < 0) diff = 0;
-
-        const days = Math.floor(diff / (3600 * 24));
-        const hours = Math.floor((diff % (3600 * 24)) / 3600);
-        const minutes = Math.floor((diff % 3600) / 60);
-        const seconds = diff % 60;
-
-        updateTime(document.getElementById("days"), days);
-        updateTime(document.getElementById("hours"), hours);
-        updateTime(document.getElementById("minutes"), minutes);
-        updateTime(document.getElementById("seconds"), seconds);
+      function animateValue(id, start, end, duration) {
+        const obj = document.getElementById(id);
+        let startTimestamp = null;
+        const step = (timestamp) => {
+          if (!startTimestamp) startTimestamp = timestamp;
+          const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+          const value = Math.floor(progress * (end - start) + start);
+          obj.textContent = value.toString().padStart(2, "0");
+          if (progress < 1) {
+            window.requestAnimationFrame(step);
+          }
+        };
+        window.requestAnimationFrame(step);
       }
 
-      function updateTime(element, value) {
-        const current = element.textContent;
-        const newValue = value.toString().padStart(2, "0");
-        if (current !== newValue) {
-          element.textContent = newValue;
-          element.classList.add("animate");
-          setTimeout(() => {
-            element.classList.remove("animate");
-          }, 400);
+      function updateCountdown() {
+        const countdownDate = new Date("2025-12-31T23:59:59").getTime();
+        const now = new Date().getTime();
+        const distance = countdownDate - now;
+
+        if (distance < 0) {
+          document.getElementById("countdown").innerHTML = "<p>Event Started!</p>";
+          clearInterval(interval);
+          return;
         }
+
+        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        const hours = Math.floor(
+          (distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+        );
+        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+        // Animate changes only if digits changed (simple approach)
+        const elems = ["days", "hours", "minutes", "seconds"];
+        const values = [days, hours, minutes, seconds];
+
+        elems.forEach((id, i) => {
+          const elem = document.getElementById(id);
+          const newValue = values[i].toString().padStart(2, "0");
+          if (elem.textContent !== newValue) {
+            elem.textContent = newValue;
+            elem.classList.add("animate");
+            setTimeout(() => {
+              elem.classList.remove("animate");
+            }, 400);
+          }
+        });
       }
 
       updateCountdown();
-      setInterval(updateCountdown, 1000);
+      const interval = setInterval(updateCountdown, 1000);
     </script>
   </body>
 </html>
+
 
 
 
