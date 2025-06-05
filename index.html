@@ -2,8 +2,8 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Sourav Saha</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sourav Saha - Coming Soon</title>
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
@@ -24,27 +24,35 @@
         --text-light: #7a3a4e;
         --social-hover: #ff8392;
         --countdown-shadow: rgba(194, 0, 58, 0.3);
+        --font-primary: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
       }
 
       * {
         box-sizing: border-box;
-      }
-
-      body,
-      html {
         margin: 0;
         padding: 0;
-        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      }
+
+      html {
+        scroll-behavior: smooth; /* Smooth scrolling for anchor links */
+      }
+
+      body {
+        font-family: var(--font-primary);
         background: linear-gradient(
           135deg,
           var(--background-main-start),
           var(--background-main-end)
         );
         color: var(--text-main);
-        overflow-x: hidden;
+        overflow-x: hidden; /* Prevent horizontal scrollbars */
+        line-height: 1.6; /* Improved readability */
+        -webkit-font-smoothing: antialiased; /* Smoother fonts on WebKit */
+        -moz-osx-font-smoothing: grayscale; /* Smoother fonts on Firefox */
+        text-rendering: optimizeLegibility;
       }
 
-      /* Darker loader gradient */
+      /* Loader style - Reveal and Glow letters */
       #loader {
         position: fixed;
         inset: 0;
@@ -56,57 +64,59 @@
           #8b001f
         );
         background-size: 800% 800%;
-        animation: gradientShift 8s ease infinite;
+        animation: gradientShift 10s ease infinite;
         display: flex;
         justify-content: center;
         align-items: center;
         z-index: 9999;
       }
 
-      #loader span {
-        font-size: 4rem;
+      #loader .loader-text {
+        display: flex; /* Align letters in a row */
+      }
+
+      #loader .letter {
+        font-size: clamp(2.5rem, 8vw, 4.5rem); /* Responsive font size for loader */
         font-weight: 900;
         color: #fff;
-        position: relative;
-        overflow: hidden;
+        display: inline-block;
+        margin: 0 0.05em;
+        opacity: 0; /* Start transparent */
+        transform: scale(0.8); /* Start slightly smaller */
+        animation: revealGlowLetter 2s infinite ease-in-out;
       }
 
-      #loader span::before {
-        content: "SOURAV";
-        position: absolute;
-        top: 0;
-        left: -100%;
-        width: 200%;
-        height: 100%;
-        background: linear-gradient(
-          120deg,
-          transparent 0%,
-          rgba(255, 255, 255, 0.6) 50%,
-          transparent 100%
-        );
-        animation: shine 2s infinite;
-      }
+      /* Stagger the animation for each letter */
+      #loader .letter:nth-child(1) { animation-delay: 0.0s; }
+      #loader .letter:nth-child(2) { animation-delay: 0.15s; }
+      #loader .letter:nth-child(3) { animation-delay: 0.3s; }
+      #loader .letter:nth-child(4) { animation-delay: 0.45s; }
+      #loader .letter:nth-child(5) { animation-delay: 0.6s; }
+      #loader .letter:nth-child(6) { animation-delay: 0.75s; }
 
       @keyframes gradientShift {
-        0% {
-          background-position: 0% 50%;
-        }
-        50% {
-          background-position: 100% 50%;
-        }
-        100% {
-          background-position: 0% 50%;
-        }
+        0%, 100% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
       }
 
-      @keyframes shine {
-        0% {
-          left: -100%;
+      @keyframes revealGlowLetter {
+        0%, 100% { /* Start and end states */
+          opacity: 0;
+          transform: scale(0.8);
+          text-shadow: 0 0 5px rgba(255,255,255,0.5);
         }
-        100% {
-          left: 100%;
+        50% { /* Mid-point of animation - fully visible and glowing */
+          opacity: 1;
+          transform: scale(1.1); /* Slightly larger for emphasis */
+          text-shadow: 0 0 15px rgba(255,255,255,0.8), 0 0 25px rgba(255,255,255,0.6);
+        }
+         75% { /* Start to fade out */
+          opacity: 0.8;
+          transform: scale(1);
+          text-shadow: 0 0 10px rgba(255,255,255,0.7);
         }
       }
+      /* End of loader style */
 
       #main-content {
         display: none;
@@ -116,34 +126,39 @@
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        padding: 20px;
+        padding: 2rem 1rem; /* Responsive padding */
         max-width: 900px;
         margin: 0 auto;
       }
 
       h1 {
-        font-size: 3rem;
-        margin-bottom: 0.5em;
+        font-size: clamp(2.5rem, 6vw, 3.5rem); /* Responsive heading size */
+        margin-bottom: 0.75em;
         color: var(--text-main);
-        animation: fadeIn 2s ease-in-out;
+        animation: fadeIn 1.5s 0.5s ease-in-out forwards; /* Added delay and forwards */
+        opacity: 0; /* Start hidden for animation */
       }
 
       .description {
-        font-size: 1.2rem;
+        font-size: clamp(1rem, 2.5vw, 1.25rem); /* Responsive description size */
         max-width: 600px;
-        margin-bottom: 2rem;
+        width: 90%; /* Ensure it doesn't touch edges on small screens */
+        margin: 0 auto 2.5rem auto; /* Centering and bottom margin */
         color: var(--text-light);
+        animation: fadeIn 1.5s 0.8s ease-in-out forwards;
+        opacity: 0;
       }
 
       .countdown {
         display: flex;
-        gap: 1rem;
+        gap: clamp(0.5rem, 2vw, 1rem); /* Responsive gap */
         margin-bottom: 3rem;
         flex-wrap: wrap;
         justify-content: center;
-        padding: 0 10px;
         width: 100%;
         max-width: 600px;
+        animation: fadeIn 1.5s 1.1s ease-in-out forwards;
+        opacity: 0;
       }
 
       .countdown div {
@@ -151,21 +166,17 @@
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        padding: 1.2rem 1.8rem;
-        border-radius: 20px;
+        padding: clamp(0.8rem, 3vw, 1.2rem) clamp(1rem, 4vw, 1.8rem);
+        border-radius: 15px; /* Slightly smaller radius */
         color: white;
         font-weight: 700;
-        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-        min-width: 75px;
-        max-width: 160px;
-        flex: 1 1 75px;
-        box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+        min-width: 65px;
+        flex: 1 1 70px; /* Adjusted flex basis */
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
         transition: transform 0.3s ease;
-        cursor: default;
         text-align: center;
       }
 
-      /* Countdown colors: alternate between primary-color and primary-dark */
       .countdown div:nth-child(odd) {
         background: var(--primary-color);
         box-shadow: 0 0 20px var(--primary-color);
@@ -177,80 +188,52 @@
       }
 
       .countdown div span {
-        font-size: clamp(1.8rem, 5vw, 2.5rem);
-        line-height: 1;
-        transition: transform 0.3s ease;
-        letter-spacing: 2px;
-        text-shadow: 0 0 8px rgba(0, 0, 0, 0.3);
+        font-size: clamp(1.6rem, 5vw, 2.5rem);
+        line-height: 1.1;
+        letter-spacing: 1px; /* Reduced letter spacing */
+        text-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
         width: 100%;
         display: block;
         text-align: center;
       }
 
       .countdown div span.animate {
-        animation: pop 0.4s ease forwards;
+        animation: pop 0.5s ease-out forwards;
       }
 
       .countdown div::after {
         content: attr(data-label);
-        position: relative;
-        bottom: 0;
-        left: 0;
-        transform: none;
-        font-size: clamp(0.65rem, 1.5vw, 0.8rem);
-        font-weight: 600;
-        color: rgba(255, 255, 255, 0.9);
-        letter-spacing: 1.2px;
+        font-size: clamp(0.6rem, 2vw, 0.8rem);
+        font-weight: 500; /* Slightly less bold */
+        color: rgba(255, 255, 255, 0.85);
+        letter-spacing: 1px;
         text-transform: uppercase;
-        pointer-events: none;
-        margin-top: 0.4rem;
+        margin-top: 0.5rem;
         display: block;
       }
 
-      @media (max-width: 480px) {
-        .countdown {
-          max-width: 320px;
-          gap: 0.6rem;
-        }
-
-        .countdown div {
-          min-width: 60px;
-          padding: 0.8rem 1rem;
-          border-radius: 16px;
-          flex: 1 1 60px;
-          max-width: 120px;
-        }
-
-        .countdown div span {
-          font-size: 1.6rem;
-          letter-spacing: 1.5px;
-        }
-
-        .countdown div::after {
-          font-size: 0.6rem;
-          letter-spacing: 1px;
-        }
-      }
-
       .contact-section {
-        background: #fff0f3;
-        border-radius: 20px;
-        padding: 30px 25px;
-        box-shadow: 0 4px 20px rgba(194, 0, 58, 0.15);
+        background: var(--background-main-start);
+        border: 1px solid var(--primary-light); /* Subtle border */
+        border-radius: 15px;
+        padding: clamp(1.5rem, 5vw, 2rem);
+        box-shadow: 0 6px 25px rgba(194, 0, 58, 0.1);
         max-width: 480px;
-        width: 100%;
-        margin-bottom: 3rem;
+        width: 90%;
+        margin: 0 auto 3rem auto;
         color: var(--text-main);
+        animation: fadeIn 1.5s 1.4s ease-in-out forwards;
+        opacity: 0;
       }
 
       .contact-section h2 {
         margin-bottom: 1rem;
-        font-size: 1.8rem;
+        font-size: clamp(1.5rem, 4vw, 1.8rem);
         color: var(--primary-color);
       }
 
       .contact-section p {
-        font-size: 1.1rem;
+        font-size: clamp(0.9rem, 2.2vw, 1.1rem);
         margin-bottom: 0;
       }
 
@@ -261,65 +244,101 @@
         transition: color 0.3s ease;
       }
 
-      .contact-section a:hover {
+      .contact-section a:hover,
+      .contact-section a:focus { /* Added focus state */
         color: var(--primary-light);
         text-decoration: underline;
+        outline: 2px solid var(--primary-light); /* Focus outline for accessibility */
+        outline-offset: 2px;
       }
 
       .social-icons {
         display: flex;
-        gap: 1.5rem;
-        margin-bottom: 2rem;
+        gap: clamp(1rem, 4vw, 1.5rem);
+        margin-bottom: 2.5rem;
         justify-content: center;
+        animation: fadeIn 1.5s 1.7s ease-in-out forwards;
+        opacity: 0;
       }
 
       .social-icons a {
-        font-size: 2.5rem;
+        font-size: clamp(1.8rem, 5vw, 2.5rem);
         color: var(--primary-color);
-        transition: color 0.3s ease;
+        transition: color 0.3s ease, transform 0.3s ease;
       }
 
-      .social-icons a:hover {
+      .social-icons a:hover,
+      .social-icons a:focus {
         color: var(--social-hover);
+        transform: translateY(-3px); /* Slight lift effect */
+        outline: 2px solid var(--social-hover); /* Focus outline */
+        outline-offset: 3px;
       }
 
       footer {
         margin-top: 2rem;
-        font-size: 1rem;
+        font-size: clamp(0.8rem, 1.8vw, 1rem);
         color: var(--text-light);
+        animation: fadeIn 1.5s 2s ease-in-out forwards;
+        opacity: 0;
       }
 
       @keyframes fadeIn {
-        0% {
+        from {
           opacity: 0;
+          transform: translateY(20px);
         }
-        100% {
+        to {
           opacity: 1;
+          transform: translateY(0);
         }
       }
 
       @keyframes pop {
-        0% {
-          transform: scale(1);
-          color: white;
-          text-shadow: 0 0 0 transparent;
+        0% { transform: scale(1); }
+        50% { transform: scale(1.2); text-shadow: 0 0 10px #fff; }
+        100% { transform: scale(1); }
+      }
+
+      /* Media queries for further fine-tuning if needed */
+      @media (max-width: 600px) {
+        h1 {
+          margin-bottom: 0.5em;
         }
-        50% {
-          transform: scale(1.3);
-          color: #fff8f8;
-          text-shadow: 0 0 15px #fff;
+        .description {
+          margin-bottom: 2rem;
         }
-        100% {
-          transform: scale(1);
-          color: white;
-          text-shadow: 0 0 0 transparent;
+        .countdown {
+          gap: 0.5rem;
+          margin-bottom: 2.5rem;
+        }
+        .countdown div {
+          min-width: 60px;
+          padding: 0.8rem 1rem;
         }
       }
+      @media (max-width: 400px) {
+        .countdown div {
+            flex-basis: calc(50% - 0.5rem); /* Two items per row on very small screens */
+            min-width: unset;
+        }
+         #loader .letter {
+             font-size: clamp(2rem, 7vw, 3.5rem);
+         }
+      }
+
     </style>
   </head>
   <body>
     <div id="loader">
-      <span>SOURAV</span>
+      <div class="loader-text">
+        <span class="letter">S</span>
+        <span class="letter">O</span>
+        <span class="letter">U</span>
+        <span class="letter">R</span>
+        <span class="letter">A</span>
+        <span class="letter">V</span>
+      </div>
     </div>
 
     <main id="main-content">
@@ -367,7 +386,7 @@
         ></a>
       </div>
 
-      <footer>&copy; 2025 Sourav Saha. All rights reserved.</footer>
+      <footer>&copy; <span id="currentYear"></span> Sourav Saha. All rights reserved.</footer>
     </main>
 
     <script>
@@ -375,26 +394,19 @@
         const loader = document.getElementById("loader");
         const mainContent = document.getElementById("main-content");
 
-        setTimeout(() => {
-          loader.style.display = "none";
-          mainContent.style.display = "flex";
-        }, 4000);
-      });
+        // Set current year in footer
+        document.getElementById("currentYear").textContent = new Date().getFullYear();
 
-      function animateValue(id, start, end, duration) {
-        const obj = document.getElementById(id);
-        let startTimestamp = null;
-        const step = (timestamp) => {
-          if (!startTimestamp) startTimestamp = timestamp;
-          const progress = Math.min((timestamp - startTimestamp) / duration, 1);
-          const value = Math.floor(progress * (end - start) + start);
-          obj.textContent = value.toString().padStart(2, "0");
-          if (progress < 1) {
-            window.requestAnimationFrame(step);
-          }
-        };
-        window.requestAnimationFrame(step);
-      }
+        setTimeout(() => {
+          loader.style.opacity = "0"; // Start fade out
+          setTimeout(() => { // Wait for fade out to complete
+            loader.style.display = "none";
+            mainContent.style.display = "flex";
+            // Trigger fadeIn animations by ensuring opacity is 0 initially via CSS
+            // and animation 'forwards' property
+          }, 500); // Match this with loader fade-out duration
+        }, 3000); // Reduced loader display time for quicker preview
+      });
 
       function updateCountdown() {
         const countdownDate = new Date("2025-12-31T23:59:59").getTime();
@@ -402,7 +414,10 @@
         const distance = countdownDate - now;
 
         if (distance < 0) {
-          document.getElementById("countdown").innerHTML = "<p>Event Started!</p>";
+          const countdownElement = document.getElementById("countdown");
+          if(countdownElement){
+            countdownElement.innerHTML = "<p style='font-size: 1.5rem; color: var(--primary-dark);'>The wait is over!</p>";
+          }
           clearInterval(interval);
           return;
         }
@@ -414,38 +429,35 @@
         const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
         const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-        // Animate changes only if digits changed (simple approach)
-        const elems = ["days", "hours", "minutes", "seconds"];
+        const elems = {
+            days: document.getElementById("days"),
+            hours: document.getElementById("hours"),
+            minutes: document.getElementById("minutes"),
+            seconds: document.getElementById("seconds")
+        };
         const values = [days, hours, minutes, seconds];
+        const elemKeys = ["days", "hours", "minutes", "seconds"];
 
-        elems.forEach((id, i) => {
-          const elem = document.getElementById(id);
-          const newValue = values[i].toString().padStart(2, "0");
-          if (elem.textContent !== newValue) {
-            elem.textContent = newValue;
-            elem.classList.add("animate");
-            setTimeout(() => {
-              elem.classList.remove("animate");
-            }, 400);
+        elemKeys.forEach((key, i) => {
+          const elem = elems[key];
+          if(elem) {
+            const newValue = values[i].toString().padStart(2, "0");
+            if (elem.textContent !== newValue) {
+              elem.textContent = newValue;
+              elem.classList.add("animate");
+              setTimeout(() => {
+                elem.classList.remove("animate");
+              }, 500); // Animation duration
+            }
           }
         });
       }
 
-      updateCountdown();
-      const interval = setInterval(updateCountdown, 1000);
+      // Check if countdown element exists before starting interval
+      if(document.getElementById("countdown")){
+          updateCountdown(); // Initial call
+          var interval = setInterval(updateCountdown, 1000);
+      }
     </script>
   </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
