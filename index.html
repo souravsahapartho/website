@@ -13,6 +13,8 @@
       href="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhZYDxjjUb1O55UK2IJCmFvz3_SvuDwdomm9AN6pLhoQlYYg8aFWn78BL47uBXR20lex_0RtgCFhtWgSI-DEHfk5BgyqX2CwEDCXUAY-2HdA-325LbhU_99pawhU9kQdhy8P2lm9xgwNxSvcMC7g8c5MWgWUXnTBetaCbT3lJmYSPBQoG2H2-KR3ovu9sg/s320/100kbfavicon.jpg"
       type="image/png"
     />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
     <style>
       :root {
         --primary-color: #c2003a;
@@ -50,10 +52,10 @@
         inset: 0; /* Equivalent to top: 0; right: 0; bottom: 0; left: 0; */
         background: linear-gradient(
           270deg,
-          #8b001f,  /* Darker red */
-          #a6002e,  /* Medium dark red */
-          #b22f4a,  /* Lighter dark red */
-          #8b001f   /* Darker red again for smooth loop */
+          #8b001f,
+          /* Darker red */ #a6002e,
+          /* Medium dark red */ #b22f4a,
+          /* Lighter dark red */ #8b001f /* Darker red again for smooth loop */
         );
         background-size: 800% 800%; /* Increased for smoother gradient shift */
         animation: gradientShift 8s ease infinite; /* Slower gradient shift animation */
@@ -78,13 +80,24 @@
       }
 
       /* Stagger the animation for each letter */
-      #loader .letter:nth-child(1) { animation-delay: 0.1s; }
-      #loader .letter:nth-child(2) { animation-delay: 0.2s; }
-      #loader .letter:nth-child(3) { animation-delay: 0.3s; }
-      #loader .letter:nth-child(4) { animation-delay: 0.4s; }
-      #loader .letter:nth-child(5) { animation-delay: 0.5s; }
-      #loader .letter:nth-child(6) { animation-delay: 0.6s; }
-
+      #loader .letter:nth-child(1) {
+        animation-delay: 0.1s;
+      }
+      #loader .letter:nth-child(2) {
+        animation-delay: 0.2s;
+      }
+      #loader .letter:nth-child(3) {
+        animation-delay: 0.3s;
+      }
+      #loader .letter:nth-child(4) {
+        animation-delay: 0.4s;
+      }
+      #loader .letter:nth-child(5) {
+        animation-delay: 0.5s;
+      }
+      #loader .letter:nth-child(6) {
+        animation-delay: 0.6s;
+      }
 
       /* Keyframes for the gradient background shift */
       @keyframes gradientShift {
@@ -101,7 +114,8 @@
 
       /* Keyframes for the letter rotation animation */
       @keyframes rotateLetter {
-        0%, 100% {
+        0%,
+        100% {
           transform: rotateY(0deg);
         }
         50% {
@@ -194,12 +208,18 @@
       }
 
       .countdown div::after {
-        content: attr(data-label); /* Label for countdown units (Days, Hours, etc.) */
+        content: attr(
+          data-label
+        ); /* Label for countdown units (Days, Hours, etc.) */
         position: relative;
         bottom: 0;
         left: 0;
         transform: none;
-        font-size: clamp(0.65rem, 1.5vw, 0.8rem); /* Responsive font size for labels */
+        font-size: clamp(
+          0.65rem,
+          1.5vw,
+          0.8rem
+        ); /* Responsive font size for labels */
         font-weight: 600;
         color: rgba(255, 255, 255, 0.9); /* Slightly transparent white */
         letter-spacing: 1.2px;
@@ -320,10 +340,196 @@
           text-shadow: 0 0 0 transparent;
         }
       }
+
+      /* --- Popup Banner Styles --- */
+      .popup-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.7); /* Dark overlay */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 10000; /* Above everything else */
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.3s ease, visibility 0.3s ease;
+      }
+
+      .popup-overlay.active {
+        opacity: 1;
+        visibility: visible;
+      }
+
+      .popup-banner {
+        background: #fff;
+        padding: 40px;
+        border-radius: 15px;
+        text-align: center;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        max-width: 500px;
+        width: 90%;
+        position: relative;
+        transform: translateY(20px); /* Start slightly below center */
+        opacity: 0;
+        transition: transform 0.4s ease-out, opacity 0.4s ease-out;
+        color: var(--text-main);
+      }
+
+      .popup-overlay.active .popup-banner {
+        transform: translateY(0); /* Animate to center */
+        opacity: 1;
+      }
+
+      .popup-banner h2 {
+        color: var(--primary-color);
+        font-size: 2.2rem;
+        margin-bottom: 1rem;
+      }
+
+      .popup-banner p {
+        font-size: 1.1rem;
+        margin-bottom: 1.5rem;
+        color: var(--text-light);
+      }
+
+      .popup-close {
+        position: absolute;
+        top: 15px;
+        right: 20px;
+        font-size: 2rem;
+        cursor: pointer;
+        color: #999;
+        transition: color 0.3s ease;
+      }
+
+      .popup-close:hover {
+        color: var(--primary-color);
+      }
+
+      /* Responsive adjustments for popup */
+      @media (max-width: 600px) {
+        .popup-banner {
+          padding: 30px 20px;
+        }
+
+        .popup-banner h2 {
+          font-size: 1.8rem;
+        }
+
+        .popup-banner p {
+          font-size: 1rem;
+        }
+
+        .popup-close {
+          font-size: 1.8rem;
+          top: 10px;
+          right: 15px;
+        }
+      }
+
+      /* --- Adjust Mailchimp Form within Popup --- */
+      #popup-overlay .popup-banner #mc_embed_signup {
+        background: none; /* Override Mailchimp's default white background */
+        width: 100%; /* Make it take full width of popup-banner */
+        padding: 0; /* Remove Mailchimp's default padding */
+        font-family: inherit; /* Inherit font from body/popup */
+      }
+
+      #popup-overlay .popup-banner #mc_embed_signup_scroll {
+        padding: 0; /* Remove Mailchimp's scroll padding */
+      }
+
+      #popup-overlay .popup-banner .mc-field-group {
+        margin-bottom: 15px; /* Space between label/input and other elements */
+      }
+
+      #popup-overlay .popup-banner .mc-field-group label {
+        display: block; /* Ensure label is on its own line */
+        text-align: left; /* Align label text to left */
+        margin-bottom: 5px; /* Space between label and input */
+        font-size: 0.95rem;
+        color: var(--text-light); /* Match your existing text light color */
+      }
+
+      #popup-overlay .popup-banner .mc-field-group input[type="email"] {
+        width: 100%; /* Make input fill its container */
+        padding: 12px 15px;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        font-size: 1rem;
+        transition: border-color 0.3s ease;
+        box-sizing: border-box; /* Include padding and border in the element's total width and height */
+      }
+
+      #popup-overlay .popup-banner .mc-field-group input[type="email"]:focus {
+        border-color: var(--primary-color);
+        outline: none;
+      }
+
+      #popup-overlay .popup-banner .clear.foot {
+        display: flex; /* Use flexbox to center subscribe button and referral badge */
+        flex-direction: column;
+        align-items: center;
+        gap: 15px; /* Space between button and badge */
+      }
+
+      #popup-overlay .popup-banner input[type="submit"]#mc-embedded-subscribe {
+        background-color: var(--primary-color);
+        color: white;
+        padding: 12px 25px;
+        border: none;
+        border-radius: 8px;
+        font-size: 1.1rem;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        width: 100%; /* Make button full width */
+        max-width: 300px; /* Limit button width for better appearance */
+        font-weight: 600;
+      }
+
+      #popup-overlay
+        .popup-banner
+        input[type="submit"]#mc-embedded-subscribe:hover {
+        background-color: var(--primary-dark);
+      }
+
+      /* Mailchimp's default success/error responses (can be customized) */
+      #mc_embed_signup .response {
+        margin: 1em 0;
+        padding: 1em 0.5em;
+        color: #fff;
+        border-radius: 5px;
+        text-align: center;
+        width: 100%; /* Make response messages full width */
+      }
+
+      #mc_embed_signup #mce-error-response {
+        background-color: #e74c3c; /* Red for errors */
+      }
+
+      #mc_embed_signup #mce-success-response {
+        background-color: #2ecc71; /* Green for success */
+      }
+
+      /* Hide Mailchimp's asterisk and required indicator if you don't need them */
+      .indicates-required {
+        display: none;
+      }
+      .asterisk {
+        display: none;
+      }
+
+      /* Hide the Mailchimp referral badge */
+      #popup-overlay .popup-banner .refferal_badge,
+      #popup-overlay .popup-banner .clear.foot > p {
+        display: none;
+      }
     </style>
   </head>
   <body>
-    <!-- Loader HTML -->
     <div id="loader">
       <div class="loader-text">
         <span class="letter">S</span>
@@ -335,7 +541,6 @@
       </div>
     </div>
 
-    <!-- Main content of the page -->
     <main id="main-content">
       <h1>Coming Soon!</h1>
       <p class="description">
@@ -384,17 +589,116 @@
       <footer>&copy; 2025 Sourav Saha. All rights reserved.</footer>
     </main>
 
+    <div id="popup-overlay" class="popup-overlay">
+      <div class="popup-banner">
+        <span class="popup-close" id="popup-close">&times;</span>
+        <h2>Stay Updated!</h2>
+        <p>Enter your email to receive exclusive updates on our launch!</p>
+
+        <div id="mc_embed_shell">
+          <div id="mc_embed_signup">
+            <form
+              action="https://souravsaha.us14.list-manage.com/subscribe/post?u=2ec44c40ea05ef8e1c6c4c0a2&amp;id=1056671a4f&amp;f_id=005347e5f0"
+              method="post"
+              id="mc-embedded-subscribe-form"
+              name="mc-embedded-subscribe-form"
+              class="validate"
+              target="_blank"
+            >
+              <div id="mc_embed_signup_scroll">
+                <div class="mc-field-group">
+                  <label for="mce-EMAIL"
+                    >Email Address <span class="asterisk">*</span></label
+                  >
+                  <input
+                    type="email"
+                    name="EMAIL"
+                    class="required email"
+                    id="mce-EMAIL"
+                    required=""
+                    value=""
+                  />
+                  <span id="mce-EMAIL-HELPERTEXT" class="helper_text"
+                    >abc@gmail.com</span
+                  >
+                </div>
+                <div id="mce-responses" class="clear foot">
+                  <div
+                    class="response"
+                    id="mce-error-response"
+                    style="display: none"
+                  ></div>
+                  <div
+                    class="response"
+                    id="mce-success-response"
+                    style="display: none"
+                  ></div>
+                </div>
+                <div
+                  aria-hidden="true"
+                  style="position: absolute; left: -5000px"
+                >
+                  <input
+                    type="text"
+                    name="b_2ec44c40ea05ef8e1c6c4c0a2_1056671a4f"
+                    tabindex="-1"
+                    value=""
+                  />
+                </div>
+                <div class="optionalParent">
+                  <div class="clear foot">
+                    <input
+                      type="submit"
+                      name="subscribe"
+                      id="mc-embedded-subscribe"
+                      class="button"
+                      value="Subscribe"
+                    />
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <script>
-      // Wait for the page to fully load
+      // Define the loader animation duration
+      const LOADER_DURATION = 1500; // 1.5 seconds
+      const POPUP_DELAY_AFTER_LOADER = 8000; // 8 seconds after loader finishes
+
       window.addEventListener("load", () => {
         const loader = document.getElementById("loader");
         const mainContent = document.getElementById("main-content");
+        const popupOverlay = document.getElementById("popup-overlay");
+        const popupCloseBtn = document.getElementById("popup-close");
 
-        // Simulate a loading time (e.g., 4 seconds)
+        // Hide loader and show main content after LOADER_DURATION
         setTimeout(() => {
           loader.style.display = "none"; // Hide loader
           mainContent.style.display = "flex"; // Show main content
-        }, 4000); // Adjust timeout as needed
+
+          // Show the popup after an additional delay
+          setTimeout(() => {
+            popupOverlay.classList.add("active");
+          }, POPUP_DELAY_AFTER_LOADER);
+        }, LOADER_DURATION);
+
+        // Close popup when close button is clicked
+        popupCloseBtn.addEventListener("click", () => {
+          popupOverlay.classList.remove("active");
+        });
+
+        // Close popup when clicking outside the banner
+        popupOverlay.addEventListener("click", (event) => {
+          if (event.target === popupOverlay) {
+            popupOverlay.classList.remove("active");
+          }
+        });
+
+        // Removed the previous client-side form handling block entirely
+        // Mailchimp's mc-validate.js will handle the form submission and responses.
       });
 
       // Function to animate a numerical value (not used in the current countdown implementation but kept for potential future use)
@@ -415,7 +719,8 @@
 
       // Function to update the countdown timer
       function updateCountdown() {
-        const countdownDate = new Date("2025-12-31T23:59:59").getTime(); // Set your target date and time
+        // Countdown target date is December 31, 2025, 23:59:59 (local time)
+        const countdownDate = new Date("2025-12-31T23:59:59").getTime();
         const now = new Date().getTime();
         const distance = countdownDate - now;
 
@@ -456,6 +761,26 @@
       // Initial call to set countdown and then update every second
       updateCountdown();
       const interval = setInterval(updateCountdown, 1000);
+    </script>
+
+    <script
+      type="text/javascript"
+      src="//s3.amazonaws.com/downloads.mailchimp.com/js/mc-validate.js"
+    ></script>
+    <script type="text/javascript">
+      (function ($) {
+        window.fnames = new Array();
+        window.ftypes = new Array();
+        fnames[0] = "EMAIL";
+        ftypes[0] = "email";
+        fnames[1] = "FNAME";
+        ftypes[1] = "text";
+        fnames[2] = "MMERGE2";
+        ftypes[2] = "text";
+        fnames[3] = "MMERGE3";
+        ftypes[3] = "date";
+      })(jQuery);
+      var $mcj = jQuery.noConflict(true);
     </script>
   </body>
 </html>
