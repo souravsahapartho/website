@@ -24,7 +24,12 @@
         display: inline-block;
         margin: 0 0.1em;
       }
-      /* Keep all other CSS unchanged */
+      #main-content.hidden {
+        display: none;
+      }
+      #main-content.visible {
+        display: flex;
+      }
     </style>
   </head>
   <body>
@@ -38,7 +43,7 @@
         <span class="letter">V</span>
       </div>
     </div>
-    <main id="main-content">
+    <main id="main-content" class="hidden">
       <h1>Coming Soon!</h1>
       <p class="description">
         Hi, I'm Sourav Saha! I'm building something exciting. Stay tuned!
@@ -105,7 +110,8 @@
         const popupCloseBtn = document.getElementById("popup-close");
         setTimeout(() => {
           loader.style.display = "none";
-          mainContent.style.display = "flex";
+          mainContent.classList.remove("hidden");
+          mainContent.classList.add("visible");
           setTimeout(() => {
             popupOverlay.classList.add("active");
           }, POPUP_DELAY_AFTER_LOADER);
@@ -132,38 +138,4 @@
         const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
         const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
         const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-        const elems = ["days", "hours", "minutes", "seconds"];
-        const values = [days, hours, minutes, seconds];
-        elems.forEach((id, i) => {
-          const elem = document.getElementById(id);
-          const newValue = values[i].toString().padStart(2, "0");
-          if (elem.textContent !== newValue) {
-            elem.textContent = newValue;
-            elem.classList.add("animate");
-            setTimeout(() => {
-              elem.classList.remove("animate");
-            }, 400);
-          }
-        });
-      }
-      updateCountdown();
-      const interval = setInterval(updateCountdown, 1000);
-    </script>
-    <script src="//s3.amazonaws.com/downloads.mailchimp.com/js/mc-validate.js" type="text/javascript"></script>
-    <script type="text/javascript">
-      (function ($) {
-        window.fnames = new Array();
-        window.ftypes = new Array();
-        fnames[0] = "EMAIL";
-        ftypes[0] = "email";
-        fnames[1] = "FNAME";
-        ftypes[1] = "text";
-        fnames[2] = "MMERGE2";
-        ftypes[2] = "text";
-        fnames[3] = "MMERGE3";
-        ftypes[3] = "date";
-      })(jQuery);
-      var $mcj = jQuery.noConflict(true);
-    </script>
-  </body>
-</html>
+        const elems = ["days", "
