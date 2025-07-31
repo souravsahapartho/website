@@ -1,724 +1,515 @@
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth dark">
-  <head>
+<head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Sourav Saha</title>
-
+    <title>Sourav Saha - Portfolio</title>
+    
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="" />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
-      rel="stylesheet"
-    />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
-
-    <!-- nothinh -->
+    
     <script>
-      tailwind.config = {
-        darkMode: "class",
-        theme: {
-          extend: {
-            fontFamily: { sans: ["Inter", "sans-serif"] },
-            colors: {
-              "brand-primary": "#ffffff",
-              "brand-secondary": "#cbd5e1",
-              "brand-accent": "#00c2a9",
-              "brand-dark": "#0f172a",
-            },
-            textShadow: { default: "0 2px 4px rgba(0, 0, 0, 0.5)" },
-          },
-        },
-      };
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: { 'sans': ['Inter', 'sans-serif'] },
+                    colors: { 'brand-primary': '#ffffff', 'brand-secondary': '#cbd5e1', 'brand-accent': '#00c2a9', 'brand-dark': '#0f172a' },
+                    textShadow: { 'default': '0 2px 4px rgba(0, 0, 0, 0.5)' },
+                }
+            }
+        }
     </script>
-
-    <link rel="stylesheet" href="style.css" />
-  </head>
-  <body class="font-sans">
-    <div id="preloader">
-      <div class="glitch-loader" data-text="Sourav Saha">Sourav Saha</div>
-    </div>
+    
+    <style>
+        .transition-all { transition: all 0.3s ease-in-out; }
+        body { background: #0f172a; color: #ffffff; overflow-x: hidden; }
+        #particle-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; display: block; }
+        .text-glow { text-shadow: 0 0 8px rgba(0, 194, 169, 0.5), 0 0 20px rgba(0, 0, 0, 0.7); }
+        .text-shadow { text-shadow: 0 2px 5px rgba(0, 0, 0, 0.6); }
+        header { transition: background-color 0.4s ease-out; }
+        header.header-scrolled { background-color: rgba(15, 23, 42, 0.7); }
+        .nav-link { position: relative; padding-bottom: 5px; }
+        .nav-link::after { content: ''; position: absolute; bottom: 0; left: 0; width: 100%; height: 2px; background-color: #00c2a9; transform: scaleX(0); transform-origin: center; transition: transform 0.3s ease-out; }
+        .nav-link:hover::after, .nav-link.active-link::after { transform: scaleX(1); }
+        .nav-link.active-link { color: #00c2a9; }
+        .header-logo, .nav-link, .nav-button { opacity: 0; animation: fadeInUp 0.5s ease-out forwards; }
+        .header-logo { animation-delay: 0.5s; }
+        .nav-link:nth-of-type(1) { animation-delay: 0.6s; }
+        .nav-link:nth-of-type(2) { animation-delay: 0.7s; }
+        .nav-link:nth-of-type(3) { animation-delay: 0.8s; }
+        .nav-link:nth-of-type(4) { animation-delay: 0.9s; }
+        .nav-link:nth-of-type(5) { animation-delay: 1.0s; }
+        .nav-link:nth-of-type(6) { animation-delay: 1.1s; }
+        .nav-button { animation-delay: 1.2s; }
+        #preloader { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: #0f172a; z-index: 9999; display: flex; justify-content: center; align-items: center; transition: opacity 0.8s ease-out, visibility 0.8s ease-out; }
+        #preloader.hidden { opacity: 0; visibility: hidden; }
+        .glitch-loader { font-family: 'Inter', sans-serif; font-size: 2rem; font-weight: bold; color: #00c2a9; position: relative; }
+        .glitch-loader::before, .glitch-loader::after { content: attr(data-text); position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: #0f172a; overflow: hidden; }
+        .glitch-loader::before { left: 2px; text-shadow: -2px 0 #ff00c1; animation: glitch-anim-1 2s infinite linear alternate-reverse; }
+        .glitch-loader::after { left: -2px; text-shadow: -2px 0 #00fff9, 2px 2px #ff00c1; animation: glitch-anim-2 2s infinite linear alternate-reverse; }
+        @keyframes glitch-anim-1 { 0%{clip:rect(42px,9999px,44px,0)}5%{clip:rect(12px,9999px,59px,0)}10%{clip:rect(35px,9999px,20px,0)}15%{clip:rect(48px,9999px,55px,0)}20%{clip:rect(13px,9999px,33px,0)}25%{clip:rect(45px,9999px,5px,0)}30%{clip:rect(27px,9999px,50px,0)}35%{clip:rect(10px,9999px,39px,0)}40%{clip:rect(47px,9999px,29px,0)}45%{clip:rect(18px,9999px,42px,0)}50%{clip:rect(42px,9999px,14px,0)}55%{clip:rect(21px,9999px,51px,0)}60%{clip:rect(10px,9999px,58px,0)}65%{clip:rect(38px,9999px,19px,0)}70%{clip:rect(15px,9999px,53px,0)}75%{clip:rect(25px,9999px,36px,0)}80%{clip:rect(40px,9999px,8px,0)}85%{clip:rect(14px,9999px,48px,0)}90%{clip:rect(30px,9999px,23px,0)}95%{clip:rect(52px,9999px,11px,0)}100%{clip:rect(1px,9999px,45px,0)} }
+        @keyframes glitch-anim-2 { 0%{clip:rect(2px,9999px,35px,0)}5%{clip:rect(28px,9999px,48px,0)}10%{clip:rect(19px,9999px,8px,0)}15%{clip:rect(42px,9999px,59px,0)}20%{clip:rect(4px,9999px,31px,0)}25%{clip:rect(15px,9999px,55px,0)}30%{clip:rect(51px,9999px,22px,0)}35%{clip:rect(12px,9999px,40px,0)}40%{clip:rect(3px,9999px,33px,0)}45%{clip:rect(20px,9999px,58px,0)}50%{clip:rect(45px,9999px,1px,0)}55%{clip:rect(29px,9999px,47px,0)}60%{clip:rect(1px,9999px,39px,0)}65%{clip:rect(17px,9999px,50px,0)}70%{clip:rect(49px,9999px,25px,0)}75%{clip:rect(10px,9999px,43px,0)}80%{clip:rect(33px,9999px,5px,0)}85%{clip:rect(59px,9999px,27px,0)}90%{clip:rect(8px,9999px,41px,0)}95%{clip:rect(37px,9999px,17px,0)}100%{clip:rect(2px,9999px,52px,0)} }
+        .typing-effect { display: inline-block; overflow: hidden; white-space: nowrap; border-right: .15em solid #00c2a9; animation: typing 3.5s steps(40, end), blink-caret .75s step-end infinite; }
+        @keyframes typing { from { width: 0 } to { width: 100% } }
+        @keyframes blink-caret { from, to { border-color: transparent } 50% { border-color: #00c2a9; } }
+        header { animation: slideDown 1s ease-out forwards; animation-delay: 0.5s; }
+        @keyframes slideDown { from { transform: translateY(-100%); } to { transform: translateY(0); } }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.8); backdrop-filter: blur(5px); display: flex; justify-content: center; align-items: center; z-index: 1000; opacity: 0; visibility: hidden; transition: opacity 0.3s ease, visibility 0.3s ease; }
+        .modal-overlay:not(.hidden) { opacity: 1; visibility: visible; }
+        .modal-content { background-color: #1e293b; border: 1px solid #334155; border-radius: 0.75rem; width: 95vw; height: 95vh; display: flex; flex-direction: column; position: relative; transform: scale(0.95); transition: transform 0.3s ease; }
+        .modal-overlay:not(.hidden) .modal-content { transform: scale(1); }
+        .modal-close-btn { position: absolute; top: -15px; right: -15px; background-color: #ffffff; color: #0f172a; border-radius: 50%; width: 32px; height: 32px; font-size: 1.5rem; line-height: 32px; text-align: center; border: none; cursor: pointer; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); transition: transform 0.2s ease; z-index: 10; }
+        .modal-close-btn:hover { transform: rotate(90deg); }
+        .modal-header { display: flex; justify-content: space-between; align-items: center; padding: 0.75rem 1rem; border-bottom: 1px solid #334155; flex-shrink: 0; }
+        .modal-title { font-size: 1.125rem; font-weight: 600; color: #ffffff; }
+        .download-btn { background-color: #00c2a9; color: white; font-weight: bold; padding: 0.5rem 1rem; border-radius: 9999px; font-size: 0.875rem; text-decoration: none; transition: background-color 0.2s ease; }
+        .download-btn:hover { background-color: #00a591; }
+        .iframe-container { flex-grow: 1; padding: 0.5rem; }
+        .iframe-container iframe { width: 100%; height: 100%; border-radius: 0.25rem; }
+        .repo-card { background-color: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease; display: flex; flex-direction: column; }
+        .repo-card:hover { transform: translateY(-5px); box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3); border-color: rgba(0, 194, 169, 0.5); }
+        .article-card { background-color: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease; display: flex; flex-direction: column; }
+        .article-card:hover { transform: translateY(-5px); box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3); border-color: rgba(0, 194, 169, 0.5); }
+        .article-card-thumbnail { width: 100%; height: 180px; object-fit: cover; border-top-left-radius: 0.5rem; border-top-right-radius: 0.5rem; }
+        .article-card-content { padding: 1.5rem; display: flex; flex-direction: column; flex-grow: 1; }
+        .form-label { font-size: 0.875rem; font-weight: 500; color: #cbd5e1; }
+        .form-input, .form-textarea { width: 100%; margin-top: 0.5rem; padding: 0.75rem 1rem; border-radius: 0.5rem; background-color: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.2); color: #ffffff; transition: border-color 0.3s ease, box-shadow 0.3s ease; }
+        .form-input:focus, .form-textarea:focus { outline: none; border-color: #00c2a9; box-shadow: 0 0 0 2px rgba(0, 194, 169, 0.5); }
+        .submit-btn { width: 100%; background-color: #00c2a9; color: white; font-weight: bold; padding: 0.75rem; border-radius: 9999px; transition: background-color 0.3s ease; display: flex; justify-content: center; align-items: center; }
+        .submit-btn:hover { background-color: #00a591; }
+        #mc_embed_signup { background: transparent !important; }
+        .newsletter-popup { position: fixed; bottom: 1.5rem; right: 1.5rem; width: calc(100% - 3rem); max-width: 400px; background-color: #1e293b; border: 1px solid #334155; border-radius: 0.75rem; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5); z-index: 999; opacity: 0; transform: translateY(100%); visibility: hidden; transition: opacity 0.5s ease, transform 0.5s ease, visibility 0.5s; }
+        .newsletter-popup.is-visible { opacity: 1; transform: translateY(0); visibility: visible; }
+        .newsletter-close-btn { position: absolute; top: 0.5rem; right: 0.5rem; width: 28px; height: 28px; line-height: 28px; text-align: center; background-color: rgba(255, 255, 255, 0.1); color: #ffffff; border: none; border-radius: 50%; cursor: pointer; font-size: 1.2rem; transition: background-color 0.2s ease, transform 0.2s ease; }
+        .newsletter-close-btn:hover { background-color: rgba(255, 255, 255, 0.2); transform: rotate(90deg); }
+    </style>
+</head>
+<body class="font-sans">
+    <div id="preloader"><div class="glitch-loader" data-text="Sourav Saha">Sourav Saha</div></div>
 
     <canvas id="particle-canvas"></canvas>
 
-    <header
-      class="bg-transparent backdrop-blur-lg fixed top-0 left-0 right-0 z-50"
-    >
-      <nav
-        class="container mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center"
-      >
-        <a href="#" class="header-logo text-2xl font-bold text-white text-glow"
-          >Sourav Saha</a
-        >
-        <div class="hidden md:flex items-center space-x-6">
-          <a
-            href="#about"
-            class="nav-link text-gray-300 hover:text-brand-accent transition-all text-shadow"
-            >About</a
-          >
-          <a
-            href="#experience"
-            class="nav-link text-gray-300 hover:text-brand-accent transition-all text-shadow"
-            >Experience</a
-          >
-          <a
-            href="#education"
-            class="nav-link text-gray-300 hover:text-brand-accent transition-all text-shadow"
-            >Education</a
-          >
-          <a
-            href="#skills"
-            class="nav-link text-gray-300 hover:text-brand-accent transition-all text-shadow"
-            >Skills</a
-          >
-          <a
-            href="#portfolio"
-            class="nav-link text-gray-300 hover:text-brand-accent transition-all text-shadow"
-            >Portfolio</a
-          >
-          <a
-            href="#contact"
-            class="nav-link text-gray-300 hover:text-brand-accent transition-all text-shadow"
-            >Contact</a
-          >
-          <button
-            class="nav-button open-cv-btn bg-brand-accent text-white font-bold py-2 px-5 rounded-full text-sm hover:bg-opacity-90 transition-all"
-          >
-            Download CV
-          </button>
+    <header class="bg-transparent backdrop-blur-lg fixed top-0 left-0 right-0 z-50">
+        <nav class="container mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
+            <a href="#" class="header-logo text-xl md:text-2xl font-bold text-white text-glow">Sourav Saha</a>
+            <div class="hidden md:flex items-center space-x-6">
+                <a href="#about" class="nav-link text-gray-300 hover:text-brand-accent transition-all text-shadow">About</a>
+                <a href="#experience-education" class="nav-link text-gray-300 hover:text-brand-accent transition-all text-shadow">Journey</a>
+                <a href="#skills" class="nav-link text-gray-300 hover:text-brand-accent transition-all text-shadow">Skills</a>
+                <a href="#portfolio" class="nav-link text-gray-300 hover:text-brand-accent transition-all text-shadow">Portfolio</a>
+                <a href="#articles" class="nav-link text-gray-300 hover:text-brand-accent transition-all text-shadow">Articles</a>
+                <a href="#contact" class="nav-link text-gray-300 hover:text-brand-accent transition-all text-shadow">Contact</a>
+                <button class="nav-button open-cv-btn bg-brand-accent text-white font-bold py-2 px-5 rounded-full text-sm hover:bg-opacity-90 transition-all">Download CV</button>
+            </div>
+            <button id="mobile-menu-button" class="md:hidden focus:outline-none text-white"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg></button>
+        </nav>
+        <div id="mobile-menu" class="hidden md:hidden bg-black/50 backdrop-blur-md">
+            <a href="#about" class="block py-2 px-4 text-sm text-gray-200 hover:bg-white/10">About</a>
+            <a href="#experience-education" class="block py-2 px-4 text-sm text-gray-200 hover:bg-white/10">Journey</a>
+            <a href="#skills" class="block py-2 px-4 text-sm text-gray-200 hover:bg-white/10">Skills</a>
+            <a href="#portfolio" class="block py-2 px-4 text-sm text-gray-200 hover:bg-white/10">Portfolio</a>
+            <a href="#articles" class="block py-2 px-4 text-sm text-gray-200 hover:bg-white/10">Articles</a>
+            <a href="#contact" class="block py-2 px-4 text-sm text-gray-200 hover:bg-white/10">Contact</a>
+            <div class="px-4 py-3"><button class="open-cv-btn w-full text-center bg-brand-accent text-white font-bold py-2 px-5 rounded-full text-sm hover:bg-opacity-90 transition-all">Download CV</button></div>
         </div>
-        <button
-          id="mobile-menu-button"
-          class="md:hidden focus:outline-none text-white"
-        >
-          <svg
-            class="w-6 h-6"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M4 6h16M4 12h16m-7 6h7"
-            ></path>
-          </svg>
-        </button>
-      </nav>
-      <div
-        id="mobile-menu"
-        class="hidden md:hidden bg-black/50 backdrop-blur-md"
-      >
-        <a
-          href="#about"
-          class="block py-2 px-4 text-sm text-gray-200 hover:bg-white/10"
-          >About</a
-        >
-        <a
-          href="#experience"
-          class="block py-2 px-4 text-sm text-gray-200 hover:bg-white/10"
-          >Experience</a
-        >
-        <a
-          href="#education"
-          class="block py-2 px-4 text-sm text-gray-200 hover:bg-white/10"
-          >Education</a
-        >
-        <a
-          href="#skills"
-          class="block py-2 px-4 text-sm text-gray-200 hover:bg-white/10"
-          >Skills</a
-        >
-        <a
-          href="#portfolio"
-          class="block py-2 px-4 text-sm text-gray-200 hover:bg-white/10"
-          >Portfolio</a
-        >
-        <a
-          href="#contact"
-          class="block py-2 px-4 text-sm text-gray-200 hover:bg-white/10"
-          >Contact</a
-        >
-        <div class="px-4 py-3">
-          <button
-            class="open-cv-btn w-full text-center bg-brand-accent text-white font-bold py-2 px-5 rounded-full text-sm hover:bg-opacity-90 transition-all"
-          >
-            Download CV
-          </button>
-        </div>
-      </div>
     </header>
 
     <main>
-      <section
-        id="home"
-        class="min-h-screen flex items-center px-4 sm:px-6 lg:px-8"
-      >
-        <div class="container mx-auto text-center">
-          <h1
-            class="text-4xl sm:text-5xl md:text-6xl font-bold text-white leading-tight mb-4 text-glow"
-            data-aos="fade-up"
-          >
-            Hi, I’m Sourav Saha
-          </h1>
-          <p
-            class="text-lg md:text-xl text-brand-secondary mb-8 text-shadow"
-            data-aos="fade-up"
-            data-aos-delay="200"
-          >
-            <span class="typing-effect"
-              >A tech enthusiast, writer, and student leader.</span
-            >
-          </p>
-          <a
-            href="#about"
-            class="bg-brand-accent text-white font-bold py-3 px-8 rounded-full hover:bg-opacity-90 transition-all transform hover:scale-105"
-            data-aos="fade-up"
-            data-aos-delay="400"
-            >Explore My Work</a
-          >
-        </div>
-      </section>
+        <section id="home" class="min-h-screen flex items-center px-4 sm:px-6 lg:px-8">
+            <div class="container mx-auto text-center">
+                <h1 class="text-4xl sm:text-5xl md:text-6xl font-bold text-white leading-tight mb-4 text-glow" data-aos="fade-up">Hi, I’m Sourav Saha</h1>
+                <p class="text-lg md:text-xl text-brand-secondary mb-8 text-shadow" data-aos="fade-up" data-aos-delay="200"><span class="typing-effect">Engineering solutions. Articulating vision. Cultivating community.</span></p>
+                <a href="#about" class="bg-brand-accent text-white font-bold py-3 px-8 rounded-full hover:bg-opacity-90 transition-all transform hover:scale-105" data-aos="fade-up" data-aos-delay="400">Explore My Work</a>
+            </div>
+        </section>
 
-      <section id="about" class="px-4 sm:px-6 lg:px-8 pt-12 md:pt-16">
-        <div class="container mx-auto">
-          <div
-            class="flex flex-col md:flex-row items-center gap-8 md:gap-12"
-            data-aos="fade-right"
-          >
-            <div class="w-full md:w-1/3 flex-shrink-0">
-              <img
-                src="Image/profile.jpg"
-                alt="Sourav Saha"
-                class="rounded-full shadow-2xl w-48 h-48 sm:w-64 sm:h-64 mx-auto object-cover"
-              />
+        <section id="about" class="px-4 sm:px-6 lg:px-8 pt-12 md:pt-16">
+            <div class="container mx-auto">
+                <div class="flex flex-col md:flex-row items-center gap-8 md:gap-12" data-aos="fade-right">
+                    <div class="w-full md:w-1/3 flex-shrink-0">
+                        <img src="image/profile.jpg" alt="Sourav Saha" class="rounded-full shadow-2xl w-48 h-48 sm:w-64 sm:h-64 mx-auto object-cover" />
+                    </div>
+                    <div class="w-full md:w-2/3 text-center md:text-left">
+                        <h2 class="text-3xl sm:text-4xl font-bold text-white mb-4 text-glow">About Me</h2>
+                        <p class="text-brand-secondary leading-relaxed text-shadow mb-4">I’m Sourav Saha, a passionate Computer Science student and Campus Ambassador at Creative IT Institute. With a strong interest in technology and creativity, I’m constantly exploring ways to grow, connect, and make an impact.</p>
+                        <p class="text-brand-secondary leading-relaxed text-shadow mb-4"><strong>My Mission:</strong> To empower myself and others through continuous learning and practical skill-building.</p>
+                        <p class="text-brand-secondary leading-relaxed text-shadow"><strong>My Vision:</strong> To become a tech leader who creates meaningful solutions and inspires others to innovate and grow with purpose.</p>
+                    </div>
+                </div>
             </div>
-            <div class="w-full md:w-2/3 text-center md:text-left">
-              <h2
-                class="text-3xl sm:text-4xl font-bold text-white mb-4 text-glow"
-              >
+        </section>
+        
+        <section id="experience-education" class="px-4 sm:px-6 lg:px-8 pt-12 md:pt-16">
+            <div class="container mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16">
+                <div id="experience" data-aos="fade-right">
+                    <h2 class="text-3xl sm:text-4xl font-bold text-center text-white mb-8 md:mb-12 text-glow">Experience</h2>
+                    <div class="max-w-3xl mx-auto border-l-2 border-brand-accent/30 pl-6 sm:pl-10 relative">
+                        <div class="mb-8 relative"><div class="absolute -left-[30px] sm:-left-[46px] top-1 w-4 h-4 rounded-full bg-brand-accent border-4 border-brand-dark"></div><h3 class="text-2xl font-bold text-white text-shadow">Campus Ambassador</h3><p class="text-lg text-brand-secondary/90 font-medium">Creative IT Institute</p><div class="flex flex-wrap gap-x-4 gap-y-1 text-sm text-brand-secondary/70 my-2"><span>📍 Dhaka, Bangladesh</span><span>📅 June 2024 – Present</span></div><ul class="mt-4 list-disc list-inside space-y-2 text-brand-secondary"><li>Promoting tech learning programs and courses among students and peers.</li><li>Organizing and representing the institute at campus events and workshops.</li></ul></div>
+                        <div class="mb-8 relative"><div class="absolute -left-[30px] sm:-left-[46px] top-1 w-4 h-4 rounded-full bg-brand-accent border-4 border-brand-dark"></div><h3 class="text-2xl font-bold text-white text-shadow">General Member</h3><p class="text-lg text-brand-secondary/90 font-medium">UIU Entrepreneur Development Forum</p><div class="flex flex-wrap gap-x-4 gap-y-1 text-sm text-brand-secondary/70 my-2"><span>📍 United International University</span><span>📅 2023 – Present</span></div><ul class="mt-4 list-disc list-inside space-y-2 text-brand-secondary"><li>Participated in entrepreneurship and innovation-focused events.</li></ul></div>
+                        <div class="relative"><div class="absolute -left-[30px] sm:-left-[46px] top-1 w-4 h-4 rounded-full bg-brand-accent border-4 border-brand-dark"></div><h3 class="text-2xl font-bold text-white text-shadow">General Member</h3><p class="text-lg text-brand-secondary/90 font-medium">UIU Data Science Club</p><div class="flex flex-wrap gap-x-4 gap-y-1 text-sm text-brand-secondary/70 my-2"><span>📍 United International University</span><span>📅 2023 – Present</span></div><ul class="mt-4 list-disc list-inside space-y-2 text-brand-secondary"><li>Engaged in data science discussions, workshops, and knowledge-sharing sessions.</li></ul></div>
+                    </div>
+                </div>
+                <div id="education" data-aos="fade-left">
+                    <h2 class="text-3xl sm:text-4xl font-bold text-center text-white mb-8 md:mb-12 text-glow">Education</h2>
+                    <div class="max-w-3xl mx-auto border-l-2 border-brand-accent/30 pl-6 sm:pl-10 relative">
+                        <div class="mb-8 relative"><div class="absolute -left-[30px] sm:-left-[46px] top-1 w-4 h-4 rounded-full bg-brand-accent border-4 border-brand-dark"></div><h3 class="text-2xl font-bold text-white text-shadow">Bachelor of Science in CSE</h3><p class="text-lg text-brand-secondary/90 font-medium">United International University (UIU)</p><div class="flex flex-wrap gap-x-4 gap-y-1 text-sm text-brand-secondary/70 my-2"><span>📍 Dhaka, Bangladesh</span><span>📅 2023 – Present</span></div><p class="inline-block p-2 my-2 bg-brand-accent/10 rounded-md text-brand-accent text-sm font-semibold">25% Academic Scholarship Holder</p></div>
+                        <div class="mb-8 relative"><div class="absolute -left-[30px] sm:-left-[46px] top-1 w-4 h-4 rounded-full bg-brand-accent border-4 border-brand-dark"></div><h3 class="text-2xl font-bold text-white text-shadow">Higher Secondary Certificate (HSC)</h3><p class="text-lg text-brand-secondary/90 font-medium">Islamia Government College</p><div class="flex flex-wrap gap-x-4 gap-y-1 text-sm text-brand-secondary/70 my-2"><span>📍 Sirajganj, Bangladesh</span><span>📅 2018 – 2020</span></div></div>
+                        <div class="relative"><div class="absolute -left-[30px] sm:-left-[46px] top-1 w-4 h-4 rounded-full bg-brand-accent border-4 border-brand-dark"></div><h3 class="text-2xl font-bold text-white text-shadow">Secondary School Certificate (SSC)</h3><p class="text-lg text-brand-secondary/90 font-medium">B.L. Government High School</p><div class="flex flex-wrap gap-x-4 gap-y-1 text-sm text-brand-secondary/70 my-2"><span>📍 Sirajganj, Bangladesh</span><span>📅 2014 – 2018</span></div></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="skills" class="px-4 sm:px-6 lg:px-8 pt-12 md:pt-16">
+            <div class="container mx-auto" data-aos="fade-up">
+                <h2 class="text-3xl sm:text-4xl font-bold text-center text-white mb-8 md:mb-12 text-glow">My Skills</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-12">
+                    <div class="bg-white/5 p-6 rounded-lg"><h3 class="text-2xl font-bold mb-4 text-center text-white text-shadow">💻 Programming Languages</h3><ul class="space-y-2 text-brand-secondary"><li class="bg-white/5 p-3 rounded-md text-center">C</li><li class="bg-white/5 p-3 rounded-md text-center">C++</li><li class="bg-white/5 p-3 rounded-md text-center">Java</li><li class="bg-white/5 p-3 rounded-md text-center">HTML</li><li class="bg-white/5 p-3 rounded-md text-center">CSS</li></ul></div>
+                    <div class="bg-white/5 p-6 rounded-lg"><h3 class="text-2xl font-bold mb-4 text-center text-white text-shadow">🧠 Technical Skills</h3><ul class="space-y-2 text-brand-secondary"><li class="bg-white/5 p-3 rounded-md text-center">Web Content Writing</li><li class="bg-white/5 p-3 rounded-md text-center">Responsive Web Design (Basic)</li><li class="bg-white/5 p-3 rounded-md text-center">Object-Oriented Programming (OOP)</li><li class="bg-white/5 p-3 rounded-md text-center">Microsoft PowerPoint, Word, Excel (Basic)</li></ul></div>
+                    <div class="bg-white/5 p-6 rounded-lg"><h3 class="text-2xl font-bold mb-4 text-center text-white text-shadow">🎯 Soft Skills</h3><ul class="space-y-2 text-brand-secondary"><li class="bg-white/5 p-3 rounded-md text-center">Communication</li><li class="bg-white/5 p-3 rounded-md text-center">Leadership</li><li class="bg-white/5 p-3 rounded-md text-center">Teamwork</li><li class="bg-white/5 p-3 rounded-md text-center">Time Management</li><li class="bg-white/5 p-3 rounded-md text-center">Public Speaking</li></ul></div>
+                </div>
+            </div>
+        </section>
 
-                About Me
-              </h2>
-              <p class="text-brand-secondary leading-relaxed text-shadow mb-4">
-                I’m Sourav Saha, a passionate Computer Science student and
-                Campus Ambassador at Creative IT Institute. With a strong
-                interest in technology and creativity, I’m constantly exploring
-                ways to grow, connect, and make an impact.
-              </p>
-              <p class="text-brand-secondary leading-relaxed text-shadow mb-4">
-                <strong>My Mission:</strong> To empower myself and others
-                through continuous learning and practical skill-building.
-              </p>
-              <p class="text-brand-secondary leading-relaxed text-shadow">
-                <strong>My Vision:</strong> To become a tech leader who creates
-                meaningful solutions and inspires others to innovate and grow
-                with purpose.
-              </p>
+        <section id="portfolio" class="px-4 sm:px-6 lg:px-8 pt-12 md:pt-16">
+            <div class="container mx-auto" data-aos="fade-up">
+                <h2 class="text-3xl sm:text-4xl font-bold text-center text-white mb-8 md:mb-12 text-glow">Latest Projects</h2>
+                <div id="github-repos-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"><p class="text-brand-secondary col-span-full text-center">Loading latest projects from GitHub...</p></div>
             </div>
-          </div>
-        </div>
-      </section>
+        </section>
+        
+        <section id="articles" class="px-4 sm:px-6 lg:px-8 pt-12 md:pt-16">
+            <div class="container mx-auto" data-aos="fade-up">
+                <h2 class="text-3xl sm:text-4xl font-bold text-center text-white mb-8 md:mb-12 text-glow">Recent Articles</h2>
+                <div id="substack-posts-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"><p class="text-brand-secondary col-span-full text-center">Loading latest articles from Substack...</p></div>
+            </div>
+        </section>
 
-      <section
-        id="experience-education"
-        class="px-4 sm:px-6 lg:px-8 pt-12 md:pt-16"
-      >
-        <div
-          class="container mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16"
-        >
-          <div id="experience" data-aos="fade-right">
-            <h2
-              class="text-3xl sm:text-4xl font-bold text-center text-white mb-8 md:mb-12 text-glow"
-            >
-              Experience
-            </h2>
-            <div
-              class="max-w-3xl mx-auto border-l-2 border-brand-accent/30 pl-8 sm:pl-10 relative"
-            >
-              <div class="mb-8 relative">
-                <div
-                  class="absolute -left-[38px] sm:-left-[46px] top-1 w-4 h-4 rounded-full bg-brand-accent border-4 border-brand-dark"
-                ></div>
-                <h3 class="text-2xl font-bold text-white text-shadow">
-                  Campus Ambassador
-                </h3>
-                <p class="text-lg text-brand-secondary/90 font-medium">
-                  Creative IT Institute
-                </p>
-                <div
-                  class="flex flex-wrap gap-x-4 gap-y-1 text-sm text-brand-secondary/70 my-2"
-                >
-                  <span>📍 Dhaka, Bangladesh</span
-                  ><span>📅 June 2024 – Present</span>
+        <section id="contact" class="px-4 sm:px-6 lg:px-8 py-12 md:py-16">
+            <div class="container mx-auto text-center" data-aos="fade-up">
+                <div class="max-w-2xl mx-auto">
+                    <h2 class="text-3xl sm:text-4xl font-bold text-white mb-8 text-glow">Send Me a Message</h2>
+                    <form id="contact-form" action="https://api.web3forms.com/submit" method="POST" class="space-y-6 text-left">
+                        <input type="hidden" name="access_key" value="96c3673c-ea3d-41fc-86a7-8c82fb43aef1">
+                        <input type="checkbox" name="botcheck" class="hidden" style="display: none;">
+                        <div><label for="name" class="form-label">Full Name</label><input type="text" name="name" id="name" required class="form-input"></div>
+                        <div><label for="email" class="form-label">Email Address</label><input type="email" name="email" id="email" required class="form-input"></div>
+                        <div><label for="subject" class="form-label">Subject</label><input type="text" name="subject" id="subject" required class="form-input"></div>
+                        <div><label for="message" class="form-label">Message</label><textarea name="message" id="message" rows="5" required class="form-textarea"></textarea></div>
+                        <button type="submit" class="submit-btn"><span id="submit-btn-text">Send Message</span><span id="submit-btn-loader" class="hidden w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></span></button>
+                        <div id="form-status" class="mt-4 text-center"></div>
+                    </form>
                 </div>
-                <ul
-                  class="mt-4 list-disc list-inside space-y-2 text-brand-secondary"
-                >
-                  <li>
-                    Promoting tech learning programs and courses among students
-                    and peers.
-                  </li>
-                  <li>
-                    Organizing and representing the institute at campus events
-                    and workshops.
-                  </li>
-                </ul>
-              </div>
-              <div class="mb-8 relative">
-                <div
-                  class="absolute -left-[38px] sm:-left-[46px] top-1 w-4 h-4 rounded-full bg-brand-accent border-4 border-brand-dark"
-                ></div>
-                <h3 class="text-2xl font-bold text-white text-shadow">
-                  General Member
-                </h3>
-                <p class="text-lg text-brand-secondary/90 font-medium">
-                  UIU Entrepreneur Development Forum
-                </p>
-                <div
-                  class="flex flex-wrap gap-x-4 gap-y-1 text-sm text-brand-secondary/70 my-2"
-                >
-                  <span>📍 United International University</span
-                  ><span>📅 2023 – Present</span>
-                </div>
-                <ul
-                  class="mt-4 list-disc list-inside space-y-2 text-brand-secondary"
-                >
-                  <li>
-                    Participated in entrepreneurship and innovation-focused
-                    events.
-                  </li>
-                </ul>
-              </div>
-              <div class="relative">
-                <div
-                  class="absolute -left-[38px] sm:-left-[46px] top-1 w-4 h-4 rounded-full bg-brand-accent border-4 border-brand-dark"
-                ></div>
-                <h3 class="text-2xl font-bold text-white text-shadow">
-                  General Member
-                </h3>
-                <p class="text-lg text-brand-secondary/90 font-medium">
-                  UIU Data Science Club
-                </p>
-                <div
-                  class="flex flex-wrap gap-x-4 gap-y-1 text-sm text-brand-secondary/70 my-2"
-                >
-                  <span>📍 United International University</span
-                  ><span>📅 2023 – Present</span>
-                </div>
-                <ul
-                  class="mt-4 list-disc list-inside space-y-2 text-brand-secondary"
-                >
-                  <li>
-                    Engaged in data science discussions, workshops, and
-                    knowledge-sharing sessions.
-                  </li>
-                </ul>
-              </div>
             </div>
-          </div>
-          <div id="education" data-aos="fade-left">
-            <h2
-              class="text-3xl sm:text-4xl font-bold text-center text-white mb-8 md:mb-12 text-glow"
-            >
-              Education
-            </h2>
-            <div
-              class="max-w-3xl mx-auto border-l-2 border-brand-accent/30 pl-8 sm:pl-10 relative"
-            >
-              <div class="mb-8 relative">
-                <div
-                  class="absolute -left-[38px] sm:-left-[46px] top-1 w-4 h-4 rounded-full bg-brand-accent border-4 border-brand-dark"
-                ></div>
-                <h3 class="text-2xl font-bold text-white text-shadow">
-                  Bachelor of Science in CSE
-                </h3>
-                <p class="text-lg text-brand-secondary/90 font-medium">
-                  United International University (UIU)
-                </p>
-                <div
-                  class="flex flex-wrap gap-x-4 gap-y-1 text-sm text-brand-secondary/70 my-2"
-                >
-                  <span>📍 Dhaka, Bangladesh</span
-                  ><span>📅 2023 – Present</span>
-                </div>
-                <p
-                  class="inline-block p-2 my-2 bg-brand-accent/10 rounded-md text-brand-accent text-sm font-semibold"
-                >
-                  C | C++ | Java
-                </p>
-              </div>
-              <div class="mb-8 relative">
-                <div
-                  class="absolute -left-[38px] sm:-left-[46px] top-1 w-4 h-4 rounded-full bg-brand-accent border-4 border-brand-dark"
-                ></div>
-                <h3 class="text-2xl font-bold text-white text-shadow">
-                  Higher Secondary Certificate (HSC)
-                </h3>
-                <p class="text-lg text-brand-secondary/90 font-medium">
-                  Islamia Government College
-                </p>
-                <div
-                  class="flex flex-wrap gap-x-4 gap-y-1 text-sm text-brand-secondary/70 my-2"
-                >
-                  <span>📍 Sirajganj, Bangladesh</span
-                  ><span>📅 2018 – 2020</span>
-                </div>
-              </div>
-              <div class="relative">
-                <div
-                  class="absolute -left-[38px] sm:-left-[46px] top-1 w-4 h-4 rounded-full bg-brand-accent border-4 border-brand-dark"
-                ></div>
-                <h3 class="text-2xl font-bold text-white text-shadow">
-                  Secondary School Certificate (SSC)
-                </h3>
-                <p class="text-lg text-brand-secondary/90 font-medium">
-                  B.L. Government High School
-                </p>
-                <div
-                  class="flex flex-wrap gap-x-4 gap-y-1 text-sm text-brand-secondary/70 my-2"
-                >
-                  <span>📍 Sirajganj, Bangladesh</span
-                  ><span>📅 2014 – 2018</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section id="skills" class="px-4 sm:px-6 lg:px-8 pt-12 md:pt-16">
-        <div class="container mx-auto" data-aos="fade-up">
-          <h2
-            class="text-3xl sm:text-4xl font-bold text-center text-white mb-8 md:mb-12 text-glow"
-          >
-            My Skills
-          </h2>
-          <div
-            class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-12"
-          >
-            <div class="bg-white/5 p-6 rounded-lg">
-              <h3
-                class="text-2xl font-bold mb-4 text-center text-white text-shadow"
-              >
-                💻 Programming Languages
-              </h3>
-              <ul class="space-y-2 text-brand-secondary">
-                <li class="bg-white/5 p-3 rounded-md text-center">C</li>
-                <li class="bg-white/5 p-3 rounded-md text-center">C++</li>
-                <li class="bg-white/5 p-3 rounded-md text-center">Java</li>
-                <li class="bg-white/5 p-3 rounded-md text-center">HTML</li>
-                <li class="bg-white/5 p-3 rounded-md text-center">CSS</li>
-              </ul>
-            </div>
-            <div class="bg-white/5 p-6 rounded-lg">
-              <h3
-                class="text-2xl font-bold mb-4 text-center text-white text-shadow"
-              >
-                🧠 Technical Skills
-              </h3>
-              <ul class="space-y-2 text-brand-secondary">
-                <li class="bg-white/5 p-3 rounded-md text-center">
-                  Web Content Writing
-                </li>
-                <li class="bg-white/5 p-3 rounded-md text-center">
-                  Responsive Web Design (Basic)
-                </li>
-                <li class="bg-white/5 p-3 rounded-md text-center">
-                  Object-Oriented Programming (OOP)
-                </li>
-                <li class="bg-white/5 p-3 rounded-md text-center">
-                  Microsoft PowerPoint, Word, Excel (Basic)
-                </li>
-              </ul>
-            </div>
-            <div class="bg-white/5 p-6 rounded-lg">
-              <h3
-                class="text-2xl font-bold mb-4 text-center text-white text-shadow"
-              >
-                🎯 Soft Skills
-              </h3>
-              <ul class="space-y-2 text-brand-secondary">
-                <li class="bg-white/5 p-3 rounded-md text-center">
-                  Communication
-                </li>
-                <li class="bg-white/5 p-3 rounded-md text-center">
-                  Leadership
-                </li>
-                <li class="bg-white/5 p-3 rounded-md text-center">Teamwork</li>
-                <li class="bg-white/5 p-3 rounded-md text-center">
-                  Time Management
-                </li>
-                <li class="bg-white/5 p-3 rounded-md text-center">
-                  Public Speaking
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section id="portfolio" class="px-4 sm:px-6 lg:px-8 pt-12 md:pt-16">
-        <div class="container mx-auto" data-aos="fade-up">
-          <h2
-            class="text-3xl sm:text-4xl font-bold text-center text-white mb-8 md:mb-12 text-glow"
-          >
-            Latest Projects
-          </h2>
-          <div
-            id="github-repos-grid"
-            class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
-          >
-            <p class="text-brand-secondary col-span-full text-center">
-              Loading latest projects from GitHub...
-            </p>
-          </div>
-        </div>
-      </section>
-
-      <section id="contact" class="px-4 sm:px-6 lg:px-8 py-12 md:py-16">
-        <div class="container mx-auto text-center" data-aos="fade-up">
-          <div class="max-w-2xl mx-auto">
-            <h2
-              class="text-3xl sm:text-4xl font-bold text-white mb-4 text-glow"
-            >
-              Ask My AI Assistant
-            </h2>
-            <p class="text-brand-secondary mb-8 text-shadow">
-              Have a question? Ask my AI assistant about my skills, experience,
-              or projects.
-            </p>
-            <div
-              id="ai-response"
-              class="text-left p-4 rounded-md bg-white/10 border border-white/20 min-h-[100px] mb-4 text-shadow"
-            >
-              Hi there! How can I help you learn more about Sourav?
-            </div>
-            <div class="flex flex-wrap justify-center gap-2 mb-4">
-              <button
-                class="suggestion-btn bg-white/10 hover:bg-white/20 text-sm py-1 px-3 rounded-full transition-all text-white"
-              >
-                Programming skills?
-              </button>
-              <button
-                class="suggestion-btn bg-white/10 hover:bg-white/20 text-sm py-1 px-3 rounded-full transition-all text-white"
-              >
-                Soft skills?
-              </button>
-              <button
-                class="suggestion-btn bg-white/10 hover:bg-white/20 text-sm py-1 px-3 rounded-full transition-all text-white"
-              >
-                Education?
-              </button>
-            </div>
-            <div class="flex flex-col sm:flex-row gap-4">
-              <input
-                type="text"
-                id="ai-prompt"
-                placeholder="Ask a question..."
-                class="w-full px-4 py-2 rounded-full bg-white/10 text-white placeholder-gray-400 border border-white/20 focus:outline-none focus:ring-2 focus:ring-brand-accent"
-              /><button
-                id="ask-ai-btn"
-                class="bg-brand-accent text-white font-bold py-2 px-6 rounded-full hover:bg-opacity-90 transition-all flex items-center justify-center shrink-0"
-              >
-                <span id="ai-btn-text">✨ Ask AI</span
-                ><span
-                  id="ai-btn-loader"
-                  class="hidden w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"
-                ></span>
-              </button>
-            </div>
-          </div>
-          <div
-            class="max-w-2xl mx-auto mt-16"
-            data-aos="fade-up"
-            data-aos-delay="200"
-          >
-            <h2
-              class="text-3xl sm:text-4xl font-bold text-white mb-8 text-glow"
-            >
-              Or Send Me a Message
-            </h2>
-            <form
-              id="contact-form"
-              action="https://api.web3forms.com/submit"
-              method="POST"
-              class="space-y-6 text-left"
-            >
-              <input
-                type="hidden"
-                name="access_key"
-                value="96c3673c-ea3d-41fc-86a7-8c82fb43aef1"
-              />
-              <input
-                type="checkbox"
-                name="botcheck"
-                class="hidden"
-                style="display: none"
-              />
-              <div>
-                <label for="name" class="form-label">Full Name</label
-                ><input
-                  type="text"
-                  name="name"
-                  id="name"
-                  required
-                  class="form-input"
-                />
-              </div>
-              <div>
-                <label for="email" class="form-label">Email Address</label
-                ><input
-                  type="email"
-                  name="email"
-                  id="email"
-                  required
-                  class="form-input"
-                />
-              </div>
-              <div>
-                <label for="subject" class="form-label">Subject</label
-                ><input
-                  type="text"
-                  name="subject"
-                  id="subject"
-                  required
-                  class="form-input"
-                />
-              </div>
-              <div>
-                <label for="message" class="form-label">Message</label
-                ><textarea
-                  name="message"
-                  id="message"
-                  rows="5"
-                  required
-                  class="form-textarea"
-                ></textarea>
-              </div>
-              <button type="submit" class="submit-btn">
-                <span id="submit-btn-text">Send Message</span
-                ><span
-                  id="submit-btn-loader"
-                  class="hidden w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"
-                ></span>
-              </button>
-              <div id="form-status" class="mt-4 text-center"></div>
-            </form>
-          </div>
-        </div>
-      </section>
+        </section>
     </main>
 
-    <footer
-      class="border-t border-white/10 mt-8 pt-8 pb-8 px-4 sm:px-6 lg:px-8"
-    >
-      <div class="container mx-auto text-center text-gray-400">
-        <div class="flex justify-center space-x-6 mb-4">
-          <a
-            href="https://www.linkedin.com/in/souravsahapartho/"
-            target="_blank"
-            rel="noopener noreferrer"
-            title="LinkedIn"
-            class="hover:text-brand-accent transition-colors"
-            ><span class="sr-only">LinkedIn</span
-            ><svg
-              class="w-6 h-6"
-              fill="currentColor"
-              viewBox="0 0 24 24"
-              aria-hidden="true"
-            >
-              <path
-                d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"
-              /></svg
-          ></a>
-          <a
-            href="https://www.instagram.com/souravsahapartho/"
-            target="_blank"
-            rel="noopener noreferrer"
-            title="Instagram"
-            class="hover:text-brand-accent transition-colors"
-            ><span class="sr-only">Instagram</span
-            ><svg
-              class="w-6 h-6"
-              fill="currentColor"
-              viewBox="0 0 24 24"
-              aria-hidden="true"
-            >
-              <path
-                d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.85s-.011 3.585-.069 4.85c-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07s-3.585-.012-4.85-.07c-3.252-.148-4.771-1.691-4.919-4.919-.058-1.265-.069-1.645-.069-4.85s.011-3.585.069-4.85c.149-3.225 1.664-4.771 4.919-4.919 1.266-.058 1.644-.07 4.85-.07zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948s.014 3.667.072 4.947c.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072s3.667-.014 4.947-.072c4.358-.2 6.78-2.618 6.98-6.98.059-1.281.073-1.689.073-4.948s-.014-3.667-.072-4.947c-.2-4.358-2.618-6.78-6.98-6.98-1.281-.058-1.689-.072-4.948-.072zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.162 6.162 6.162 6.162-2.759 6.162-6.162-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4s1.791-4 4-4 4 1.79 4 4-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44 1.441-.645 1.441-1.44-.645-1.44-1.441-1.44z"
-              /></svg
-          ></a>
-          <a
-            href="https://www.facebook.com/souravsahapartho/"
-            target="_blank"
-            rel="noopener noreferrer"
-            title="Facebook"
-            class="hover:text-brand-accent transition-colors"
-            ><span class="sr-only">Facebook</span
-            ><svg
-              class="w-6 h-6"
-              fill="currentColor"
-              viewBox="0 0 24 24"
-              aria-hidden="true"
-            >
-              <path
-                d="M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.667c0-.955.192-1.333 1.115-1.333h2.885v-5h-3.808c-3.596 0-5.192 1.583-5.192 4.615v3.385z"
-              /></svg
-          ></a>
-          <a
-            href="https://x.com/souravpartho"
-            target="_blank"
-            rel="noopener noreferrer"
-            title="X"
-            class="hover:text-brand-accent transition-colors"
-            ><span class="sr-only">X</span
-            ><svg
-              class="w-6 h-6"
-              fill="currentColor"
-              viewBox="0 0 24 24"
-              aria-hidden="true"
-            >
-              <path
-                d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24h-6.617l-5.21-6.817-6.044 6.817h-3.308l7.73-8.835-7.994-10.66h6.74l4.733 6.349 5.505-6.349zm-1.102 19.33h1.72l-10.4-13.84h-1.62l10.3 13.84z"
-              /></svg
-          ></a>
+    <footer class="border-t border-white/10 mt-8 pt-8 pb-8 px-4 sm:px-6 lg:px-8">
+        <div class="container mx-auto text-center text-gray-400">
+            <div class="flex justify-center space-x-6 mb-4">
+                <a href="https://www.linkedin.com/in/souravsahapartho/" target="_blank" rel="noopener noreferrer" title="LinkedIn" class="hover:text-brand-accent transition-colors"><span class="sr-only">LinkedIn</span><svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg></a>
+                <a href="https://www.instagram.com/souravsahapartho/" target="_blank" rel="noopener noreferrer" title="Instagram" class="hover:text-brand-accent transition-colors"><span class="sr-only">Instagram</span><svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.85s-.011 3.585-.069 4.85c-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07s-3.585-.012-4.85-.07c-3.252-.148-4.771-1.691-4.919-4.919-.058-1.265-.069-1.645-.069-4.85s.011-3.585.069-4.85c.149-3.225 1.664-4.771 4.919-4.919 1.266-.058 1.644-.07 4.85-.07zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948s.014 3.667.072 4.947c.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072s3.667-.014 4.947-.072c4.358-.2 6.78-2.618 6.98-6.98.059-1.281.073-1.689.073-4.948s-.014-3.667-.072-4.947c-.2-4.358-2.618-6.78-6.98-6.98-1.281-.058-1.689-.072-4.948-.072zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.162 6.162 6.162 6.162-2.759 6.162-6.162-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4s1.791-4 4-4 4 1.79 4 4-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44 1.441-.645 1.441-1.44-.645-1.44-1.441-1.44z"/></svg></a>
+                <a href="https://www.facebook.com/souravsahapartho/" target="_blank" rel="noopener noreferrer" title="Facebook" class="hover:text-brand-accent transition-colors"><span class="sr-only">Facebook</span><svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.667c0-.955.192-1.333 1.115-1.333h2.885v-5h-3.808c-3.596 0-5.192 1.583-5.192 4.615v3.385z"/></svg></a>
+                <a href="https://x.com/souravpartho" target="_blank" rel="noopener noreferrer" title="X" class="hover:text-brand-accent transition-colors"><span class="sr-only">X</span><svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24h-6.617l-5.21-6.817-6.044 6.817h-3.308l7.73-8.835-7.994-10.66h6.74l4.733 6.349 5.505-6.349zm-1.102 19.33h1.72l-10.4-13.84h-1.62l10.3 13.84z"/></svg></a>
+            </div>
+            <p class="text-sm text-gray-500 mt-8">© 2025 Sourav Saha. All Rights Reserved.</p>
         </div>
-        <p class="text-sm text-gray-500 mt-8">
-          © 2025 Sourav Saha. All Rights Reserved.
-        </p>
-      </div>
     </footer>
 
     <div id="cv-modal" class="modal-overlay hidden">
-      <div class="modal-content">
-        <button id="close-cv-modal" class="modal-close-btn" title="Close">
-          &times;
-        </button>
-        <div class="modal-header">
-          <h3 class="modal-title">My CV</h3>
-          <a
-            href="https://drive.google.com/uc?export=download&id=1HAuVM2tafxLJVT8rRBD5_0dJa81fgdLE"
-            class="download-btn"
-            download="Sourav_Saha_CV.pdf"
-            >Download PDF</a
-          >
+        <div class="modal-content">
+            <button id="close-cv-modal" class="modal-close-btn" title="Close">&times;</button>
+            <div class="modal-header"><h3 class="modal-title">My CV</h3><a href="https://drive.google.com/uc?export=download&id=1HAuVM2tafxLJVT8rRBD5_0dJa81fgdLE" class="download-btn" download="Sourav_Saha_CV.pdf">Download PDF</a></div>
+            <div class="iframe-container"><iframe src="https://drive.google.com/file/d/1HAuVM2tafxLJVT8rRBD5_0dJa81fgdLE/preview" width="100%" height="100%" frameborder="0"></iframe></div>
         </div>
-        <div class="iframe-container">
-          <iframe
-            src="https://drive.google.com/file/d/1HAuVM2tafxLJVT8rRBD5_0dJa81fgdLE/preview"
-            width="100%"
-            height="100%"
-            frameborder="0"
-          ></iframe>
+    </div>
+
+    <div id="newsletter-popup" class="newsletter-popup">
+        <button id="close-newsletter-popup" class="newsletter-close-btn" title="Close">&times;</button>
+        <div class="p-6">
+            <h3 class="font-bold text-white text-lg mb-2">Subscribe to my Newsletter</h3>
+            <p class="text-brand-secondary text-sm mb-4">Get my latest articles, projects, and insights delivered straight to your inbox.</p>
+            <div id="mc_embed_signup">
+                <form action="https://sourav.us14.list-manage.com/subscribe/post?u=2ec44c40ea05ef8e1c6c4c0a2&amp;id=1056671a4f&amp;f_id=005347e5f0" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" novalidate>
+                    <div class="flex flex-col sm:flex-row gap-2">
+                        <input type="email" name="EMAIL" class="form-input w-full" id="mce-EMAIL" placeholder="Enter your email" required>
+                        <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_2ec44c40ea05ef8e1c6c4c0a2_1056671a4f" tabindex="-1" value=""></div>
+                        <button type="submit" name="subscribe" id="mc-embedded-subscribe" class="submit-btn shrink-0">Subscribe</button>
+                    </div>
+                    <div id="newsletter-status" class="mt-4 text-center text-sm"></div>
+                </form>
+            </div>
         </div>
-      </div>
     </div>
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script src="script.js"></script>
-  </body>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // --- Preloader ---
+            const preloader = document.getElementById('preloader');
+            if (preloader) {
+                setTimeout(() => { preloader.classList.add('hidden'); }, 500);
+            }
+
+            // --- Initialize Animate on Scroll ---
+            AOS.init({ duration: 800, once: true });
+
+            // --- Mobile menu toggle ---
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            if (mobileMenuButton && mobileMenu) {
+                mobileMenuButton.addEventListener('click', () => { mobileMenu.classList.toggle('hidden'); });
+            }
+
+            // --- Header Scroll & Active Link Logic ---
+            const header = document.querySelector('header');
+            const navLinks = document.querySelectorAll('header nav a.nav-link');
+            const sections = document.querySelectorAll('main section[id]');
+            if (header) {
+                window.addEventListener('scroll', () => { header.classList.toggle('header-scrolled', window.scrollY > 50); });
+            }
+            const observerOptions = { root: null, rootMargin: '0px', threshold: 0.4 };
+            const observer = new IntersectionObserver((entries) => {
+                let currentActive = '';
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        currentActive = entry.target.id;
+                    }
+                });
+                navLinks.forEach(link => {
+                    const href = link.getAttribute('href').substring(1);
+                    if (href === currentActive || (currentActive === 'experience-education' && (href === 'experience-education'))) {
+                        link.classList.add('active-link');
+                    } else {
+                        link.classList.remove('active-link');
+                    }
+                });
+            }, observerOptions);
+            sections.forEach(section => { observer.observe(section); });
+
+            // --- Digital Rain Background ---
+            const canvas = document.getElementById('particle-canvas');
+            if (canvas) {
+                const ctx = canvas.getContext('2d');
+                let w = canvas.width = window.innerWidth;
+                let h = canvas.height = window.innerHeight;
+                let cols = Math.floor(w / 20) + 1;
+                let ypos = Array(cols).fill(0);
+                ctx.fillStyle = '#0f172a';
+                ctx.fillRect(0, 0, w, h);
+                function matrix() {
+                    ctx.fillStyle = 'rgba(15, 23, 42, 0.04)';
+                    ctx.fillRect(0, 0, w, h);
+                    ctx.fillStyle = 'rgba(0, 194, 169, 0.3)';
+                    ctx.font = '15pt monospace';
+                    ypos.forEach((y, ind) => {
+                        const text = String.fromCharCode(Math.random() * 128);
+                        const x = ind * 20;
+                        ctx.fillText(text, x, y);
+                        if (y > 100 + Math.random() * 10000) { ypos[ind] = 0; } else { ypos[ind] = y + 20; }
+                    });
+                }
+                setInterval(matrix, 60);
+                window.addEventListener('resize', () => {
+                    w = canvas.width = window.innerWidth;
+                    h = canvas.height = window.innerHeight;
+                    cols = Math.floor(w / 20) + 1;
+                    ypos = Array(cols).fill(0);
+                    ctx.fillStyle = '#0f172a';
+                    ctx.fillRect(0, 0, w, h);
+                });
+            }
+
+            // --- CV Modal Logic ---
+            const cvModal = document.getElementById('cv-modal');
+            const openCvBtns = document.querySelectorAll('.open-cv-btn');
+            const closeCvBtn = document.getElementById('close-cv-modal');
+            if(cvModal && openCvBtns.length && closeCvBtn) {
+                openCvBtns.forEach(btn => {
+                    btn.addEventListener('click', (e) => { e.preventDefault(); cvModal.classList.remove('hidden'); });
+                });
+                const closeModal = () => { cvModal.classList.add('hidden'); };
+                closeCvBtn.addEventListener('click', closeModal);
+                cvModal.addEventListener('click', (e) => { if (e.target === cvModal) { closeModal(); } });
+                document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && !cvModal.classList.contains('hidden')) { closeModal(); } });
+            }
+
+            // --- Contact Form Submission Logic ---
+            const contactForm = document.getElementById('contact-form');
+            if(contactForm) {
+                const formStatus = document.getElementById('form-status');
+                const submitBtnText = document.getElementById('submit-btn-text');
+                const submitBtnLoader = document.getElementById('submit-btn-loader');
+                contactForm.addEventListener('submit', function (e) {
+                    e.preventDefault();
+                    const formData = new FormData(contactForm);
+                    const object = Object.fromEntries(formData);
+                    const json = JSON.stringify(object);
+                    submitBtnText.classList.add('hidden');
+                    submitBtnLoader.classList.remove('hidden');
+                    formStatus.innerHTML = '';
+                    fetch('https://api.web3forms.com/submit', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+                        body: json
+                    })
+                    .then(async (response) => {
+                        let jsonResponse = await response.json();
+                        if (response.status == 200) {
+                            formStatus.innerHTML = `<span style="color: #00c2a9;">Submitted successfully!</span>`;
+                            contactForm.reset();
+                        } else {
+                            formStatus.innerHTML = `<span style="color: #ef4444;">${jsonResponse.message}</span>`;
+                        }
+                    })
+                    .catch(error => {
+                        console.error(error);
+                        formStatus.innerHTML = '<span style="color: #ef4444;">Something went wrong. Please try again.</span>';
+                    })
+                    .finally(() => {
+                        submitBtnText.classList.remove('hidden');
+                        submitBtnLoader.classList.add('hidden');
+                        setTimeout(() => { formStatus.innerHTML = ''; }, 5000);
+                    });
+                });
+            }
+
+            // --- Newsletter Popup Logic ---
+            const newsletterPopup = document.getElementById('newsletter-popup');
+            const closeNewsletterBtn = document.getElementById('close-newsletter-popup');
+            if (newsletterPopup && closeNewsletterBtn) {
+                const showPopup = () => {
+                    if (sessionStorage.getItem('newsletterPopupShown')) {
+                        window.removeEventListener('scroll', showPopup);
+                        return;
+                    }
+                    const scrollHeight = document.documentElement.scrollHeight;
+                    const clientHeight = document.documentElement.clientHeight;
+                    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+                    const scrollPercent = (scrollTop / (scrollHeight - clientHeight)) * 100;
+                    if (scrollPercent >= 80) {
+                        newsletterPopup.classList.add('is-visible');
+                        sessionStorage.setItem('newsletterPopupShown', 'true');
+                        window.removeEventListener('scroll', showPopup);
+                    }
+                };
+                const hidePopup = () => { newsletterPopup.classList.remove('is-visible'); };
+                window.addEventListener('scroll', showPopup);
+                closeNewsletterBtn.addEventListener('click', hidePopup);
+            }
+            
+            // --- Mailchimp AJAX Form ---
+            const mcForm = document.getElementById('mc-embedded-subscribe-form');
+            if (mcForm) {
+                const statusDiv = document.getElementById('newsletter-status');
+                mcForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    const emailInput = document.getElementById('mce-EMAIL');
+                    if (!emailInput.value) {
+                        statusDiv.innerHTML = `<span style="color: #ef4444;">Please enter an email address.</span>`;
+                        return;
+                    }
+                    
+                    const url = mcForm.action.replace('/post?', '/post-json?') + `&c=jsonpCallback`;
+                    statusDiv.innerHTML = 'Submitting...';
+
+                    const script = document.createElement('script');
+                    script.src = `${url}&EMAIL=${encodeURIComponent(emailInput.value)}`;
+                    document.body.appendChild(script);
+
+                    window.jsonpCallback = function(data) {
+                        if (data.result === 'success') {
+                            statusDiv.innerHTML = `<span style="color: #00c2a9;">Thank you for subscribing!</span>`;
+                            mcForm.reset();
+                        } else {
+                            let message = data.msg || 'An error occurred. Please try again.';
+                            if (message.includes('is already subscribed')) {
+                                message = 'This email is already subscribed.';
+                            } else if (message.includes('too many recent')) {
+                                message = 'Too many recent attempts. Please try again later.';
+                            }
+                            statusDiv.innerHTML = `<span style="color: #ef4444;">${message.replace(/<.+?>/g, '')}</span>`;
+                        }
+                        
+                        delete window.jsonpCallback;
+                        document.body.removeChild(script);
+                        setTimeout(() => { statusDiv.innerHTML = ''; }, 5000);
+                    };
+                });
+            }
+            
+            // --- Fetchers ---
+            fetchSubstackPosts();
+            fetchGithubRepos();
+        });
+
+        async function fetchSubstackPosts() {
+            const substackUrl = 'techtalkwithsourav.substack.com';
+            const postsGrid = document.getElementById('substack-posts-grid');
+            if (!postsGrid) return;
+            const rssUrl = `https://${substackUrl}/feed`;
+            const apiUrl = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(rssUrl)}`;
+            try {
+                const response = await fetch(apiUrl);
+                if (!response.ok) { throw new Error(`API error: ${response.status}`); }
+                const data = await response.json();
+                if (data.status !== 'ok' || !data.items || data.items.length === 0) {
+                    postsGrid.innerHTML = '<p class="text-brand-secondary col-span-full text-center">Could not find any articles.</p>';
+                    return;
+                }
+                postsGrid.innerHTML = '';
+                const articlesToShow = data.items.slice(0, 3);
+                articlesToShow.forEach(item => {
+                    const formattedDate = new Date(item.pubDate).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+                    const tempDiv = document.createElement('div');
+                    tempDiv.innerHTML = item.description;
+                    const snippet = tempDiv.textContent.trim().substring(0, 120) + '...';
+                    const articleCard = `<a href="${item.link}" target="_blank" rel="noopener noreferrer" class="article-card rounded-lg flex flex-col h-full"><img src="${item.thumbnail}" alt="${item.title}" class="article-card-thumbnail"><div class="article-card-content"><div class="flex-grow"><h3 class="text-xl font-bold text-white text-glow mb-2">${item.title}</h3><p class="text-brand-secondary/80 text-sm mb-4">${snippet}</p></div><p class="text-xs text-brand-secondary/60 mt-4">${formattedDate}</p></div></a>`;
+                    postsGrid.innerHTML += articleCard;
+                });
+            } catch (error) {
+                postsGrid.innerHTML = `<p class="text-red-400 col-span-full text-center">Failed to load articles. Please check the Substack URL.</p>`;
+                console.error('Substack Fetch Error:', error);
+            }
+        }
+
+        async function fetchGithubRepos() {
+            const username = 'souravsahapartho';
+            const repoGrid = document.getElementById('github-repos-grid');
+            if (!repoGrid) return;
+            const url = `https://api.github.com/users/${username}/repos?sort=pushed&per_page=6`;
+            try {
+                const response = await fetch(url);
+                if (!response.ok) { throw new Error(`GitHub API error: ${response.status}`); }
+                const repos = await response.json();
+                repoGrid.innerHTML = '';
+                if (repos.length === 0) {
+                    repoGrid.innerHTML = '<p class="text-brand-secondary col-span-full text-center">No public repositories found.</p>';
+                    return;
+                }
+                repos.forEach(repo => {
+                    const repoCard = `
+                        <a href="${repo.html_url}" target="_blank" rel="noopener noreferrer" class="repo-card p-6 rounded-lg flex flex-col h-full">
+                            <div class="flex-grow"><h3 class="text-xl font-bold text-white text-glow mb-2">${repo.name}</h3><p class="text-brand-secondary text-sm mb-4">${repo.description || 'No description provided.'}</p></div>
+                            <div class="flex items-center text-sm text-brand-secondary/80 mt-auto">
+                                ${repo.language ? `<span class="flex items-center mr-4"><span class="w-3 h-3 rounded-full mr-2 bg-brand-accent"></span>${repo.language}</span>` : ''}
+                                <span class="flex items-center mr-4"><svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 16 16"><path d="M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.522-3.356c.33-.314.16-.888-.282-.95l-4.898-.696L8.465.792a.513.513 0 0 0-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767-3.686 1.894.694-3.957a.565.565 0 0 0-.163-.505L1.71 6.745l4.052-.576a.525.525 0 0 0 .393-.288L8 2.223l1.847 3.658a.525.525 0 0 0 .393.288l4.052.575-2.906 2.77a.565.565 0 0 0-.163.506l.694 3.957-3.686-1.894a.503.503 0 0 0-.461 0z"/></svg>${repo.stargazers_count}</span>
+                                <span class="flex items-center"><svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M5 3.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0zm0 2.5a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0zm0 2.5a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0zm0 2.5a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0zM11 5.75a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0zm0 2.5a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0zm0 2.5a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0z"/></svg>${repo.forks_count}</span>
+                            </div>
+                        </a>
+                    `;
+                    repoGrid.innerHTML += repoCard;
+                });
+            } catch (error) {
+                repoGrid.innerHTML = `<p class="text-red-400 col-span-full text-center">Failed to load projects from GitHub. Please try again later.</p>`;
+                console.error('GitHub API Error:', error);
+            }
+        }
+    </script>
+</body>
 </html>
