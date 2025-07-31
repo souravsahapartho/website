@@ -3,7 +3,49 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Sourav Saha - Portfolio</title>
+
+    <!-- SEO & Sharing Meta Tags -->
+    <title>
+      Sourav Saha | CS Undergrad, Tech Enthusiast, Campus Ambassadorr
+    </title>
+    <meta
+      name="description"
+      content="Welcome to the portfolio of Sourav Saha, a passionate Computer Science student, tech writer, and student leader. Explore my projects, read my articles, and get in touch."
+    />
+    <meta
+      name="keywords"
+      content="Sourav Saha, portfolio, computer science, student leader, tech writer, developer, Bangladesh, UIU, Creative IT Institute"
+    />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <!-- 🔴 UPDATE THIS WITH YOUR LIVE URL -->
+    <meta property="og:url" content="https://sourav.com.bd/" />
+    <meta property="og:title" content="Sourav Saha" />
+    <meta
+      property="og:description"
+      content="A passionate Computer Science student, content writer, and student leader. Explore my work."
+    />
+    <!-- 🔴 UPDATE THIS IMAGE: Create a 1200x630px image and save it as image/share-card.jpg -->
+    <meta
+      property="og:image"
+      content="https://sourav.com.bd/image/share-card.jpg"
+    />
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <!-- 🔴 UPDATE THIS WITH YOUR LIVE URL -->
+    <meta property="twitter:url" content="https://sourav.com.bd/" />
+    <meta property="twitter:title" content="Sourav Saha" />
+    <meta
+      property="twitter:description"
+      content="A passionate Computer Science student, content writer, and student leader. Explore my work."
+    />
+    <!-- 🔴 UPDATE THIS IMAGE: Create a 1200x630px image and save it as image/share-card.jpg -->
+    <meta
+      property="twitter:image"
+      content="https://sourav.com.bd/image/share-card.jpg"
+    />
 
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -36,8 +78,12 @@
       .transition-all {
         transition: all 0.3s ease-in-out;
       }
-      body {
+      html {
         background: #0f172a;
+        overflow-x: hidden;
+      }
+      body {
+        background: transparent;
         color: #ffffff;
         overflow-x: hidden;
       }
@@ -115,6 +161,7 @@
       .nav-button {
         animation-delay: 1.2s;
       }
+
       #preloader {
         position: fixed;
         top: 0;
@@ -127,169 +174,21 @@
         justify-content: center;
         align-items: center;
         transition: opacity 0.8s ease-out, visibility 0.8s ease-out;
+        overflow: hidden;
       }
       #preloader.hidden {
         opacity: 0;
         visibility: hidden;
       }
-      .glitch-loader {
-        font-family: "Inter", sans-serif;
+      .matrix-loader {
+        font-family: "monospace";
         font-size: 2rem;
         font-weight: bold;
         color: #00c2a9;
-        position: relative;
+        text-shadow: 0 0 10px rgba(0, 194, 169, 0.7);
+        white-space: pre;
       }
-      .glitch-loader::before,
-      .glitch-loader::after {
-        content: attr(data-text);
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: #0f172a;
-        overflow: hidden;
-      }
-      .glitch-loader::before {
-        left: 2px;
-        text-shadow: -2px 0 #ff00c1;
-        animation: glitch-anim-1 2s infinite linear alternate-reverse;
-      }
-      .glitch-loader::after {
-        left: -2px;
-        text-shadow: -2px 0 #00fff9, 2px 2px #ff00c1;
-        animation: glitch-anim-2 2s infinite linear alternate-reverse;
-      }
-      @keyframes glitch-anim-1 {
-        0% {
-          clip: rect(42px, 9999px, 44px, 0);
-        }
-        5% {
-          clip: rect(12px, 9999px, 59px, 0);
-        }
-        10% {
-          clip: rect(35px, 9999px, 20px, 0);
-        }
-        15% {
-          clip: rect(48px, 9999px, 55px, 0);
-        }
-        20% {
-          clip: rect(13px, 9999px, 33px, 0);
-        }
-        25% {
-          clip: rect(45px, 9999px, 5px, 0);
-        }
-        30% {
-          clip: rect(27px, 9999px, 50px, 0);
-        }
-        35% {
-          clip: rect(10px, 9999px, 39px, 0);
-        }
-        40% {
-          clip: rect(47px, 9999px, 29px, 0);
-        }
-        45% {
-          clip: rect(18px, 9999px, 42px, 0);
-        }
-        50% {
-          clip: rect(42px, 9999px, 14px, 0);
-        }
-        55% {
-          clip: rect(21px, 9999px, 51px, 0);
-        }
-        60% {
-          clip: rect(10px, 9999px, 58px, 0);
-        }
-        65% {
-          clip: rect(38px, 9999px, 19px, 0);
-        }
-        70% {
-          clip: rect(15px, 9999px, 53px, 0);
-        }
-        75% {
-          clip: rect(25px, 9999px, 36px, 0);
-        }
-        80% {
-          clip: rect(40px, 9999px, 8px, 0);
-        }
-        85% {
-          clip: rect(14px, 9999px, 48px, 0);
-        }
-        90% {
-          clip: rect(30px, 9999px, 23px, 0);
-        }
-        95% {
-          clip: rect(52px, 9999px, 11px, 0);
-        }
-        100% {
-          clip: rect(1px, 9999px, 45px, 0);
-        }
-      }
-      @keyframes glitch-anim-2 {
-        0% {
-          clip: rect(2px, 9999px, 35px, 0);
-        }
-        5% {
-          clip: rect(28px, 9999px, 48px, 0);
-        }
-        10% {
-          clip: rect(19px, 9999px, 8px, 0);
-        }
-        15% {
-          clip: rect(42px, 9999px, 59px, 0);
-        }
-        20% {
-          clip: rect(4px, 9999px, 31px, 0);
-        }
-        25% {
-          clip: rect(15px, 9999px, 55px, 0);
-        }
-        30% {
-          clip: rect(51px, 9999px, 22px, 0);
-        }
-        35% {
-          clip: rect(12px, 9999px, 40px, 0);
-        }
-        40% {
-          clip: rect(3px, 9999px, 33px, 0);
-        }
-        45% {
-          clip: rect(20px, 9999px, 58px, 0);
-        }
-        50% {
-          clip: rect(45px, 9999px, 1px, 0);
-        }
-        55% {
-          clip: rect(29px, 9999px, 47px, 0);
-        }
-        60% {
-          clip: rect(1px, 9999px, 39px, 0);
-        }
-        65% {
-          clip: rect(17px, 9999px, 50px, 0);
-        }
-        70% {
-          clip: rect(49px, 9999px, 25px, 0);
-        }
-        75% {
-          clip: rect(10px, 9999px, 43px, 0);
-        }
-        80% {
-          clip: rect(33px, 9999px, 5px, 0);
-        }
-        85% {
-          clip: rect(59px, 9999px, 27px, 0);
-        }
-        90% {
-          clip: rect(8px, 9999px, 41px, 0);
-        }
-        95% {
-          clip: rect(37px, 9999px, 17px, 0);
-        }
-        100% {
-          clip: rect(2px, 9999px, 52px, 0);
-        }
-      }
+
       .typing-effect {
         display: inline-block;
         overflow: hidden;
@@ -460,6 +359,7 @@
         object-fit: cover;
         border-top-left-radius: 0.5rem;
         border-top-right-radius: 0.5rem;
+        background-color: #1e293b;
       }
       .article-card-content {
         padding: 1.5rem;
@@ -550,9 +450,9 @@
       }
     </style>
   </head>
-  <body class="font-sans">
+  <body class="font-sans" oncontextmenu="return false;">
     <div id="preloader">
-      <div class="glitch-loader" data-text="Sourav Saha">Sourav Saha</div>
+      <div id="matrix-loader" class="matrix-loader"></div>
     </div>
 
     <canvas id="particle-canvas"></canvas>
@@ -679,16 +579,18 @@
             class="text-4xl sm:text-5xl md:text-6xl font-bold text-white leading-tight mb-4 text-glow"
             data-aos="fade-up"
           >
-            Hi, I’m Sourav Saha
+            <span
+              class="block font-light text-3xl sm:text-4xl md:text-5xl text-brand-secondary/80 mb-2"
+              >Hi,</span
+            >
+            I’m Sourav Saha
           </h1>
           <p
             class="text-lg md:text-xl text-brand-secondary mb-8 text-shadow"
             data-aos="fade-up"
             data-aos-delay="200"
           >
-            <span class="typing-effect"
-              >Learning | Building | Growing</span
-            >
+            <span class="typing-effect">Learning | Building | Growing</span>
           </p>
           <a
             href="#about"
@@ -708,7 +610,7 @@
           >
             <div class="w-full md:w-1/3 flex-shrink-0">
               <img
-                src="Image/profile.jpg"
+                src="image/profile.jpg"
                 alt="Sourav Saha"
                 class="rounded-full shadow-2xl w-48 h-48 sm:w-64 sm:h-64 mx-auto object-cover"
               />
@@ -720,10 +622,11 @@
                 About Me
               </h2>
               <p class="text-brand-secondary leading-relaxed text-shadow mb-4">
-                I’m Sourav Saha, a passionate Computer Science student and
-                Campus Ambassador at Creative IT Institute. With a strong
-                interest in technology and creativity, I’m constantly exploring
-                ways to grow, connect, and make an impact.
+                I’m Sourav Saha, a passionate Computer Science student at United
+                International University and Campus Ambassador at Creative IT
+                Institute. With a strong interest in technology and creativity,
+                I’m constantly exploring ways to grow, connect, and make an
+                impact.
               </p>
               <p class="text-brand-secondary leading-relaxed text-shadow mb-4">
                 <strong>My Mission:</strong> To empower myself and others
@@ -872,7 +775,7 @@
                   class="list-disc list-inside space-y-1 text-brand-secondary text-sm"
                 >
                   <li>Active Member: UIUCCL, UIUDS</li>
-                  <li>Participant, UIU Data Science Club Workshops</li>
+                  <li>Ex. Executive of HR at UIU Entrepreneur Development Forum</li>
                   <li>Campus Ambassador Program Activities</li>
                   <li>Volunteer at Tech Seminars and Events</li>
                 </ul>
@@ -891,7 +794,7 @@
                   class="flex flex-wrap gap-x-4 gap-y-1 text-sm text-brand-secondary/70 my-2"
                 >
                   <span>📍 Sirajganj, Bangladesh</span
-                  ><span>📅 July 2019 – 2021</span>
+                  ><span>� July 2019 – 2021</span>
                 </div>
               </div>
               <div class="relative">
@@ -992,7 +895,7 @@
           <h2
             class="text-3xl sm:text-4xl font-bold text-center text-white mb-8 md:mb-12 text-glow"
           >
-            Latest Projects
+            GitHub Repositories
           </h2>
           <div
             id="github-repos-grid"
@@ -1268,10 +1171,46 @@
       document.addEventListener("DOMContentLoaded", () => {
         // --- Preloader ---
         const preloader = document.getElementById("preloader");
+        const loaderContainer = document.getElementById("matrix-loader");
+        const loaderText = "Sourav Saha";
+        const chars = "souravh";
+
+        if (loaderContainer) {
+          let textSpans = [];
+          loaderText.split("").forEach((char) => {
+            const span = document.createElement("span");
+            if (char === " ") {
+              span.className = "mx-2";
+            } else {
+              span.textContent = char;
+            }
+            loaderContainer.appendChild(span);
+            textSpans.push({
+              element: span,
+              finalChar: char,
+              isSpace: char === " ",
+            });
+          });
+
+          textSpans.forEach((spanData, index) => {
+            if (spanData.isSpace) return;
+
+            let interval = setInterval(() => {
+              spanData.element.textContent =
+                chars[Math.floor(Math.random() * chars.length)];
+            }, 50);
+
+            setTimeout(() => {
+              clearInterval(interval);
+              spanData.element.textContent = spanData.finalChar;
+            }, 1000 + index * 50);
+          });
+        }
+
         if (preloader) {
           setTimeout(() => {
             preloader.classList.add("hidden");
-          }, 500);
+          }, 2500);
         }
 
         // --- Initialize Animate on Scroll ---
@@ -1283,6 +1222,14 @@
         if (mobileMenuButton && mobileMenu) {
           mobileMenuButton.addEventListener("click", () => {
             mobileMenu.classList.toggle("hidden");
+          });
+
+          // Add click listener to links inside mobile menu to close it
+          const mobileMenuLinks = mobileMenu.querySelectorAll("a, button");
+          mobileMenuLinks.forEach((link) => {
+            link.addEventListener("click", () => {
+              mobileMenu.classList.add("hidden");
+            });
           });
         }
 
@@ -1524,7 +1471,7 @@
         const rssUrl = `https://${substackUrl}/feed`;
         const apiUrl = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(
           rssUrl
-        )}`;
+        )}&_=${new Date().getTime()}`;
         try {
           const response = await fetch(apiUrl);
           if (!response.ok) {
@@ -1547,7 +1494,18 @@
             tempDiv.innerHTML = item.description;
             const snippet =
               tempDiv.textContent.trim().substring(0, 120) + "...";
-            const articleCard = `<a href="${item.link}" target="_blank" rel="noopener noreferrer" class="article-card rounded-lg flex flex-col h-full"><img src="${item.thumbnail}" alt="${item.title}" class="article-card-thumbnail"><div class="article-card-content"><div class="flex-grow"><h3 class="text-xl font-bold text-white text-glow mb-2">${item.title}</h3><p class="text-brand-secondary/80 text-sm mb-4">${snippet}</p></div><p class="text-xs text-brand-secondary/60 mt-4">${formattedDate}</p></div></a>`;
+
+            let imageUrl = item.thumbnail;
+            if (!imageUrl || imageUrl.length === 0) {
+              const firstImg = tempDiv.querySelector("img");
+              imageUrl = firstImg ? firstImg.src : null;
+            }
+
+            const imageElement = imageUrl
+              ? `<img src="${imageUrl}" alt="${item.title}" class="article-card-thumbnail" onerror="this.style.display='none'">`
+              : "";
+
+            const articleCard = `<a href="${item.link}" target="_blank" rel="noopener noreferrer" class="article-card rounded-lg flex flex-col h-full">${imageElement}<div class="article-card-content"><div class="flex-grow"><h3 class="text-xl font-bold text-white text-glow mb-2">${item.title}</h3><p class="text-brand-secondary/80 text-sm mb-4">${snippet}</p></div><p class="text-xs text-brand-secondary/60 mt-4">${formattedDate}</p></div></a>`;
             postsGrid.innerHTML += articleCard;
           });
         } catch (error) {
@@ -1608,3 +1566,4 @@
     </script>
   </body>
 </html>
+
