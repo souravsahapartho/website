@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     
     <!-- Favicon -->
-    <link rel="icon" href="Image/favicon.jpg" type="image/jpeg">
+    <link rel="icon" href="https://placehold.co/32x32/00c2a9/ffffff?text=SS" type="image/png">
 
     <!-- SEO & Sharing Meta Tags -->
     <title>Sourav Saha</title>
@@ -61,7 +61,7 @@
         .text-glow { text-shadow: 0 0 8px rgba(0, 194, 169, 0.5), 0 0 20px rgba(0, 0, 0, 0.7); }
         .text-shadow { text-shadow: 0 2px 5px rgba(0, 0, 0, 0.6); }
         header { transition: background-color 0.4s ease-out; }
-        header.header-scrolled { background-color: rgba(15, 23, 42, 0.7); }
+        header.header-scrolled { background-color: rgba(15, 23, 42, 0.7); backdrop-filter: blur(10px); }
         .nav-link { position: relative; padding-bottom: 5px; }
         .nav-link::after { content: ''; position: absolute; bottom: 0; left: 0; width: 100%; height: 2px; background-color: #00c2a9; transform: scaleX(0); transform-origin: center; transition: transform 0.3s ease-out; }
         .nav-link:hover::after, .nav-link.active-link::after { transform: scaleX(1); }
@@ -163,6 +163,41 @@
         #back-to-top-btn:hover {
              background-color: #00a591;
         }
+        
+        /* --- Updated Progress Bar Styles --- */
+        @keyframes gradient-animation {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .skill-item { margin-bottom: 1.5rem; }
+        .skill-info { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem; }
+        .skill-name { font-weight: 600; color: #e2e8f0; font-size: 1rem; }
+        .skill-percent { font-size: 0.875rem; font-weight: 500; color: #94a3b8; }
+        .progress-bar-container { 
+            width: 100%; 
+            background-color: rgba(255, 255, 255, 0.05); 
+            border-radius: 9999px; 
+            height: 10px; 
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .progress-bar {
+            background-image: linear-gradient(-45deg, #00c2a9, #00a591, #00c2a9, #4fd1c5);
+            background-size: 200% 200%;
+            height: 100%;
+            border-radius: 9999px;
+            width: 0; /* Initial width */
+            transition: width 2s cubic-bezier(0.23, 1, 0.32, 1);
+            animation: gradient-animation 4s ease infinite;
+            box-shadow: 0 0 10px rgba(0, 194, 169, 0);
+        }
+        .progress-bar.animated {
+            width: var(--progress-width);
+            box-shadow: 0 0 15px rgba(0, 194, 169, 0.5);
+            transition: width 2s cubic-bezier(0.23, 1, 0.32, 1), box-shadow 1.5s ease-in-out 0.5s;
+        }
     </style>
 </head>
 <body class="font-sans" oncontextmenu="return false;">
@@ -172,7 +207,7 @@
 
     <canvas id="particle-canvas"></canvas>
 
-    <header class="bg-transparent backdrop-blur-lg fixed top-0 left-0 right-0 z-50">
+    <header class="bg-transparent fixed top-0 left-0 right-0 z-50">
         <nav class="container mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
             <a href="#" class="header-logo text-xl md:text-2xl font-bold text-white text-glow">Sourav Saha</a>
             <div class="hidden md:flex items-center space-x-6">
@@ -213,7 +248,7 @@
             <div class="container mx-auto">
                 <div class="flex flex-col md:flex-row items-center gap-8 md:gap-12" data-aos="fade-right">
                     <div class="w-full md:w-1/3 flex-shrink-0">
-                        <img src="Image/profile.jpg" alt="Sourav Saha" class="rounded-full shadow-2xl w-48 h-48 sm:w-64 sm:h-64 mx-auto object-cover" onerror="this.onerror=null;this.src='https://placehold.co/256x256/1e293b/ffffff?text=Profile+Image';" />
+                        <img src="https://placehold.co/256x256/1e293b/ffffff?text=Profile" alt="Sourav Saha" class="rounded-full shadow-2xl w-48 h-48 sm:w-64 sm:h-64 mx-auto object-cover" onerror="this.onerror=null;this.src='https://placehold.co/256x256/1e293b/ffffff?text=Profile+Image';" />
                     </div>
                     <div class="w-full md:w-2/3 text-center md:text-left">
                         <h2 class="text-3xl sm:text-4xl font-bold text-white mb-4 text-glow">About Me</h2>
@@ -240,19 +275,49 @@
                     <div class="max-w-3xl mx-auto border-l-2 border-brand-accent/30 pl-6 sm:pl-10 relative">
                         <div class="mb-8 relative"><div class="absolute -left-[30px] sm:-left-[46px] top-1 w-4 h-4 rounded-full bg-brand-accent border-4 border-brand-dark"></div><h3 class="text-2xl font-bold text-white text-shadow">Bachelor of Science in CSE</h3><p class="text-lg text-brand-secondary/90 font-medium">United International University</p><div class="flex flex-wrap gap-x-4 gap-y-1 text-sm text-brand-secondary/70 my-2"><span>📍 Dhaka, Bangladesh</span><span>📅 September 2023 – Present</span></div><p class="inline-block p-2 my-2 bg-brand-accent/10 rounded-md text-brand-accent text-sm font-semibold">C | C++ | Java</p><h4 class="font-semibold text-brand-secondary/90 mt-4 mb-2">Activities & Involvement:</h4><ul class="list-disc list-inside space-y-1 text-brand-secondary text-sm"><li>Active Member: UIUCCL, UIUDS</li><li>Ex. Executive of HR at UIU Entrepreneur Development Forum</li><li>Campus Ambassador Program Activities</li><li>Volunteer at Tech Seminars and Events</li></ul></div>
                         <div class="mb-8 relative"><div class="absolute -left-[30px] sm:-left-[46px] top-1 w-4 h-4 rounded-full bg-brand-accent border-4 border-brand-dark"></div><h3 class="text-2xl font-bold text-white text-shadow">Higher Secondary</h3><p class="text-lg text-brand-secondary/90 font-medium">Islamia Government College</p><div class="flex flex-wrap gap-x-4 gap-y-1 text-sm text-brand-secondary/70 my-2"><span>📍 Sirajganj, Bangladesh</span><span>📅 2019 – 2021</span></div></div>
-                        <div class="relative"><div class="absolute -left-[30px] sm:-left-[46px] top-1 w-4 h-4 rounded-full bg-brand-accent border-4 border-brand-dark"></div><h3 class="text-2xl font-bold text-white text-shadow">Secondary School</h3><p class="text-lg text-brand-secondary/90 font-medium">B.L. Government High School</p><div class="flex flex-wrap gap-x-4 gap-y-1 text-sm text-brand-secondary/70 my-2"><span>📍 Sirajganj, Bangladesh</span><span>📅 2014 – 2018</span></div></div>
+                        <div class="relative"><div class="absolute -left-[30px] sm:-left-[46px] top-1 w-4 h-4 rounded-full bg-brand-accent border-4 border-brand-dark"></div><h3 class="text-2xl font-bold text-white text-shadow">Secondary School</h3><p class="text-lg text-brand-secondary/90 font-medium">B.L. Government High School</p<div class="flex flex-wrap gap-x-4 gap-y-1 text-sm text-brand-secondary/70 my-2"><span>📍 Sirajganj, Bangladesh</span><span>📅 2014 – 2018</span></div></div>
                     </div>
                 </div>
             </div>
         </section>
         
+        <!-- === Skills Section Updated with Progress Bars === -->
         <section id="skills" class="px-4 sm:px-6 lg:px-8 pt-12 md:pt-16">
             <div class="container mx-auto" data-aos="fade-up">
                 <h2 class="text-3xl sm:text-4xl font-bold text-center text-white mb-8 md:mb-12 text-glow">My Skills</h2>
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-12">
-                    <div class="bg-white/5 p-6 rounded-lg"><h3 class="text-2xl font-bold mb-4 text-center text-white text-shadow">💻 Programming Languages</h3><ul class="space-y-2 text-brand-secondary"><li class="bg-white/5 p-3 rounded-md text-center">C</li><li class="bg-white/5 p-3 rounded-md text-center">C++</li><li class="bg-white/5 p-3 rounded-md text-center">Java</li><li class="bg-white/5 p-3 rounded-md text-center">HTML</li><li class="bg-white/5 p-3 rounded-md text-center">CSS</li></ul></div>
-                    <div class="bg-white/5 p-6 rounded-lg"><h3 class="text-2xl font-bold mb-4 text-center text-white text-shadow">🧠 Technical Skills</h3><ul class="space-y-2 text-brand-secondary"><li class="bg-white/5 p-3 rounded-md text-center">Web Content Writing</li><li class="bg-white/5 p-3 rounded-md text-center">Responsive Web Design</li><li class="bg-white/5 p-3 rounded-md text-center">Object-Oriented Programming (OOP)</li><li class="bg-white/5 p-3 rounded-md text-center">Microsoft PowerPoint, Word, Excel</li></ul></div>
-                    <div class="bg-white/5 p-6 rounded-lg"><h3 class="text-2xl font-bold mb-4 text-center text-white text-shadow">🎯 Soft Skills</h3><ul class="space-y-2 text-brand-secondary"><li class="bg-white/5 p-3 rounded-md text-center">Communication</li><li class="bg-white/5 p-3 rounded-md text-center">Leadership</li><li class="bg-white/5 p-3 rounded-md text-center">Teamwork</li><li class="bg-white/5 p-3 rounded-md text-center">Time Management</li><li class="bg-white/5 p-3 rounded-md text-center">Public Speaking</li></ul></div>
+                    
+                    <div class="bg-white/5 p-6 rounded-lg">
+                        <h3 class="text-2xl font-bold mb-6 text-center text-white text-shadow">💻 Programming</h3>
+                        <div class="space-y-5">
+                            <div class="skill-item"><div class="skill-info"><span class="skill-name">C</span><span class="skill-percent">80%</span></div><div class="progress-bar-container"><div class="progress-bar" style="--progress-width: 80%;"></div></div></div>
+                            <div class="skill-item"><div class="skill-info"><span class="skill-name">C++</span><span class="skill-percent">85%</span></div><div class="progress-bar-container"><div class="progress-bar" style="--progress-width: 85%;"></div></div></div>
+                            <div class="skill-item"><div class="skill-info"><span class="skill-name">Java</span><span class="skill-percent">75%</span></div><div class="progress-bar-container"><div class="progress-bar" style="--progress-width: 75%;"></div></div></div>
+                            <div class="skill-item"><div class="skill-info"><span class="skill-name">HTML</span><span class="skill-percent">95%</span></div><div class="progress-bar-container"><div class="progress-bar" style="--progress-width: 95%;"></div></div></div>
+                            <div class="skill-item"><div class="skill-info"><span class="skill-name">CSS</span><span class="skill-percent">90%</span></div><div class="progress-bar-container"><div class="progress-bar" style="--progress-width: 90%;"></div></div></div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white/5 p-6 rounded-lg">
+                        <h3 class="text-2xl font-bold mb-6 text-center text-white text-shadow">🧠 Technical</h3>
+                        <div class="space-y-5">
+                            <div class="skill-item"><div class="skill-info"><span class="skill-name">Web Content Writing</span><span class="skill-percent">90%</span></div><div class="progress-bar-container"><div class="progress-bar" style="--progress-width: 90%;"></div></div></div>
+                            <div class="skill-item"><div class="skill-info"><span class="skill-name">Responsive Web Design</span><span class="skill-percent">85%</span></div><div class="progress-bar-container"><div class="progress-bar" style="--progress-width: 85%;"></div></div></div>
+                            <div class="skill-item"><div class="skill-info"><span class="skill-name">Object-Oriented Programming</span><span class="skill-percent">80%</span></div><div class="progress-bar-container"><div class="progress-bar" style="--progress-width: 80%;"></div></div></div>
+                            <div class="skill-item"><div class="skill-info"><span class="skill-name">Microsoft Office Suite</span><span class="skill-percent">95%</span></div><div class="progress-bar-container"><div class="progress-bar" style="--progress-width: 95%;"></div></div></div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white/5 p-6 rounded-lg">
+                        <h3 class="text-2xl font-bold mb-6 text-center text-white text-shadow">🎯 Soft Skills</h3>
+                        <div class="space-y-5">
+                            <div class="skill-item"><div class="skill-info"><span class="skill-name">Communication</span><span class="skill-percent">90%</span></div><div class="progress-bar-container"><div class="progress-bar" style="--progress-width: 90%;"></div></div></div>
+                            <div class="skill-item"><div class="skill-info"><span class="skill-name">Leadership</span><span class="skill-percent">85%</span></div><div class="progress-bar-container"><div class="progress-bar" style="--progress-width: 85%;"></div></div></div>
+                            <div class="skill-item"><div class="skill-info"><span class="skill-name">Teamwork</span><span class="skill-percent">95%</span></div><div class="progress-bar-container"><div class="progress-bar" style="--progress-width: 95%;"></div></div></div>
+                            <div class="skill-item"><div class="skill-info"><span class="skill-name">Time Management</span><span class="skill-percent">80%</span></div><div class="progress-bar-container"><div class="progress-bar" style="--progress-width: 80%;"></div></div></div>
+                            <div class="skill-item"><div class="skill-info"><span class="skill-name">Public Speaking</span><span class="skill-percent">85%</span></div><div class="progress-bar-container"><div class="progress-bar" style="--progress-width: 85%;"></div></div></div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
@@ -271,11 +336,13 @@
             </div>
         </section>
 
+        <!-- === Contact Form Section Updated === -->
         <section id="contact" class="px-4 sm:px-6 lg:px-8 py-12 md:py-16">
             <div class="container mx-auto text-center" data-aos="fade-up">
                 <div class="max-w-2xl mx-auto">
                     <h2 class="text-3xl sm:text-4xl font-bold text-white mb-8 text-glow">Send Me a Message</h2>
                     <form id="contact-form" action="https://api.web3forms.com/submit" method="POST" class="space-y-6 text-left">
+                        <!-- IMPORTANT: Replace this value with the new access key for hello@sourav.com.bd -->
                         <input type="hidden" name="access_key" value="96c3673c-ea3d-41fc-86a7-8c82fb43aef1">
                         <input type="checkbox" name="botcheck" class="hidden" style="display: none;">
                         <div><label for="name" class="form-label">Full Name</label><input type="text" name="name" id="name" required class="form-input"></div>
@@ -542,150 +609,4 @@
                             const popup = document.getElementById('newsletter-popup');
                             if (popup) popup.classList.remove('is-visible');
                         }, 5000);
-                    });
-                });
-            }
-
-            // --- Unified Scroll Logic Handler ---
-            const newsletterPopup = document.getElementById('newsletter-popup');
-            const closeNewsletterBtn = document.getElementById('close-newsletter-popup');
-            const backToTopBtn = document.getElementById('back-to-top-btn');
-            let isPopupBlocked = false;
-
-            // Check if the popup was closed within the last 24 hours
-            const closedTimestamp = localStorage.getItem('newsletterPopupClosedAt');
-            if (closedTimestamp) {
-                const hoursSinceClosed = (new Date().getTime() - parseInt(closedTimestamp)) / (1000 * 60 * 60);
-                if (hoursSinceClosed < 24) {
-                    isPopupBlocked = true;
-                } else {
-                    // More than 24 hours have passed, so we can show it again.
-                    localStorage.removeItem('newsletterPopupClosedAt');
-                }
-            }
-
-            if (newsletterPopup && closeNewsletterBtn) {
-                 const hidePopup = () => {
-                    newsletterPopup.classList.remove('is-visible');
-                    // Block it for the next 24 hours
-                    localStorage.setItem('newsletterPopupClosedAt', new Date().getTime().toString());
-                    isPopupBlocked = true;
-                };
-                closeNewsletterBtn.addEventListener('click', hidePopup);
-            }
-
-            if (backToTopBtn) {
-                 backToTopBtn.addEventListener('click', () => {
-                    window.scrollTo({
-                        top: 0,
-                        behavior: 'smooth'
-                    });
-                });
-            }
-            
-            const masterScrollHandler = () => {
-                const scrollPosition = window.scrollY;
-                const windowHeight = window.innerHeight;
-                const documentHeight = document.documentElement.scrollHeight;
-                const scrollPercentage = (documentHeight - windowHeight) > 0 
-                    ? (scrollPosition / (documentHeight - windowHeight)) * 100
-                    : 0;
-
-                // Back to Top Button Logic
-                if (backToTopBtn) {
-                    if (scrollPercentage >= 50) {
-                        backToTopBtn.classList.add('visible');
-                    } else {
-                        backToTopBtn.classList.remove('visible');
-                    }
-                }
-
-                // Newsletter Popup Logic
-                if (newsletterPopup && !isPopupBlocked && scrollPercentage >= 90) {
-                    newsletterPopup.classList.add('is-visible');
-                }
-            };
-
-            window.addEventListener('scroll', masterScrollHandler, { passive: true });
-            
-            // --- Fetchers ---
-            fetchSubstackPosts();
-            fetchGithubRepos();
-        });
-
-        async function fetchSubstackPosts() {
-            const substackUrl = 'techtalkwithsourav.substack.com';
-            const postsGrid = document.getElementById('substack-posts-grid');
-            if (!postsGrid) return;
-            const rssUrl = `https://${substackUrl}/feed`;
-            const apiUrl = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(rssUrl)}&_=${new Date().getTime()}`;
-            try {
-                const response = await fetch(apiUrl);
-                if (!response.ok) { throw new Error(`API error: ${response.status}`); }
-                const data = await response.json();
-                if (data.status !== 'ok' || !data.items || data.items.length === 0) {
-                    postsGrid.innerHTML = '<p class="text-brand-secondary col-span-full text-center">Could not find any articles.</p>';
-                    return;
-                }
-                postsGrid.innerHTML = '';
-                const articlesToShow = data.items.slice(0, 3);
-                articlesToShow.forEach(item => {
-                    const formattedDate = new Date(item.pubDate).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
-                    const tempDiv = document.createElement('div');
-                    tempDiv.innerHTML = item.description;
-                    const snippet = tempDiv.textContent.trim().substring(0, 120) + '...';
                     
-                    let imageUrl = item.thumbnail;
-                    if (!imageUrl || imageUrl.length === 0) {
-                        const firstImg = tempDiv.querySelector('img');
-                        imageUrl = firstImg ? firstImg.src : null;
-                    }
-
-                    const imageElement = imageUrl 
-                        ? `<img src="${imageUrl}" alt="${item.title}" class="article-card-thumbnail" onerror="this.style.display='none'">`
-                        : '';
-
-                    const articleCard = `<a href="${item.link}" target="_blank" rel="noopener noreferrer" class="article-card rounded-lg flex flex-col h-full">${imageElement}<div class="article-card-content"><div class="flex-grow"><h3 class="text-xl font-bold text-white text-glow mb-2">${item.title}</h3><p class="text-brand-secondary/80 text-sm mb-4">${snippet}</p></div><p class="text-xs text-brand-secondary/60 mt-4">${formattedDate}</p></div></a>`;
-                    postsGrid.innerHTML += articleCard;
-                });
-            } catch (error) {
-                postsGrid.innerHTML = `<p class="text-red-400 col-span-full text-center">Failed to load articles. Please check the Substack URL.</p>`;
-                console.error('Substack Fetch Error:', error);
-            }
-        }
-
-        async function fetchGithubRepos() {
-            const username = 'souravsahapartho';
-            const repoGrid = document.getElementById('github-repos-grid');
-            if (!repoGrid) return;
-            const url = `https://api.github.com/users/${username}/repos?sort=pushed&per_page=6`;
-            try {
-                const response = await fetch(url);
-                if (!response.ok) { throw new Error(`GitHub API error: ${response.status}`); }
-                const repos = await response.json();
-                repoGrid.innerHTML = '';
-                if (repos.length === 0) {
-                    repoGrid.innerHTML = '<p class="text-brand-secondary col-span-full text-center">No public repositories found.</p>';
-                    return;
-                }
-                repos.forEach(repo => {
-                    const repoCard = `
-                        <a href="${repo.html_url}" target="_blank" rel="noopener noreferrer" class="repo-card p-6 rounded-lg flex flex-col h-full">
-                            <div class="flex-grow"><h3 class="text-xl font-bold text-white text-glow mb-2">${repo.name}</h3><p class="text-brand-secondary text-sm mb-4">${repo.description || 'No description provided.'}</p></div>
-                            <div class="flex items-center text-sm text-brand-secondary/80 mt-auto">
-                                ${repo.language ? `<span class="flex items-center mr-4"><span class="w-3 h-3 rounded-full mr-2 bg-brand-accent"></span>${repo.language}</span>` : ''}
-                                <span class="flex items-center mr-4"><svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 16 16"><path d="M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.522-3.356c.33-.314.16-.888-.282-.95l-4.898-.696L8.465.792a.513.513 0 0 0-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767-3.686 1.894.694-3.957a.565.565 0 0 0-.163-.505L1.71 6.745l4.052-.576a.525.525 0 0 0 .393-.288L8 2.223l1.847 3.658a.525.525 0 0 0 .393.288l4.052.575-2.906 2.77a.565.565 0 0 0-.163.506l.694 3.957-3.686-1.894a.503.503 0 0 0-.461 0z"/></svg>${repo.stargazers_count}</span>
-                                <span class="flex items-center"><svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M5 3.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0zm0 2.5a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0zm0 2.5a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0zm0 2.5a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0zM11 5.75a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0zm0 2.5a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0zm0 2.5a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0z"/></svg>${repo.forks_count}</span>
-                            </div>
-                        </a>
-                    `;
-                    repoGrid.innerHTML += repoCard;
-                });
-            } catch (error) {
-                repoGrid.innerHTML = `<p class="text-red-400 col-span-full text-center">Failed to load projects from GitHub. Please try again later.</p>`;
-                console.error('GitHub API Error:', error);
-            }
-        }
-    </script>
-</body>
-</html>
