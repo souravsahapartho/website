@@ -181,7 +181,7 @@
             <div class="container mx-auto">
                 <div class="flex flex-col md:flex-row items-center gap-8 md:gap-12" data-aos="fade-right">
                     <div class="w-full md:w-1/3 flex-shrink-0">
-                        <img src="Image/profile.jpg" alt="Sourav Saha" class="rounded-full shadow-2xl w-48 h-48 sm:w-64 sm:h-64 mx-auto object-cover" />
+                        <img src="https://placehold.co/256x256/1e293b/ffffff?text=Sourav" alt="Sourav Saha" class="rounded-full shadow-2xl w-48 h-48 sm:w-64 sm:h-64 mx-auto object-cover" onerror="this.onerror=null;this.src='https://placehold.co/256x256/1e293b/ffffff?text=Profile+Image';" />
                     </div>
                     <div class="w-full md:w-2/3 text-center md:text-left">
                         <h2 class="text-3xl sm:text-4xl font-bold text-white mb-4 text-glow">About Me</h2>
@@ -258,7 +258,6 @@
         </section>
     </main>
 
-    <div id="newsletter-trigger"></div>
     <footer class="border-t border-white/10 mt-8 pt-8 pb-8 px-4 sm:px-6 lg:px-8">
         <div class="container mx-auto text-center text-gray-400">
             <div class="flex justify-center space-x-6 mb-4">
@@ -267,7 +266,7 @@
                 <a href="https://www.facebook.com/souravsahapartho/" target="_blank" rel="noopener noreferrer" title="Facebook" class="hover:text-brand-accent transition-colors"><span class="sr-only">Facebook</span><svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.667c0-.955.192-1.333 1.115-1.333h2.885v-5h-3.808c-3.596 0-5.192 1.583-5.192 4.615v3.385z"/></svg></a>
                 <a href="https://x.com/souravpartho" target="_blank" rel="noopener noreferrer" title="X" class="hover:text-brand-accent transition-colors"><span class="sr-only">X</span><svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24h-6.617l-5.21-6.817-6.044 6.817h-3.308l7.73-8.835-7.994-10.66h6.74l4.733 6.349 5.505-6.349zm-1.102 19.33h1.72l-10.4-13.84h-1.62l10.3 13.84z"/></svg></a>
             </div>
-            <p class="text-sm text-gray-500 mt-8">© 2024 Sourav Saha. All Rights Reserved.</p>
+            <p class="text-sm text-gray-500 mt-8">© 2025 Sourav Saha. All Rights Reserved.</p>
         </div>
     </footer>
 
@@ -471,55 +470,53 @@
                 });
             }
 
-            // --- Newsletter Popup Logic (REVISED FOR CROSS-BROWSER COMPATIBILITY) ---
+            // --- Newsletter Popup on 90% Scroll Logic ---
             const newsletterPopup = document.getElementById('newsletter-popup');
             const closeNewsletterBtn = document.getElementById('close-newsletter-popup');
-            const newsletterTrigger = document.getElementById('newsletter-trigger');
 
-            if (newsletterPopup && closeNewsletterBtn && newsletterTrigger) {
+            if (newsletterPopup && closeNewsletterBtn) {
                 let popupShown = sessionStorage.getItem('newsletterPopupShown') === 'true';
-                let observer;
 
                 const displayPopup = () => {
                     if (popupShown) return;
                     newsletterPopup.classList.add('is-visible');
                     sessionStorage.setItem('newsletterPopupShown', 'true');
                     popupShown = true;
-                    // Stop observing once the popup is shown.
-                    if (observer) {
-                        observer.disconnect();
-                    }
-                    clearTimeout(popupTimer);
+                    // Once shown, remove the scroll listener for performance
+                    window.removeEventListener('scroll', handleScroll);
                 };
 
                 const hidePopup = () => {
                     newsletterPopup.classList.remove('is-visible');
                 };
-
-                // Fallback timer in case the observer doesn't fire
-                const popupTimer = setTimeout(displayPopup, 15000);
-
-                const observerCallback = (entries) => {
-                    entries.forEach(entry => {
-                        if (entry.isIntersecting) {
-                            displayPopup();
-                        }
-                    });
-                };
-
-                const observerOptions = {
-                    root: null, // relative to the viewport
-                    rootMargin: '0px',
-                    threshold: 0.1 // trigger when 10% of the element is visible
-                };
-
-                observer = new IntersectionObserver(observerCallback, observerOptions);
-
-                if (!popupShown) {
-                    observer.observe(newsletterTrigger);
-                }
-
+                
                 closeNewsletterBtn.addEventListener('click', hidePopup);
+
+                const handleScroll = () => {
+                    // If popup has already been shown this session, do nothing.
+                    if (popupShown) {
+                        window.removeEventListener('scroll', handleScroll);
+                        return;
+                    }
+
+                    const scrollPosition = window.scrollY;
+                    const windowHeight = window.innerHeight;
+                    const documentHeight = document.documentElement.scrollHeight;
+
+                    // Calculate the scroll percentage, handle case where document is not scrollable
+                    const scrollPercentage = (documentHeight - windowHeight) > 0 
+                        ? (scrollPosition / (documentHeight - windowHeight)) * 100
+                        : 0;
+
+                    if (scrollPercentage >= 90) {
+                        displayPopup();
+                    }
+                };
+                
+                // Only add the scroll listener if the popup hasn't been shown in the current session.
+                if (!popupShown) {
+                    window.addEventListener('scroll', handleScroll, { passive: true });
+                }
             }
             
             // --- Newsletter Form Submission ---
@@ -643,4 +640,3 @@
     </script>
 </body>
 </html>
-
