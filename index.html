@@ -60,22 +60,39 @@
         #particle-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; display: block; }
         .text-glow { text-shadow: 0 0 8px rgba(0, 194, 169, 0.5), 0 0 20px rgba(0, 0, 0, 0.7); }
         .text-shadow { text-shadow: 0 2px 5px rgba(0, 0, 0, 0.6); }
-        header { transition: background-color 0.4s ease-out; }
+        
+        /* --- Enhanced Header Styles --- */
+        header { 
+            transition: background-color 0.4s ease-out; 
+            opacity: 0;
+            animation: slideDown 1s ease-out 2.6s forwards; /* Delay to start after preloader */
+        }
         header.header-scrolled { background-color: rgba(15, 23, 42, 0.7); backdrop-filter: blur(10px); }
-        .nav-link { position: relative; padding-bottom: 5px; }
-        .nav-link::after { content: ''; position: absolute; bottom: 0; left: 0; width: 100%; height: 2px; background-color: #00c2a9; transform: scaleX(0); transform-origin: center; transition: transform 0.3s ease-out; }
+        
+        .nav-link { 
+            position: relative; 
+            padding-bottom: 5px;
+            transition: color 0.3s ease, transform 0.3s ease;
+        }
+        .nav-link:hover {
+            color: #00c2a9;
+            transform: translateY(-2px);
+        }
+        .nav-link::after { 
+            content: ''; 
+            position: absolute; 
+            bottom: 0; 
+            left: 0; 
+            width: 100%; 
+            height: 2px; 
+            background-color: #00c2a9; 
+            transform: scaleX(0); 
+            transform-origin: left; 
+            transition: transform 0.3s ease-out; 
+        }
         .nav-link:hover::after, .nav-link.active-link::after { transform: scaleX(1); }
         .nav-link.active-link { color: #00c2a9; }
-        .header-logo, .nav-link, .nav-button { opacity: 0; animation: fadeInUp 0.5s ease-out forwards; }
-        .header-logo { animation-delay: 0.5s; }
-        .nav-link:nth-of-type(1) { animation-delay: 0.6s; }
-        .nav-link:nth-of-type(2) { animation-delay: 0.7s; }
-        .nav-link:nth-of-type(3) { animation-delay: 0.8s; }
-        .nav-link:nth-of-type(4) { animation-delay: 0.9s; }
-        .nav-link:nth-of-type(5) { animation-delay: 1.0s; }
-        .nav-link:nth-of-type(6) { animation-delay: 1.1s; }
-        .nav-button { animation-delay: 1.2s; }
-        
+
         #preloader { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: #0f172a; z-index: 9999; display: flex; justify-content: center; align-items: center; transition: opacity 0.8s ease-out, visibility 0.8s ease-out; overflow: hidden; }
         #preloader.hidden { opacity: 0; visibility: hidden; }
         .matrix-loader {
@@ -87,55 +104,54 @@
             white-space: pre;
         }
 
-        header { animation: slideDown 1s ease-out forwards; animation-delay: 0.5s; }
-        @keyframes slideDown { from { transform: translateY(-100%); } to { transform: translateY(0); } }
-        @keyframes fadeInUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes slideDown { from { opacity: 0; transform: translateY(-100%); } to { opacity: 1; transform: translateY(0); } }
         
-        /* --- Headline Animation Styles --- */
+        /* --- New Headline Animation Styles --- */
+        .animated-headline .char {
+            display: inline-block;
+            opacity: 0;
+            transform: translateY(25px) scale(0.8);
+            animation: reveal-char 0.5s cubic-bezier(0.215, 0.610, 0.355, 1.000) forwards;
+        }
+        @keyframes reveal-char {
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+        
         .headline-subtitle {
-            height: 2.5rem; /* Adjust based on font size */
+            height: 2.5rem;
             position: relative;
             overflow: hidden;
-        }
-        .rotating-text-container {
-            position: absolute;
-            left: 0;
-            top: 0;
-            width: 100%;
-            text-align: center;
-        }
-        .rotating-text-item {
-            position: absolute;
-            width: 100%;
-            left: 0;
             opacity: 0;
-            transform: translateY(100%);
-            transition: transform 0.5s ease-out, opacity 0.5s ease-out;
+            animation: fadeInSub 1s ease-out 4.8s forwards; /* Delay after button */
         }
-        .rotating-text-item.is-visible {
-            opacity: 1;
-            transform: translateY(0);
+        @keyframes fadeInSub {
+            to { opacity: 1; }
         }
-        .rotating-text-item.is-hidden {
-            transform: translateY(-100%);
+
+        /* --- New Button Animation --- */
+        .explore-button-container {
+            opacity: 0;
+            transform: translateY(10px);
+            animation: fadeInButton 0.8s ease-out 4.5s forwards; /* Delay after headline */
         }
+        @keyframes fadeInButton {
+            to { 
+                opacity: 1; 
+                transform: translateY(0);
+            }
+        }
+
+        .rotating-text-container { position: absolute; left: 0; top: 0; width: 100%; text-align: center; }
+        .rotating-text-item { position: absolute; width: 100%; left: 0; opacity: 0; transform: translateY(100%); transition: transform 0.5s ease-out, opacity 0.5s ease-out; }
+        .rotating-text-item.is-visible { opacity: 1; transform: translateY(0); }
+        .rotating-text-item.is-hidden { transform: translateY(-100%); }
 
         .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.8); backdrop-filter: blur(5px); display: flex; justify-content: center; align-items: center; z-index: 1000; opacity: 0; visibility: hidden; transition: opacity 0.3s ease, visibility 0.3s ease; }
         .modal-overlay:not(.hidden) { opacity: 1; visibility: visible; }
-        .modal-content { 
-            background-color: #1e293b; 
-            border: 1px solid #334155; 
-            border-radius: 0.75rem; 
-            width: 95%; 
-            height: 90%; 
-            max-width: 1200px; 
-            max-height: 90vh; 
-            display: flex; 
-            flex-direction: column; 
-            position: relative; 
-            transform: scale(0.95); 
-            transition: transform 0.3s ease; 
-        }
+        .modal-content { background-color: #1e293b; border: 1px solid #334155; border-radius: 0.75rem; width: 95%; height: 90%; max-width: 1200px; max-height: 90vh; display: flex; flex-direction: column; position: relative; transform: scale(0.95); transition: transform 0.3s ease; }
         .modal-overlay:not(.hidden) .modal-content { transform: scale(1); }
         .modal-close-btn { position: absolute; top: -15px; right: -15px; background-color: #ffffff; color: #0f172a; border-radius: 50%; width: 32px; height: 32px; font-size: 1.5rem; line-height: 32px; text-align: center; border: none; cursor: pointer; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); transition: transform 0.2s ease; z-index: 10; }
         .modal-close-btn:hover { transform: rotate(90deg); }
@@ -162,51 +178,17 @@
         .newsletter-close-btn { position: absolute; top: 0.5rem; right: 0.5rem; width: 28px; height: 28px; line-height: 28px; text-align: center; background-color: rgba(255, 255, 255, 0.1); color: #ffffff; border: none; border-radius: 50%; cursor: pointer; font-size: 1.2rem; transition: background-color 0.2s ease, transform 0.2s ease; }
         .newsletter-close-btn:hover { background-color: rgba(255, 255, 255, 0.2); transform: rotate(90deg); }
         
-        #back-to-top-btn {
-            position: fixed;
-            bottom: 2rem;
-            right: 2rem;
-            background-color: #00c2a9;
-            color: white;
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 1000;
-            cursor: pointer;
-            border: none;
-            opacity: 0;
-            visibility: hidden;
-            transform: translateY(20px);
-            transition: opacity 0.3s, visibility 0.3s, transform 0.3s;
-        }
-        #back-to-top-btn.visible {
-            opacity: 1;
-            visibility: visible;
-            transform: translateY(0);
-        }
-        #back-to-top-btn:hover {
-             background-color: #00a591;
-        }
+        #back-to-top-btn { position: fixed; bottom: 2rem; right: 2rem; background-color: #00c2a9; color: white; width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; z-index: 1000; cursor: pointer; border: none; opacity: 0; visibility: hidden; transform: translateY(20px); transition: opacity 0.3s, visibility 0.3s, transform 0.3s; }
+        #back-to-top-btn.visible { opacity: 1; visibility: visible; transform: translateY(0); }
+        #back-to-top-btn:hover { background-color: #00a591; }
         
-        /* --- Progress Bar Styles --- */
         .skill-item { margin-bottom: 1.25rem; }
         .skill-info { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem; }
         .skill-name { font-weight: 500; color: #cbd5e1; }
         .skill-percent { font-size: 0.875rem; color: #94a3b8; }
         .progress-bar-container { width: 100%; background-color: rgba(255, 255, 255, 0.1); border-radius: 9999px; height: 8px; overflow: hidden; }
-        .progress-bar {
-            background-color: #00c2a9;
-            height: 100%;
-            border-radius: 9999px;
-            width: 0; /* Initial width */
-            transition: width 1.5s cubic-bezier(0.25, 1, 0.5, 1);
-        }
-        .progress-bar.animated {
-            width: var(--progress-width);
-        }
+        .progress-bar { background-color: #00c2a9; height: 100%; border-radius: 9999px; width: 0; transition: width 1.5s cubic-bezier(0.25, 1, 0.5, 1); }
+        .progress-bar.animated { width: var(--progress-width); }
     </style>
 </head>
 <body class="font-sans" oncontextmenu="return false;">
@@ -220,13 +202,13 @@
         <nav class="container mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
             <a href="#" class="header-logo text-xl md:text-2xl font-bold text-white text-glow">Sourav Saha</a>
             <div class="hidden md:flex items-center space-x-6">
-                <a href="#about" class="nav-link text-gray-300 hover:text-brand-accent transition-all text-shadow">About</a>
-                <a href="#experience-education" class="nav-link text-gray-300 hover:text-brand-accent transition-all text-shadow">Journey</a>
-                <a href="#skills" class="nav-link text-gray-300 hover:text-brand-accent transition-all text-shadow">Skills</a>
-                <a href="#portfolio" class="nav-link text-gray-300 hover:text-brand-accent transition-all text-shadow">Portfolio</a>
-                <a href="#articles" class="nav-link text-gray-300 hover:text-brand-accent transition-all text-shadow">Articles</a>
-                <a href="#contact" class="nav-link text-gray-300 hover:text-brand-accent transition-all text-shadow">Contact</a>
-                <button class="nav-button open-cv-btn bg-brand-accent text-white font-bold py-2 px-5 rounded-full text-sm hover:bg-opacity-90 transition-all">Download CV</button>
+                <a href="#about" class="nav-link text-gray-300 hover:text-brand-accent">About</a>
+                <a href="#experience-education" class="nav-link text-gray-300 hover:text-brand-accent">Journey</a>
+                <a href="#skills" class="nav-link text-gray-300 hover:text-brand-accent">Skills</a>
+                <a href="#portfolio" class="nav-link text-gray-300 hover:text-brand-accent">Portfolio</a>
+                <a href="#articles" class="nav-link text-gray-300 hover:text-brand-accent">Articles</a>
+                <a href="#contact" class="nav-link text-gray-300 hover:text-brand-accent">Contact</a>
+                <button class="open-cv-btn bg-brand-accent text-white font-bold py-2 px-5 rounded-full text-sm hover:bg-opacity-90 transition-all">Download CV</button>
             </div>
             <button id="mobile-menu-button" class="md:hidden focus:outline-none text-white"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg></button>
         </nav>
@@ -242,21 +224,22 @@
     </header>
 
     <main>
-        <!-- === HEADLINE SECTION (Reverted) === -->
+        <!-- === UPDATED HEADLINE SECTION === -->
         <section id="home" class="min-h-screen flex items-center px-4 sm:px-6 lg:px-8">
             <div class="container mx-auto text-center">
-                <h1 class="text-4xl sm:text-6xl md:text-7xl font-bold text-white leading-tight mb-4 text-glow" data-aos="fade-up" data-aos-delay="100">
-                    Sourav Saha
+                <h1 class="animated-headline text-4xl sm:text-6xl md:text-7xl font-bold text-white leading-tight mb-4">
+                    <span class="line-1">Hi,</span><br>
+                    <span class="line-2">I'm Sourav Saha</span>
                 </h1>
-                <div class="text-lg md:text-2xl text-brand-secondary text-shadow headline-subtitle mx-auto" data-aos="fade-up" data-aos-delay="300">
+                <div class="text-lg md:text-2xl text-brand-secondary text-shadow headline-subtitle mx-auto">
                     <div id="rotating-text-container" class="rotating-text-container">
                         <!-- Text items will be injected by JavaScript -->
                     </div>
                 </div>
-                <div class="mt-8" data-aos="fade-up" data-aos-delay="500">
-                    <a href="#about" class="bg-brand-accent text-white font-bold py-3 px-8 rounded-full hover:bg-opacity-90 transition-all transform hover:scale-105">
+                <div class="mt-8 explore-button-container">
+                    <button class="bg-brand-accent text-white font-bold py-3 px-8 rounded-full hover:bg-opacity-90 transition-all transform hover:scale-105">
                         Explore My Profile
-                    </a>
+                    </button>
                 </div>
             </div>
         </section>
@@ -299,7 +282,6 @@
             </div>
         </section>
         
-        <!-- === Skills Section Updated with Progress Bars === -->
         <section id="skills" class="px-4 sm:px-6 lg:px-8 pt-12 md:pt-16">
             <div class="container mx-auto" data-aos="fade-up">
                 <h2 class="text-3xl sm:text-4xl font-bold text-center text-white mb-8 md:mb-12 text-glow">Skills</h2>
@@ -354,11 +336,10 @@
             </div>
         </section>
 
-        <!-- === Contact Form Section Updated === -->
         <section id="contact" class="px-4 sm:px-6 lg:px-8 py-12 md:py-16">
             <div class="container mx-auto text-center" data-aos="fade-up">
                 <div class="max-w-2xl mx-auto">
-                    <h2 class="text-3xl sm:text-4xl font-bold text-white mb-8 text-glow">Send Me a Message</h2>
+                    <h2 class="text-3xl sm:text-4xl font-bold text-center text-white mb-8 text-glow">Send Me a Message</h2>
                     <form id="contact-form" action="https://api.web3forms.com/submit" method="POST" class="space-y-6 text-left">
                         <input type="hidden" name="access_key" value="9f4ad3eb-6a2c-42a1-b06c-ec515d72da59">
                         <input type="checkbox" name="botcheck" class="hidden" style="display: none;">
@@ -419,6 +400,7 @@
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
+            const PRELOADER_DELAY = 2500;
             // --- Preloader ---
             const preloader = document.getElementById('preloader');
             const loaderContainer = document.getElementById('matrix-loader');
@@ -457,11 +439,63 @@
             }
             
             if (preloader) {
-                setTimeout(() => { preloader.classList.add('hidden'); }, 2500);
+                setTimeout(() => { 
+                    preloader.classList.add('hidden'); 
+                    // Trigger animations after preloader is gone
+                    animateHeadline();
+                }, PRELOADER_DELAY);
+            } else {
+                // If no preloader, animate immediately
+                animateHeadline();
             }
 
-            // --- Initialize Animate on Scroll ---
-            AOS.init({ duration: 800, once: true });
+            // --- Headline Animation Function ---
+            function animateHeadline() {
+                const headline = document.querySelector('.animated-headline');
+                if (!headline) return;
+
+                const line1 = headline.querySelector('.line-1');
+                const line2 = headline.querySelector('.line-2');
+                const line1Text = line1.textContent;
+                const line2Text = line2.textContent;
+
+                line1.innerHTML = '';
+                line2.innerHTML = '';
+
+                let delay = 0;
+                const nameToColor = "Sourav Saha";
+
+                // Animate Line 1
+                line1Text.split('').forEach(char => {
+                    const span = document.createElement('span');
+                    span.className = 'char';
+                    span.innerHTML = char === ' ' ? '&nbsp;' : char;
+                    span.style.animationDelay = `${delay}s`;
+                    line1.appendChild(span);
+                    delay += 0.05;
+                });
+
+                delay += 0.1; // Pause between lines
+
+                // Animate Line 2
+                line2Text.split('').forEach(char => {
+                    const span = document.createElement('span');
+                    span.className = 'char';
+                    span.innerHTML = char === ' ' ? '&nbsp;' : char;
+                    span.style.animationDelay = `${delay}s`;
+                    
+                    // Check if the character is part of the name to be colored
+                    if (nameToColor.includes(char) && line2Text.includes(nameToColor)) {
+                         span.classList.add('text-brand-accent', 'text-glow');
+                    }
+
+                    line2.appendChild(span);
+                    delay += 0.05;
+                });
+            }
+
+            // --- Initialize Animate on Scroll for other sections ---
+            AOS.init({ duration: 800, once: true, startEvent: 'DOMContentLoaded' });
 
             // --- Mobile menu toggle ---
             const mobileMenuButton = document.getElementById('mobile-menu-button');
@@ -547,8 +581,7 @@
                 ];
                 let currentIndex = 0;
 
-                // Create span elements for each text
-                texts.forEach((text, index) => {
+                texts.forEach((text) => {
                     const span = document.createElement('span');
                     span.textContent = text;
                     span.classList.add('rotating-text-item');
@@ -562,14 +595,11 @@
                     const nextIndex = (currentIndex + 1) % textItems.length;
                     const nextItem = textItems[nextIndex];
 
-                    // Make current item slide out
                     currentItem.classList.remove('is-visible');
                     currentItem.classList.add('is-hidden');
                     
-                    // Prepare next item for entry
                     nextItem.classList.remove('is-hidden');
                     
-                    // After a short delay, make next item slide in
                     setTimeout(() => {
                          nextItem.classList.add('is-visible');
                     }, 50);
@@ -577,13 +607,13 @@
                     currentIndex = nextIndex;
                 }
 
-                // Initial setup
                 if(textItems.length > 0) {
-                    textItems[0].classList.add('is-visible');
-                    setInterval(rotateText, 3000); // Change text every 3 seconds
+                    setTimeout(() => {
+                        textItems[0].classList.add('is-visible');
+                        setInterval(rotateText, 3000);
+                    }, PRELOADER_DELAY + 1500); // Delay this to start after the main headline animation
                 }
             }
-
 
             // --- CV Modal Logic ---
             const cvModal = document.getElementById('cv-modal');
@@ -671,7 +701,6 @@
                     .finally(() => {
                         setTimeout(() => { 
                             statusDiv.innerHTML = ''; 
-                            // Optionally hide the popup after successful submission
                             const popup = document.getElementById('newsletter-popup');
                             if (popup) popup.classList.remove('is-visible');
                         }, 5000);
@@ -685,14 +714,12 @@
             const backToTopBtn = document.getElementById('back-to-top-btn');
             let isPopupBlocked = false;
 
-            // Check if the popup was closed within the last 24 hours
             const closedTimestamp = localStorage.getItem('newsletterPopupClosedAt');
             if (closedTimestamp) {
                 const hoursSinceClosed = (new Date().getTime() - parseInt(closedTimestamp)) / (1000 * 60 * 60);
                 if (hoursSinceClosed < 24) {
                     isPopupBlocked = true;
                 } else {
-                    // More than 24 hours have passed, so we can show it again.
                     localStorage.removeItem('newsletterPopupClosedAt');
                 }
             }
@@ -700,7 +727,6 @@
             if (newsletterPopup && closeNewsletterBtn) {
                  const hidePopup = () => {
                         newsletterPopup.classList.remove('is-visible');
-                        // Block it for the next 24 hours
                         localStorage.setItem('newsletterPopupClosedAt', new Date().getTime().toString());
                         isPopupBlocked = true;
                  };
@@ -709,10 +735,7 @@
 
             if (backToTopBtn) {
                  backToTopBtn.addEventListener('click', () => {
-                     window.scrollTo({
-                         top: 0,
-                         behavior: 'smooth'
-                     });
+                     window.scrollTo({ top: 0, behavior: 'smooth' });
                  });
             }
             
@@ -724,16 +747,10 @@
                     ? (scrollPosition / (documentHeight - windowHeight)) * 100
                     : 0;
 
-                // Back to Top Button Logic
                 if (backToTopBtn) {
-                    if (scrollPercentage >= 50) {
-                        backToTopBtn.classList.add('visible');
-                    } else {
-                        backToTopBtn.classList.remove('visible');
-                    }
+                    backToTopBtn.classList.toggle('visible', scrollPercentage >= 50);
                 }
 
-                // Newsletter Popup Logic
                 if (newsletterPopup && !isPopupBlocked && scrollPercentage >= 90) {
                     newsletterPopup.classList.add('is-visible');
                 }
@@ -741,7 +758,7 @@
 
             window.addEventListener('scroll', masterScrollHandler, { passive: true });
             
-            // --- New Progress Bar Animation Logic ---
+            // --- Progress Bar Animation Logic ---
             const skillsSection = document.getElementById('skills');
             if (skillsSection) {
                 const progressObserver = new IntersectionObserver((entries) => {
@@ -840,4 +857,3 @@
     </script>
 </body>
 </html>
-
