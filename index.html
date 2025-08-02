@@ -237,9 +237,10 @@
                     </div>
                 </div>
                 <div class="mt-8 explore-button-container">
-                    <button class="bg-brand-accent text-white font-bold py-3 px-8 rounded-full hover:bg-opacity-90 transition-all transform hover:scale-105">
+                    <!-- === MODIFIED THIS ELEMENT === -->
+                    <a href="#about" class="inline-block bg-brand-accent text-white font-bold py-3 px-8 rounded-full hover:bg-opacity-90 transition-all transform hover:scale-105">
                         Explore My Profile
-                    </button>
+                    </a>
                 </div>
             </div>
         </section>
@@ -601,7 +602,7 @@
                     nextItem.classList.remove('is-hidden');
                     
                     setTimeout(() => {
-                         nextItem.classList.add('is-visible');
+                          nextItem.classList.add('is-visible');
                     }, 50);
 
                     currentIndex = nextIndex;
@@ -735,7 +736,7 @@
 
             if (backToTopBtn) {
                  backToTopBtn.addEventListener('click', () => {
-                     window.scrollTo({ top: 0, behavior: 'smooth' });
+                       window.scrollTo({ top: 0, behavior: 'smooth' });
                  });
             }
             
