@@ -106,17 +106,18 @@
 
         @keyframes slideDown { from { opacity: 0; transform: translateY(-100%); } to { opacity: 1; transform: translateY(0); } }
         
-        /* --- New Headline Animation Styles --- */
+        /* --- UPDATED HEADLINE ANIMATION STYLES --- */
         .animated-headline .char {
             display: inline-block;
             opacity: 0;
-            transform: translateY(25px) scale(0.8);
-            animation: reveal-char 0.5s cubic-bezier(0.215, 0.610, 0.355, 1.000) forwards;
+            transform: translateY(100%) rotate(10deg);
+            transform-origin: bottom left;
+            animation: reveal-char 0.7s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
         }
         @keyframes reveal-char {
             to {
                 opacity: 1;
-                transform: translateY(0) scale(1);
+                transform: translateY(0) rotate(0);
             }
         }
         
@@ -189,6 +190,71 @@
         .progress-bar-container { width: 100%; background-color: rgba(255, 255, 255, 0.1); border-radius: 9999px; height: 8px; overflow: hidden; }
         .progress-bar { background-color: #00c2a9; height: 100%; border-radius: 9999px; width: 0; transition: width 1.5s cubic-bezier(0.25, 1, 0.5, 1); }
         .progress-bar.animated { width: var(--progress-width); }
+
+        /* --- UPDATED RECOMMENDATION STYLES --- */
+        #recommendation-slider {
+            position: relative;
+            min-height: 280px; /* Adjust as needed to fit content */
+            overflow: hidden;
+        }
+        .recommendation-card {
+            background-color: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 2rem;
+            border-radius: 0.75rem;
+            position: absolute;
+            width: 100%;
+            top: 0;
+            left: 0;
+        }
+        .slider-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(0, 194, 169, 0.5);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            z-index: 10;
+        }
+        .slider-btn:hover {
+            background-color: #00c2a9;
+        }
+        .slider-btn.left-0 { left: -20px; }
+        .slider-btn.right-0 { right: -20px; }
+        @media (max-width: 640px) {
+            .slider-btn.left-0 { left: 0px; }
+            .slider-btn.right-0 { right: 0px; }
+        }
+
+        /* --- NEW ANIMATION STYLES --- */
+        @keyframes slide-in-from-right {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+        @keyframes slide-out-to-left {
+            from { transform: translateX(0); opacity: 1; }
+            to { transform: translateX(-100%); opacity: 0; }
+        }
+        @keyframes slide-in-from-left {
+            from { transform: translateX(-100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+        @keyframes slide-out-to-right {
+            from { transform: translateX(0); opacity: 1; }
+            to { transform: translateX(100%); opacity: 0; }
+        }
+
+        .slide-in-right { animation: slide-in-from-right 0.5s forwards cubic-bezier(0.25, 0.46, 0.45, 0.94); }
+        .slide-out-left { animation: slide-out-to-left 0.5s forwards cubic-bezier(0.25, 0.46, 0.45, 0.94); }
+        .slide-in-left { animation: slide-in-from-left 0.5s forwards cubic-bezier(0.25, 0.46, 0.45, 0.94); }
+        .slide-out-right { animation: slide-out-to-right 0.5s forwards cubic-bezier(0.25, 0.46, 0.45, 0.94); }
+
     </style>
 </head>
 <body class="font-sans" oncontextmenu="return false;">
@@ -207,6 +273,7 @@
                 <a href="#skills" class="nav-link text-gray-300 hover:text-brand-accent">Skills</a>
                 <a href="#portfolio" class="nav-link text-gray-300 hover:text-brand-accent">Portfolio</a>
                 <a href="#articles" class="nav-link text-gray-300 hover:text-brand-accent">Articles</a>
+                <a href="#recommendations" class="nav-link text-gray-300 hover:text-brand-accent">Reviews</a>
                 <a href="#contact" class="nav-link text-gray-300 hover:text-brand-accent">Contact</a>
                 <button class="open-cv-btn bg-brand-accent text-white font-bold py-2 px-5 rounded-full text-sm hover:bg-opacity-90 transition-all">Download CV</button>
             </div>
@@ -218,6 +285,7 @@
             <a href="#skills" class="block py-2 px-4 text-sm text-gray-200 hover:bg-white/10">Skills</a>
             <a href="#portfolio" class="block py-2 px-4 text-sm text-gray-200 hover:bg-white/10">Portfolio</a>
             <a href="#articles" class="block py-2 px-4 text-sm text-gray-200 hover:bg-white/10">Articles</a>
+            <a href="#recommendations" class="block py-2 px-4 text-sm text-gray-200 hover:bg-white/10">Reviews</a>
             <a href="#contact" class="block py-2 px-4 text-sm text-gray-200 hover:bg-white/10">Contact</a>
             <div class="px-4 py-3"><button class="open-cv-btn w-full text-center bg-brand-accent text-white font-bold py-2 px-5 rounded-full text-sm hover:bg-opacity-90 transition-all">Download CV</button></div>
         </div>
@@ -336,6 +404,53 @@
                 <div id="substack-posts-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"><p class="text-brand-secondary col-span-full text-center">Loading latest articles from Substack...</p></div>
             </div>
         </section>
+
+        <!-- === UPDATED RECOMMENDATIONS SECTION === -->
+        <section id="recommendations" class="px-4 sm:px-6 lg:px-8 pt-12 md:pt-16">
+            <div class="container mx-auto" data-aos="fade-up">
+                <h2 class="text-3xl sm:text-4xl font-bold text-center text-white mb-8 md:mb-12 text-glow">What People Say</h2>
+                <div class="relative max-w-3xl mx-auto">
+                    <div id="recommendation-slider">
+                        <!-- Recommendation 1 -->
+                        <div class="recommendation-card">
+                            <p class="text-brand-secondary italic text-lg mb-6 leading-relaxed">"Sourav is a highly motivated and quick-learning individual. His passion for technology and his dedication to community building are truly impressive. He was a great asset to our campus ambassador program."</p>
+                            <div class="flex items-center mt-auto">
+                                <img src="https://placehold.co/64x64/00c2a9/ffffff?text=JD" alt="Jane Doe" class="w-16 h-16 rounded-full mr-4 object-cover border-2 border-brand-accent/50">
+                                <div>
+                                    <h4 class="font-bold text-white">Jane Doe</h4>
+                                    <p class="text-brand-secondary/80 text-sm">Program Manager, Creative IT Institute</p>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Recommendation 2 -->
+                        <div class="recommendation-card hidden">
+                             <p class="text-brand-secondary italic text-lg mb-6 leading-relaxed">"Working with Sourav has been a pleasure. He is proactive, communicative, and always brings positive energy to the team. His ability to engage with students is exceptional."</p>
+                            <div class="flex items-center mt-auto">
+                                <img src="https://placehold.co/64x64/00c2a9/ffffff?text=JS" alt="John Smith" class="w-16 h-16 rounded-full mr-4 object-cover border-2 border-brand-accent/50">
+                                <div>
+                                    <h4 class="font-bold text-white">John Smith</h4>
+                                    <p class="text-brand-secondary/80 text-sm">University Relations, Sheba Platform Ltd.</p>
+                                </div>
+                            </div>
+                        </div>
+                         <!-- Recommendation 3 -->
+                        <div class="recommendation-card hidden">
+                             <p class="text-brand-secondary italic text-lg mb-6 leading-relaxed">"As a member of the Data Science Club, Sourav consistently shows enthusiasm and a strong desire to learn. He actively participates and contributes valuable insights during our sessions."</p>
+                            <div class="flex items-center mt-auto">
+                                <img src="https://placehold.co/64x64/00c2a9/ffffff?text=EC" alt="Emily Carter" class="w-16 h-16 rounded-full mr-4 object-cover border-2 border-brand-accent/50">
+                                <div>
+                                    <h4 class="font-bold text-white">Emily Carter</h4>
+                                    <p class="text-brand-secondary/80 text-sm">President, UIU Data Science Club</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <button id="prev-recommendation" class="slider-btn left-0">&lt;</button>
+                    <button id="next-recommendation" class="slider-btn right-0">&gt;</button>
+                </div>
+            </div>
+        </section>
+        <!-- === END RECOMMENDATIONS SECTION === -->
 
         <section id="contact" class="px-4 sm:px-6 lg:px-8 py-12 md:py-16">
             <div class="container mx-auto text-center" data-aos="fade-up">
@@ -736,7 +851,7 @@
 
             if (backToTopBtn) {
                  backToTopBtn.addEventListener('click', () => {
-                       window.scrollTo({ top: 0, behavior: 'smooth' });
+                        window.scrollTo({ top: 0, behavior: 'smooth' });
                  });
             }
             
@@ -776,6 +891,56 @@
 
                 progressObserver.observe(skillsSection);
             }
+
+            // --- UPDATED: Recommendation Slider Logic ---
+            const slider = document.getElementById('recommendation-slider');
+            if (slider) {
+                const recommendations = Array.from(slider.querySelectorAll('.recommendation-card'));
+                const prevBtn = document.getElementById('prev-recommendation');
+                const nextBtn = document.getElementById('next-recommendation');
+                let currentIndex = 0;
+                let isAnimating = false;
+
+                function changeRecommendation(newIndex, direction) {
+                    if (isAnimating) return;
+                    isAnimating = true;
+
+                    const currentCard = recommendations[currentIndex];
+                    const nextCard = recommendations[newIndex];
+
+                    const outClass = direction === 'next' ? 'slide-out-left' : 'slide-out-right';
+                    const inClass = direction === 'next' ? 'slide-in-right' : 'slide-in-left';
+
+                    nextCard.classList.remove('hidden');
+                    currentCard.classList.add(outClass);
+                    nextCard.classList.add(inClass);
+
+                    currentCard.addEventListener('animationend', () => {
+                        currentCard.classList.add('hidden');
+                        currentCard.classList.remove(outClass);
+                        isAnimating = false;
+                    }, { once: true });
+                    
+                    nextCard.addEventListener('animationend', () => {
+                         nextCard.classList.remove(inClass);
+                    }, { once: true });
+
+                    currentIndex = newIndex;
+                }
+
+                if (prevBtn && nextBtn && recommendations.length > 0) {
+                    prevBtn.addEventListener('click', () => {
+                        const newIndex = (currentIndex - 1 + recommendations.length) % recommendations.length;
+                        changeRecommendation(newIndex, 'prev');
+                    });
+
+                    nextBtn.addEventListener('click', () => {
+                        const newIndex = (currentIndex + 1) % recommendations.length;
+                        changeRecommendation(newIndex, 'next');
+                    });
+                }
+            }
+
 
             // --- Fetchers ---
             fetchSubstackPosts();
