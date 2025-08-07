@@ -61,89 +61,33 @@
         .text-glow { text-shadow: 0 0 8px rgba(0, 194, 169, 0.5), 0 0 20px rgba(0, 0, 0, 0.7); }
         .text-shadow { text-shadow: 0 2px 5px rgba(0, 0, 0, 0.6); }
         
-        /* --- Enhanced Header Styles --- */
         header { 
             transition: background-color 0.4s ease-out; 
             opacity: 0;
-            animation: slideDown 1s ease-out 2.6s forwards; /* Delay to start after preloader */
+            animation: slideDown 1s ease-out 2.6s forwards;
         }
         header.header-scrolled { background-color: rgba(15, 23, 42, 0.7); backdrop-filter: blur(10px); }
         
-        .nav-link { 
-            position: relative; 
-            padding-bottom: 5px;
-            transition: color 0.3s ease, transform 0.3s ease;
-        }
-        .nav-link:hover {
-            color: #00c2a9;
-            transform: translateY(-2px);
-        }
-        .nav-link::after { 
-            content: ''; 
-            position: absolute; 
-            bottom: 0; 
-            left: 0; 
-            width: 100%; 
-            height: 2px; 
-            background-color: #00c2a9; 
-            transform: scaleX(0); 
-            transform-origin: left; 
-            transition: transform 0.3s ease-out; 
-        }
+        .nav-link { position: relative; padding-bottom: 5px; transition: color 0.3s ease, transform 0.3s ease; }
+        .nav-link:hover { color: #00c2a9; transform: translateY(-2px); }
+        .nav-link::after { content: ''; position: absolute; bottom: 0; left: 0; width: 100%; height: 2px; background-color: #00c2a9; transform: scaleX(0); transform-origin: left; transition: transform 0.3s ease-out; }
         .nav-link:hover::after, .nav-link.active-link::after { transform: scaleX(1); }
         .nav-link.active-link { color: #00c2a9; }
 
         #preloader { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: #0f172a; z-index: 9999; display: flex; justify-content: center; align-items: center; transition: opacity 0.8s ease-out, visibility 0.8s ease-out; overflow: hidden; }
         #preloader.hidden { opacity: 0; visibility: hidden; }
-        .matrix-loader {
-            font-family: 'monospace';
-            font-size: 2rem;
-            font-weight: bold;
-            color: #00c2a9;
-            text-shadow: 0 0 10px rgba(0, 194, 169, 0.7);
-            white-space: pre;
-        }
+        .matrix-loader { font-family: 'monospace'; font-size: 2rem; font-weight: bold; color: #00c2a9; text-shadow: 0 0 10px rgba(0, 194, 169, 0.7); white-space: pre; }
 
         @keyframes slideDown { from { opacity: 0; transform: translateY(-100%); } to { opacity: 1; transform: translateY(0); } }
         
-        /* --- UPDATED HEADLINE ANIMATION STYLES --- */
-        .animated-headline .char {
-            display: inline-block;
-            opacity: 0;
-            transform: translateY(100%) rotate(10deg);
-            transform-origin: bottom left;
-            animation: reveal-char 0.7s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
-        }
-        @keyframes reveal-char {
-            to {
-                opacity: 1;
-                transform: translateY(0) rotate(0);
-            }
-        }
+        .animated-headline .char { display: inline-block; opacity: 0; transform: translateY(100%) rotate(10deg); transform-origin: bottom left; animation: reveal-char 0.7s cubic-bezier(0.2, 0.8, 0.2, 1) forwards; }
+        @keyframes reveal-char { to { opacity: 1; transform: translateY(0) rotate(0); } }
         
-        .headline-subtitle {
-            height: 2.5rem;
-            position: relative;
-            overflow: hidden;
-            opacity: 0;
-            animation: fadeInSub 1s ease-out 4.8s forwards; /* Delay after button */
-        }
-        @keyframes fadeInSub {
-            to { opacity: 1; }
-        }
+        .headline-subtitle { height: 2.5rem; position: relative; overflow: hidden; opacity: 0; animation: fadeInSub 1s ease-out 4.8s forwards; }
+        @keyframes fadeInSub { to { opacity: 1; } }
 
-        /* --- New Button Animation --- */
-        .explore-button-container {
-            opacity: 0;
-            transform: translateY(10px);
-            animation: fadeInButton 0.8s ease-out 4.5s forwards; /* Delay after headline */
-        }
-        @keyframes fadeInButton {
-            to { 
-                opacity: 1; 
-                transform: translateY(0);
-            }
-        }
+        .explore-button-container { opacity: 0; transform: translateY(10px); animation: fadeInButton 0.8s ease-out 4.5s forwards; }
+        @keyframes fadeInButton { to { opacity: 1; transform: translateY(0); } }
 
         .rotating-text-container { position: absolute; left: 0; top: 0; width: 100%; text-align: center; }
         .rotating-text-item { position: absolute; width: 100%; left: 0; opacity: 0; transform: translateY(100%); transition: transform 0.5s ease-out, opacity 0.5s ease-out; }
@@ -162,10 +106,8 @@
         .download-btn:hover { background-color: #00a591; }
         .iframe-container { flex-grow: 1; padding: 0.5rem; }
         .iframe-container iframe { width: 100%; height: 100%; border-radius: 0.25rem; }
-        .repo-card { background-color: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease; display: flex; flex-direction: column; }
-        .repo-card:hover { transform: translateY(-5px); box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3); border-color: rgba(0, 194, 169, 0.5); }
-        .article-card { background-color: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease; display: flex; flex-direction: column; }
-        .article-card:hover { transform: translateY(-5px); box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3); border-color: rgba(0, 194, 169, 0.5); }
+        .repo-card, .article-card { background-color: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease; display: flex; flex-direction: column; }
+        .repo-card:hover, .article-card:hover { transform: translateY(-5px); box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3); border-color: rgba(0, 194, 169, 0.5); }
         .article-card-thumbnail { width: 100%; height: 180px; object-fit: cover; border-top-left-radius: 0.5rem; border-top-right-radius: 0.5rem; background-color: #1e293b; }
         .article-card-content { padding: 1.5rem; display: flex; flex-direction: column; flex-grow: 1; }
         .form-label { font-size: 0.875rem; font-weight: 500; color: #cbd5e1; }
@@ -178,11 +120,9 @@
         .newsletter-popup.is-visible { opacity: 1; transform: translateY(0); visibility: visible; }
         .newsletter-close-btn { position: absolute; top: 0.5rem; right: 0.5rem; width: 28px; height: 28px; line-height: 28px; text-align: center; background-color: rgba(255, 255, 255, 0.1); color: #ffffff; border: none; border-radius: 50%; cursor: pointer; font-size: 1.2rem; transition: background-color 0.2s ease, transform 0.2s ease; }
         .newsletter-close-btn:hover { background-color: rgba(255, 255, 255, 0.2); transform: rotate(90deg); }
-        
         #back-to-top-btn { position: fixed; bottom: 2rem; right: 2rem; background-color: #00c2a9; color: white; width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; z-index: 1000; cursor: pointer; border: none; opacity: 0; visibility: hidden; transform: translateY(20px); transition: opacity 0.3s, visibility 0.3s, transform 0.3s; }
         #back-to-top-btn.visible { opacity: 1; visibility: visible; transform: translateY(0); }
         #back-to-top-btn:hover { background-color: #00a591; }
-        
         .skill-item { margin-bottom: 1.25rem; }
         .skill-info { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem; }
         .skill-name { font-weight: 500; color: #cbd5e1; }
@@ -191,79 +131,91 @@
         .progress-bar { background-color: #00c2a9; height: 100%; border-radius: 9999px; width: 0; transition: width 1.5s cubic-bezier(0.25, 1, 0.5, 1); }
         .progress-bar.animated { width: var(--progress-width); }
 
-        /* --- UPDATED RECOMMENDATION STYLES --- */
-        #recommendation-slider {
+        /* --- EYE-CATCHING RECOMMENDATION STYLES --- */
+        .recommendation-container {
+            perspective: 1000px;
             position: relative;
-            min-height: 280px; /* Adjust as needed to fit content */
-            overflow: hidden;
+            min-height: 350px; /* Adjust based on content */
+            transition: height 0.5s ease-in-out;
         }
         .recommendation-card {
-            background-color: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            padding: 2rem;
+            background-color: rgba(30, 41, 59, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(51, 65, 85, 0.7);
             border-radius: 0.75rem;
             position: absolute;
             width: 100%;
-            top: 0;
-            left: 0;
+            padding: 2.5rem;
+            transition: transform 0.5s ease-in-out, opacity 0.5s ease-in-out, z-index 0.5s;
+            transform-origin: center center;
+            opacity: 0;
+            z-index: 1;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
         }
-        .slider-btn {
+        .recommendation-card::before {
+            content: '“';
+            position: absolute;
+            top: -10px;
+            left: 15px;
+            font-size: 6rem;
+            font-weight: 900;
+            color: rgba(0, 194, 169, 0.1);
+            z-index: -1;
+        }
+        .recommendation-card.card-active {
+            transform: translateX(0) scale(1);
+            opacity: 1;
+            z-index: 10;
+        }
+        .recommendation-card.card-next {
+            transform: translateX(50%) scale(0.8);
+            opacity: 0.5;
+            z-index: 5;
+        }
+        .recommendation-card.card-prev {
+            transform: translateX(-50%) scale(0.8);
+            opacity: 0.5;
+            z-index: 5;
+        }
+        .recommendation-card.card-out {
+            transform: scale(1.2);
+            opacity: 0;
+            z-index: 1;
+        }
+        .recommendation-controls {
             position: absolute;
             top: 50%;
+            left: 0;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
             transform: translateY(-50%);
+            padding: 0 0.5rem;
+        }
+        .slider-btn {
             background-color: rgba(0, 194, 169, 0.5);
             color: white;
             border: none;
             border-radius: 50%;
-            width: 40px;
-            height: 40px;
+            width: 44px;
+            height: 44px;
             font-size: 1.5rem;
             cursor: pointer;
-            transition: background-color 0.3s ease, left 0.3s ease, right 0.3s ease; /* Added transition for left/right */
-            z-index: 10;
+            transition: background-color 0.3s ease;
+            z-index: 20;
         }
-        .slider-btn:hover {
-            background-color: #00c2a9;
+        .slider-btn:hover { background-color: #00c2a9; }
+        @media (min-width: 768px) {
+            .recommendation-controls { padding: 0; }
+            .slider-btn-prev { transform: translate(-150%, -50%); }
+            .slider-btn-next { transform: translate(150%, -50%); }
         }
-        .slider-btn.left-0 { left: -20px; }
-        .slider-btn.right-0 { right: -20px; }
-        
-        /* === FIX FOR MOBILE DEVICES === */
-        @media (max-width: 768px) {
-            .slider-btn.left-0 { left: 0.5rem; } /* Position inside the container */
-            .slider-btn.right-0 { right: 0.5rem; } /* Position inside the container */
-        }
-
-        /* --- NEW ANIMATION STYLES --- */
-        @keyframes slide-in-from-right {
-            from { transform: translateX(100%); opacity: 0; }
-            to { transform: translateX(0); opacity: 1; }
-        }
-        @keyframes slide-out-to-left {
-            from { transform: translateX(0); opacity: 1; }
-            to { transform: translateX(-100%); opacity: 0; }
-        }
-        @keyframes slide-in-from-left {
-            from { transform: translateX(-100%); opacity: 0; }
-            to { transform: translateX(0); opacity: 1; }
-        }
-        @keyframes slide-out-to-right {
-            from { transform: translateX(0); opacity: 1; }
-            to { transform: translateX(100%); opacity: 0; }
-        }
-
-        .slide-in-right { animation: slide-in-from-right 0.5s forwards cubic-bezier(0.25, 0.46, 0.45, 0.94); }
-        .slide-out-left { animation: slide-out-to-left 0.5s forwards cubic-bezier(0.25, 0.46, 0.45, 0.94); }
-        .slide-in-left { animation: slide-in-from-left 0.5s forwards cubic-bezier(0.25, 0.46, 0.45, 0.94); }
-        .slide-out-right { animation: slide-out-to-right 0.5s forwards cubic-bezier(0.25, 0.46, 0.45, 0.94); }
-
     </style>
 </head>
 <body class="font-sans" oncontextmenu="return false;">
-    <div id="preloader">
-        <div id="matrix-loader" class="matrix-loader"></div>
-    </div>
-
+    <div id="preloader"><div id="matrix-loader" class="matrix-loader"></div></div>
     <canvas id="particle-canvas"></canvas>
 
     <header class="bg-transparent fixed top-0 left-0 right-0 z-50">
@@ -294,7 +246,7 @@
     </header>
 
     <main>
-        <!-- === UPDATED HEADLINE SECTION === -->
+        <!-- Headline Section -->
         <section id="home" class="min-h-screen flex items-center px-4 sm:px-6 lg:px-8">
             <div class="container mx-auto text-center">
                 <h1 class="animated-headline text-4xl sm:text-6xl md:text-7xl font-bold text-white leading-tight mb-4">
@@ -302,20 +254,17 @@
                     <span class="line-2">I'm Sourav Saha</span>
                 </h1>
                 <div class="text-lg md:text-2xl text-brand-secondary text-shadow headline-subtitle mx-auto">
-                    <div id="rotating-text-container" class="rotating-text-container">
-                        <!-- Text items will be injected by JavaScript -->
-                    </div>
+                    <div id="rotating-text-container" class="rotating-text-container"></div>
                 </div>
                 <div class="mt-8 explore-button-container">
-                    <!-- === MODIFIED THIS ELEMENT === -->
                     <a href="#about" class="inline-block bg-brand-accent text-white font-bold py-3 px-8 rounded-full hover:bg-opacity-90 transition-all transform hover:scale-105">
                         Explore My Profile
                     </a>
                 </div>
             </div>
         </section>
-        <!-- === END HEADLINE SECTION === -->
 
+        <!-- About Section -->
         <section id="about" class="px-4 sm:px-6 lg:px-8 pt-12 md:pt-16">
             <div class="container mx-auto">
                 <div class="flex flex-col md:flex-row items-center gap-8 md:gap-12" data-aos="fade-right">
@@ -332,6 +281,7 @@
             </div>
         </section>
         
+        <!-- Journey Section -->
         <section id="experience-education" class="px-4 sm:px-6 lg:px-8 pt-12 md:pt-16">
             <div class="container mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16">
                 <div id="experience" data-aos="fade-right">
@@ -353,11 +303,11 @@
             </div>
         </section>
         
+        <!-- Skills Section -->
         <section id="skills" class="px-4 sm:px-6 lg:px-8 pt-12 md:pt-16">
             <div class="container mx-auto" data-aos="fade-up">
                 <h2 class="text-3xl sm:text-4xl font-bold text-center text-white mb-8 md:mb-12 text-glow">Skills</h2>
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-12">
-                    
                     <div class="bg-white/5 p-6 rounded-lg">
                         <h3 class="text-2xl font-bold mb-6 text-center text-white text-shadow">💻 Programming</h3>
                         <div class="space-y-5">
@@ -368,7 +318,6 @@
                             <div class="skill-item"><div class="skill-info"><span class="skill-name">CSS</span><span class="skill-percent">90%</span></div><div class="progress-bar-container"><div class="progress-bar" style="--progress-width: 90%;"></div></div></div>
                         </div>
                     </div>
-
                     <div class="bg-white/5 p-6 rounded-lg">
                         <h3 class="text-2xl font-bold mb-6 text-center text-white text-shadow">🧠 Technical</h3>
                         <div class="space-y-5">
@@ -378,7 +327,6 @@
                             <div class="skill-item"><div class="skill-info"><span class="skill-name">Microsoft Office Suite</span><span class="skill-percent">82%</span></div><div class="progress-bar-container"><div class="progress-bar" style="--progress-width: 95%;"></div></div></div>
                         </div>
                     </div>
-
                     <div class="bg-white/5 p-6 rounded-lg">
                         <h3 class="text-2xl font-bold mb-6 text-center text-white text-shadow">🎯 Soft Skills</h3>
                         <div class="space-y-5">
@@ -393,6 +341,7 @@
             </div>
         </section>
 
+        <!-- Portfolio Section -->
         <section id="portfolio" class="px-4 sm:px-6 lg:px-8 pt-12 md:pt-16">
             <div class="container mx-auto" data-aos="fade-up">
                 <h2 class="text-3xl sm:text-4xl font-bold text-center text-white mb-8 md:mb-12 text-glow">GitHub Repositories</h2>
@@ -400,6 +349,7 @@
             </div>
         </section>
         
+        <!-- Articles Section -->
         <section id="articles" class="px-4 sm:px-6 lg:px-8 pt-12 md:pt-16">
             <div class="container mx-auto" data-aos="fade-up">
                 <h2 class="text-3xl sm:text-4xl font-bold text-center text-white mb-8 md:mb-12 text-glow">Recent Articles</h2>
@@ -407,53 +357,23 @@
             </div>
         </section>
 
-        <!-- === UPDATED RECOMMENDATIONS SECTION === -->
+        <!-- NEW Recommendations Section -->
         <section id="recommendations" class="px-4 sm:px-6 lg:px-8 pt-12 md:pt-16">
             <div class="container mx-auto" data-aos="fade-up">
                 <h2 class="text-3xl sm:text-4xl font-bold text-center text-white mb-8 md:mb-12 text-glow">What People Say</h2>
                 <div class="relative max-w-3xl mx-auto">
-                    <div id="recommendation-slider">
-                        <!-- Recommendation 1 -->
-                        <div class="recommendation-card">
-                            <p class="text-brand-secondary italic text-lg mb-6 leading-relaxed">"Sourav is a highly motivated and quick-learning individual. His passion for technology and his dedication to community building are truly impressive. He was a great asset to our campus ambassador program."</p>
-                            <div class="flex items-center mt-auto">
-                                <img src="https://placehold.co/64x64/00c2a9/ffffff?text=JD" alt="Jane Doe" class="w-16 h-16 rounded-full mr-4 object-cover border-2 border-brand-accent/50">
-                                <div>
-                                    <h4 class="font-bold text-white">Jane Doe</h4>
-                                    <p class="text-brand-secondary/80 text-sm">Program Manager, Creative IT Institute</p>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Recommendation 2 -->
-                        <div class="recommendation-card hidden">
-                             <p class="text-brand-secondary italic text-lg mb-6 leading-relaxed">"Working with Sourav has been a pleasure. He is proactive, communicative, and always brings positive energy to the team. His ability to engage with students is exceptional."</p>
-                            <div class="flex items-center mt-auto">
-                                <img src="https://placehold.co/64x64/00c2a9/ffffff?text=JS" alt="John Smith" class="w-16 h-16 rounded-full mr-4 object-cover border-2 border-brand-accent/50">
-                                <div>
-                                    <h4 class="font-bold text-white">John Smith</h4>
-                                    <p class="text-brand-secondary/80 text-sm">University Relations, Sheba Platform Ltd.</p>
-                                </div>
-                            </div>
-                        </div>
-                         <!-- Recommendation 3 -->
-                        <div class="recommendation-card hidden">
-                             <p class="text-brand-secondary italic text-lg mb-6 leading-relaxed">"As a member of the Data Science Club, Sourav consistently shows enthusiasm and a strong desire to learn. He actively participates and contributes valuable insights during our sessions."</p>
-                            <div class="flex items-center mt-auto">
-                                <img src="https://placehold.co/64x64/00c2a9/ffffff?text=EC" alt="Emily Carter" class="w-16 h-16 rounded-full mr-4 object-cover border-2 border-brand-accent/50">
-                                <div>
-                                    <h4 class="font-bold text-white">Emily Carter</h4>
-                                    <p class="text-brand-secondary/80 text-sm">President, UIU Data Science Club</p>
-                                </div>
-                            </div>
-                        </div>
+                    <div id="recommendation-carousel" class="recommendation-container">
+                        <!-- Reviews will be injected here by JS -->
                     </div>
-                    <button id="prev-recommendation" class="slider-btn left-0">&lt;</button>
-                    <button id="next-recommendation" class="slider-btn right-0">&gt;</button>
+                    <div class="recommendation-controls">
+                        <button id="prev-recommendation" class="slider-btn slider-btn-prev">&lt;</button>
+                        <button id="next-recommendation" class="slider-btn slider-btn-next">&gt;</button>
+                    </div>
                 </div>
             </div>
         </section>
-        <!-- === END RECOMMENDATIONS SECTION === -->
 
+        <!-- Contact Section -->
         <section id="contact" class="px-4 sm:px-6 lg:px-8 py-12 md:py-16">
             <div class="container mx-auto text-center" data-aos="fade-up">
                 <div class="max-w-2xl mx-auto">
@@ -503,7 +423,6 @@
                 <input type="hidden" name="subject" value="New Newsletter Subscription from Portfolio">
                 <input type="hidden" name="from_name" value="Sourav Saha Portfolio">
                 <input type="checkbox" name="botcheck" class="hidden" style="display: none;">
-
                 <input type="email" name="email" class="form-input w-full" placeholder="Enter your email" required>
                 <button type="submit" class="submit-btn w-full">Subscribe</button>
                 <div id="newsletter-status" class="mt-2 text-center text-sm"></div>
@@ -519,39 +438,27 @@
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const PRELOADER_DELAY = 2500;
-            // --- Preloader ---
             const preloader = document.getElementById('preloader');
             const loaderContainer = document.getElementById('matrix-loader');
             const loaderText = "Sourav Saha";
             const chars = "souravh";
 
             if (loaderContainer) {
-                let textSpans = [];
                 loaderText.split('').forEach(char => {
                     const span = document.createElement('span');
-                    if (char === ' ') {
-                        span.className = 'mx-2';
-                    } else {
-                        span.textContent = char;
-                    }
+                    if (char === ' ') { span.className = 'mx-2'; } else { span.textContent = char; }
                     loaderContainer.appendChild(span);
-                    textSpans.push({
-                        element: span,
-                        finalChar: char,
-                        isSpace: char === ' '
-                    });
                 });
-
-                textSpans.forEach((spanData, index) => {
-                    if (spanData.isSpace) return;
-                    
+                let spans = loaderContainer.querySelectorAll('span');
+                spans.forEach((span, index) => {
+                    let originalChar = span.textContent;
+                    if(originalChar === ' ') return;
                     let interval = setInterval(() => {
-                        spanData.element.textContent = chars[Math.floor(Math.random() * chars.length)];
+                        span.textContent = chars[Math.floor(Math.random() * chars.length)];
                     }, 50);
-
                     setTimeout(() => {
                         clearInterval(interval);
-                        spanData.element.textContent = spanData.finalChar;
+                        span.textContent = originalChar;
                     }, 1000 + (index * 50));
                 });
             }
@@ -559,31 +466,22 @@
             if (preloader) {
                 setTimeout(() => { 
                     preloader.classList.add('hidden'); 
-                    // Trigger animations after preloader is gone
                     animateHeadline();
                 }, PRELOADER_DELAY);
             } else {
-                // If no preloader, animate immediately
                 animateHeadline();
             }
 
-            // --- Headline Animation Function ---
             function animateHeadline() {
                 const headline = document.querySelector('.animated-headline');
                 if (!headline) return;
-
                 const line1 = headline.querySelector('.line-1');
                 const line2 = headline.querySelector('.line-2');
                 const line1Text = line1.textContent;
                 const line2Text = line2.textContent;
-
                 line1.innerHTML = '';
                 line2.innerHTML = '';
-
                 let delay = 0;
-                const nameToColor = "Sourav Saha";
-
-                // Animate Line 1
                 line1Text.split('').forEach(char => {
                     const span = document.createElement('span');
                     span.className = 'char';
@@ -592,70 +490,49 @@
                     line1.appendChild(span);
                     delay += 0.05;
                 });
-
-                delay += 0.1; // Pause between lines
-
-                // Animate Line 2
+                delay += 0.1;
                 line2Text.split('').forEach(char => {
                     const span = document.createElement('span');
                     span.className = 'char';
                     span.innerHTML = char === ' ' ? '&nbsp;' : char;
                     span.style.animationDelay = `${delay}s`;
-                    
-                    // Check if the character is part of the name to be colored
-                    if (nameToColor.includes(char) && line2Text.includes(nameToColor)) {
+                    if ("Sourav Saha".includes(char)) {
                          span.classList.add('text-brand-accent', 'text-glow');
                     }
-
                     line2.appendChild(span);
                     delay += 0.05;
                 });
             }
 
-            // --- Initialize Animate on Scroll for other sections ---
             AOS.init({ duration: 800, once: true, startEvent: 'DOMContentLoaded' });
 
-            // --- Mobile menu toggle ---
             const mobileMenuButton = document.getElementById('mobile-menu-button');
             const mobileMenu = document.getElementById('mobile-menu');
             if (mobileMenuButton && mobileMenu) {
                 mobileMenuButton.addEventListener('click', () => { mobileMenu.classList.toggle('hidden'); });
-                
-                const mobileMenuLinks = mobileMenu.querySelectorAll('a, button');
-                mobileMenuLinks.forEach(link => {
-                    link.addEventListener('click', () => {
-                        mobileMenu.classList.add('hidden');
-                    });
+                mobileMenu.querySelectorAll('a, button').forEach(link => {
+                    link.addEventListener('click', () => { mobileMenu.classList.add('hidden'); });
                 });
             }
 
-            // --- Header Scroll & Active Link Logic ---
             const header = document.querySelector('header');
-            const navLinks = document.querySelectorAll('header nav a.nav-link');
-            const sections = document.querySelectorAll('main section[id]');
             if (header) {
                 window.addEventListener('scroll', () => { header.classList.toggle('header-scrolled', window.scrollY > 50); });
             }
-            const observerOptions = { root: null, rootMargin: '0px', threshold: 0.4 };
+            const navLinks = document.querySelectorAll('header nav a.nav-link');
+            const sections = document.querySelectorAll('main section[id]');
             const observer = new IntersectionObserver((entries) => {
                 let currentActive = '';
                 entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        currentActive = entry.target.id;
-                    }
+                    if (entry.isIntersecting) { currentActive = entry.target.id; }
                 });
                 navLinks.forEach(link => {
                     const href = link.getAttribute('href').substring(1);
-                    if (href === currentActive || (currentActive === 'experience-education' && (href === 'experience-education'))) {
-                        link.classList.add('active-link');
-                    } else {
-                        link.classList.remove('active-link');
-                    }
+                    link.classList.toggle('active-link', href === currentActive);
                 });
-            }, observerOptions);
+            }, { root: null, rootMargin: '0px', threshold: 0.4 });
             sections.forEach(section => { observer.observe(section); });
 
-            // --- Digital Rain Background ---
             const canvas = document.getElementById('particle-canvas');
             if (canvas) {
                 const ctx = canvas.getContext('2d');
@@ -688,116 +565,65 @@
                 });
             }
             
-            // --- Rotating Text Animation ---
             const rotatingTextContainer = document.getElementById('rotating-text-container');
             if (rotatingTextContainer) {
-                const texts = [
-                    "A Creative Tech Writer",
-                    "An Aspiring Developer",
-                    "A Computer Science Student",
-                    "A Passionate Leader"
-                ];
+                const texts = ["A Creative Tech Writer", "An Aspiring Developer", "A Computer Science Student", "A Passionate Leader"];
                 let currentIndex = 0;
-
-                texts.forEach((text) => {
+                texts.forEach(text => {
                     const span = document.createElement('span');
                     span.textContent = text;
                     span.classList.add('rotating-text-item');
                     rotatingTextContainer.appendChild(span);
                 });
-
                 const textItems = rotatingTextContainer.querySelectorAll('.rotating-text-item');
-
                 function rotateText() {
                     const currentItem = textItems[currentIndex];
-                    const nextIndex = (currentIndex + 1) % textItems.length;
-                    const nextItem = textItems[nextIndex];
-
+                    currentIndex = (currentIndex + 1) % textItems.length;
+                    const nextItem = textItems[currentIndex];
                     currentItem.classList.remove('is-visible');
                     currentItem.classList.add('is-hidden');
-                    
                     nextItem.classList.remove('is-hidden');
-                    
-                    setTimeout(() => {
-                        nextItem.classList.add('is-visible');
-                    }, 50);
-
-                    currentIndex = nextIndex;
+                    setTimeout(() => { nextItem.classList.add('is-visible'); }, 50);
                 }
-
                 if(textItems.length > 0) {
                     setTimeout(() => {
                         textItems[0].classList.add('is-visible');
                         setInterval(rotateText, 3000);
-                    }, PRELOADER_DELAY + 1500); // Delay this to start after the main headline animation
+                    }, PRELOADER_DELAY + 1500);
                 }
             }
 
-            // --- CV Modal Logic ---
             const cvModal = document.getElementById('cv-modal');
             const openCvBtns = document.querySelectorAll('.open-cv-btn');
             const closeCvBtn = document.getElementById('close-cv-modal');
             if(cvModal && openCvBtns.length && closeCvBtn) {
-                openCvBtns.forEach(btn => {
-                    btn.addEventListener('click', (e) => { e.preventDefault(); cvModal.classList.remove('hidden'); });
-                });
-                const closeModal = () => { cvModal.classList.add('hidden'); };
+                const closeModal = () => cvModal.classList.add('hidden');
+                openCvBtns.forEach(btn => btn.addEventListener('click', (e) => { e.preventDefault(); cvModal.classList.remove('hidden'); }));
                 closeCvBtn.addEventListener('click', closeModal);
-                cvModal.addEventListener('click', (e) => { if (e.target === cvModal) { closeModal(); } });
-                document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && !cvModal.classList.contains('hidden')) { closeModal(); } });
+                cvModal.addEventListener('click', (e) => { if (e.target === cvModal) closeModal(); });
+                document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && !cvModal.classList.contains('hidden')) closeModal(); });
             }
 
-            // --- Contact Form Submission Logic ---
-            const contactForm = document.getElementById('contact-form');
-            if(contactForm) {
-                const formStatus = document.getElementById('form-status');
-                const submitBtnText = document.getElementById('submit-btn-text');
-                const submitBtnLoader = document.getElementById('submit-btn-loader');
-                contactForm.addEventListener('submit', function (e) {
+            function handleFormSubmit(formId, statusId, btnTextId, btnLoaderId) {
+                const form = document.getElementById(formId);
+                if (!form) return;
+                const statusDiv = document.getElementById(statusId);
+                const submitBtnText = btnTextId ? document.getElementById(btnTextId) : null;
+                const submitBtnLoader = btnLoaderId ? document.getElementById(btnLoaderId) : null;
+
+                form.addEventListener('submit', function (e) {
                     e.preventDefault();
-                    const formData = new FormData(contactForm);
+                    const formData = new FormData(form);
                     const object = Object.fromEntries(formData);
                     const json = JSON.stringify(object);
-                    submitBtnText.classList.add('hidden');
-                    submitBtnLoader.classList.remove('hidden');
-                    formStatus.innerHTML = '';
-                    fetch('https://api.web3forms.com/submit', {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-                        body: json
-                    })
-                    .then(async (response) => {
-                        let jsonResponse = await response.json();
-                        if (response.status == 200) {
-                            formStatus.innerHTML = `<span style="color: #00c2a9;">Submitted successfully!</span>`;
-                            contactForm.reset();
-                        } else {
-                            formStatus.innerHTML = `<span style="color: #ef4444;">${jsonResponse.message}</span>`;
-                        }
-                    })
-                    .catch(error => {
-                        console.error(error);
-                        formStatus.innerHTML = '<span style="color: #ef4444;">Something went wrong. Please try again.</span>';
-                    })
-                    .finally(() => {
-                        submitBtnText.classList.remove('hidden');
-                        submitBtnLoader.classList.add('hidden');
-                        setTimeout(() => { formStatus.innerHTML = ''; }, 5000);
-                    });
-                });
-            }
-            
-            // --- Newsletter Form Submission ---
-            const newsletterForm = document.getElementById('newsletter-form');
-            if (newsletterForm) {
-                const statusDiv = document.getElementById('newsletter-status');
-                newsletterForm.addEventListener('submit', function (e) {
-                    e.preventDefault();
-                    const formData = new FormData(newsletterForm);
-                    const object = Object.fromEntries(formData);
-                    const json = JSON.stringify(object);
-                    statusDiv.innerHTML = 'Submitting...';
                     
+                    if (submitBtnText && submitBtnLoader) {
+                        submitBtnText.classList.add('hidden');
+                        submitBtnLoader.classList.remove('hidden');
+                    } else {
+                        statusDiv.innerHTML = 'Submitting...';
+                    }
+
                     fetch('https://api.web3forms.com/submit', {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
@@ -806,145 +632,168 @@
                     .then(async (response) => {
                         let jsonResponse = await response.json();
                         if (response.status == 200) {
-                            statusDiv.innerHTML = `<span style="color: #00c2a9;">Thanks for subscribing!</span>`;
-                            newsletterForm.reset();
+                            statusDiv.innerHTML = `<span style="color: #00c2a9;">${formId === 'contact-form' ? 'Submitted successfully!' : 'Thanks for subscribing!'}</span>`;
+                            form.reset();
                         } else {
                             statusDiv.innerHTML = `<span style="color: #ef4444;">${jsonResponse.message}</span>`;
                         }
                     })
                     .catch(error => {
                         console.error(error);
-                        statusDiv.innerHTML = '<span style="color: #ef4444;">Something went wrong.</span>';
+                        statusDiv.innerHTML = `<span style="color: #ef4444;">Something went wrong.</span>`;
                     })
                     .finally(() => {
+                        if (submitBtnText && submitBtnLoader) {
+                            submitBtnText.classList.remove('hidden');
+                            submitBtnLoader.classList.add('hidden');
+                        }
                         setTimeout(() => { 
                             statusDiv.innerHTML = ''; 
-                            const popup = document.getElementById('newsletter-popup');
-                            if (popup) popup.classList.remove('is-visible');
+                            if (formId === 'newsletter-form') {
+                                document.getElementById('newsletter-popup')?.classList.remove('is-visible');
+                            }
                         }, 5000);
                     });
                 });
             }
+            handleFormSubmit('contact-form', 'form-status', 'submit-btn-text', 'submit-btn-loader');
+            handleFormSubmit('newsletter-form', 'newsletter-status');
 
-            // --- Unified Scroll Logic Handler ---
             const newsletterPopup = document.getElementById('newsletter-popup');
             const closeNewsletterBtn = document.getElementById('close-newsletter-popup');
             const backToTopBtn = document.getElementById('back-to-top-btn');
-            let isPopupBlocked = false;
+            let isPopupBlocked = localStorage.getItem('newsletterPopupClosedAt') && (new Date().getTime() - parseInt(localStorage.getItem('newsletterPopupClosedAt'))) < (24 * 60 * 60 * 1000);
 
-            const closedTimestamp = localStorage.getItem('newsletterPopupClosedAt');
-            if (closedTimestamp) {
-                const hoursSinceClosed = (new Date().getTime() - parseInt(closedTimestamp)) / (1000 * 60 * 60);
-                if (hoursSinceClosed < 24) {
+            if (closeNewsletterBtn) {
+                closeNewsletterBtn.addEventListener('click', () => {
+                    newsletterPopup.classList.remove('is-visible');
+                    localStorage.setItem('newsletterPopupClosedAt', new Date().getTime().toString());
                     isPopupBlocked = true;
-                } else {
-                    localStorage.removeItem('newsletterPopupClosedAt');
-                }
+                });
             }
-
-            if (newsletterPopup && closeNewsletterBtn) {
-                 const hidePopup = () => {
-                        newsletterPopup.classList.remove('is-visible');
-                        localStorage.setItem('newsletterPopupClosedAt', new Date().getTime().toString());
-                        isPopupBlocked = true;
-                 };
-                 closeNewsletterBtn.addEventListener('click', hidePopup);
-            }
-
             if (backToTopBtn) {
-                 backToTopBtn.addEventListener('click', () => {
-                        window.scrollTo({ top: 0, behavior: 'smooth' });
-                 });
+                backToTopBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
             }
             
-            const masterScrollHandler = () => {
-                const scrollPosition = window.scrollY;
-                const windowHeight = window.innerHeight;
-                const documentHeight = document.documentElement.scrollHeight;
-                const scrollPercentage = (documentHeight - windowHeight) > 0 
-                    ? (scrollPosition / (documentHeight - windowHeight)) * 100
-                    : 0;
-
-                if (backToTopBtn) {
-                    backToTopBtn.classList.toggle('visible', scrollPercentage >= 50);
-                }
-
+            window.addEventListener('scroll', () => {
+                const scrollPercentage = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
+                if (backToTopBtn) backToTopBtn.classList.toggle('visible', scrollPercentage >= 50);
                 if (newsletterPopup && !isPopupBlocked && scrollPercentage >= 90) {
                     newsletterPopup.classList.add('is-visible');
                 }
-            };
-
-            window.addEventListener('scroll', masterScrollHandler, { passive: true });
+            }, { passive: true });
             
-            // --- Progress Bar Animation Logic ---
             const skillsSection = document.getElementById('skills');
             if (skillsSection) {
-                const progressObserver = new IntersectionObserver((entries) => {
+                new IntersectionObserver((entries, observer) => {
                     entries.forEach(entry => {
                         if (entry.isIntersecting) {
-                            const progressBars = entry.target.querySelectorAll('.progress-bar');
-                            progressBars.forEach(bar => {
-                                bar.classList.add('animated');
-                            });
-                            progressObserver.unobserve(entry.target);
+                            entry.target.querySelectorAll('.progress-bar').forEach(bar => bar.classList.add('animated'));
+                            observer.unobserve(entry.target);
                         }
                     });
-                }, { threshold: 0.3 });
-
-                progressObserver.observe(skillsSection);
+                }, { threshold: 0.3 }).observe(skillsSection);
             }
 
-            // --- UPDATED: Recommendation Slider Logic ---
-            const slider = document.getElementById('recommendation-slider');
-            if (slider) {
-                const recommendations = Array.from(slider.querySelectorAll('.recommendation-card'));
+            // --- NEW Recommendation Carousel Logic ---
+            const carouselContainer = document.getElementById('recommendation-carousel');
+            if(carouselContainer) {
+                const reviews = [
+                    {
+                        quote: "Sourav is a highly motivated and quick-learning individual. His passion for technology and his dedication to community building are truly impressive. He was a great asset to our campus ambassador program.",
+                        name: "Jane Doe",
+                        title: "Program Manager, Creative IT Institute",
+                        img: "https://placehold.co/64x64/00c2a9/ffffff?text=JD"
+                    },
+                    {
+                        quote: "Working with Sourav has been a pleasure. He is proactive, communicative, and always brings positive energy to the team. His ability to engage with students is exceptional.",
+                        name: "John Smith",
+                        title: "University Relations, Sheba Platform Ltd.",
+                        img: "https://placehold.co/64x64/00c2a9/ffffff?text=JS"
+                    },
+                    {
+                        quote: "As a member of the Data Science Club, Sourav consistently shows enthusiasm and a strong desire to learn. He actively participates and contributes valuable insights during our sessions.",
+                        name: "Emily Carter",
+                        title: "President, UIU Data Science Club",
+                        img: "https://placehold.co/64x64/00c2a9/ffffff?text=EC"
+                    },
+                    {
+                        quote: "Sourav's technical writing is clear, concise, and accessible. He has a knack for breaking down complex topics into easy-to-understand content for our blog.",
+                        name: "Alex Johnson",
+                        title: "Content Lead, Tech Innovators",
+                        img: "https://placehold.co/64x64/00c2a9/ffffff?text=AJ"
+                    }
+                ];
+
+                reviews.forEach(review => {
+                    const card = document.createElement('div');
+                    card.className = 'recommendation-card';
+                    card.innerHTML = `
+                        <p class="flex-grow text-brand-secondary italic text-lg mb-6 leading-relaxed">${review.quote}</p>
+                        <div class="flex items-center mt-auto flex-shrink-0">
+                            <img src="${review.img}" alt="${review.name}" class="w-16 h-16 rounded-full mr-4 object-cover border-2 border-brand-accent/50">
+                            <div>
+                                <h4 class="font-bold text-white">${review.name}</h4>
+                                <p class="text-brand-secondary/80 text-sm">${review.title}</p>
+                            </div>
+                        </div>
+                    `;
+                    carouselContainer.appendChild(card);
+                });
+
+                const cards = carouselContainer.querySelectorAll('.recommendation-card');
                 const prevBtn = document.getElementById('prev-recommendation');
                 const nextBtn = document.getElementById('next-recommendation');
                 let currentIndex = 0;
-                let isAnimating = false;
+                let autoSlideInterval;
 
-                function changeRecommendation(newIndex, direction) {
-                    if (isAnimating) return;
-                    isAnimating = true;
-
-                    const currentCard = recommendations[currentIndex];
-                    const nextCard = recommendations[newIndex];
-
-                    const outClass = direction === 'next' ? 'slide-out-left' : 'slide-out-right';
-                    const inClass = direction === 'next' ? 'slide-in-right' : 'slide-in-left';
-
-                    nextCard.classList.remove('hidden');
-                    currentCard.classList.add(outClass);
-                    nextCard.classList.add(inClass);
-
-                    currentCard.addEventListener('animationend', () => {
-                        currentCard.classList.add('hidden');
-                        currentCard.classList.remove(outClass);
-                        isAnimating = false;
-                    }, { once: true });
-                    
-                    nextCard.addEventListener('animationend', () => {
-                         nextCard.classList.remove(inClass);
-                    }, { once: true });
-
-                    currentIndex = newIndex;
+                function updateCards() {
+                    cards.forEach((card, index) => {
+                        card.classList.remove('card-active', 'card-prev', 'card-next', 'card-out');
+                        if (index === currentIndex) {
+                            card.classList.add('card-active');
+                        } else if (index === (currentIndex + 1) % cards.length) {
+                            card.classList.add('card-next');
+                        } else if (index === (currentIndex - 1 + cards.length) % cards.length) {
+                            card.classList.add('card-prev');
+                        } else {
+                            card.classList.add('card-out');
+                        }
+                    });
+                    carouselContainer.style.height = cards[currentIndex].offsetHeight + 'px';
                 }
 
-                if (prevBtn && nextBtn && recommendations.length > 0) {
-                    prevBtn.addEventListener('click', () => {
-                        const newIndex = (currentIndex - 1 + recommendations.length) % recommendations.length;
-                        changeRecommendation(newIndex, 'prev');
-                    });
-
-                    nextBtn.addEventListener('click', () => {
-                        const newIndex = (currentIndex + 1) % recommendations.length;
-                        changeRecommendation(newIndex, 'next');
-                    });
+                function showNext() {
+                    currentIndex = (currentIndex + 1) % cards.length;
+                    updateCards();
                 }
+
+                function showPrev() {
+                    currentIndex = (currentIndex - 1 + cards.length) % cards.length;
+                    updateCards();
+                }
+
+                function startAutoSlide() {
+                    stopAutoSlide();
+                    autoSlideInterval = setInterval(showNext, 5000);
+                }
+
+                function stopAutoSlide() {
+                    clearInterval(autoSlideInterval);
+                }
+
+                nextBtn.addEventListener('click', () => { showNext(); startAutoSlide(); });
+                prevBtn.addEventListener('click', () => { showPrev(); startAutoSlide(); });
+                carouselContainer.addEventListener('mouseenter', stopAutoSlide);
+                carouselContainer.addEventListener('mouseleave', startAutoSlide);
+
+                updateCards();
+                startAutoSlide();
+                window.addEventListener('resize', () => {
+                    carouselContainer.style.height = cards[currentIndex].offsetHeight + 'px';
+                });
             }
 
-
-            // --- Fetchers ---
             fetchSubstackPosts();
             fetchGithubRepos();
         });
@@ -953,34 +802,27 @@
             const substackUrl = 'techtalkwithsourav.substack.com';
             const postsGrid = document.getElementById('substack-posts-grid');
             if (!postsGrid) return;
-            const rssUrl = `https://${substackUrl}/feed`;
-            const apiUrl = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(rssUrl)}&_=${new Date().getTime()}`;
+            const apiUrl = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(`https://${substackUrl}/feed`)}&_=${new Date().getTime()}`;
             try {
                 const response = await fetch(apiUrl);
-                if (!response.ok) { throw new Error(`API error: ${response.status}`); }
+                if (!response.ok) throw new Error(`API error: ${response.status}`);
                 const data = await response.json();
                 if (data.status !== 'ok' || !data.items || data.items.length === 0) {
                     postsGrid.innerHTML = '<p class="text-brand-secondary col-span-full text-center">Could not find any articles.</p>';
                     return;
                 }
                 postsGrid.innerHTML = '';
-                const articlesToShow = data.items.slice(0, 3);
-                articlesToShow.forEach(item => {
+                data.items.slice(0, 3).forEach(item => {
                     const formattedDate = new Date(item.pubDate).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
                     const tempDiv = document.createElement('div');
                     tempDiv.innerHTML = item.description;
                     const snippet = tempDiv.textContent.trim().substring(0, 120) + '...';
-                    
                     let imageUrl = item.thumbnail;
                     if (!imageUrl || imageUrl.length === 0) {
                         const firstImg = tempDiv.querySelector('img');
-                        imageUrl = firstImg ? firstImg.src : null;
+                        imageUrl = firstImg ? firstImg.src : `https://placehold.co/400x180/1e293b/334155?text=Article`;
                     }
-
-                    const imageElement = imageUrl 
-                        ? `<img src="${imageUrl}" alt="${item.title}" class="article-card-thumbnail" onerror="this.onerror=null;this.src='https://placehold.co/400x180/1e293b/334155?text=Article+Image';">`
-                        : '';
-
+                    const imageElement = `<img src="${imageUrl}" alt="${item.title}" class="article-card-thumbnail" onerror="this.onerror=null;this.src='https://placehold.co/400x180/1e293b/334155?text=Article+Image';">`;
                     const articleCard = `<a href="${item.link}" target="_blank" rel="noopener noreferrer" class="article-card rounded-lg flex flex-col h-full">${imageElement}<div class="article-card-content"><div class="flex-grow"><h3 class="text-xl font-bold text-white text-glow mb-2">${item.title}</h3><p class="text-brand-secondary/80 text-sm mb-4">${snippet}</p></div><p class="text-xs text-brand-secondary/60 mt-4">${formattedDate}</p></div></a>`;
                     postsGrid.innerHTML += articleCard;
                 });
@@ -997,7 +839,7 @@
             const url = `https://api.github.com/users/${username}/repos?sort=pushed&per_page=6`;
             try {
                 const response = await fetch(url);
-                if (!response.ok) { throw new Error(`GitHub API error: ${response.status}`); }
+                if (!response.ok) throw new Error(`GitHub API error: ${response.status}`);
                 const repos = await response.json();
                 repoGrid.innerHTML = '';
                 if (repos.length === 0) {
@@ -1025,3 +867,4 @@
     </script>
 </body>
 </html>
+
