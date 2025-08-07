@@ -813,17 +813,40 @@
                 }
                 postsGrid.innerHTML = '';
                 data.items.slice(0, 3).forEach(item => {
-                    const formattedDate = new Date(item.pubDate).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
                     const tempDiv = document.createElement('div');
                     tempDiv.innerHTML = item.description;
-                    const snippet = tempDiv.textContent.trim().substring(0, 120) + '...';
-                    let imageUrl = item.thumbnail;
-                    if (!imageUrl || imageUrl.length === 0) {
+
+                    let imageUrl = '';
+                    // 1. Prioritize thumbnail
+                    if (item.thumbnail && typeof item.thumbnail === 'string' && item.thumbnail.length > 0) {
+                        imageUrl = item.thumbnail;
+                    // 2. Fallback to enclosure
+                    } else if (item.enclosure && item.enclosure.link && typeof item.enclosure.link === 'string' && item.enclosure.link.length > 0) {
+                        imageUrl = item.enclosure.link;
+                    // 3. Fallback to parsing description
+                    } else {
                         const firstImg = tempDiv.querySelector('img');
-                        imageUrl = firstImg ? firstImg.src : `https://placehold.co/400x180/1e293b/334155?text=Article`;
+                        if (firstImg && firstImg.src) {
+                            imageUrl = firstImg.src;
+                        }
                     }
-                    const imageElement = `<img src="${imageUrl}" alt="${item.title}" class="article-card-thumbnail" onerror="this.onerror=null;this.src='https://placehold.co/400x180/1e293b/334155?text=Article+Image';">`;
-                    const articleCard = `<a href="${item.link}" target="_blank" rel="noopener noreferrer" class="article-card rounded-lg flex flex-col h-full">${imageElement}<div class="article-card-content"><div class="flex-grow"><h3 class="text-xl font-bold text-white text-glow mb-2">${item.title}</h3><p class="text-brand-secondary/80 text-sm mb-4">${snippet}</p></div><p class="text-xs text-brand-secondary/60 mt-4">${formattedDate}</p></div></a>`;
+
+                    const imageElement = `<img src="${imageUrl || 'https://placehold.co/400x180/1e293b/334155?text=Article+Image'}" alt="${item.title}" class="article-card-thumbnail" onerror="this.onerror=null;this.src='https://placehold.co/400x180/1e293b/334155?text=Image+Error';">`;
+
+                    const snippet = tempDiv.textContent.trim().substring(0, 120) + '...';
+                    const formattedDate = new Date(item.pubDate).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+
+                    const articleCard = `
+                        <a href="${item.link}" target="_blank" rel="noopener noreferrer" class="article-card rounded-lg flex flex-col h-full">
+                            ${imageElement}
+                            <div class="article-card-content">
+                                <div class="flex-grow">
+                                    <h3 class="text-xl font-bold text-white text-glow mb-2">${item.title}</h3>
+                                    <p class="text-brand-secondary/80 text-sm mb-4">${snippet}</p>
+                                </div>
+                                <p class="text-xs text-brand-secondary/60 mt-4">${formattedDate}</p>
+                            </div>
+                        </a>`;
                     postsGrid.innerHTML += articleCard;
                 });
             } catch (error) {
@@ -867,4 +890,3 @@
     </script>
 </body>
 </html>
-
