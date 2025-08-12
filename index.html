@@ -4,6 +4,57 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
+    <!-- 
+      SEO & Sharing Meta Tags:
+      - Optimized title for better search ranking.
+      - Refined meta description to be more compelling and action-oriented.
+      - Added rel="canonical" to prevent duplicate content issues.
+      - Enhanced Open Graph and Twitter tags for social sharing.
+    -->
+    <title>Sourav Saha - Computer Science Student, Developer & Tech Writer</title>
+    <meta
+      name="description"
+      content="Hi, I'm Sourav Saha, a passionate Computer Science student and aspiring developer from Bangladesh. Explore my projects, technical articles, and journey in software development and tech leadership. Let's connect and build something great!"
+    />
+    <meta
+      name="keywords"
+      content="Sourav Saha, sourav, portfolio, computer science, student, developer, tech writer, tech leader, Bangladesh, UIU, Creative IT Institute, Sheba Bondhu, software development, web development"
+    />
+    <link rel="canonical" href="https://sourav.com.bd/" />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://sourav.com.bd/" />
+    <meta
+      property="og:title"
+      content="Sourav Saha - Computer Science Student, Developer & Tech Writer"
+    />
+    <meta
+      property="og:description"
+      content="A passionate Computer Science student, aspiring developer, and tech writer. Explore my projects and articles."
+    />
+    <meta
+      property="og:image"
+      content="https://sourav.com.bd/image/share-card.jpg"
+    />
+    <meta property="og:locale" content="en_US" />
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content="https://sourav.com.bd/" />
+    <meta
+      property="twitter:title"
+      content="Sourav Saha - Computer Science Student, Developer & Tech Writer"
+    />
+    <meta
+      property="twitter:description"
+      content="A passionate Computer Science student, aspiring developer, and tech writer. Explore my work."
+    />
+    <meta
+      property="twitter:image"
+      content="https://sourav.com.bd/image/share-card.jpg"
+    />
+
     <!-- Favicon -->
     <link
       rel="icon"
@@ -11,43 +62,7 @@
       type="image/png"
     />
 
-    <!-- SEO & Sharing Meta Tags -->
-    <title>Sourav Saha</title>
-    <meta
-      name="description"
-      content="Welcome to the portfolio of Sourav Saha, a passionate Computer Science student, content writer, and student leader. Explore my projects, read my articles, and get in touch."
-    />
-    <meta
-      name="keywords"
-      content="Sourav Saha, sourav, partho, portfolio, computer science, student leader, tech writer, developer, Bangladesh, UIU, Creative IT Institute, Sheba Bondhu"
-    />
-
-    <!-- Open Graph / Facebook -->
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://sourav.com.bd/" />
-    <meta property="og:title" content="Sourav Saha" />
-    <meta
-      property="og:description"
-      content="A passionate Computer Science student, content writer, and student leader. Explore my work."
-    />
-    <meta
-      property="og:image"
-      content="https://sourav.com.bd/image/share-card.jpg"
-    />
-
-    <!-- Twitter -->
-    <meta property="twitter:card" content="summary_large_image" />
-    <meta property="twitter:url" content="https://sourav.com.bd/" />
-    <meta property="twitter:title" content="Sourav Saha" />
-    <meta
-      property="twitter:description"
-      content="A passionate Computer Science student, content writer, and student leader. Explore my work."
-    />
-    <meta
-      property="twitter:image"
-      content="https://sourav.com.bd/image/share-card.jpg"
-    />
-
+    <!-- Stylesheets & Fonts -->
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="" />
@@ -600,6 +615,63 @@
         }
       }
     </style>
+
+    <!-- JSON-LD Schema Markup for SEO -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "Person",
+            "@id": "https://sourav.com.bd/#person",
+            "name": "Sourav Saha",
+            "url": "https://sourav.com.bd/",
+            "image": "https://sourav.com.bd/image/profile.jpg",
+            "sameAs": [
+              "https://www.linkedin.com/in/souravsahapartho/",
+              "https://github.com/souravsahapartho",
+              "https://www.instagram.com/souravsahapartho/",
+              "https://www.facebook.com/souravsahapartho/",
+              "https://x.com/souravpartho",
+              "https://techtalkwithsourav.substack.com/"
+            ],
+            "jobTitle": "Computer Science Student & Developer",
+            "alumniOf": "United International University",
+            "description": "Sourav Saha is a Computer Science student, aspiring developer, and tech writer based in Dhaka, Bangladesh."
+          },
+          {
+            "@type": "WebSite",
+            "@id": "https://sourav.com.bd/#website",
+            "url": "https://sourav.com.bd/",
+            "name": "Sourav Saha's Portfolio",
+            "description": "The personal portfolio of Sourav Saha, showcasing his projects, articles, and professional journey.",
+            "publisher": {
+              "@id": "https://sourav.com.bd/#person"
+            }
+          },
+          {
+            "@type": "CollectionPage",
+            "@id": "https://sourav.com.bd/#articles-page",
+            "url": "https://sourav.com.bd/#articles",
+            "name": "Articles by Sourav Saha",
+            "description": "A collection of technical and career-related articles written by Sourav Saha on his Substack blog.",
+            "publisher": {
+              "@id": "https://sourav.com.bd/#person"
+            }
+          },
+          {
+            "@type": "CollectionPage",
+            "@id": "https://sourav.com.bd/#portfolio-page",
+            "url": "https://sourav.com.bd/#portfolio",
+            "name": "Projects by Sourav Saha",
+            "description": "A collection of software development projects and repositories from Sourav Saha's GitHub profile.",
+            "publisher": {
+              "@id": "https://sourav.com.bd/#person"
+            }
+          }
+        ]
+      }
+    </script>
   </head>
   <body class="font-sans" oncontextmenu="return false;">
     <div id="preloader">
@@ -610,6 +682,7 @@
     <header class="bg-transparent fixed top-0 left-0 right-0 z-50">
       <nav
         class="container mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center"
+        aria-label="Main Navigation"
       >
         <a
           href="#"
@@ -661,6 +734,8 @@
         <button
           id="mobile-menu-button"
           class="md:hidden focus:outline-none text-white"
+          aria-expanded="false"
+          aria-controls="mobile-menu"
         >
           <svg
             class="w-6 h-6"
@@ -769,7 +844,7 @@
             <div class="w-full md:w-1/3 flex-shrink-0">
               <img
                 src="Image/profile.jpg"
-                alt="Sourav Saha"
+                alt="Sourav Saha, a computer science student and aspiring developer."
                 class="rounded-full shadow-2xl w-48 h-48 sm:w-64 sm:h-64 mx-auto object-cover"
                 onerror="this.onerror=null;this.src='https://placehold.co/256x256/0f172a/ffffff?text=Profile+Image';"
               />
@@ -917,7 +992,7 @@
                 <p class="text-lg text-brand-secondary/90 font-medium">
                   United International University
                 </p>
-                  <p
+                <p
                   class="inline-block p-2 my-2 bg-brand-accent/10 rounded-md text-brand-accent text-sm font-semibold"
                 >
                   Computer Science & Engineering
@@ -973,7 +1048,7 @@
                   class="flex flex-wrap gap-x-4 gap-y-1 text-sm text-brand-secondary/70 my-2"
                 >
                   <span>📍 Sirajganj, Bangladesh</span
-                  ><span>📅 2014 – 2018</span>
+                  ><span>� 2014 – 2018</span>
                 </div>
               </div>
             </div>
@@ -1245,12 +1320,14 @@
               <button
                 id="prev-recommendation"
                 class="slider-btn slider-btn-prev"
+                aria-label="Previous recommendation"
               >
                 &lt;
               </button>
               <button
                 id="next-recommendation"
                 class="slider-btn slider-btn-next"
+                aria-label="Next recommendation"
               >
                 &gt;
               </button>
@@ -1293,6 +1370,7 @@
                   id="name"
                   required
                   class="form-input"
+                  aria-label="Full Name"
                 />
               </div>
               <div>
@@ -1303,6 +1381,7 @@
                   id="email"
                   required
                   class="form-input"
+                  aria-label="Email Address"
                 />
               </div>
               <div>
@@ -1313,6 +1392,7 @@
                   id="subject"
                   required
                   class="form-input"
+                  aria-label="Subject"
                 />
               </div>
               <div>
@@ -1323,6 +1403,7 @@
                   rows="5"
                   required
                   class="form-textarea"
+                  aria-label="Message"
                 ></textarea>
               </div>
               <button type="submit" class="submit-btn">
@@ -1341,6 +1422,7 @@
 
     <footer
       class="border-t border-white/10 mt-8 pt-8 pb-8 px-4 sm:px-6 lg:px-8"
+      role="contentinfo"
     >
       <div class="container mx-auto text-center text-gray-400">
         <div class="flex justify-center space-x-6 mb-4">
@@ -1348,7 +1430,7 @@
             href="https://www.linkedin.com/in/souravsahapartho/"
             target="_blank"
             rel="noopener noreferrer"
-            title="LinkedIn"
+            title="LinkedIn Profile"
             class="hover:text-brand-accent transition-colors"
             ><span class="sr-only">LinkedIn</span
             ><svg
@@ -1365,7 +1447,7 @@
             href="https://www.instagram.com/souravsahapartho/"
             target="_blank"
             rel="noopener noreferrer"
-            title="Instagram"
+            title="Instagram Profile"
             class="hover:text-brand-accent transition-colors"
             ><span class="sr-only">Instagram</span
             ><svg
@@ -1382,7 +1464,7 @@
             href="https://www.facebook.com/souravsahapartho/"
             target="_blank"
             rel="noopener noreferrer"
-            title="Facebook"
+            title="Facebook Profile"
             class="hover:text-brand-accent transition-colors"
             ><span class="sr-only">Facebook</span
             ><svg
@@ -1399,7 +1481,7 @@
             href="https://x.com/souravpartho"
             target="_blank"
             rel="noopener noreferrer"
-            title="X"
+            title="X Profile"
             class="hover:text-brand-accent transition-colors"
             ><span class="sr-only">X</span
             ><svg
@@ -2115,3 +2197,4 @@
     </script>
   </body>
 </html>
+�
