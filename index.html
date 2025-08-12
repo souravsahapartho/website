@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <!-- 
+    <!--
       SEO & Sharing Meta Tags:
       - Optimized title for better search ranking.
       - Refined meta description to be more compelling and action-oriented.
@@ -91,6 +91,7 @@
     </script>
 
     <style>
+      /* General & Background */
       .transition-all {
         transition: all 0.3s ease-in-out;
       }
@@ -119,6 +120,7 @@
         text-shadow: 0 2px 5px rgba(0, 0, 0, 0.6);
       }
 
+      /* Header & Navigation */
       header {
         transition: background-color 0.4s ease-out;
         opacity: 0;
@@ -158,6 +160,7 @@
         color: #00c2a9;
       }
 
+      /* Preloader - NEW STYLES */
       #preloader {
         position: fixed;
         top: 0;
@@ -170,21 +173,43 @@
         justify-content: center;
         align-items: center;
         transition: opacity 0.8s ease-out, visibility 0.8s ease-out;
-        overflow: hidden;
       }
       #preloader.hidden {
         opacity: 0;
         visibility: hidden;
       }
-      .matrix-loader {
-        font-family: "monospace";
-        font-size: 2rem;
-        font-weight: bold;
-        color: #00c2a9;
-        text-shadow: 0 0 10px rgba(0, 194, 169, 0.7);
-        white-space: pre;
+      .loader-dots {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 1rem;
+      }
+      .loader-dot {
+        width: 20px;
+        height: 20px;
+        background-color: #00c2a9;
+        border-radius: 50%;
+        animation: pulse 1.5s infinite ease-in-out;
+      }
+      .loader-dot:nth-child(2) {
+        animation-delay: 0.2s;
+      }
+      .loader-dot:nth-child(3) {
+        animation-delay: 0.4s;
+      }
+      @keyframes pulse {
+        0%,
+        100% {
+          transform: scale(0.8);
+          opacity: 0.5;
+        }
+        50% {
+          transform: scale(1.2);
+          opacity: 1;
+        }
       }
 
+      /* Main content animations */
       @keyframes slideDown {
         from {
           opacity: 0;
@@ -195,7 +220,6 @@
           transform: translateY(0);
         }
       }
-
       .animated-headline .char {
         display: inline-block;
         opacity: 0;
@@ -209,7 +233,6 @@
           transform: translateY(0) rotate(0);
         }
       }
-
       .headline-subtitle {
         height: 2.5rem;
         position: relative;
@@ -222,7 +245,6 @@
           opacity: 1;
         }
       }
-
       .explore-button-container {
         opacity: 0;
         transform: translateY(10px);
@@ -234,7 +256,6 @@
           transform: translateY(0);
         }
       }
-
       .rotating-text-container {
         position: absolute;
         left: 0;
@@ -258,6 +279,7 @@
         transform: translateY(-100%);
       }
 
+      /* Modal and Form */
       .modal-overlay {
         position: fixed;
         top: 0;
@@ -351,6 +373,8 @@
         height: 100%;
         border-radius: 0.25rem;
       }
+
+      /* Card styles */
       .repo-card,
       .article-card {
         background-color: rgba(255, 255, 255, 0.05);
@@ -380,6 +404,8 @@
         flex-direction: column;
         flex-grow: 1;
       }
+
+      /* Form styles */
       .form-label {
         font-size: 0.875rem;
         font-weight: 500;
@@ -420,6 +446,8 @@
       #mc_embed_signup {
         background: transparent !important;
       }
+
+      /* Other interactive elements */
       .newsletter-popup {
         position: fixed;
         bottom: 1.5rem;
@@ -523,97 +551,6 @@
       .progress-bar.animated {
         width: var(--progress-width);
       }
-
-      /* --- EYE-CATCHING RECOMMENDATION STYLES --- */
-      .recommendation-container {
-        perspective: 1000px;
-        position: relative;
-        min-height: 350px; /* Adjust based on content */
-        transition: height 0.5s ease-in-out;
-      }
-      .recommendation-card {
-        background-color: rgba(30, 41, 59, 0.7);
-        backdrop-filter: blur(10px);
-        border: 1px solid rgba(51, 65, 85, 0.7);
-        border-radius: 0.75rem;
-        position: absolute;
-        width: 100%;
-        padding: 2.5rem;
-        transition: transform 0.5s ease-in-out, opacity 0.5s ease-in-out,
-          z-index 0.5s;
-        transform-origin: center center;
-        opacity: 0;
-        z-index: 1;
-        display: flex;
-        flex-direction: column;
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-      }
-      .recommendation-card::before {
-        content: "“";
-        position: absolute;
-        top: -10px;
-        left: 15px;
-        font-size: 6rem;
-        font-weight: 900;
-        color: rgba(0, 194, 169, 0.1);
-        z-index: -1;
-      }
-      .recommendation-card.card-active {
-        transform: translateX(0) scale(1);
-        opacity: 1;
-        z-index: 10;
-      }
-      .recommendation-card.card-next {
-        transform: translateX(50%) scale(0.8);
-        opacity: 0.5;
-        z-index: 5;
-      }
-      .recommendation-card.card-prev {
-        transform: translateX(-50%) scale(0.8);
-        opacity: 0.5;
-        z-index: 5;
-      }
-      .recommendation-card.card-out {
-        transform: scale(1.2);
-        opacity: 0;
-        z-index: 1;
-      }
-      .recommendation-controls {
-        position: absolute;
-        top: 50%;
-        left: 0;
-        width: 100%;
-        display: flex;
-        justify-content: space-between;
-        transform: translateY(-50%);
-        padding: 0 0.5rem;
-      }
-      .slider-btn {
-        background-color: rgba(0, 194, 169, 0.5);
-        color: white;
-        border: none;
-        border-radius: 50%;
-        width: 44px;
-        height: 44px;
-        font-size: 1.5rem;
-        cursor: pointer;
-        transition: background-color 0.3s ease;
-        z-index: 20;
-      }
-      .slider-btn:hover {
-        background-color: #00c2a9;
-      }
-      @media (min-width: 768px) {
-        .recommendation-controls {
-          padding: 0;
-        }
-        .slider-btn-prev {
-          transform: translate(-150%, -50%);
-        }
-        .slider-btn-next {
-          transform: translate(150%, -50%);
-        }
-      }
     </style>
 
     <!-- JSON-LD Schema Markup for SEO -->
@@ -648,34 +585,19 @@
             "publisher": {
               "@id": "https://sourav.com.bd/#person"
             }
-          },
-          {
-            "@type": "CollectionPage",
-            "@id": "https://sourav.com.bd/#articles-page",
-            "url": "https://sourav.com.bd/#articles",
-            "name": "Articles by Sourav Saha",
-            "description": "A collection of technical and career-related articles written by Sourav Saha on his Substack blog.",
-            "publisher": {
-              "@id": "https://sourav.com.bd/#person"
-            }
-          },
-          {
-            "@type": "CollectionPage",
-            "@id": "https://sourav.com.bd/#portfolio-page",
-            "url": "https://sourav.com.bd/#portfolio",
-            "name": "Projects by Sourav Saha",
-            "description": "A collection of software development projects and repositories from Sourav Saha's GitHub profile.",
-            "publisher": {
-              "@id": "https://sourav.com.bd/#person"
-            }
           }
         ]
       }
     </script>
   </head>
   <body class="font-sans" oncontextmenu="return false;">
+    <!-- New Preloader with a simple dot animation -->
     <div id="preloader">
-      <div id="matrix-loader" class="matrix-loader"></div>
+      <div class="loader-dots">
+        <div class="loader-dot"></div>
+        <div class="loader-dot"></div>
+        <div class="loader-dot"></div>
+      </div>
     </div>
     <canvas id="particle-canvas"></canvas>
 
@@ -715,11 +637,7 @@
             class="nav-link text-gray-300 hover:text-brand-accent"
             >Articles</a
           >
-          <a
-            href="#recommendations"
-            class="nav-link text-gray-300 hover:text-brand-accent"
-            >Reviews</a
-          >
+          <!-- Removed "Reviews" link as requested -->
           <a
             href="#contact"
             class="nav-link text-gray-300 hover:text-brand-accent"
@@ -782,11 +700,7 @@
           class="block py-2 px-4 text-sm text-gray-200 hover:bg-white/10"
           >Articles</a
         >
-        <a
-          href="#recommendations"
-          class="block py-2 px-4 text-sm text-gray-200 hover:bg-white/10"
-          >Reviews</a
-        >
+        <!-- Removed "Reviews" link from mobile menu as requested -->
         <a
           href="#contact"
           class="block py-2 px-4 text-sm text-gray-200 hover:bg-white/10"
@@ -1048,7 +962,7 @@
                   class="flex flex-wrap gap-x-4 gap-y-1 text-sm text-brand-secondary/70 my-2"
                 >
                   <span>📍 Sirajganj, Bangladesh</span
-                  ><span>� 2014 – 2018</span>
+                  ><span>📅 2014 – 2018</span>
                 </div>
               </div>
             </div>
@@ -1169,7 +1083,8 @@
                 </div>
                 <div class="skill-item">
                   <div class="skill-info">
-                    <span class="skill-name">Object-Oriented Programming</span
+                    <span class="skill-name"
+                      >Object-Oriented Programming</span
                     ><span class="skill-percent">80%</span>
                   </div>
                   <div class="progress-bar-container">
@@ -1304,37 +1219,7 @@
         </div>
       </section>
 
-      <!-- NEW Recommendations Section -->
-      <section id="recommendations" class="px-4 sm:px-6 lg:px-8 pt-12 md:pt-16">
-        <div class="container mx-auto" data-aos="fade-up">
-          <h2
-            class="text-3xl sm:text-4xl font-bold text-center text-white mb-8 md:mb-12 text-glow"
-          >
-            What People Say
-          </h2>
-          <div class="relative max-w-3xl mx-auto">
-            <div id="recommendation-carousel" class="recommendation-container">
-              <!-- Reviews will be injected here by JS -->
-            </div>
-            <div class="recommendation-controls">
-              <button
-                id="prev-recommendation"
-                class="slider-btn slider-btn-prev"
-                aria-label="Previous recommendation"
-              >
-                &lt;
-              </button>
-              <button
-                id="next-recommendation"
-                class="slider-btn slider-btn-next"
-                aria-label="Next recommendation"
-              >
-                &gt;
-              </button>
-            </div>
-          </div>
-        </div>
-      </section>
+      <!-- Removed "What People Say" (Recommendations) section -->
 
       <!-- Contact Section -->
       <section id="contact" class="px-4 sm:px-6 lg:px-8 py-12 md:py-16">
@@ -1597,56 +1482,36 @@
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
+      // The delay before the preloader is hidden and animations start
+      const PRELOADER_DELAY = 1500;
+
       document.addEventListener("DOMContentLoaded", () => {
-        const PRELOADER_DELAY = 2500;
         const preloader = document.getElementById("preloader");
-        const loaderContainer = document.getElementById("matrix-loader");
-        const loaderText = "Sourav Saha";
-        const chars = "souravh";
 
-        if (loaderContainer) {
-          loaderText.split("").forEach((char) => {
-            const span = document.createElement("span");
-            if (char === " ") {
-              span.className = "mx-2";
-            } else {
-              span.textContent = char;
-            }
-            loaderContainer.appendChild(span);
-          });
-          let spans = loaderContainer.querySelectorAll("span");
-          spans.forEach((span, index) => {
-            let originalChar = span.textContent;
-            if (originalChar === " ") return;
-            let interval = setInterval(() => {
-              span.textContent =
-                chars[Math.floor(Math.random() * chars.length)];
-            }, 50);
-            setTimeout(() => {
-              clearInterval(interval);
-              span.textContent = originalChar;
-            }, 1000 + index * 50);
-          });
-        }
-
+        // Hide preloader and start animations after a delay
         if (preloader) {
           setTimeout(() => {
             preloader.classList.add("hidden");
             animateHeadline();
           }, PRELOADER_DELAY);
         } else {
+          // Fallback if preloader is not found
           animateHeadline();
         }
 
+        // --- Headline Text Animation ---
         function animateHeadline() {
           const headline = document.querySelector(".animated-headline");
           if (!headline) return;
+
           const line1 = headline.querySelector(".line-1");
           const line2 = headline.querySelector(".line-2");
           const line1Text = line1.textContent;
           const line2Text = line2.textContent;
+
           line1.innerHTML = "";
           line2.innerHTML = "";
+
           let delay = 0;
           line1Text.split("").forEach((char) => {
             const span = document.createElement("span");
@@ -1656,7 +1521,9 @@
             line1.appendChild(span);
             delay += 0.05;
           });
+
           delay += 0.1;
+
           line2Text.split("").forEach((char) => {
             const span = document.createElement("span");
             span.className = "char";
@@ -1670,14 +1537,17 @@
           });
         }
 
+        // Initialize AOS library for scroll animations
         AOS.init({ duration: 800, once: true, startEvent: "DOMContentLoaded" });
 
+        // --- Mobile Menu Toggle Logic ---
         const mobileMenuButton = document.getElementById("mobile-menu-button");
         const mobileMenu = document.getElementById("mobile-menu");
         if (mobileMenuButton && mobileMenu) {
           mobileMenuButton.addEventListener("click", () => {
             mobileMenu.classList.toggle("hidden");
           });
+          // Close mobile menu when a link is clicked
           mobileMenu.querySelectorAll("a, button").forEach((link) => {
             link.addEventListener("click", () => {
               mobileMenu.classList.add("hidden");
@@ -1685,12 +1555,15 @@
           });
         }
 
+        // --- Header Scroll Effect ---
         const header = document.querySelector("header");
         if (header) {
           window.addEventListener("scroll", () => {
             header.classList.toggle("header-scrolled", window.scrollY > 50);
           });
         }
+
+        // --- Active Navigation Link Highlighting ---
         const navLinks = document.querySelectorAll("header nav a.nav-link");
         const sections = document.querySelectorAll("main section[id]");
         const observer = new IntersectionObserver(
@@ -1712,6 +1585,7 @@
           observer.observe(section);
         });
 
+        // --- Background Particle Canvas ---
         const canvas = document.getElementById("particle-canvas");
         if (canvas) {
           const ctx = canvas.getContext("2d");
@@ -1748,6 +1622,7 @@
           });
         }
 
+        // --- Rotating Headline Subtitle ---
         const rotatingTextContainer = document.getElementById(
           "rotating-text-container"
         );
@@ -1787,6 +1662,7 @@
           }
         }
 
+        // --- CV Modal Logic ---
         const cvModal = document.getElementById("cv-modal");
         const openCvBtns = document.querySelectorAll(".open-cv-btn");
         const closeCvBtn = document.getElementById("close-cv-modal");
@@ -1808,6 +1684,7 @@
           });
         }
 
+        // --- Web3Forms Form Submission Logic ---
         function handleFormSubmit(formId, statusId, btnTextId, btnLoaderId) {
           const form = document.getElementById(formId);
           if (!form) return;
@@ -1881,6 +1758,7 @@
         );
         handleFormSubmit("newsletter-form", "newsletter-status");
 
+        // --- Newsletter Popup & Back-to-Top Button Logic ---
         const newsletterPopup = document.getElementById("newsletter-popup");
         const closeNewsletterBtn = document.getElementById(
           "close-newsletter-popup"
@@ -1907,7 +1785,6 @@
             window.scrollTo({ top: 0, behavior: "smooth" })
           );
         }
-
         window.addEventListener(
           "scroll",
           () => {
@@ -1924,6 +1801,7 @@
           { passive: true }
         );
 
+        // --- Skill Progress Bar Animation ---
         const skillsSection = document.getElementById("skills");
         if (skillsSection) {
           new IntersectionObserver(
@@ -1941,133 +1819,12 @@
           ).observe(skillsSection);
         }
 
-        // --- NEW Recommendation Carousel Logic ---
-        const carouselContainer = document.getElementById(
-          "recommendation-carousel"
-        );
-        if (carouselContainer) {
-          const reviews = [
-            {
-              quote:
-                "He is a well known Upgrowing Tech enthusiast. He completed his Programming languages (c, Java) with best grade. He is very focused on his studies and his work. I strongly recommend for your job or work.",
-              name: "Binoy Sarker",
-              title: "CS Undergrad | Featuers Writer (from LInkedIn)",
-              img: "https://placehold.co/64x64/00c2a9/ffffff?text=BS",
-            },
-            {
-              quote:
-                "I recommend Sourav Saha for Microsoft Excel, Microsoft Power Point",
-              name: "Liliana Maruta",
-              title: "Affiliate Marketing (from LinkedIn)",
-              img: "https://placehold.co/64x64/00c2a9/ffffff?text=LM",
-            },
-            {
-              quote:
-                "As a member of the Data Science Club, Sourav consistently shows enthusiasm and a strong desire to learn. He actively participates and contributes valuable insights during our sessions.",
-              name: "Emily Carter",
-              title: "President, UIU Data Science Club",
-              img: "https://placehold.co/64x64/00c2a9/ffffff?text=EC",
-            },
-            {
-              quote:
-                "Sourav's technical writing is clear, concise, and accessible. He has a knack for breaking down complex topics into easy-to-understand content for our blog.",
-              name: "Alex Johnson",
-              title: "Content Lead, Tech Innovators",
-              img: "https://placehold.co/64x64/00c2a9/ffffff?text=AJ",
-            },
-          ];
-
-          reviews.forEach((review) => {
-            const card = document.createElement("div");
-            card.className = "recommendation-card";
-            card.innerHTML = `
-                                <p class="flex-grow text-brand-secondary italic text-lg mb-6 leading-relaxed">${review.quote}</p>
-                                <div class="flex items-center mt-auto flex-shrink-0">
-                                    <img src="${review.img}" alt="${review.name}" class="w-16 h-16 rounded-full mr-4 object-cover border-2 border-brand-accent/50">
-                                    <div>
-                                        <h4 class="font-bold text-white">${review.name}</h4>
-                                        <p class="text-brand-secondary/80 text-sm">${review.title}</p>
-                                    </div>
-                                </div>
-                            `;
-            carouselContainer.appendChild(card);
-          });
-
-          const cards = carouselContainer.querySelectorAll(
-            ".recommendation-card"
-          );
-          const prevBtn = document.getElementById("prev-recommendation");
-          const nextBtn = document.getElementById("next-recommendation");
-          let currentIndex = 0;
-          let autoSlideInterval;
-
-          function updateCards() {
-            cards.forEach((card, index) => {
-              card.classList.remove(
-                "card-active",
-                "card-prev",
-                "card-next",
-                "card-out"
-              );
-              if (index === currentIndex) {
-                card.classList.add("card-active");
-              } else if (index === (currentIndex + 1) % cards.length) {
-                card.classList.add("card-next");
-              } else if (
-                index ===
-                (currentIndex - 1 + cards.length) % cards.length
-              ) {
-                card.classList.add("card-prev");
-              } else {
-                card.classList.add("card-out");
-              }
-            });
-            carouselContainer.style.height =
-              cards[currentIndex].offsetHeight + "px";
-          }
-
-          function showNext() {
-            currentIndex = (currentIndex + 1) % cards.length;
-            updateCards();
-          }
-
-          function showPrev() {
-            currentIndex = (currentIndex - 1 + cards.length) % cards.length;
-            updateCards();
-          }
-
-          function startAutoSlide() {
-            stopAutoSlide();
-            autoSlideInterval = setInterval(showNext, 5000);
-          }
-
-          function stopAutoSlide() {
-            clearInterval(autoSlideInterval);
-          }
-
-          nextBtn.addEventListener("click", () => {
-            showNext();
-            startAutoSlide();
-          });
-          prevBtn.addEventListener("click", () => {
-            showPrev();
-            startAutoSlide();
-          });
-          carouselContainer.addEventListener("mouseenter", stopAutoSlide);
-          carouselContainer.addEventListener("mouseleave", startAutoSlide);
-
-          updateCards();
-          startAutoSlide();
-          window.addEventListener("resize", () => {
-            carouselContainer.style.height =
-              cards[currentIndex].offsetHeight + "px";
-          });
-        }
-
+        // --- Fetch Dynamic Content from APIs ---
         fetchSubstackPosts();
         fetchGithubRepos();
       });
 
+      // Fetch the latest articles from Substack RSS feed
       async function fetchSubstackPosts() {
         const substackUrl = "techtalkwithsourav.substack.com";
         const postsGrid = document.getElementById("substack-posts-grid");
@@ -2128,16 +1885,16 @@
             );
 
             const articleCard = `
-                                <a href="${item.link}" target="_blank" rel="noopener noreferrer" class="article-card rounded-lg flex flex-col h-full">
-                                    ${imageElement}
-                                    <div class="article-card-content">
-                                        <div class="flex-grow">
-                                            <h3 class="text-xl font-bold text-white text-glow mb-2">${item.title}</h3>
-                                            <p class="text-brand-secondary/80 text-sm mb-4">${snippet}</p>
-                                        </div>
-                                        <p class="text-xs text-brand-secondary/60 mt-4">${formattedDate}</p>
-                                    </div>
-                                </a>`;
+              <a href="${item.link}" target="_blank" rel="noopener noreferrer" class="article-card rounded-lg flex flex-col h-full">
+                ${imageElement}
+                <div class="article-card-content">
+                  <div class="flex-grow">
+                    <h3 class="text-xl font-bold text-white text-glow mb-2">${item.title}</h3>
+                    <p class="text-brand-secondary/80 text-sm mb-4">${snippet}</p>
+                  </div>
+                  <p class="text-xs text-brand-secondary/60 mt-4">${formattedDate}</p>
+                </div>
+              </a>`;
             postsGrid.innerHTML += articleCard;
           });
         } catch (error) {
@@ -2146,6 +1903,7 @@
         }
       }
 
+      // Fetch the latest repositories from GitHub API
       async function fetchGithubRepos() {
         const username = "souravsahapartho";
         const repoGrid = document.getElementById("github-repos-grid");
@@ -2164,29 +1922,29 @@
           }
           repos.forEach((repo) => {
             const repoCard = `
-                                <a href="${
-                                  repo.html_url
-                                }" target="_blank" rel="noopener noreferrer" class="repo-card p-6 rounded-lg flex flex-col h-full">
-                                    <div class="flex-grow"><h3 class="text-xl font-bold text-white text-glow mb-2">${
-                                      repo.name
-                                    }</h3><p class="text-brand-secondary text-sm mb-4">${
+              <a href="${
+                repo.html_url
+              }" target="_blank" rel="noopener noreferrer" class="repo-card p-6 rounded-lg flex flex-col h-full">
+                <div class="flex-grow"><h3 class="text-xl font-bold text-white text-glow mb-2">${
+                  repo.name
+                }</h3><p class="text-brand-secondary text-sm mb-4">${
               repo.description || "No description provided."
             }</p></div>
-                                    <div class="flex items-center text-sm text-brand-secondary/80 mt-auto">
-                                        ${
-                                          repo.language
-                                            ? `<span class="flex items-center mr-4"><span class="w-3 h-3 rounded-full mr-2 bg-brand-accent"></span>${repo.language}</span>`
-                                            : ""
-                                        }
-                                        <span class="flex items-center mr-4"><svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 16 16"><path d="M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.522-3.356c.33-.314.16-.888-.282-.95l-4.898-.696L8.465.792a.513.513 0 0 0-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767-3.686 1.894.694-3.957a.565.565 0 0 0-.163-.505L1.71 6.745l4.052-.576a.525.525 0 0 0 .393-.288L8 2.223l1.847 3.658a.525.525 0 0 0 .393.288l4.052.575-2.906 2.77a.565.565 0 0 0-.163.506l.694 3.957-3.686-1.894a.503.503 0 0 0-.461 0z"/></svg>${
-                                          repo.stargazers_count
-                                        }</span>
-                                        <span class="flex items-center"><svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M5 3.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0zm0 2.5a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0zm0 2.5a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0zm0 2.5a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0zM11 5.75a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0zm0 2.5a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0zm0 2.5a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0z"/></svg>${
-                                          repo.forks_count
-                                        }</span>
-                                    </div>
-                                </a>
-                            `;
+                <div class="flex items-center text-sm text-brand-secondary/80 mt-auto">
+                  ${
+                    repo.language
+                      ? `<span class="flex items-center mr-4"><span class="w-3 h-3 rounded-full mr-2 bg-brand-accent"></span>${repo.language}</span>`
+                      : ""
+                  }
+                  <span class="flex items-center mr-4"><svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 16 16"><path d="M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.522-3.356c.33-.314.16-.888-.282-.95l-4.898-.696L8.465.792a.513.513 0 0 0-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767-3.686 1.894.694-3.957a.565.565 0 0 0-.163-.505L1.71 6.745l4.052-.576a.525.525 0 0 0 .393-.288L8 2.223l1.847 3.658a.525.525 0 0 0 .393.288l4.052.575-2.906 2.77a.565.565 0 0 0-.163.506l.694 3.957-3.686-1.894a.503.503 0 0 0-.461 0z"/></svg>${
+              repo.stargazers_count
+            }</span>
+                  <span class="flex items-center"><svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M5 3.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0zm0 2.5a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0zm0 2.5a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0zm0 2.5a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0zM11 5.75a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0zm0 2.5a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0zm0 2.5a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0z"/></svg>${
+              repo.forks_count
+            }</span>
+                </div>
+              </a>
+            `;
             repoGrid.innerHTML += repoCard;
           });
         } catch (error) {
@@ -2197,4 +1955,3 @@
     </script>
   </body>
 </html>
-�
