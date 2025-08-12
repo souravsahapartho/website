@@ -160,7 +160,7 @@
         color: #00c2a9;
       }
 
-      /* Preloader - NEW STYLES */
+      /* Preloader - Simple, glowing loader */
       #preloader {
         position: fixed;
         top: 0;
@@ -178,35 +178,19 @@
         opacity: 0;
         visibility: hidden;
       }
-      .loader-dots {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 1rem;
+      .loader-text {
+        font-family: 'Inter', sans-serif;
+        font-size: 2.5rem;
+        font-weight: 700;
+        color: #00c2a9;
+        opacity: 0;
+        animation: fadeAndGlow 1.5s ease-in-out forwards;
       }
-      .loader-dot {
-        width: 20px;
-        height: 20px;
-        background-color: #00c2a9;
-        border-radius: 50%;
-        animation: pulse 1.5s infinite ease-in-out;
-      }
-      .loader-dot:nth-child(2) {
-        animation-delay: 0.2s;
-      }
-      .loader-dot:nth-child(3) {
-        animation-delay: 0.4s;
-      }
-      @keyframes pulse {
-        0%,
-        100% {
-          transform: scale(0.8);
-          opacity: 0.5;
-        }
-        50% {
-          transform: scale(1.2);
-          opacity: 1;
-        }
+
+      @keyframes fadeAndGlow {
+        0% { opacity: 0; text-shadow: none; }
+        50% { opacity: 1; text-shadow: 0 0 15px #00c2a9, 0 0 30px #00c2a9; }
+        100% { opacity: 1; text-shadow: 0 0 8px rgba(0, 194, 169, 0.5); }
       }
 
       /* Main content animations */
@@ -591,13 +575,9 @@
     </script>
   </head>
   <body class="font-sans" oncontextmenu="return false;">
-    <!-- New Preloader with a simple dot animation -->
+    <!-- Simple, static preloader -->
     <div id="preloader">
-      <div class="loader-dots">
-        <div class="loader-dot"></div>
-        <div class="loader-dot"></div>
-        <div class="loader-dot"></div>
-      </div>
+      <div class="loader-text">Sourav Saha</div>
     </div>
     <canvas id="particle-canvas"></canvas>
 
@@ -1487,15 +1467,13 @@
 
       document.addEventListener("DOMContentLoaded", () => {
         const preloader = document.getElementById("preloader");
-
-        // Hide preloader and start animations after a delay
+        
         if (preloader) {
           setTimeout(() => {
             preloader.classList.add("hidden");
             animateHeadline();
           }, PRELOADER_DELAY);
         } else {
-          // Fallback if preloader is not found
           animateHeadline();
         }
 
