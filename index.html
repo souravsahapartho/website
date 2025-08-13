@@ -71,6 +71,9 @@
       rel="stylesheet"
     />
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
 
     <script>
       tailwind.config = {
@@ -360,16 +363,19 @@
 
       /* Card styles */
       .repo-card,
-      .article-card {
+      .article-card,
+      .recommendation-card {
         background-color: rgba(255, 255, 255, 0.05);
         border: 1px solid rgba(255, 255, 255, 0.1);
         transition: transform 0.3s ease, box-shadow 0.3s ease,
           border-color 0.3s ease;
         display: flex;
         flex-direction: column;
+        border-radius: 0.5rem;
       }
       .repo-card:hover,
-      .article-card:hover {
+      .article-card:hover,
+      .recommendation-card:hover {
         transform: translateY(-5px);
         box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
         border-color: rgba(0, 194, 169, 0.5);
@@ -535,6 +541,41 @@
       .progress-bar.animated {
         width: var(--progress-width);
       }
+
+      /* Recommendations Carousel Styles */
+      #recommendations-carousel {
+        display: flex;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        -webkit-overflow-scrolling: touch; /* For iOS Safari */
+        scroll-behavior: smooth;
+        gap: 1.5rem; /* Space between cards */
+      }
+      /* Hide scrollbar for aesthetics */
+      #recommendations-carousel::-webkit-scrollbar {
+        display: none;
+      }
+      #recommendations-carousel {
+        -ms-overflow-style: none;  /* IE and Edge */
+        scrollbar-width: none;  /* Firefox */
+      }
+      .rec-card-wrapper {
+        flex: 0 0 100%;
+        scroll-snap-align: center;
+      }
+      .rec-nav-btn {
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 50%;
+        width: 40px;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: background 0.3s;
+      }
+      .rec-nav-btn:hover {
+        background: rgba(255, 255, 255, 0.2);
+      }
     </style>
 
     <!-- JSON-LD Schema Markup for SEO -->
@@ -617,7 +658,6 @@
             class="nav-link text-gray-300 hover:text-brand-accent"
             >Articles</a
           >
-          <!-- Removed "Reviews" link as requested -->
           <a
             href="#contact"
             class="nav-link text-gray-300 hover:text-brand-accent"
@@ -680,7 +720,6 @@
           class="block py-2 px-4 text-sm text-gray-200 hover:bg-white/10"
           >Articles</a
         >
-        <!-- Removed "Reviews" link from mobile menu as requested -->
         <a
           href="#contact"
           class="block py-2 px-4 text-sm text-gray-200 hover:bg-white/10"
@@ -737,7 +776,7 @@
           >
             <div class="w-full md:w-1/3 flex-shrink-0">
               <img
-                src="Image/profile.jpg"
+                src="image/profile.jpg"
                 alt="Sourav Saha, a computer science student and aspiring developer."
                 class="rounded-full shadow-2xl w-48 h-48 sm:w-64 sm:h-64 mx-auto object-cover"
                 onerror="this.onerror=null;this.src='https://placehold.co/256x256/0f172a/ffffff?text=Profile+Image';"
@@ -1199,7 +1238,65 @@
         </div>
       </section>
 
-      <!-- Removed "What People Say" (Recommendations) section -->
+      <!-- Recommendations Section -->
+      <section id="recommendations" class="px-4 sm:px-6 lg:px-8 py-12 md:py-16">
+        <div class="container mx-auto" data-aos="fade-up">
+          <h2 class="text-3xl sm:text-4xl font-bold text-center text-white mb-8 md:mb-12 text-glow">
+            What People Say
+          </h2>
+          <div class="relative max-w-4xl mx-auto">
+            <div id="recommendations-carousel" class="flex snap-x snap-mandatory overflow-x-auto gap-6 pb-4 cursor-grab">
+              <!-- Recommendation Card 1 -->
+              <div class="rec-card-wrapper w-full flex-shrink-0 snap-center">
+                <div class="recommendation-card p-6 flex flex-col items-center text-center">
+                  <div class="text-brand-accent mb-4 text-3xl opacity-50">
+                    <i class="fa-solid fa-quote-left"></i>
+                  </div>
+                  <p class="text-brand-secondary text-lg italic flex-grow">"Sourav is a highly motivated and dedicated individual. His commitment to learning and his natural leadership skills make him an asset to any team. He's always eager to take on new challenges and consistently delivers high-quality work."</p>
+                  <div class="mt-6 pt-4 border-t border-white/10 w-full">
+                    <p class="font-bold text-white text-lg">Md. Shakil Khan</p>
+                    <p class="text-sm text-brand-secondary/80">Mentor & Full-Stack Developer</p>
+                  </div>
+                </div>
+              </div>
+              <!-- Recommendation Card 2 -->
+              <div class="rec-card-wrapper w-full flex-shrink-0 snap-center">
+                <div class="recommendation-card p-6 flex flex-col items-center text-center">
+                  <div class="text-brand-accent mb-4 text-3xl opacity-50">
+                    <i class="fa-solid fa-quote-left"></i>
+                  </div>
+                  <p class="text-brand-secondary text-lg italic flex-grow">"His work ethic and ability to quickly grasp new concepts are truly impressive. Sourav's enthusiasm for technology is infectious, and he contributes positively to every project he's involved in."</p>
+                  <div class="mt-6 pt-4 border-t border-white/10 w-full">
+                    <p class="font-bold text-white text-lg">Fahim Hasan</p>
+                    <p class="text-sm text-brand-secondary/80">Lead Web Developer</p>
+                  </div>
+                </div>
+              </div>
+              <!-- Recommendation Card 3 -->
+              <div class="rec-card-wrapper w-full flex-shrink-0 snap-center">
+                <div class="recommendation-card p-6 flex flex-col items-center text-center">
+                  <div class="text-brand-accent mb-4 text-3xl opacity-50">
+                    <i class="fa-solid fa-quote-left"></i>
+                  </div>
+                  <p class="text-brand-secondary text-lg italic flex-grow">"Sourav's passion for learning and his collaborative spirit are outstanding. He is an excellent team player who is always ready to share his knowledge and support others. I highly recommend him."</p>
+                  <div class="mt-6 pt-4 border-t border-white/10 w-full">
+                    <p class="font-bold text-white text-lg">Dr. Anisur Rahman</p>
+                    <p class="text-sm text-brand-secondary/80">Professor of Computer Science</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Carousel Navigation Buttons -->
+            <button id="rec-prev-btn" class="absolute top-1/2 left-0 -translate-x-1/2 -translate-y-1/2 p-2 rec-nav-btn text-white block">
+              <i class="fa-solid fa-chevron-left"></i>
+            </button>
+            <button id="rec-next-btn" class="absolute top-1/2 right-0 translate-x-1/2 -translate-y-1/2 p-2 rec-nav-btn text-white block">
+              <i class="fa-solid fa-chevron-right"></i>
+            </button>
+          </div>
+        </div>
+      </section>
 
       <!-- Contact Section -->
       <section id="contact" class="px-4 sm:px-6 lg:px-8 py-12 md:py-16">
@@ -1249,17 +1346,11 @@
                   aria-label="Email Address"
                 />
               </div>
-              <div>
-                <label for="subject" class="form-label">Subject</label
-                ><input
-                  type="text"
-                  name="subject"
-                  id="subject"
-                  required
-                  class="form-input"
-                  aria-label="Subject"
-                />
-              </div>
+              <input
+                type="hidden"
+                name="subject"
+                value="Message from Website"
+              />
               <div>
                 <label for="message" class="form-label">Message</label
                 ><textarea
@@ -1677,7 +1768,7 @@
           form.addEventListener("submit", function (e) {
             e.preventDefault();
             const formData = new FormData(form);
-            const object = Object.fromEntries(formData);
+            const object = Object.fromEntries(formData.entries());
             const json = JSON.stringify(object);
 
             if (submitBtnText && submitBtnLoader) {
@@ -1687,30 +1778,25 @@
               statusDiv.innerHTML = "Submitting...";
             }
 
-            fetch("https://api.web3forms.com/submit", {
+            fetch(form.action, {
               method: "POST",
               headers: {
                 "Content-Type": "application/json",
-                Accept: "application/json",
               },
               body: json,
             })
               .then(async (response) => {
                 let jsonResponse = await response.json();
-                if (response.status == 200) {
-                  statusDiv.innerHTML = `<span style="color: #00c2a9;">${
-                    formId === "contact-form"
-                      ? "Submitted successfully!"
-                      : "Thanks for subscribing!"
-                  }</span>`;
+                if (response.ok) {
+                  statusDiv.innerHTML = `<span style="color: #00c2a9;">${jsonResponse.message}</span>`;
                   form.reset();
                 } else {
-                  statusDiv.innerHTML = `<span style="color: #ef4444;">${jsonResponse.message}</span>`;
+                  throw new Error(jsonResponse.message || "Something went wrong.");
                 }
               })
               .catch((error) => {
-                console.error(error);
-                statusDiv.innerHTML = `<span style="color: #ef4444;">Something went wrong.</span>`;
+                console.error("Submission error:", error);
+                statusDiv.innerHTML = `<span style="color: #ef4444;">${error.message}</span>`;
               })
               .finally(() => {
                 if (submitBtnText && submitBtnLoader) {
@@ -1770,6 +1856,7 @@
               (window.scrollY /
                 (document.documentElement.scrollHeight - window.innerHeight)) *
               100;
+            // Show button after 50% scroll
             if (backToTopBtn)
               backToTopBtn.classList.toggle("visible", scrollPercentage >= 50);
             if (newsletterPopup && !isPopupBlocked && scrollPercentage >= 90) {
@@ -1797,6 +1884,70 @@
           ).observe(skillsSection);
         }
 
+        // --- Recommendations Carousel Logic with CSS Scroll Snap ---
+        const recCarousel = document.getElementById("recommendations-carousel");
+        const recCards = recCarousel ? recCarousel.querySelectorAll(".rec-card-wrapper") : [];
+        const recPrevBtn = document.getElementById("rec-prev-btn");
+        const recNextBtn = document.getElementById("rec-next-btn");
+
+        if (recCarousel && recCards.length > 0) {
+          let recInterval;
+          let currentRecIndex = 0;
+          const totalCards = recCards.length;
+          
+          function scrollToCard(index) {
+            // Calculate the correct index, wrapping around
+            currentRecIndex = (index % totalCards + totalCards) % totalCards;
+            
+            const cardElement = recCards[currentRecIndex];
+            if (cardElement) {
+              recCarousel.scrollTo({ left: cardElement.offsetLeft, behavior: 'smooth' });
+            }
+          }
+          
+          // Handle navigation buttons
+          if (recPrevBtn) {
+            recPrevBtn.addEventListener("click", () => {
+              scrollToCard(currentRecIndex - 1);
+              resetInterval();
+            });
+          }
+
+          if (recNextBtn) {
+            recNextBtn.addEventListener("click", () => {
+              scrollToCard(currentRecIndex + 1);
+              resetInterval();
+            });
+          }
+          
+          // Auto-play functionality
+          function startInterval() {
+            recInterval = setInterval(() => {
+              scrollToCard(currentRecIndex + 1);
+            }, 5000); // Change card every 5 seconds
+          }
+
+          function resetInterval() {
+            clearInterval(recInterval);
+            startInterval();
+          }
+
+          // Listen for manual scroll to update the current index
+          recCarousel.addEventListener('scroll', () => {
+            const cardWidthWithGap = recCards[0].offsetWidth + 24; // Width + gap
+            const newIndex = Math.round(recCarousel.scrollLeft / cardWidthWithGap);
+            // Only update if the index has genuinely changed to avoid flickering
+            if (newIndex !== currentRecIndex) {
+              currentRecIndex = newIndex;
+            }
+          });
+
+          // Start the auto-play and pause on hover
+          startInterval();
+          recCarousel.addEventListener('mouseenter', () => clearInterval(recInterval));
+          recCarousel.addEventListener('mouseleave', () => startInterval());
+        }
+        
         // --- Fetch Dynamic Content from APIs ---
         fetchSubstackPosts();
         fetchGithubRepos();
@@ -1915,11 +2066,11 @@
                       : ""
                   }
                   <span class="flex items-center mr-4"><svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 16 16"><path d="M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.522-3.356c.33-.314.16-.888-.282-.95l-4.898-.696L8.465.792a.513.513 0 0 0-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767-3.686 1.894.694-3.957a.565.565 0 0 0-.163-.505L1.71 6.745l4.052-.576a.525.525 0 0 0 .393-.288L8 2.223l1.847 3.658a.525.525 0 0 0 .393.288l4.052.575-2.906 2.77a.565.565 0 0 0-.163.506l.694 3.957-3.686-1.894a.503.503 0 0 0-.461 0z"/></svg>${
-              repo.stargazers_count
-            }</span>
+                  repo.stargazers_count
+                }</span>
                   <span class="flex items-center"><svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M5 3.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0zm0 2.5a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0zm0 2.5a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0zm0 2.5a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0zM11 5.75a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0zm0 2.5a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0zm0 2.5a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0z"/></svg>${
-              repo.forks_count
-            }</span>
+                  repo.forks_count
+                }</span>
                 </div>
               </a>
             `;
