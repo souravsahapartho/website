@@ -404,7 +404,6 @@
       .form-input,
       .form-textarea {
         width: 100%;
-        margin-top: 0.5rem;
         padding: 0.75rem 1rem;
         border-radius: 0.5rem;
         background-color: rgba(255, 255, 255, 0.05);
@@ -776,7 +775,7 @@
           >
             <div class="w-full md:w-1/3 flex-shrink-0">
               <img
-                src="image/profile.jpg"
+                src="Image/profile.jpg"
                 alt="Sourav Saha, a computer science student and aspiring developer."
                 class="rounded-full shadow-2xl w-48 h-48 sm:w-64 sm:h-64 mx-auto object-cover"
                 onerror="this.onerror=null;this.src='https://placehold.co/256x256/0f172a/ffffff?text=Profile+Image';"
@@ -1122,6 +1121,18 @@
                     <div
                       class="progress-bar"
                       style="--progress-width: 82%"
+                    ></div>
+                  </div>
+                </div>
+                <div class="skill-item">
+                  <div class="skill-info">
+                    <span class="skill-name">Email Marketing</span
+                    ><span class="skill-percent">75%</span>
+                  </div>
+                  <div class="progress-bar-container">
+                    <div
+                      class="progress-bar"
+                      style="--progress-width: 75%"
                     ></div>
                   </div>
                 </div>
@@ -1778,7 +1789,7 @@
               statusDiv.innerHTML = "Submitting...";
             }
 
-            fetch("https://api.web3forms.com/submit", {
+            fetch(form.action, {
               method: "POST",
               headers: {
                 "Content-Type": "application/json",
@@ -1867,21 +1878,20 @@
         );
 
         // --- Skill Progress Bar Animation ---
-        const skillsSection = document.getElementById("skills");
-        if (skillsSection) {
-          new IntersectionObserver(
+        const skillBars = document.querySelectorAll(".progress-bar");
+        if (skillBars.length > 0) {
+          const observer = new IntersectionObserver(
             (entries, observer) => {
               entries.forEach((entry) => {
                 if (entry.isIntersecting) {
-                  entry.target
-                    .querySelectorAll(".progress-bar")
-                    .forEach((bar) => bar.classList.add("animated"));
+                  entry.target.classList.add("animated");
                   observer.unobserve(entry.target);
                 }
               });
             },
-            { threshold: 0.3 }
-          ).observe(skillsSection);
+            { threshold: 0.8 } // Trigger when 80% of the element is visible
+          );
+          skillBars.forEach((bar) => observer.observe(bar));
         }
 
         // --- Recommendations Carousel Logic with CSS Scroll Snap ---
