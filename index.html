@@ -120,7 +120,7 @@
         text-shadow: 0 0 8px rgba(0, 194, 169, 0.5), 0 0 20px rgba(0, 0, 0, 0.7);
       }
       .text-shadow {
-        text-shadow: 0 2px 5px rgba(0, 0, 0, 0.6);
+        text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.6);
       }
 
       /* Header & Navigation */
@@ -555,8 +555,8 @@
         display: none;
       }
       #recommendations-carousel {
-        -ms-overflow-style: none;  /* IE and Edge */
-        scrollbar-width: none;  /* Firefox */
+        -ms-overflow-style: none;  /* IE and Edge */
+        scrollbar-width: none;  /* Firefox */
       }
       .rec-card-wrapper {
         flex: 0 0 100%;
@@ -1963,17 +1963,25 @@
         fetchGithubRepos();
       });
 
-      // Fetch the latest articles from Substack RSS feed
+      // Fetches the latest articles from Substack RSS feed using a third-party service.
       async function fetchSubstackPosts() {
         const substackUrl = "techtalkwithsourav.substack.com";
         const postsGrid = document.getElementById("substack-posts-grid");
         if (!postsGrid) return;
+        
+        postsGrid.innerHTML =
+          '<p class="text-brand-secondary col-span-full text-center">Loading latest articles from Substack...</p>';
+        
         const apiUrl = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(
           `https://${substackUrl}/feed`
         )}&_=${new Date().getTime()}`;
+        
         try {
-          const response = await fetch(apiUrl);
-          if (!response.ok) throw new Error(`API error: ${response.status}`);
+          // Use 'no-store' cache control to ensure the browser always re-fetches the content
+          const response = await fetch(apiUrl, { cache: 'no-store' });
+          if (!response.ok) {
+            throw new Error(`API error: ${response.status}`);
+          }
           const data = await response.json();
           if (data.status !== "ok" || !data.items || data.items.length === 0) {
             postsGrid.innerHTML =
@@ -1986,7 +1994,7 @@
             tempDiv.innerHTML = item.description;
 
             let imageUrl = "";
-            // 1. Prioritize thumbnail
+            // 1. Prioritize thumbnail from API response
             if (
               item.thumbnail &&
               typeof item.thumbnail === "string" &&
@@ -2037,7 +2045,7 @@
             postsGrid.innerHTML += articleCard;
           });
         } catch (error) {
-          postsGrid.innerHTML = `<p class="text-red-400 col-span-full text-center">Failed to load articles. Please check the Substack URL.</p>`;
+          postsGrid.innerHTML = `<p class="text-red-400 col-span-full text-center">Failed to load articles. Please try again later.</p>`;
           console.error("Substack Fetch Error:", error);
         }
       }
@@ -2076,11 +2084,11 @@
                       : ""
                   }
                   <span class="flex items-center mr-4"><svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 16 16"><path d="M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.522-3.356c.33-.314.16-.888-.282-.95l-4.898-.696L8.465.792a.513.513 0 0 0-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767-3.686 1.894.694-3.957a.565.565 0 0 0-.163-.505L1.71 6.745l4.052-.576a.525.525 0 0 0 .393-.288L8 2.223l1.847 3.658a.525.525 0 0 0 .393.288l4.052.575-2.906 2.77a.565.565 0 0 0-.163.506l.694 3.957-3.686-1.894a.503.503 0 0 0-.461 0z"/></svg>${
-                  repo.stargazers_count
-                }</span>
+              repo.stargazers_count
+            }</span>
                   <span class="flex items-center"><svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M5 3.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0zm0 2.5a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0zm0 2.5a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0zm0 2.5a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0zM11 5.75a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0zm0 2.5a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0zm0 2.5a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0z"/></svg>${
-                  repo.forks_count
-                }</span>
+              repo.forks_count
+            }</span>
                 </div>
               </a>
             `;
