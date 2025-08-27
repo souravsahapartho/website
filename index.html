@@ -394,6 +394,29 @@
         flex-direction: column;
         flex-grow: 1;
       }
+      
+      /* Eye-catching GitHub Follow Section */
+      #github-profile-card {
+        background: linear-gradient(135deg, rgba(0, 194, 169, 0.1), rgba(15, 23, 42, 0.2));
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+      }
+
+      #github-profile-card:hover {
+        transform: translateY(-8px) scale(1.02);
+        box-shadow: 0 15px 30px rgba(0, 194, 169, 0.2);
+      }
+
+      #follow-button {
+        transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+      }
+
+      #follow-button:hover {
+        transform: scale(1.05);
+        box-shadow: 0 6px 20px rgba(0, 194, 169, 0.4);
+        background-color: #00d4b8; /* A slightly brighter version of the accent color */
+      }
+
 
       /* Form styles */
       .form-label {
@@ -1217,7 +1240,7 @@
           <h2
             class="text-3xl sm:text-4xl font-bold text-center text-white mb-8 md:mb-12 text-glow"
           >
-            My GitHub
+            GitHub
           </h2>
 
           <!-- GitHub Profile and Follower Count -->
@@ -1236,7 +1259,7 @@
 
           <!-- GitHub Repositories -->
           <h3
-            class="text-2xl font-bold text-white mb-4 text-glow"
+            class="text-2xl font-bold text-white mb-8 text-glow"
             data-aos="fade-up"
           >
             Recent Repositories
@@ -1248,21 +1271,6 @@
             <p class="text-brand-secondary col-span-full text-center">
               Loading latest projects from GitHub...
             </p>
-          </div>
-          
-          <!-- GitHub Daily Activity Feed -->
-          <h3
-            class="text-2xl font-bold text-white mt-12 mb-4 text-glow"
-            data-aos="fade-up"
-          >
-            Recent Activity
-          </h3>
-          <div
-            id="github-activity-feed"
-            class="bg-white/5 p-6 rounded-lg"
-            data-aos="fade-up"
-          >
-            <p class="text-brand-secondary text-center">Loading recent activity...</p>
           </div>
         </div>
       </section>
@@ -2000,7 +2008,6 @@
         fetchSubstackPosts();
         fetchGithubProfile();
         fetchGithubRepos();
-        fetchGithubActivity();
       });
 
       // Fetches the latest articles from Substack RSS feed using a third-party service.
@@ -2179,81 +2186,6 @@
           'Rust': '#dea584',
         };
         return colors[language] || '#cccccc';
-      }
-
-      // Fetches and displays recent activity from GitHub
-      async function fetchGithubActivity() {
-        const activityFeed = document.getElementById('github-activity-feed');
-        if (!activityFeed) return;
-
-        activityFeed.innerHTML = '<p class="text-brand-secondary text-center">Loading recent activity...</p>';
-        const url = `https://api.github.com/users/${GITHUB_USERNAME}/events/public?per_page=10`;
-
-        try {
-            const response = await fetch(url);
-            if (!response.ok) throw new Error(`Failed to fetch GitHub activity. Status: ${response.status}`);
-            const events = await response.json();
-            
-            activityFeed.innerHTML = '';
-            if (events.length === 0) {
-                activityFeed.innerHTML = '<p class="text-brand-secondary text-center">No recent activity found.</p>';
-                return;
-            }
-
-            const eventList = document.createElement('ul');
-            eventList.className = 'space-y-4';
-
-            events.forEach(event => {
-                let eventSummary = '';
-                const repoName = event.repo.name.split('/')[1];
-                const eventDate = new Date(event.created_at).toLocaleDateString('en-US', {
-                    year: 'numeric',
-                    month: 'short',
-                    day: 'numeric'
-                });
-
-                // Customize the message based on the event type
-                switch (event.type) {
-                    case 'PushEvent':
-                        const commitCount = event.payload.commits.length;
-                        eventSummary = `Pushed ${commitCount} commit${commitCount > 1 ? 's' : ''} to <a href="https://github.com/${event.repo.name}" target="_blank" rel="noopener noreferrer" class="text-brand-accent hover:underline">${repoName}</a>`;
-                        break;
-                    case 'CreateEvent':
-                        eventSummary = `Created a new ${event.payload.ref_type} called <a href="https://github.com/${event.repo.name}" target="_blank" rel="noopener noreferrer" class="text-brand-accent hover:underline">${event.payload.ref}</a> in <a href="https://github.com/${event.repo.name}" target="_blank" rel="noopener noreferrer" class="text-brand-accent hover:underline">${repoName}</a>`;
-                        break;
-                    case 'ForkEvent':
-                        eventSummary = `Forked <a href="https://github.com/${event.repo.name}" target="_blank" rel="noopener noreferrer" class="text-brand-accent hover:underline">${repoName}</a>`;
-                        break;
-                    case 'PullRequestEvent':
-                        const prTitle = event.payload.pull_request.title;
-                        eventSummary = `Opened a pull request titled "${prTitle}" in <a href="https://github.com/${event.repo.name}" target="_blank" rel="noopener noreferrer" class="text-brand-accent hover:underline">${repoName}</a>`;
-                        break;
-                    case 'IssuesEvent':
-                        eventSummary = `${event.payload.action.charAt(0).toUpperCase() + event.payload.action.slice(1)} an issue in <a href="https://github.com/${event.repo.name}" target="_blank" rel="noopener noreferrer" class="text-brand-accent hover:underline">${repoName}</a>`;
-                        break;
-                    case 'WatchEvent':
-                        eventSummary = `Starred the repository <a href="https://github.com/${event.repo.name}" target="_blank" rel="noopener noreferrer" class="text-brand-accent hover:underline">${repoName}</a>`;
-                        break;
-                    default:
-                        eventSummary = `Performed a "${event.type}" event in <a href="https://github.com/${event.repo.name}" target="_blank" rel="noopener noreferrer" class="text-brand-accent hover:underline">${repoName}</a>`;
-                        break;
-                }
-
-                const listItem = document.createElement('li');
-                listItem.className = 'flex items-start';
-                listItem.innerHTML = `
-                    <svg class="w-4 h-4 text-brand-accent flex-shrink-0 mt-1 mr-3" fill="currentColor" viewBox="0 0 20 20"><path d="M10 2a8 8 0 100 16 8 8 0 000-16zM8 9a1 1 0 000 2h4a1 1 0 100-2H8z" clip-rule="evenodd" fill-rule="evenodd"></path></svg>
-                    <p class="text-brand-secondary text-sm">
-                        ${eventSummary} <span class="text-xs text-gray-500">on ${eventDate}</span>
-                    </p>
-                `;
-                eventList.appendChild(listItem);
-            });
-            activityFeed.appendChild(eventList);
-        } catch (error) {
-            activityFeed.innerHTML = `<p class="text-red-400 text-center">Failed to load activity. Please try again later.</p>`;
-            console.error("GitHub Activity Fetch Error:", error);
-        }
       }
     </script>
   </body>
