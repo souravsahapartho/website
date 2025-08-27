@@ -163,7 +163,7 @@
         color: #00c2a9;
       }
 
-      /* Preloader - Simple, glowing loader */
+      /* Preloader - Dynamic and Eye-Catching */
       #preloader {
         position: fixed;
         top: 0;
@@ -181,20 +181,55 @@
         opacity: 0;
         visibility: hidden;
       }
-      .loader-text {
+      .loader-container {
+        position: relative;
+        width: 100px;
+        height: 100px;
+      }
+      .loader-ring {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+        border: 2px solid transparent;
+        animation: rotate 2s linear infinite;
+      }
+      .loader-ring:nth-child(1) {
+        border-top-color: #00c2a9;
+        animation-delay: -0.5s;
+      }
+      .loader-ring:nth-child(2) {
+        border-right-color: #00c2a9;
+        animation-delay: -1s;
+      }
+      .loader-ring:nth-child(3) {
+        border-bottom-color: #00c2a9;
+        animation-delay: -1.5s;
+      }
+      .loader-logo {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
         font-family: 'Inter', sans-serif;
-        font-size: 2.5rem;
+        font-size: 1.8rem;
         font-weight: 700;
-        color: #00c2a9;
+        color: #ffffff;
         opacity: 0;
-        animation: fadeAndGlow 1.5s ease-in-out forwards;
+        animation: fadeInLogo 1.5s ease-in-out forwards;
       }
 
-      @keyframes fadeAndGlow {
-        0% { opacity: 0; text-shadow: none; }
-        50% { opacity: 1; text-shadow: 0 0 15px #00c2a9, 0 0 30px #00c2a9; }
-        100% { opacity: 1; text-shadow: 0 0 8px rgba(0, 194, 169, 0.5); }
+      @keyframes rotate {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
       }
+      @keyframes fadeInLogo {
+        0% { opacity: 0; transform: translate(-50%, -50%) scale(0.8); }
+        100% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+      }
+
 
       /* Main content animations */
       @keyframes slideDown {
@@ -640,7 +675,12 @@
   <body class="font-sans" oncontextmenu="return false;">
     <!-- Simple, static preloader -->
     <div id="preloader">
-      <div class="loader-text">Sourav Saha</div>
+      <div class="loader-container">
+        <div class="loader-ring"></div>
+        <div class="loader-ring"></div>
+        <div class="loader-ring"></div>
+        <div class="loader-logo">SS</div>
+      </div>
     </div>
     <canvas id="particle-canvas"></canvas>
 
@@ -1240,7 +1280,7 @@
           <h2
             class="text-3xl sm:text-4xl font-bold text-center text-white mb-8 md:mb-12 text-glow"
           >
-            GitHub
+            My GitHub
           </h2>
 
           <!-- GitHub Profile and Follower Count -->
@@ -2190,3 +2230,4 @@
     </script>
   </body>
 </html>
+", make the preloader animation more dynamic and uniq
