@@ -5,7 +5,7 @@ date: 2025-08-25 13:50:01 +0600
 categories: cybersecurity
 ---
 
-![Digital Life Got Hacked](/website/Image/hacker-security.jpg "Cyber Security")
+![Digital Life Got Hacked](https://souravsahapartho.github.io/website/Image/hacker-security.jpg "Cyber Security")
 
 The email arrives. The news alert pops up on your phone. A company you trust has been hacked. Your stomach drops. A feeling of dread washes over you as you realize your personal data—the very foundation of your digital life—might be exposed.
 
