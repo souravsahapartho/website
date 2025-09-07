@@ -4,7 +4,9 @@ title: "Your Digital Life Just Got Hacked! Here’s What You Do Next"
 date: 2025-09-07 14:00:00 +0600
 categories: cybersecurity
 ---
-https://github.com/souravsahapartho/website/blob/main/images/hacker-security.jpg
+
+
+![Digital Life Got Hacked](https://github.com/souravsahapartho/website/blob/main/images/hacker-security.jpg "Cyber Security")
 
 
 The email arrives. The news alert pops up on your phone. A company you trust has been hacked. Your stomach drops. A feeling of dread washes over you as you realize your personal data—the very foundation of your digital life—might be exposed.
