@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Your Digital Life Just Got Hacked! Here’s What You Do Next"
-date: 2025-09-07 14:00:00 +0600
+date: 2025-08-25 14:00:00 +0600
 categories: cybersecurity
 ---
 
