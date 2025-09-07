@@ -5,7 +5,7 @@ date: 2025-05-30 11:38:43 +0600
 categories: tech
 ---
 
-![(Google Pay logo and payment options](https://github.com/souravsahapartho/website/Image/google-pay-banner.jpg "Google Pay Overview")
+![(Google Pay logo and payment options](https://github.com/souravsahapartho/website/Image/google-pay-banner.png "Google Pay Overview")
 
 In today’s fast-moving digital world, people everywhere want faster, safer, and easier ways to pay. Mobile wallets and digital payment platforms are revolutionizing how we handle money, making transactions quick, seamless, and secure. Among these, Google Pay is one of the most popular and versatile payment solutions worldwide.
 
