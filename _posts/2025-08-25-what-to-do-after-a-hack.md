@@ -5,7 +5,7 @@ date: 2025-08-25 13:50:01 +0600
 categories: cybersecurity
 ---
 
-![A person looking concerned at a laptop with a digital padlock overlay](https://souravsahapartho.github.io/website/Image/hacker-security.jpg "Digital Life Got Hacked")
+![(Digital Life Got Hacked](https://souravsahapartho.github.io/website/Image/hacker-security.jpg "Cyber Security")
 
 The email arrives. The news alert pops up on your phone. A company you trust has been hacked. Your stomach drops. A feeling of dread washes over you as you realize your personal data—the very foundation of your digital life—might be exposed.
 
