@@ -1,9 +1,11 @@
 ---
 layout: post
 title: "Google Pay: A Smart, Secure, and Growing Way to Pay Globally"
-date: 2025-05-30 11:32:00 +0600
+date: 2025-09-07 11:38:43 +0600
 categories: tech
 ---
+
+![A sample portfolio image showing a website design](/website/Image/google-pay-banner.png)
 
 In today’s fast-moving digital world, people everywhere want faster, safer, and easier ways to pay. Mobile wallets and digital payment platforms are revolutionizing how we handle money, making transactions quick, seamless, and secure. Among these, Google Pay is one of the most popular and versatile payment solutions worldwide.
 
