@@ -5,7 +5,7 @@ date: 2025-09-07 13:44:01 +0600
 categories: artificial intelligence
 ---
 
-![Google Veo](/website/images/veo-3-ai-video.png "Google Veo")
+![Google Veo](/website/Image/veo-3-ai-video.png "Google Veo")
 
 In 2025, artificial intelligence (AI) isn't just assisting filmmakers—it’s transforming the way videos and films are made. Google has released **Veo 3** and **Flow**, two powerful AI tools that make high-quality video creation easier than ever. Whether you’re a pro filmmaker or someone with a great story, these tools are changing the game.
 
