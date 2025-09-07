@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Google’s Veo 3 and Flow: AI is Changing How We Make Videos"
-date: 2025-09-07 13:44:01 +0600
+date: 2025-06-10 13:44:01 +0600
 categories: artificial intelligence
 ---
 
