@@ -1469,6 +1469,7 @@
 									required
 									class="form-input"
 									aria-label="Full Name"
+									maxlength="25"
 								/>
 							</div>
 							<div>
@@ -1480,6 +1481,7 @@
 									required
 									class="form-input"
 									aria-label="Email Address"
+									maxlength="40"
 								/>
 								<!-- Hidden reply-to fields removed as requested. -->
 							</div>
@@ -1492,6 +1494,7 @@
 									required
 									class="form-textarea"
 									aria-label="Message"
+									maxlength="200"
 								></textarea>
 							</div>
 							<button type="submit" class="submit-btn">
@@ -1671,6 +1674,7 @@
 						class="form-input w-full"
 						placeholder="Enter your email"
 						required
+						maxlength="40"
 					/>
 					<button type="submit" class="submit-btn w-full">Subscribe</button>
 					<div id="newsletter-status" class="mt-2 text-center text-sm"></div>
@@ -2133,10 +2137,10 @@
 									let emojis;
 
 									if (formId === "contact-form") {
-										// Extract, capitalize, and use the first name for the greeting
+										// Extract the first name exactly as entered by the user
 										const rawName = object.name || 'friend';
-										const senderFirstName = rawName.split(' ')[0];
-										const greetingName = senderFirstName.charAt(0).toUpperCase() + senderFirstName.slice(1);
+										// Use the first word of the name exactly as entered by the user
+										const greetingName = rawName.split(' ')[0]; 
 										
 										funnyMessage = `Hello ${greetingName}, your message was delivered! A digital carrier pigeon is on its way. 🐦`;
 										emojis = ['💌', '📬', '🎉', '✈️'];
