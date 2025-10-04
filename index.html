@@ -106,6 +106,11 @@
 				background: transparent;
 				color: #ffffff;
 				overflow-x: hidden;
+				/* Add CSS to prevent text selection for content protection */
+				user-select: none;
+				-webkit-user-select: none;
+				-moz-user-select: none;
+				-ms-user-select: none;
 			}
 			#particle-canvas {
 				position: fixed;
@@ -636,6 +641,26 @@
 				70% { box-shadow: 0 0 0 20px rgba(0, 194, 169, 0); }
 				100% { box-shadow: 0 0 0 0 rgba(0, 194, 169, 0); }
 			}
+
+            /* Screen Obfuscation Overlay */
+            #anti-capture-overlay {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background-color: rgba(15, 23, 42, 0.95);
+                backdrop-filter: blur(8px);
+                z-index: 9999;
+                display: none;
+                justify-content: center;
+                align-items: center;
+                color: #ff0000;
+                font-size: 2rem;
+                font-weight: bold;
+                text-align: center;
+                line-height: 1.5;
+            }
 		</style>
 
 		<!-- JSON-LD Schema Markup for SEO -->
@@ -687,6 +712,11 @@
 			</div>
 		</div>
 		<canvas id="particle-canvas"></canvas>
+		
+        <!-- ANTI-CAPTURE OVERLAY (Hidden by default) -->
+        <div id="anti-capture-overlay">
+            <p>ACCESS DENIED. Content Capture Protocol Activated. Please Respect Copyright Law (Section 8.4.C).</p>
+        </div>
 
 		<header class="bg-transparent fixed top-0 left-0 right-0 z-50">
 			<nav
@@ -2169,7 +2199,7 @@
 			});
 
 			// =========================================================================
-			// EASTER EGG LOGIC
+			// EASTER EGG & ANTI-CAPTURE LOGIC
 			// =========================================================================
 			function initializeEasterEggs() {
 				const MODAL_DURATION = 3000; // 3 seconds
@@ -2179,6 +2209,7 @@
 				const secretModalTitle = document.getElementById('secret-modal-title');
 				const secretModalBody = document.getElementById('secret-modal-body');
 				const closeSecretBtn = document.getElementById('close-secret-modal');
+                const captureOverlay = document.getElementById('anti-capture-overlay');
 
 				const closeModal = () => secretModal.classList.add('hidden');
 				
@@ -2315,6 +2346,58 @@
 						barElement.style.transition = 'width 1.5s cubic-bezier(0.25, 1, 0.5, 1)'; // Restore original transition
 					}, 3000);
 				};
+
+                // --- ANTI-CAPTURE PROTOCOL ---
+                
+                // 1. Disable Print/Save (Ctrl+P, Cmd+P, Ctrl+S, Cmd+S)
+                document.addEventListener('keydown', (e) => {
+                    if ((e.ctrlKey || e.metaKey) && (e.key === 'p' || e.key === 's')) {
+                        e.preventDefault();
+                        showSecretModal(
+                            "ACCESS RESTRICTED (CODE 403)",
+                            "Printing or saving content is disabled. Digital dissemination requires prior authorization."
+                        );
+                    }
+                });
+
+                // 2. Screen Capture/Snip Detection (PrintScreen, Ctrl+Shift+I, etc.)
+                const showOverlay = () => {
+                    captureOverlay.style.display = 'flex';
+                    // Hide the overlay after 1 second (fast enough to disrupt snips)
+                    setTimeout(() => {
+                        captureOverlay.style.display = 'none';
+                    }, 1000);
+                };
+
+                // Catch common print screen key codes
+                document.addEventListener('keyup', (e) => {
+                    // Windows PrintScreen (key 44 or 'PrintScreen')
+                    if (e.key === 'PrintScreen' || e.keyCode === 44) {
+                        showOverlay();
+                        showSecretModal(
+                            "CAPTURE PROTOCOL ACTIVATED",
+                            "Attempted content capture detected. Unauthorized copying is logged."
+                        );
+                    }
+                });
+                
+                // Catch DevTools/Inspect (Ctrl+Shift+I, F12)
+                document.addEventListener('keydown', (e) => {
+                    // F12 or Ctrl+Shift+I / Cmd+Opt+I
+                    if (e.keyCode === 123 || 
+                        (e.ctrlKey && e.shiftKey && e.keyCode === 73) || 
+                        (e.metaKey && e.altKey && e.keyCode === 73)) 
+                    {
+                        // We don't prevent default here as DevTools is useful for debugging,
+                        // but we log the attempt.
+                        console.warn("[SECURITY] DevTools opened. Logging user activity.");
+                        showSecretModal(
+                            "DEBUGGER DETECTED",
+                            "System integrity check initiated. All console activity is now monitored."
+                        );
+                    }
+                });
+                // --- END ANTI-CAPTURE PROTOCOL ---
 
 
 				// 1. EASTER EGGS - ONE TIME TRIGGERS (per session)
@@ -2507,7 +2590,7 @@
 				// --- Removed the Konami Code, GitHub Follow, and Header Logo EEs as requested. ---
 			}
 			// =========================================================================
-			// END EASTER EGG LOGIC
+			// END EASTER EGG & ANTI-CAPTURE LOGIC
 			// =========================================================================
 
 
