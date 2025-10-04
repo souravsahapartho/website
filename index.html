@@ -1599,13 +1599,13 @@
 				</button>
 				<div class="modal-header">
 					<h3 class="modal-title">My CV</h3>
-					<!-- Download button is now functional without JS interference -->
-					<a href="https://drive.google.com/uc?export=download&id=1HAuVM2tafxLJVT8rRBD5_0dJa81fgdLE" class="download-btn" id="download-cv-btn">Download PDF</a>
+					<!-- UPDATED: Download link to new file ID -->
+					<a href="https://drive.google.com/uc?export=download&id=1N-d3byoAlOb5NPIA2Rcdo5EvwJ4NVGCL" class="download-btn" id="download-cv-btn">Download PDF</a>
 				</div>
 				<div class="iframe-container">
-					<!-- oncontextmenu is left here to protect the external iframe content -->
+					<!-- UPDATED: Iframe source to new file ID -->
 					<iframe
-						src="https://drive.google.com/file/d/1HAuVM2tafxLJVT8rRBD5_0dJa81fgdLE/preview"
+						src="https://drive.google.com/file/d/1N-d3byoAlOb5NPIA2Rcdo5EvwJ4NVGCL/preview"
 						width="100%"
 						height="100%"
 						frameborder="0"
@@ -2615,9 +2615,24 @@
 					repos.forEach((repo) => {
 						const rawDescription = repo.description || "No description provided.";
 						const MAX_LENGTH = 110; // Set limit to ~2 lines
-						const displayDescription = rawDescription.length > MAX_LENGTH
-							? rawDescription.substring(0, MAX_LENGTH).trim() + "..."
-							: rawDescription;
+						let displayDescription = rawDescription;
+						
+						if (rawDescription.length > MAX_LENGTH) {
+							// Truncate to max length first
+							displayDescription = rawDescription.substring(0, MAX_LENGTH);
+							
+							// Find the last space within the truncated string
+							const lastSpace = displayDescription.lastIndexOf(' ');
+							
+							// If a space is found near the end, cut there to preserve the word boundary
+							if (lastSpace > MAX_LENGTH - 15) { // Ensure we don't cut too far back for short words
+								displayDescription = displayDescription.substring(0, lastSpace);
+							}
+							
+							// Append ellipsis
+							displayDescription = displayDescription.trim() + "...";
+						}
+
 
 						const repoCard = `
 							<a href="${
