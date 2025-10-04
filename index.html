@@ -1389,7 +1389,7 @@
 									<div class="mt-6 pt-4 border-t border-white/10 w-full">
 										<p class="font-bold text-white text-lg">Dr. Anisur Rahman</p>
 										<p class="text-sm text-brand-secondary/80">Professor of Computer Science</p>
-									</div>
+									</div
 								</div>
 							</div>
 						</div>
@@ -2172,24 +2172,42 @@
 			// EASTER EGG LOGIC
 			// =========================================================================
 			function initializeEasterEggs() {
+				const MODAL_DURATION = 3000; // 3 seconds
+
 				// --- Utility: Secret Modal Controller ---
 				const secretModal = document.getElementById('secret-message-modal');
 				const secretModalTitle = document.getElementById('secret-modal-title');
 				const secretModalBody = document.getElementById('secret-modal-body');
 				const closeSecretBtn = document.getElementById('close-secret-modal');
 
-				const showSecretModal = (title, message) => {
+				const closeModal = () => secretModal.classList.add('hidden');
+				
+				const showSecretModal = (title, message, isOneTime = false, flagName = '') => {
+					// Check one-time flag if applicable
+					if (isOneTime && localStorage.getItem(flagName) === 'true') {
+						return;
+					}
+					
 					secretModalTitle.textContent = title;
 					secretModalBody.textContent = message;
 					secretModal.classList.remove('hidden');
+
+					// Set one-time flag if applicable
+					if (isOneTime) {
+						localStorage.setItem(flagName, 'true');
+					}
+
+					// Auto-close after MODAL_DURATION
+					setTimeout(closeModal, MODAL_DURATION);
 				};
 
 				if (closeSecretBtn) {
-					closeSecretBtn.addEventListener('click', () => secretModal.classList.add('hidden'));
+					// Manual close removes the auto-close timer effect, but keeps the one-time flag set
+					closeSecretBtn.addEventListener('click', closeModal);
 				}
 				if (secretModal) {
 					secretModal.addEventListener('click', (e) => {
-						if (e.target === secretModal) secretModal.classList.add('hidden');
+						if (e.target === secretModal) closeModal();
 					});
 				}
 
@@ -2225,7 +2243,7 @@
 					}, 5000);
 				};
 				
-				// --- Utility: Double Tap/Click Detection (for Profile Image and Follow Button) ---
+				// --- Utility: Double Tap/Click Detection (for Profile Image) ---
 				function addDoubleTrigger(element, callback) {
 					let lastClickTime = 0;
 					let tapTimeout;
@@ -2255,33 +2273,33 @@
 					});
 				}
 
-				// --- Utility: Skill Bump Effect ---
+				// --- Utility: Corporate Skill Achievement Messages ---
 				const SKILL_ACHIEVEMENTS = {
-					'C': "Passed Data Structures course with flying colors! 🏆",
-					'C++': "Mastered competitive programming fundamentals. ⚡",
-					'Java': "Completed a major OOP project. 🏗️",
-					'JavaScript': "Built a fully interactive website (this one!). ✨",
-					'CSS': "Achieved 100% responsiveness on all devices. 📱",
-					'Content Writing': "Published the 10th article on Substack! ✍️",
-					'RWD': "Zero horizontal scrolling, ever. 📐",
-					'OOP': "Understands Polymorphism, Inheritance, Encapsulation, and Abstraction. 🧠",
-					'Office Suite': "Can format an Excel sheet blindfolded. 📊",
-					'Email Marketing': "Successfully ran a 50% open rate campaign. 📧",
-					'Communication': "Presentation skills: Level 100. 🗣️",
-					'Leadership': "Led a 5-person team to project completion. 🏅",
-					'Teamwork': "High-fives all around! 🙌",
-					'Time Management': "Never missed a deadline (mostly). ⏰",
-					'Public Speaking': "Conquered stage fright. 🎤"
+					'C': "KPI Target Exceeded! Core competency validation successful. 🏆",
+					'C++': "Synergy Achieved. Optimized performance vector engaged. 📈",
+					'Java': "Project Deployment Success. Deliverables met the baseline objective. 💼",
+					'JavaScript': "Digital Footprint Expanded. Client-facing initiative launch validated. 🌐",
+					'CSS': "Cross-Platform Compliance. UI/UX audit passed critical mobile metrics. 📱",
+					'Content Writing': "Content Pipeline Operational. Thought leadership quota fulfilled. 📰",
+					'RWD': "Viewport Optimization Certified. No negative user pathways detected. 📏",
+					'OOP': "Conceptual Framework Integrated. Theoretical knowledge base validated. 🧠",
+					'Office Suite': "Legacy Data Management Mastery. Spreadsheet manipulation proficiency confirmed. 📑",
+					'Email Marketing': "Outbound Engagement Metric Hit. Funnel optimization validated. 📧",
+					'Communication': "Stakeholder Communication Mastery. Verbal communication score: High. 🗣️",
+					'Leadership': "Team Leadership validated. Resource management efficiency confirmed. 🤝",
+					'Teamwork': "Collaborative Output Confirmed. Inter-team cohesion is adequate. 👯",
+					'Time Management': "Project Timeline Adherence. Schedule mitigation strategy is active. ⏱️",
+					'Public Speaking': "Public Visibility Acceptance. Fear mitigation protocol passed. 📢"
 				};
 				
 				const bumpSkill = (barElement, skillName) => {
 					// Show a temporary message near the skill name
 					const skillNameElement = barElement.parentElement.previousElementSibling.querySelector('.skill-name');
 					const originalText = skillNameElement.textContent;
-					const message = SKILL_ACHIEVEMENTS[skillName] || "Achievement Unlocked! 🔑";
+					const message = SKILL_ACHIEVEMENTS[skillName] || "Policy Deviation Detected! Immediate action required.";
 
-					// 1. Update text
-					skillNameElement.textContent = `⭐ ${message}`;
+					// 1. Update text (This feature is repeatable)
+					skillNameElement.textContent = `[AUDIT] ${message}`;
 
 					// 2. Apply a quick pulse animation by scaling the bar
 					barElement.style.transition = 'transform 0.1s ease-in-out';
@@ -2299,92 +2317,15 @@
 				};
 
 
-				// 1. DESKTOP EASTER EGGS
-
-				// --- A. Simplified Konami Code ('S O U R A V') ---
-				const secretCode = '837985826586'; // KeyCodes for S O U R A V
-				let keySequence = '';
-				const KEY_TIMEOUT = 1000;
-				let keyTimer;
-
-				document.addEventListener('keyup', (e) => {
-					// Only track letters for efficiency
-					if (e.keyCode >= 65 && e.keyCode <= 90) { 
-						keySequence += e.keyCode;
-						clearTimeout(keyTimer);
-						keyTimer = setTimeout(() => {
-							keySequence = '';
-						}, KEY_TIMEOUT);
-
-						if (keySequence.endsWith(secretCode)) {
-							keySequence = '';
-							clearTimeout(keyTimer);
-							
-							// --- Konami Code Action ---
-							showSecretModal(
-								"S O U R A V UNLOCKED! 🌟",
-								"You spelled it right! That's a 100x bonus multiplier on your next commit."
-							);
-							createConfettiEffect(['S', 'O', 'U', 'R', 'A', 'V', '🌟']);
-						}
-					}
-				});
-
-				// --- B. Console Message & Callable Function (Kept as is) ---
-				console.log(
-					"%cHello, fellow developer! 👋",
-					"color: #00c2a9; font-size: 24px; font-weight: bold; font-family: monospace;"
-				);
-				console.log(
-					"%cDid you peek at my code? I like your style! 😉",
-					"color: #cbd5e1; font-size: 16px;"
-				);
-				console.log(
-					"%cTo unlock a bonus surprise, run this function:",
-					"color: #ffcc00; font-size: 16px;"
-				);
-				console.log(
-					"%cwindow.unlockSecretPower()",
-					"color: #00c2a9; font-size: 18px; font-weight: bold;"
-				);
-
-				window.unlockSecretPower = function() {
-					console.log(
-						"%cKudos! You are a master debugger. Enjoy the confetti!",
-						"color: #ff69b4; font-size: 16px; font-weight: bold;"
-					);
-					createConfettiEffect(['💖', '✨', '💻', '💡']);
-				};
-
-				// --- C. Keyboard Shortcut (Ctrl + E) (Kept as is) ---
-				document.addEventListener('keydown', (e) => {
-					if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'e') {
-						e.preventDefault();
-						createConfettiEffect(['💻', '☕', '💡', '🎉', '🧠']);
-					}
-				});
+				// 1. EASTER EGGS - ONE TIME TRIGGERS (per session)
 				
-				// --- J. New Easter Egg: Keyboard Shortcut (Alt + S) - CSS Debug Mock ---
-				document.addEventListener('keydown', (e) => {
-					// Alt + S
-					if (e.altKey && e.keyCode === 83) {
-						e.preventDefault();
-						
-						showSecretModal(
-							"CSS BUG FOUND! 🐞",
-							"You found the hidden stylesheet bug! It was a missing semicolon in a production file. Crisis averted, developer."
-						);
-						createConfettiEffect(['🐞', '🐛', '🔥', '❌']);
-					}
-				});
-
-
-				// 2. MOBILE & GENERAL EASTER EGGS
-
-				// --- D. Double-Click/Double-Tap on Profile Image (UPDATED with unique animation) ---
+				// --- A. Profile Image Double-Click/Tap (One-Time, Irritating Modal) ---
 				const profileImage = document.getElementById('profile-image-target');
 				if (profileImage) {
 					addDoubleTrigger(profileImage, () => {
+						const flag = 'ee_profile_click';
+						if (localStorage.getItem(flag) === 'true') return;
+
 						// 1. Add unique animation
 						profileImage.classList.add('digital-halo');
 						setTimeout(() => {
@@ -2393,39 +2334,35 @@
 
 						// 2. Show themed message
 						showSecretModal(
-							"LEVEL UP! 🌟",
-							"Access Granted. You've successfully debugged my social life. Welcome to Level 2!"
+							"IDENTITY CONFIRMATION REQUIRED",
+							"Compliance Error: Unauthorized profile access detected. Your data integrity score has been flagged for review. Proceed with caution.",
+							true, 
+							flag
 						);
-						createConfettiEffect(['🌟', '⬆️', '✅']);
+						createConfettiEffect(['⚠️', '🚫', '🔒']);
 					});
 				}
 				
-				// --- I. New Easter Egg: Header Logo Double Click/Tap (The Vague Click) ---
-				const headerLogo = document.querySelector('.header-logo');
-				if (headerLogo) {
-					addDoubleTrigger(headerLogo, () => {
-						showSecretModal(
-							"SECRET TITLE REVEALED 👑",
-							"Sourav Saha, First of His Name, Breaker of Code, and Master of CSS Grids."
-						);
-					});
-				}
-				
-				// --- E. Long Press (1 second) on About Section Title (Kept as is) ---
+				// --- B. Long Press on About Section Title (One-Time, Irritating Modal) ---
 				const aboutTitle = document.getElementById('about-me-title-target');
 				if (aboutTitle) {
 					let pressTimer;
 					const LONG_PRESS_DURATION = 1000; // 1 second
+					const flag = 'ee_about_longpress';
 
 					aboutTitle.addEventListener('touchstart', (e) => {
+						if (localStorage.getItem(flag) === 'true') return;
 						if (e.touches.length > 1) return;
+						
 						pressTimer = setTimeout(() => {
 							// --- Long Press Action ---
 							showSecretModal(
-								"LONG PRESS ACHIEVED! 🤫",
-								"Shhh! My actual favorite programming language is JavaScript (don't tell C++)."
+								"HR VIOLATION DETECTED",
+								"Policy Alert: Excessive idle time detected on PII. Productivity optimization initiative commencing. Resume active engagement immediately.",
+								true, 
+								flag
 							);
-							createConfettiEffect(['🤫', 'JS', '❤️']);
+							createConfettiEffect(['💼', '⏰', '😡']);
 						}, LONG_PRESS_DURATION);
 					});
 
@@ -2434,27 +2371,64 @@
 					aboutTitle.addEventListener('touchcancel', clearTimer);
 					aboutTitle.addEventListener('touchmove', clearTimer);
 				}
-				
-				// --- F. GitHub Follow Button Double Click/Tap ---
-				const followButton = document.getElementById('follow-button');
-				if (followButton) {
-					addDoubleTrigger(followButton, (e) => {
-						// This prevents the link from being followed on the second click/tap,
-						// but the browser still navigates on the first tap/click if the double-tap isn't fast enough.
-						// The goal is just to show the modal for the secret.
-						
-						const followerCountEl = document.getElementById('follower-count');
-						const currentFollowers = parseInt(followerCountEl.textContent.replace(/[^\d]/g, ''), 10) || 'a few';
+
+				// --- C. Keyboard Shortcut (Ctrl + E) (One-Time, Irritating Modal) ---
+				document.addEventListener('keydown', (e) => {
+					const flag = 'ee_ctrl_e';
+					if (localStorage.getItem(flag) === 'true') return;
+					
+					if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'e') {
+						e.preventDefault();
 						
 						showSecretModal(
-							"SECRET GITHUB GOAL! 🌟",
-							`Your double click counted as an imaginary star on one of my repos! Current imaginary followers: ${currentFollowers} + 1. Thank you!`
+							"EFFICIENCY BREACH WARNING",
+							"Resource Allocation Failure: Initiating non-critical visual distractors. This action is not ROI-positive. Please discontinue.",
+							true,
+							flag
 						);
-						createConfettiEffect(['⭐️', '🐙', '💻']);
-					});
-				}
+						createConfettiEffect(['💻', '☕', '💡', '🎉', '🧠']);
+					}
+				});
+				
+				// --- D. Console Message & Callable Function (One-Time Console Output, Irritating Modal) ---
+				console.log(
+					"%c[SYSTEM ALERT] Unauthorized Access Detected: Developer Console is Open.",
+					"color: #ef4444; font-size: 20px; font-weight: bold; font-family: monospace;"
+				);
+				console.log(
+					"%cReviewing code compliance is a non-mandated activity. Please exit or proceed with caution. 😉",
+					"color: #cbd5e1; font-size: 16px;"
+				);
+				console.log(
+					"%cTo receive mandatory L3 system access credentials, execute:",
+					"color: #ffcc00; font-size: 16px;"
+				);
+				console.log(
+					"%cwindow.unlockSecretPower()",
+					"color: #00c2a9; font-size: 18px; font-weight: bold;"
+				);
+				// This function can be run multiple times, but the modal/message only shows once.
+				window.unlockSecretPower = function() {
+					const flag = 'ee_console_power';
+					if (localStorage.getItem(flag) === 'true') {
+						console.log("%c[NOTICE] Credential already provisioned. System resources allocated. 🌧️", "color: #94a3b8;");
+						return;
+					}
+					
+					localStorage.setItem(flag, 'true');
+					console.log("%c[SUCCESS] L3 Credentials Granted. Please reset your environment for changes to take full effect.", "color: #ff69b4; font-size: 16px; font-weight: bold;");
+					
+					showSecretModal(
+						"SYSTEM ACCESS GRANTED (L3)", 
+						"Congratulations. Your security clearance has been upgraded. Please prepare for mandatory Q3 performance review."
+					);
+					createConfettiEffect(['💖', '✨', '💻', '💡']);
+				};
 
-				// --- G. Skill Bar Click/Tap Animation ---
+
+				// 2. REPEATABLE EASTER EGGS
+
+				// --- E. Skill Bar Click/Tap Animation (Repeatable) ---
 				const skillBars = document.querySelectorAll('.skill-item');
 				skillBars.forEach(item => {
 					const bar = item.querySelector('.progress-bar');
@@ -2462,18 +2436,17 @@
 
 					if (bar && skillName) {
 						bar.addEventListener('click', () => {
-							// Use bumpSkill utility function
 							bumpSkill(bar, skillName);
 						});
 						// Also enable for touch taps
 						bar.addEventListener('touchstart', (e) => {
-							e.preventDefault(); // Prevent touch delay
+							e.preventDefault(); 
 							bumpSkill(bar, skillName);
 						});
 					}
 				});
 				
-				// --- H. Shake Detection (Mobile) (Kept as is) ---
+				// --- F. Shake Detection (Mobile) (Repeatable, Irritating Modal) ---
 				let last_update = 0;
 				let last_x, last_y, last_z;
 				const SHAKE_THRESHOLD = 500;
@@ -2495,6 +2468,7 @@
 				}
 
 				if ('ontouchstart' in window) {
+					// We only request permission once on the first click/tap to avoid browser warnings.
 					document.addEventListener('click', requestMotionPermission, { once: true });
 					console.log("%cClick anywhere to enable Shake Detection.", "color: #ffcc00;");
 				}
@@ -2513,9 +2487,10 @@
 								let speed = Math.abs(x + y + z - last_x - last_y - last_z) / diff_time * 10000;
 
 								if (speed > SHAKE_THRESHOLD) {
+									// This egg is intentionally repeatable
 									showSecretModal(
-										"SHAKE IT OFF! 🤪",
-										"Whoa! Too much caffeine? You triggered the debug mode. Everything looks normal... for now."
+										"MOTION STABILITY CRITICAL",
+										"Warning: Unscheduled physical displacement detected. Recalibrating user interface environment. Remain stable for optimal experience."
 									);
 									createConfettiEffect(['🤯', '😵', '😵‍💫', '❓']);
 								}
@@ -2528,6 +2503,8 @@
 						}
 					}
 				}
+				
+				// --- Removed the Konami Code, GitHub Follow, and Header Logo EEs as requested. ---
 			}
 			// =========================================================================
 			// END EASTER EGG LOGIC
