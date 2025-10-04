@@ -429,7 +429,7 @@
 				flex-direction: column;
 				flex-grow: 1;
 			}
-			
+
 			/* Eye-catching GitHub Follow Section */
 			#github-profile-card {
 				background: linear-gradient(135deg, rgba(0, 194, 169, 0.1), rgba(15, 23, 42, 0.2));
@@ -594,44 +594,47 @@
 				border-radius: 9999px;
 				width: 0;
 				transition: width 1.5s cubic-bezier(0.25, 1, 0.5, 1);
+				cursor: pointer; /* Added cursor pointer for the new Easter egg */
 			}
 			.progress-bar.animated {
 				width: var(--progress-width);
 			}
 
-			/* Recommendations Carousel Styles */
-			#recommendations-carousel {
-				display: flex;
-				overflow-x: auto;
-				scroll-snap-type: x mandatory;
-				-webkit-overflow-scrolling: touch; /* For iOS Safari */
-				scroll-behavior: smooth;
-				gap: 1.5rem; /* Space between cards */
+            /* Confetti Effect Styles */
+            .confetti {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                pointer-events: none;
+                z-index: 2000;
+                overflow: hidden;
+            }
+            .confetti-piece {
+                position: absolute;
+                font-size: 1.5rem;
+                opacity: 0;
+                animation: fall-and-spin linear infinite;
+            }
+            @keyframes fall-and-spin {
+                0% { opacity: 1; transform: translate(0, -10vh) rotate(0deg); }
+                100% { opacity: 0; transform: translate(0, 100vh) rotate(720deg); }
+            }
+
+			/* Custom Profile Image Animation (Digital Halo) */
+			#profile-image-target {
+				transform: scale(1);
+				transition: transform 0.2s, box-shadow 0.2s;
 			}
-			/* Hide scrollbar for aesthetics */
-			#recommendations-carousel::-webkit-scrollbar {
-				display: none;
+			.digital-halo {
+				animation: digitalPulse 1s ease-out;
+				transform: scale(1.05); /* Slight bump */
 			}
-			#recommendations-carousel {
-				-ms-overflow-style: none;  /* IE and Edge */
-				scrollbar-width: none;  /* Firefox */
-			}
-			.rec-card-wrapper {
-				flex: 0 0 100%;
-				scroll-snap-align: center;
-			}
-			.rec-nav-btn {
-				background: rgba(255, 255, 255, 0.1);
-				border-radius: 50%;
-				width: 40px;
-				height: 40px;
-				display: flex;
-				align-items: center;
-				justify-content: center;
-				transition: background 0.3s;
-			}
-			.rec-nav-btn:hover {
-				background: rgba(255, 255, 255, 0.2);
+			@keyframes digitalPulse {
+				0% { box-shadow: 0 0 0 0 rgba(0, 194, 169, 0.7); }
+				70% { box-shadow: 0 0 0 20px rgba(0, 194, 169, 0); }
+				100% { box-shadow: 0 0 0 0 rgba(0, 194, 169, 0); }
 			}
 		</style>
 
@@ -692,7 +695,8 @@
 			>
 				<a
 					href="#"
-					class="header-logo text-xl md:text-2xl font-bold text-white text-glow"
+					class="header-logo text-xl md:text-2xl font-bold text-white text-glow cursor-pointer"
+					title="Try double-clicking!"
 					>Sourav Saha</a
 				>
 				<div class="hidden md:flex items-center space-x-6">
@@ -838,16 +842,21 @@
 						data-aos="fade-right"
 					>
 						<div class="w-full md:w-1/3 flex-shrink-0">
+							<!-- TARGET for Double Tap/Click -->
 							<img
+								id="profile-image-target"
 								src="Image/profile.jpg"
 								alt="Sourav Saha, a computer science student and aspiring developer."
-								class="rounded-full shadow-2xl w-48 h-48 sm:w-64 sm:h-64 mx-auto object-cover"
+								class="rounded-full shadow-2xl w-48 h-48 sm:w-64 sm:h-64 mx-auto object-cover cursor-pointer"
 								onerror="this.onerror=null;this.src='https://placehold.co/256x256/0f172a/ffffff?text=Profile+Image';"
+								title="Try double-clicking or long-pressing!"
 							/>
 						</div>
 						<div class="w-full md:w-2/3 text-center md:text-left">
 							<h2
-								class="text-3xl sm:text-4xl font-bold text-white mb-4 text-glow"
+								id="about-me-title-target"
+								class="text-3xl sm:text-4xl font-bold text-white mb-4 text-glow cursor-pointer"
+								title="Try long-pressing me!"
 							>
 								About Me
 							</h2>
@@ -1070,7 +1079,7 @@
 								💻 Programming
 							</h3>
 							<div class="space-y-5">
-								<div class="skill-item">
+								<div class="skill-item" data-skill="C">
 									<div class="skill-info">
 										<span class="skill-name">C</span
 										><span class="skill-percent">85%</span>
@@ -1082,7 +1091,7 @@
 										></div>
 									</div>
 								</div>
-								<div class="skill-item">
+								<div class="skill-item" data-skill="C++">
 									<div class="skill-info">
 										<span class="skill-name">C++</span
 										><span class="skill-percent">80%</span>
@@ -1094,7 +1103,7 @@
 										></div>
 									</div>
 								</div>
-								<div class="skill-item">
+								<div class="skill-item" data-skill="Java">
 									<div class="skill-info">
 										<span class="skill-name">Java</span
 										><span class="skill-percent">75%</span>
@@ -1106,7 +1115,7 @@
 										></div>
 									</div>
 								</div>
-								<div class="skill-item">
+								<div class="skill-item" data-skill="JavaScript">
 									<div class="skill-info">
 										<span class="skill-name">JavaScript</span
 										><span class="skill-percent">65%</span>
@@ -1118,7 +1127,7 @@
 										></div>
 									</div>
 								</div>
-								<div class="skill-item">
+								<div class="skill-item" data-skill="CSS">
 									<div class="skill-info">
 										<span class="skill-name">CSS</span
 										><span class="skill-percent">90%</span>
@@ -1139,7 +1148,7 @@
 								🧠 Technical
 							</h3>
 							<div class="space-y-5">
-								<div class="skill-item">
+								<div class="skill-item" data-skill="Content Writing">
 									<div class="skill-info">
 										<span class="skill-name">Web Content Writing</span
 										><span class="skill-percent">90%</span>
@@ -1151,7 +1160,7 @@
 										></div>
 									</div>
 								</div>
-								<div class="skill-item">
+								<div class="skill-item" data-skill="RWD">
 									<div class="skill-info">
 										<span class="skill-name">Responsive Web Design</span
 										><span class="skill-percent">88%</span>
@@ -1163,7 +1172,7 @@
 										></div>
 									</div>
 								</div>
-								<div class="skill-item">
+								<div class="skill-item" data-skill="OOP">
 									<div class="skill-info">
 										<span class="skill-name"
 											>Object-Oriented Programming</span
@@ -1176,7 +1185,7 @@
 										></div>
 									</div>
 								</div>
-								<div class="skill-item">
+								<div class="skill-item" data-skill="Office Suite">
 									<div class="skill-info">
 										<span class="skill-name">Microsoft Office Suite</span
 										><span class="skill-percent">82%</span>
@@ -1188,7 +1197,7 @@
 										></div>
 									</div>
 								</div>
-								<div class="skill-item">
+								<div class="skill-item" data-skill="Email Marketing">
 									<div class="skill-info">
 										<span class="skill-name">Email Marketing</span
 										><span class="skill-percent">75%</span>
@@ -1209,7 +1218,7 @@
 								🎯 Soft Skills
 							</h3>
 							<div class="space-y-5">
-								<div class="skill-item">
+								<div class="skill-item" data-skill="Communication">
 									<div class="skill-info">
 										<span class="skill-name">Communication</span
 										><span class="skill-percent">90%</span>
@@ -1221,7 +1230,7 @@
 										></div>
 									</div>
 								</div>
-								<div class="skill-item">
+								<div class="skill-item" data-skill="Leadership">
 									<div class="skill-info">
 										<span class="skill-name">Leadership</span
 										><span class="skill-percent">85%</span>
@@ -1233,7 +1242,7 @@
 										></div>
 									</div>
 								</div>
-								<div class="skill-item">
+								<div class="skill-item" data-skill="Teamwork">
 									<div class="skill-info">
 										<span class="skill-name">Teamwork</span
 										><span class="skill-percent">95%</span>
@@ -1245,7 +1254,7 @@
 										></div>
 									</div>
 								</div>
-								<div class="skill-item">
+								<div class="skill-item" data-skill="Time Management">
 									<div class="skill-info">
 										<span class="skill-name">Time Management</span
 										><span class="skill-percent">80%</span>
@@ -1257,7 +1266,7 @@
 										></div>
 									</div>
 								</div>
-								<div class="skill-item">
+								<div class="skill-item" data-skill="Public Speaking">
 									<div class="skill-info">
 										<span class="skill-name">Public Speaking</span
 										><span class="skill-percent">85%</span>
@@ -1293,7 +1302,7 @@
 								<p class="text-brand-secondary">Followers: <span id="follower-count">...</span></p>
 							</div>
 						</div>
-						<a id="follow-button" href="https://github.com/souravsahapartho" target="_blank" rel="noopener noreferrer" class="bg-brand-accent text-white font-bold py-2 px-6 rounded-full hover:bg-opacity-90 transition-all text-center w-full md:w-auto">
+						<a id="follow-button" href="https://github.com/souravsahapartho" target="_blank" rel="noopener noreferrer" class="bg-brand-accent text-white font-bold py-2 px-6 rounded-full hover:bg-opacity-90 transition-all text-center w-full md:w-auto cursor-pointer" title="Double click for a secret!">
 							<i class="fab fa-github mr-2"></i> Follow me on GitHub
 						</a>
 					</div>
@@ -1343,7 +1352,7 @@
 						What People Say
 					</h2>
 					<div class="relative max-w-4xl mx-auto">
-						<div id="recommendations-carousel" class="flex snap-x snap-mandatory overflow-x-auto gap-6 pb-4 cursor-grab">
+						<div id="recommendations-carousel" class="flex snap-x snap-mandatory overflow-x:auto gap-6 pb-4 cursor-grab">
 							<!-- Recommendation Card 1 -->
 							<div class="rec-card-wrapper w-full flex-shrink-0 snap-center">
 								<div class="recommendation-card p-6 flex flex-col items-center text-center">
@@ -1674,6 +1683,19 @@
 			</svg>
 		</button>
 
+		<!-- Hidden element for the secret message triggered by Konami code/Long Press/Double Tap/Click -->
+		<!-- We will reuse the CV modal structure for this, just changing the content via JS -->
+		<div id="secret-message-modal" class="modal-overlay hidden">
+			<div class="modal-content max-w-sm max-h-56 p-6 flex justify-center items-center text-center">
+				<button id="close-secret-modal" class="modal-close-btn" title="Close">&times;</button>
+				<h3 id="secret-modal-title" class="modal-title text-2xl text-brand-accent font-mono">SECRET UNLOCKED!</h3>
+				<p id="secret-modal-body" class="text-lg text-white mt-4"></p>
+			</div>
+		</div>
+		<!-- Confetti container, dynamically added to the body -->
+		<div id="confetti-container" class="confetti hidden"></div>
+
+
 		<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 		<script>
 			// The delay before the preloader is hidden and animations start
@@ -1690,7 +1712,7 @@
 					const response = await fetch('https://api.ipify.org?format=json');
 					if (!response.ok) throw new Error('IP API failed');
 					const data = await response.json();
-					
+
 					// Loop through all selected inputs and set the value
 					ipAddressInputs.forEach(input => {
 						input.value = data.ip || 'Unknown/Error';
@@ -1706,7 +1728,7 @@
 
 			document.addEventListener("DOMContentLoaded", () => {
 				const preloader = document.getElementById("preloader");
-				
+
 				if (preloader) {
 					setTimeout(() => {
 						preloader.classList.add("hidden");
@@ -1915,7 +1937,7 @@
 							closeModal();
 					});
 				}
-				
+
 				// Prevent direct download of the CV
 				if (downloadCvBtn) {
 					downloadCvBtn.addEventListener("click", function(e) {
@@ -1961,7 +1983,7 @@
 								if (response.ok) {
 									// --- MODIFIED SUCCESS MESSAGE LOGIC ---
 									let finalMessage;
-									
+
 									if (formId === "contact-form") {
 										finalMessage = "Message sent successfully";
 									} else if (formId === "newsletter-form") {
@@ -1969,17 +1991,17 @@
 									} else {
 										finalMessage = jsonResponse.message;
 									}
-									
+
 									statusDiv.innerHTML = `<span style="color: #00c2a9;">${finalMessage}</span>`;
 									form.reset();
-									
+
 									// --- PERMANENTLY CLOSE POPUP ON SUCCESS ---
 									if (formId === "newsletter-form") {
 										// Set flag in localStorage on successful subscription
 										localStorage.setItem("newsletterPopupPermanentlyClosed", 'true');
 									}
 									// --- END MODIFIED LOGIC ---
-									
+
 								} else {
 									throw new Error(jsonResponse.message || "Something went wrong.");
 								}
@@ -2019,7 +2041,7 @@
 					"close-newsletter-popup"
 				);
 				const backToTopBtn = document.getElementById("back-to-top-btn");
-				
+
 				if (closeNewsletterBtn) {
 					closeNewsletterBtn.addEventListener("click", () => {
 						newsletterPopup.classList.remove("is-visible");
@@ -2027,13 +2049,13 @@
 						localStorage.setItem("newsletterPopupPermanentlyClosed", 'true');
 					});
 				}
-				
+
 				if (backToTopBtn) {
 					backToTopBtn.addEventListener("click", () =>
 						window.scrollTo({ top: 0, behavior: "smooth" })
 					);
 				}
-				
+
 				window.addEventListener(
 					"scroll",
 					() => {
@@ -2041,11 +2063,11 @@
 							(window.scrollY /
 								(document.documentElement.scrollHeight - window.innerHeight)) *
 							100;
-							
+
 						// Show button after 50% scroll
 						if (backToTopBtn)
 							backToTopBtn.classList.toggle("visible", scrollPercentage >= 50);
-							
+
 						// CHECKING localStorage DIRECTLY in the handler for real-time update
 						const isPermanentlyClosed = localStorage.getItem("newsletterPopupPermanentlyClosed") === 'true';
 
@@ -2083,17 +2105,17 @@
 					let recInterval;
 					let currentRecIndex = 0;
 					const totalCards = recCards.length;
-					
+
 					function scrollToCard(index) {
 						// Calculate the correct index, wrapping around
 						currentRecIndex = (index % totalCards + totalCards) % totalCards;
-						
+
 						const cardElement = recCards[currentRecIndex];
 						if (cardElement) {
 							recCarousel.scrollTo({ left: cardElement.offsetLeft, behavior: 'smooth' });
 						}
 					}
-					
+
 					// Handle navigation buttons
 					if (recPrevBtn) {
 						recPrevBtn.addEventListener("click", () => {
@@ -2108,7 +2130,7 @@
 							resetInterval();
 						});
 					}
-					
+
 					// Auto-play functionality
 					function startInterval() {
 						recInterval = setInterval(() => {
@@ -2136,26 +2158,395 @@
 					recCarousel.addEventListener('mouseenter', () => clearInterval(recInterval));
 					recCarousel.addEventListener('mouseleave', () => startInterval());
 				}
-				
+
 				// --- Fetch Dynamic Content from APIs ---
 				fetchSubstackPosts();
 				fetchGithubProfile();
 				fetchGithubRepos();
+
+				// --- Initialize all Easter Eggs
+				initializeEasterEggs();
 			});
+
+			// =========================================================================
+			// EASTER EGG LOGIC
+			// =========================================================================
+			function initializeEasterEggs() {
+				// --- Utility: Secret Modal Controller ---
+				const secretModal = document.getElementById('secret-message-modal');
+				const secretModalTitle = document.getElementById('secret-modal-title');
+				const secretModalBody = document.getElementById('secret-modal-body');
+				const closeSecretBtn = document.getElementById('close-secret-modal');
+
+				const showSecretModal = (title, message) => {
+					secretModalTitle.textContent = title;
+					secretModalBody.textContent = message;
+					secretModal.classList.remove('hidden');
+				};
+
+				if (closeSecretBtn) {
+					closeSecretBtn.addEventListener('click', () => secretModal.classList.add('hidden'));
+				}
+				if (secretModal) {
+					secretModal.addEventListener('click', (e) => {
+						if (e.target === secretModal) secretModal.classList.add('hidden');
+					});
+				}
+
+				// --- Utility: Confetti/Emoji Rain Effect ---
+				const createConfettiEffect = (emojis) => {
+					const confettiContainer = document.getElementById('confetti-container');
+					if (!confettiContainer) return;
+
+					confettiContainer.classList.remove('hidden');
+
+					for (let i = 0; i < 50; i++) {
+						const piece = document.createElement('span');
+						piece.classList.add('confetti-piece');
+						piece.innerHTML = emojis[Math.floor(Math.random() * emojis.length)];
+
+						// Random starting position (x)
+						piece.style.left = `${Math.random() * 100}vw`;
+
+						// Random animation duration (speed of fall)
+						const duration = 2 + Math.random() * 3; // 2 to 5 seconds
+						piece.style.animationDuration = `${duration}s`;
+
+						// Random delay to stagger the start
+						piece.style.animationDelay = `${-Math.random() * duration}s`;
+
+						confettiContainer.appendChild(piece);
+					}
+
+					// Clean up after the animation completes
+					setTimeout(() => {
+						confettiContainer.classList.add('hidden');
+						confettiContainer.innerHTML = '';
+					}, 5000);
+				};
+				
+				// --- Utility: Double Tap/Click Detection (for Profile Image and Follow Button) ---
+				function addDoubleTrigger(element, callback) {
+					let lastClickTime = 0;
+					let tapTimeout;
+					const DOUBLE_CLICK_DELAY = 300; // Max time between clicks/taps
+
+					// Desktop double-click
+					element.addEventListener('dblclick', (e) => {
+						e.preventDefault();
+						callback();
+					});
+
+					// Mobile double-tap logic
+					element.addEventListener('touchstart', (e) => {
+						const currentTime = new Date().getTime();
+						const timeDiff = currentTime - lastClickTime;
+
+						if (timeDiff > 0 && timeDiff < DOUBLE_CLICK_DELAY) {
+							e.preventDefault(); // Prevent text selection/long press menus
+							clearTimeout(tapTimeout);
+							callback();
+						} else {
+							tapTimeout = setTimeout(() => {
+								lastClickTime = 0; // Reset after single tap window expires
+							}, DOUBLE_CLICK_DELAY);
+						}
+						lastClickTime = currentTime;
+					});
+				}
+
+				// --- Utility: Skill Bump Effect ---
+				const SKILL_ACHIEVEMENTS = {
+					'C': "Passed Data Structures course with flying colors! 🏆",
+					'C++': "Mastered competitive programming fundamentals. ⚡",
+					'Java': "Completed a major OOP project. 🏗️",
+					'JavaScript': "Built a fully interactive website (this one!). ✨",
+					'CSS': "Achieved 100% responsiveness on all devices. 📱",
+					'Content Writing': "Published the 10th article on Substack! ✍️",
+					'RWD': "Zero horizontal scrolling, ever. 📐",
+					'OOP': "Understands Polymorphism, Inheritance, Encapsulation, and Abstraction. 🧠",
+					'Office Suite': "Can format an Excel sheet blindfolded. 📊",
+					'Email Marketing': "Successfully ran a 50% open rate campaign. 📧",
+					'Communication': "Presentation skills: Level 100. 🗣️",
+					'Leadership': "Led a 5-person team to project completion. 🏅",
+					'Teamwork': "High-fives all around! 🙌",
+					'Time Management': "Never missed a deadline (mostly). ⏰",
+					'Public Speaking': "Conquered stage fright. 🎤"
+				};
+				
+				const bumpSkill = (barElement, skillName) => {
+					// Show a temporary message near the skill name
+					const skillNameElement = barElement.parentElement.previousElementSibling.querySelector('.skill-name');
+					const originalText = skillNameElement.textContent;
+					const message = SKILL_ACHIEVEMENTS[skillName] || "Achievement Unlocked! 🔑";
+
+					// 1. Update text
+					skillNameElement.textContent = `⭐ ${message}`;
+
+					// 2. Apply a quick pulse animation by scaling the bar
+					barElement.style.transition = 'transform 0.1s ease-in-out';
+					barElement.style.transform = 'scaleY(1.5)';
+					
+					setTimeout(() => {
+						barElement.style.transform = 'scaleY(1)';
+					}, 100);
+
+					// 3. Revert text and transition after 3 seconds
+					setTimeout(() => {
+						skillNameElement.textContent = originalText;
+						barElement.style.transition = 'width 1.5s cubic-bezier(0.25, 1, 0.5, 1)'; // Restore original transition
+					}, 3000);
+				};
+
+
+				// 1. DESKTOP EASTER EGGS
+
+				// --- A. Simplified Konami Code ('S O U R A V') ---
+				const secretCode = '837985826586'; // KeyCodes for S O U R A V
+				let keySequence = '';
+				const KEY_TIMEOUT = 1000;
+				let keyTimer;
+
+				document.addEventListener('keyup', (e) => {
+					// Only track letters for efficiency
+					if (e.keyCode >= 65 && e.keyCode <= 90) { 
+						keySequence += e.keyCode;
+						clearTimeout(keyTimer);
+						keyTimer = setTimeout(() => {
+							keySequence = '';
+						}, KEY_TIMEOUT);
+
+						if (keySequence.endsWith(secretCode)) {
+							keySequence = '';
+							clearTimeout(keyTimer);
+							
+							// --- Konami Code Action ---
+							showSecretModal(
+								"S O U R A V UNLOCKED! 🌟",
+								"You spelled it right! That's a 100x bonus multiplier on your next commit."
+							);
+							createConfettiEffect(['S', 'O', 'U', 'R', 'A', 'V', '🌟']);
+						}
+					}
+				});
+
+				// --- B. Console Message & Callable Function (Kept as is) ---
+				console.log(
+					"%cHello, fellow developer! 👋",
+					"color: #00c2a9; font-size: 24px; font-weight: bold; font-family: monospace;"
+				);
+				console.log(
+					"%cDid you peek at my code? I like your style! 😉",
+					"color: #cbd5e1; font-size: 16px;"
+				);
+				console.log(
+					"%cTo unlock a bonus surprise, run this function:",
+					"color: #ffcc00; font-size: 16px;"
+				);
+				console.log(
+					"%cwindow.unlockSecretPower()",
+					"color: #00c2a9; font-size: 18px; font-weight: bold;"
+				);
+
+				window.unlockSecretPower = function() {
+					console.log(
+						"%cKudos! You are a master debugger. Enjoy the confetti!",
+						"color: #ff69b4; font-size: 16px; font-weight: bold;"
+					);
+					createConfettiEffect(['💖', '✨', '💻', '💡']);
+				};
+
+				// --- C. Keyboard Shortcut (Ctrl + E) (Kept as is) ---
+				document.addEventListener('keydown', (e) => {
+					if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'e') {
+						e.preventDefault();
+						createConfettiEffect(['💻', '☕', '💡', '🎉', '🧠']);
+					}
+				});
+				
+				// --- J. New Easter Egg: Keyboard Shortcut (Alt + S) - CSS Debug Mock ---
+				document.addEventListener('keydown', (e) => {
+					// Alt + S
+					if (e.altKey && e.keyCode === 83) {
+						e.preventDefault();
+						
+						showSecretModal(
+							"CSS BUG FOUND! 🐞",
+							"You found the hidden stylesheet bug! It was a missing semicolon in a production file. Crisis averted, developer."
+						);
+						createConfettiEffect(['🐞', '🐛', '🔥', '❌']);
+					}
+				});
+
+
+				// 2. MOBILE & GENERAL EASTER EGGS
+
+				// --- D. Double-Click/Double-Tap on Profile Image (UPDATED with unique animation) ---
+				const profileImage = document.getElementById('profile-image-target');
+				if (profileImage) {
+					addDoubleTrigger(profileImage, () => {
+						// 1. Add unique animation
+						profileImage.classList.add('digital-halo');
+						setTimeout(() => {
+							profileImage.classList.remove('digital-halo');
+						}, 1000);
+
+						// 2. Show themed message
+						showSecretModal(
+							"LEVEL UP! 🌟",
+							"Access Granted. You've successfully debugged my social life. Welcome to Level 2!"
+						);
+						createConfettiEffect(['🌟', '⬆️', '✅']);
+					});
+				}
+				
+				// --- I. New Easter Egg: Header Logo Double Click/Tap (The Vague Click) ---
+				const headerLogo = document.querySelector('.header-logo');
+				if (headerLogo) {
+					addDoubleTrigger(headerLogo, () => {
+						showSecretModal(
+							"SECRET TITLE REVEALED 👑",
+							"Sourav Saha, First of His Name, Breaker of Code, and Master of CSS Grids."
+						);
+					});
+				}
+				
+				// --- E. Long Press (1 second) on About Section Title (Kept as is) ---
+				const aboutTitle = document.getElementById('about-me-title-target');
+				if (aboutTitle) {
+					let pressTimer;
+					const LONG_PRESS_DURATION = 1000; // 1 second
+
+					aboutTitle.addEventListener('touchstart', (e) => {
+						if (e.touches.length > 1) return;
+						pressTimer = setTimeout(() => {
+							// --- Long Press Action ---
+							showSecretModal(
+								"LONG PRESS ACHIEVED! 🤫",
+								"Shhh! My actual favorite programming language is JavaScript (don't tell C++)."
+							);
+							createConfettiEffect(['🤫', 'JS', '❤️']);
+						}, LONG_PRESS_DURATION);
+					});
+
+					const clearTimer = () => clearTimeout(pressTimer);
+					aboutTitle.addEventListener('touchend', clearTimer);
+					aboutTitle.addEventListener('touchcancel', clearTimer);
+					aboutTitle.addEventListener('touchmove', clearTimer);
+				}
+				
+				// --- F. GitHub Follow Button Double Click/Tap ---
+				const followButton = document.getElementById('follow-button');
+				if (followButton) {
+					addDoubleTrigger(followButton, (e) => {
+						// This prevents the link from being followed on the second click/tap,
+						// but the browser still navigates on the first tap/click if the double-tap isn't fast enough.
+						// The goal is just to show the modal for the secret.
+						
+						const followerCountEl = document.getElementById('follower-count');
+						const currentFollowers = parseInt(followerCountEl.textContent.replace(/[^\d]/g, ''), 10) || 'a few';
+						
+						showSecretModal(
+							"SECRET GITHUB GOAL! 🌟",
+							`Your double click counted as an imaginary star on one of my repos! Current imaginary followers: ${currentFollowers} + 1. Thank you!`
+						);
+						createConfettiEffect(['⭐️', '🐙', '💻']);
+					});
+				}
+
+				// --- G. Skill Bar Click/Tap Animation ---
+				const skillBars = document.querySelectorAll('.skill-item');
+				skillBars.forEach(item => {
+					const bar = item.querySelector('.progress-bar');
+					const skillName = item.getAttribute('data-skill');
+
+					if (bar && skillName) {
+						bar.addEventListener('click', () => {
+							// Use bumpSkill utility function
+							bumpSkill(bar, skillName);
+						});
+						// Also enable for touch taps
+						bar.addEventListener('touchstart', (e) => {
+							e.preventDefault(); // Prevent touch delay
+							bumpSkill(bar, skillName);
+						});
+					}
+				});
+				
+				// --- H. Shake Detection (Mobile) (Kept as is) ---
+				let last_update = 0;
+				let last_x, last_y, last_z;
+				const SHAKE_THRESHOLD = 500;
+
+				function requestMotionPermission() {
+					if (typeof DeviceMotionEvent.requestPermission === 'function') {
+						DeviceMotionEvent.requestPermission()
+							.then(permissionState => {
+								if (permissionState === 'granted') {
+									window.addEventListener('devicemotion', handleShake);
+								} else {
+									console.warn("Motion permission denied.");
+								}
+							})
+							.catch(console.error);
+					} else {
+						window.addEventListener('devicemotion', handleShake);
+					}
+				}
+
+				if ('ontouchstart' in window) {
+					document.addEventListener('click', requestMotionPermission, { once: true });
+					console.log("%cClick anywhere to enable Shake Detection.", "color: #ffcc00;");
+				}
+
+				function handleShake(e) {
+					if (e.accelerationIncludingGravity) {
+						const cur_time = new Date().getTime();
+						const diff_time = cur_time - last_update;
+
+						if (diff_time > 100) {
+							let x = e.accelerationIncludingGravity.x;
+							let y = e.accelerationIncludingGravity.y;
+							let z = e.accelerationIncludingGravity.z;
+							
+							if (last_x !== undefined) {
+								let speed = Math.abs(x + y + z - last_x - last_y - last_z) / diff_time * 10000;
+
+								if (speed > SHAKE_THRESHOLD) {
+									showSecretModal(
+										"SHAKE IT OFF! 🤪",
+										"Whoa! Too much caffeine? You triggered the debug mode. Everything looks normal... for now."
+									);
+									createConfettiEffect(['🤯', '😵', '😵‍💫', '❓']);
+								}
+							}
+
+							last_update = cur_time;
+							last_x = x;
+							last_y = y;
+							last_z = z;
+						}
+					}
+				}
+			}
+			// =========================================================================
+			// END EASTER EGG LOGIC
+			// =========================================================================
+
 
 			// Fetches the latest articles from Substack RSS feed using a third-party service.
 			async function fetchSubstackPosts() {
 				const substackUrl = "techtalkwithsourav.substack.com";
 				const postsGrid = document.getElementById("substack-posts-grid");
 				if (!postsGrid) return;
-				
+
 				postsGrid.innerHTML =
 					'<p class="text-brand-secondary col-span-full text-center">Loading latest articles from Substack...</p>';
-				
+
 				const apiUrl = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(
 					`https://${substackUrl}/feed`
 				)}&_=${new Date().getTime()}`;
-				
+
 				try {
 					// Use 'no-store' cache control to ensure the browser always re-fetches the content
 					const response = await fetch(apiUrl, { cache: 'no-store' });
