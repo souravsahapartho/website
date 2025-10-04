@@ -106,11 +106,7 @@
 				background: transparent;
 				color: #ffffff;
 				overflow-x: hidden;
-				/* Add CSS to prevent text selection for content protection */
-				user-select: none;
-				-webkit-user-select: none;
-				-moz-user-select: none;
-				-ms-user-select: none;
+				/* Content protection features removed */
 			}
 			#particle-canvas {
 				position: fixed;
@@ -605,27 +601,30 @@
 				width: var(--progress-width);
 			}
 
-            /* Confetti Effect Styles */
-            .confetti {
-                position: fixed;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                pointer-events: none;
-                z-index: 2000;
-                overflow: hidden;
-            }
-            .confetti-piece {
-                position: absolute;
-                font-size: 1.5rem;
-                opacity: 0;
-                animation: fall-and-spin linear infinite;
-            }
-            @keyframes fall-and-spin {
-                0% { opacity: 1; transform: translate(0, -10vh) rotate(0deg); }
-                100% { opacity: 0; transform: translate(0, 100vh) rotate(720deg); }
-            }
+            /* Confetti Effect Styles */
+            .confetti {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                pointer-events: none;
+                z-index: 2000;
+                overflow: hidden;
+            }
+			.confetti.hidden {
+				display: none;
+			}
+            .confetti-piece {
+                position: absolute;
+                font-size: 1.5rem;
+                opacity: 0;
+                animation: fall-and-spin linear infinite;
+            }
+            @keyframes fall-and-spin {
+                0% { opacity: 1; transform: translate(0, -10vh) rotate(0deg); }
+                100% { opacity: 0; transform: translate(0, 100vh) rotate(720deg); }
+            }
 
 			/* Custom Profile Image Animation (Digital Halo) */
 			#profile-image-target {
@@ -641,26 +640,6 @@
 				70% { box-shadow: 0 0 0 20px rgba(0, 194, 169, 0); }
 				100% { box-shadow: 0 0 0 0 rgba(0, 194, 169, 0); }
 			}
-
-            /* Screen Obfuscation Overlay */
-            #anti-capture-overlay {
-                position: fixed;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                background-color: rgba(15, 23, 42, 0.95);
-                backdrop-filter: blur(8px);
-                z-index: 9999;
-                display: none;
-                justify-content: center;
-                align-items: center;
-                color: #ff0000;
-                font-size: 2rem;
-                font-weight: bold;
-                text-align: center;
-                line-height: 1.5;
-            }
 		</style>
 
 		<!-- JSON-LD Schema Markup for SEO -->
@@ -700,8 +679,8 @@
 			}
 		</script>
 	</head>
-	<!-- Disables right-click on the entire body -->
-	<body class="font-sans" oncontextmenu="return false;">
+	<!-- Right-click is now enabled -->
+	<body class="font-sans">
 		<!-- Simple, static preloader -->
 		<div id="preloader">
 			<div class="loader-container">
@@ -713,10 +692,7 @@
 		</div>
 		<canvas id="particle-canvas"></canvas>
 		
-        <!-- ANTI-CAPTURE OVERLAY (Hidden by default) -->
-        <div id="anti-capture-overlay">
-            <p>ACCESS DENIED. Content Capture Protocol Activated. Please Respect Copyright Law (Section 8.4.C).</p>
-        </div>
+        <!-- ANTI-CAPTURE OVERLAY REMOVED -->
 
 		<header class="bg-transparent fixed top-0 left-0 right-0 z-50">
 			<nav
@@ -1620,11 +1596,11 @@
 				</button>
 				<div class="modal-header">
 					<h3 class="modal-title">My CV</h3>
-					<!-- Removed the download attribute and added a specific ID to disable direct download -->
+					<!-- Download button is now functional without JS interference -->
 					<a href="https://drive.google.com/uc?export=download&id=1HAuVM2tafxLJVT8rRBD5_0dJa81fgdLE" class="download-btn" id="download-cv-btn">Download PDF</a>
 				</div>
 				<div class="iframe-container">
-					<!-- Added oncontextmenu to disable right-click specifically on the iframe -->
+					<!-- oncontextmenu is left here to protect the external iframe content -->
 					<iframe
 						src="https://drive.google.com/file/d/1HAuVM2tafxLJVT8rRBD5_0dJa81fgdLE/preview"
 						width="100%"
@@ -1731,6 +1707,149 @@
 			// The delay before the preloader is hidden and animations start
 			const PRELOADER_DELAY = 1500;
 			const GITHUB_USERNAME = "souravsahapartho";
+
+			// =========================================================================
+			// GLOBAL UTILITIES (Moved out of initializeEasterEggs for scope access)
+			// =========================================================================
+
+			// --- Utility: Secret Modal Controller ---
+			const secretModal = document.getElementById('secret-message-modal');
+			const secretModalTitle = document.getElementById('secret-modal-title');
+			const secretModalBody = document.getElementById('secret-modal-body');
+
+			const closeModal = () => secretModal.classList.add('hidden');
+			
+			const showSecretModal = (title, message, isOneTime = false, flagName = '') => {
+				const MODAL_DURATION = 3000;
+				// Check one-time flag if applicable
+				if (isOneTime && localStorage.getItem(flagName) === 'true') {
+					return;
+				}
+				
+				secretModalTitle.textContent = title;
+				secretModalBody.textContent = message;
+				secretModal.classList.remove('hidden');
+
+				// Set one-time flag if applicable
+				if (isOneTime) {
+					localStorage.setItem(flagName, 'true');
+				}
+
+				// Auto-close after MODAL_DURATION
+				setTimeout(closeModal, MODAL_DURATION);
+			};
+
+			// --- Utility: Confetti/Emoji Rain Effect ---
+			const createConfettiEffect = (emojis) => {
+				const confettiContainer = document.getElementById('confetti-container');
+				if (!confettiContainer) return;
+
+				confettiContainer.classList.remove('hidden');
+
+				// Clear any previous confetti pieces
+				confettiContainer.innerHTML = '';
+
+				for (let i = 0; i < 50; i++) {
+					const piece = document.createElement('span');
+					piece.classList.add('confetti-piece');
+					piece.innerHTML = emojis[Math.floor(Math.random() * emojis.length)];
+
+					// Random starting position (x)
+					piece.style.left = `${Math.random() * 100}vw`;
+
+					// Random animation duration (speed of fall)
+					const duration = 2 + Math.random() * 3; // 2 to 5 seconds
+					piece.style.animationDuration = `${duration}s`;
+
+					// Random delay to stagger the start
+					piece.style.animationDelay = `${-Math.random() * duration}s`;
+
+					confettiContainer.appendChild(piece);
+				}
+
+				// Clean up after the animation completes
+				setTimeout(() => {
+					confettiContainer.classList.add('hidden');
+					confettiContainer.innerHTML = '';
+				}, 5000);
+			};
+
+			// --- Utility: Double Tap/Click Detection (for Profile Image) ---
+			function addDoubleTrigger(element, callback) {
+				let lastClickTime = 0;
+				let tapTimeout;
+				const DOUBLE_CLICK_DELAY = 300; // Max time between clicks/taps
+
+				// Desktop double-click
+				element.addEventListener('dblclick', (e) => {
+					e.preventDefault();
+					callback();
+				});
+
+				// Mobile double-tap logic
+				element.addEventListener('touchstart', (e) => {
+					const currentTime = new Date().getTime();
+					const timeDiff = currentTime - lastClickTime;
+
+					if (timeDiff > 0 && timeDiff < DOUBLE_CLICK_DELAY) {
+						e.preventDefault(); // Prevent text selection/long press menus
+						clearTimeout(tapTimeout);
+						callback();
+					} else {
+						tapTimeout = setTimeout(() => {
+							lastClickTime = 0; // Reset after single tap window expires
+						}, DOUBLE_CLICK_DELAY);
+					}
+					lastClickTime = currentTime;
+				});
+			}
+
+			// --- Utility: Fun Skill Achievement Messages (Used by bumpSkill) ---
+			const SKILL_ACHIEVEMENTS = {
+				'C': "I've mastered pointer manipulation, making C code look effortless. Challenge accepted! 🏆",
+				'C++': "My C++ objects are efficiently optimized. Memory leaks fear me. ✨",
+				'Java': "JVM fully warmed up! My coffee intake has been justified by this performance. ☕",
+				'JavaScript': "I speak fluently with the DOM. I am the hero this client side deserves. 🕸️",
+				'CSS': "I can center anything, anywhere. The Box Model is my personal sandbox. 📦",
+				'Content Writing': "My SEO Goblins are satisfied. Content quality is certified Fresh. 👻",
+				'RWD': "Media Queries bow to me. Every design is pixel-perfect on every screen. 📱",
+				'OOP': "My conceptual frameworks are robust. I solve problems with pure abstraction power. 🎩",
+				'Office Suite': "I unlocked the Excel Master Key. Data manipulation is merely a speedbump. 📊",
+				'Email Marketing': "My newsletters bypass all spam filters. Inbox presence: 100%. 📧",
+				'Communication': "My public speaking is 10% more convincing than a well-placed semi-colon. 🗣️",
+				'Leadership': "I lead by coding. My team follows because my merge conflicts are minimal. 👑",
+				'Teamwork': "Synergy level 99 achieved. I am the glue in this collaborative chaos. 👯",
+				'Time Management': "I only procrastinate 80% less than the average developer. Still a win! ⏱️",
+				'Public Speaking': "My voice is heard. I can discuss array indexing for hours without notes. 🎤"
+			};
+			
+			const bumpSkill = (barElement, skillName) => {
+				// Show a temporary message near the skill name
+				const skillNameElement = barElement.parentElement.previousElementSibling.querySelector('.skill-name');
+				const originalText = skillNameElement.textContent;
+				const message = SKILL_ACHIEVEMENTS[skillName] || "Policy Deviation Detected! Immediate action required.";
+
+				// 1. Update text (This feature is repeatable)
+				skillNameElement.textContent = message; 
+
+				// 2. Apply a quick pulse animation by scaling the bar
+				barElement.style.transition = 'transform 0.1s ease-in-out';
+				barElement.style.transform = 'scaleY(1.5)';
+				
+				setTimeout(() => {
+					barElement.style.transform = 'scaleY(1)';
+				}, 100);
+
+				// 3. Revert text and transition after 3 seconds
+				setTimeout(() => {
+					skillNameElement.textContent = originalText;
+					barElement.style.transition = 'width 1.5s cubic-bezier(0.25, 1, 0.5, 1)'; // Restore original transition
+				}, 3000);
+			};
+
+			// =========================================================================
+			// MAIN PAGE SETUP AND EVENT HANDLERS
+			// =========================================================================
 
 			// --- Function to fetch the user's IP address and set the hidden field ---
 			async function fetchUserIp() {
@@ -1968,14 +2087,6 @@
 					});
 				}
 
-				// Prevent direct download of the CV
-				if (downloadCvBtn) {
-					downloadCvBtn.addEventListener("click", function(e) {
-						e.preventDefault();
-						console.log("Download is disabled for this file.");
-					});
-				}
-
 				// --- Web3Forms Form Submission Logic ---
 				function handleFormSubmit(formId, statusId, btnTextId, btnLoaderId) {
 					const form = document.getElementById(formId);
@@ -2011,25 +2122,27 @@
 							.then(async (response) => {
 								let jsonResponse = await response.json();
 								if (response.ok) {
-									// --- MODIFIED SUCCESS MESSAGE LOGIC ---
-									let finalMessage;
+									// --- MODIFIED SUCCESS MESSAGE LOGIC WITH FUNNY EE ---
+									let funnyMessage;
+									let emojis;
 
 									if (formId === "contact-form") {
-										finalMessage = "Message sent successfully";
+										funnyMessage = "Message delivered! A digital carrier pigeon is on its way. 🐦";
+										emojis = ['💌', '📬', '🎉', '✈️'];
 									} else if (formId === "newsletter-form") {
-										finalMessage = "Subscribed Successfully";
-									} else {
-										finalMessage = jsonResponse.message;
-									}
-
-									statusDiv.innerHTML = `<span style="color: #00c2a9;">${finalMessage}</span>`;
-									form.reset();
-
-									// --- PERMANENTLY CLOSE POPUP ON SUCCESS ---
-									if (formId === "newsletter-form") {
+										funnyMessage = "You're In! Welcome to the exclusive club. Prepare for awesome things. 🚀";
+										emojis = ['🗞️', '📧', '💡', '🌟'];
 										// Set flag in localStorage on successful subscription
 										localStorage.setItem("newsletterPopupPermanentlyClosed", 'true');
-									}
+									} 
+
+									// Use the funny message for the display and reset the form
+									statusDiv.innerHTML = `<span style="color: #00c2a9; font-weight: bold;">${funnyMessage}</span>`;
+									form.reset();
+
+									// Trigger confetti effect
+									createConfettiEffect(emojis);
+									
 									// --- END MODIFIED LOGIC ---
 
 								} else {
@@ -2202,38 +2315,10 @@
 			// EASTER EGG & ANTI-CAPTURE LOGIC
 			// =========================================================================
 			function initializeEasterEggs() {
-				const MODAL_DURATION = 3000; // 3 seconds
-
-				// --- Utility: Secret Modal Controller ---
-				const secretModal = document.getElementById('secret-message-modal');
-				const secretModalTitle = document.getElementById('secret-modal-title');
-				const secretModalBody = document.getElementById('secret-modal-body');
+				// The MODAL_DURATION variable and the modal elements are already available 
+				// through closures or direct global references (which we now prefer).
 				const closeSecretBtn = document.getElementById('close-secret-modal');
-                const captureOverlay = document.getElementById('anti-capture-overlay');
-
-				const closeModal = () => secretModal.classList.add('hidden');
-				
-				const showSecretModal = (title, message, isOneTime = false, flagName = '') => {
-					// Check one-time flag if applicable
-					if (isOneTime && localStorage.getItem(flagName) === 'true') {
-						return;
-					}
-					
-					secretModalTitle.textContent = title;
-					secretModalBody.textContent = message;
-					secretModal.classList.remove('hidden');
-
-					// Set one-time flag if applicable
-					if (isOneTime) {
-						localStorage.setItem(flagName, 'true');
-					}
-
-					// Auto-close after MODAL_DURATION
-					setTimeout(closeModal, MODAL_DURATION);
-				};
-
 				if (closeSecretBtn) {
-					// Manual close removes the auto-close timer effect, but keeps the one-time flag set
 					closeSecretBtn.addEventListener('click', closeModal);
 				}
 				if (secretModal) {
@@ -2241,164 +2326,6 @@
 						if (e.target === secretModal) closeModal();
 					});
 				}
-
-				// --- Utility: Confetti/Emoji Rain Effect ---
-				const createConfettiEffect = (emojis) => {
-					const confettiContainer = document.getElementById('confetti-container');
-					if (!confettiContainer) return;
-
-					confettiContainer.classList.remove('hidden');
-
-					for (let i = 0; i < 50; i++) {
-						const piece = document.createElement('span');
-						piece.classList.add('confetti-piece');
-						piece.innerHTML = emojis[Math.floor(Math.random() * emojis.length)];
-
-						// Random starting position (x)
-						piece.style.left = `${Math.random() * 100}vw`;
-
-						// Random animation duration (speed of fall)
-						const duration = 2 + Math.random() * 3; // 2 to 5 seconds
-						piece.style.animationDuration = `${duration}s`;
-
-						// Random delay to stagger the start
-						piece.style.animationDelay = `${-Math.random() * duration}s`;
-
-						confettiContainer.appendChild(piece);
-					}
-
-					// Clean up after the animation completes
-					setTimeout(() => {
-						confettiContainer.classList.add('hidden');
-						confettiContainer.innerHTML = '';
-					}, 5000);
-				};
-				
-				// --- Utility: Double Tap/Click Detection (for Profile Image) ---
-				function addDoubleTrigger(element, callback) {
-					let lastClickTime = 0;
-					let tapTimeout;
-					const DOUBLE_CLICK_DELAY = 300; // Max time between clicks/taps
-
-					// Desktop double-click
-					element.addEventListener('dblclick', (e) => {
-						e.preventDefault();
-						callback();
-					});
-
-					// Mobile double-tap logic
-					element.addEventListener('touchstart', (e) => {
-						const currentTime = new Date().getTime();
-						const timeDiff = currentTime - lastClickTime;
-
-						if (timeDiff > 0 && timeDiff < DOUBLE_CLICK_DELAY) {
-							e.preventDefault(); // Prevent text selection/long press menus
-							clearTimeout(tapTimeout);
-							callback();
-						} else {
-							tapTimeout = setTimeout(() => {
-								lastClickTime = 0; // Reset after single tap window expires
-							}, DOUBLE_CLICK_DELAY);
-						}
-						lastClickTime = currentTime;
-					});
-				}
-
-				// --- Utility: Corporate Skill Achievement Messages ---
-				const SKILL_ACHIEVEMENTS = {
-					'C': "KPI Target Exceeded! Core competency validation successful. 🏆",
-					'C++': "Synergy Achieved. Optimized performance vector engaged. 📈",
-					'Java': "Project Deployment Success. Deliverables met the baseline objective. 💼",
-					'JavaScript': "Digital Footprint Expanded. Client-facing initiative launch validated. 🌐",
-					'CSS': "Cross-Platform Compliance. UI/UX audit passed critical mobile metrics. 📱",
-					'Content Writing': "Content Pipeline Operational. Thought leadership quota fulfilled. 📰",
-					'RWD': "Viewport Optimization Certified. No negative user pathways detected. 📏",
-					'OOP': "Conceptual Framework Integrated. Theoretical knowledge base validated. 🧠",
-					'Office Suite': "Legacy Data Management Mastery. Spreadsheet manipulation proficiency confirmed. 📑",
-					'Email Marketing': "Outbound Engagement Metric Hit. Funnel optimization validated. 📧",
-					'Communication': "Stakeholder Communication Mastery. Verbal communication score: High. 🗣️",
-					'Leadership': "Team Leadership validated. Resource management efficiency confirmed. 🤝",
-					'Teamwork': "Collaborative Output Confirmed. Inter-team cohesion is adequate. 👯",
-					'Time Management': "Project Timeline Adherence. Schedule mitigation strategy is active. ⏱️",
-					'Public Speaking': "Public Visibility Acceptance. Fear mitigation protocol passed. 📢"
-				};
-				
-				const bumpSkill = (barElement, skillName) => {
-					// Show a temporary message near the skill name
-					const skillNameElement = barElement.parentElement.previousElementSibling.querySelector('.skill-name');
-					const originalText = skillNameElement.textContent;
-					const message = SKILL_ACHIEVEMENTS[skillName] || "Policy Deviation Detected! Immediate action required.";
-
-					// 1. Update text (This feature is repeatable)
-					skillNameElement.textContent = `[AUDIT] ${message}`;
-
-					// 2. Apply a quick pulse animation by scaling the bar
-					barElement.style.transition = 'transform 0.1s ease-in-out';
-					barElement.style.transform = 'scaleY(1.5)';
-					
-					setTimeout(() => {
-						barElement.style.transform = 'scaleY(1)';
-					}, 100);
-
-					// 3. Revert text and transition after 3 seconds
-					setTimeout(() => {
-						skillNameElement.textContent = originalText;
-						barElement.style.transition = 'width 1.5s cubic-bezier(0.25, 1, 0.5, 1)'; // Restore original transition
-					}, 3000);
-				};
-
-                // --- ANTI-CAPTURE PROTOCOL ---
-                
-                // 1. Disable Print/Save (Ctrl+P, Cmd+P, Ctrl+S, Cmd+S)
-                document.addEventListener('keydown', (e) => {
-                    if ((e.ctrlKey || e.metaKey) && (e.key === 'p' || e.key === 's')) {
-                        e.preventDefault();
-                        showSecretModal(
-                            "ACCESS RESTRICTED (CODE 403)",
-                            "Printing or saving content is disabled. Digital dissemination requires prior authorization."
-                        );
-                    }
-                });
-
-                // 2. Screen Capture/Snip Detection (PrintScreen, Ctrl+Shift+I, etc.)
-                const showOverlay = () => {
-                    captureOverlay.style.display = 'flex';
-                    // Hide the overlay after 1 second (fast enough to disrupt snips)
-                    setTimeout(() => {
-                        captureOverlay.style.display = 'none';
-                    }, 1000);
-                };
-
-                // Catch common print screen key codes
-                document.addEventListener('keyup', (e) => {
-                    // Windows PrintScreen (key 44 or 'PrintScreen')
-                    if (e.key === 'PrintScreen' || e.keyCode === 44) {
-                        showOverlay();
-                        showSecretModal(
-                            "CAPTURE PROTOCOL ACTIVATED",
-                            "Attempted content capture detected. Unauthorized copying is logged."
-                        );
-                    }
-                });
-                
-                // Catch DevTools/Inspect (Ctrl+Shift+I, F12)
-                document.addEventListener('keydown', (e) => {
-                    // F12 or Ctrl+Shift+I / Cmd+Opt+I
-                    if (e.keyCode === 123 || 
-                        (e.ctrlKey && e.shiftKey && e.keyCode === 73) || 
-                        (e.metaKey && e.altKey && e.keyCode === 73)) 
-                    {
-                        // We don't prevent default here as DevTools is useful for debugging,
-                        // but we log the attempt.
-                        console.warn("[SECURITY] DevTools opened. Logging user activity.");
-                        showSecretModal(
-                            "DEBUGGER DETECTED",
-                            "System integrity check initiated. All console activity is now monitored."
-                        );
-                    }
-                });
-                // --- END ANTI-CAPTURE PROTOCOL ---
-
 
 				// 1. EASTER EGGS - ONE TIME TRIGGERS (per session)
 				
@@ -2419,7 +2346,7 @@
 						showSecretModal(
 							"IDENTITY CONFIRMATION REQUIRED",
 							"Compliance Error: Unauthorized profile access detected. Your data integrity score has been flagged for review. Proceed with caution.",
-							true, 
+							true, 
 							flag
 						);
 						createConfettiEffect(['⚠️', '🚫', '🔒']);
@@ -2442,7 +2369,7 @@
 							showSecretModal(
 								"HR VIOLATION DETECTED",
 								"Policy Alert: Excessive idle time detected on PII. Productivity optimization initiative commencing. Resume active engagement immediately.",
-								true, 
+								true, 
 								flag
 							);
 							createConfettiEffect(['💼', '⏰', '😡']);
@@ -2502,7 +2429,7 @@
 					console.log("%c[SUCCESS] L3 Credentials Granted. Please reset your environment for changes to take full effect.", "color: #ff69b4; font-size: 16px; font-weight: bold;");
 					
 					showSecretModal(
-						"SYSTEM ACCESS GRANTED (L3)", 
+						"SYSTEM ACCESS GRANTED (L3)", 
 						"Congratulations. Your security clearance has been upgraded. Please prepare for mandatory Q3 performance review."
 					);
 					createConfettiEffect(['💖', '✨', '💻', '💡']);
@@ -2523,7 +2450,7 @@
 						});
 						// Also enable for touch taps
 						bar.addEventListener('touchstart', (e) => {
-							e.preventDefault(); 
+							e.preventDefault(); 
 							bumpSkill(bar, skillName);
 						});
 					}
@@ -2532,7 +2459,8 @@
 				// --- F. Shake Detection (Mobile) (Repeatable, Irritating Modal) ---
 				let last_update = 0;
 				let last_x, last_y, last_z;
-				const SHAKE_THRESHOLD = 500;
+				// Adjusted threshold (increased from 500 to 800) to make it require a more deliberate shake
+				const SHAKE_THRESHOLD = 800; 
 
 				function requestMotionPermission() {
 					if (typeof DeviceMotionEvent.requestPermission === 'function') {
