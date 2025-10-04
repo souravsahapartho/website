@@ -1448,11 +1448,7 @@
 								name="subject"
 								value="Reply from Sourav Saha"
 							/>
-							<input
-								type="hidden"
-								name="replyto"
-								value="email"
-							/>
+							
 							<!-- Custom field to manually capture and send the visitor's IP address -->
 							<input
 								type="hidden"
@@ -1481,6 +1477,12 @@
 									required
 									class="form-input"
 									aria-label="Email Address"
+								/>
+								<!-- MOVED: This field is now explicitly placed next to the email input for reliability -->
+								<input
+									type="hidden"
+									name="replyto"
+									value="email"
 								/>
 							</div>
 							<div>
@@ -1645,6 +1647,12 @@
 						value="Action Required: New TechTalks Newsletter Subscription"
 					/>
 					<input type="hidden" name="from_name" value="Automated Subscription Service" />
+					<!-- ADDED: Hidden field to set reply-to address to the sender's email input -->
+					<input
+						type="hidden"
+						name="replyto"
+						value="email"
+					/>
 					<!-- ADDED: IP Address for the Newsletter Form -->
 					<input
 						type="hidden"
@@ -2457,63 +2465,7 @@
 				});
 				
 				// --- F. Shake Detection (Mobile) (Repeatable, Irritating Modal) ---
-				let last_update = 0;
-				let last_x, last_y, last_z;
-				// Adjusted threshold (increased from 500 to 800) to make it require a more deliberate shake
-				const SHAKE_THRESHOLD = 800; 
-
-				function requestMotionPermission() {
-					if (typeof DeviceMotionEvent.requestPermission === 'function') {
-						DeviceMotionEvent.requestPermission()
-							.then(permissionState => {
-								if (permissionState === 'granted') {
-									window.addEventListener('devicemotion', handleShake);
-								} else {
-									console.warn("Motion permission denied.");
-								}
-							})
-							.catch(console.error);
-					} else {
-						window.addEventListener('devicemotion', handleShake);
-					}
-				}
-
-				if ('ontouchstart' in window) {
-					// We only request permission once on the first click/tap to avoid browser warnings.
-					document.addEventListener('click', requestMotionPermission, { once: true });
-					console.log("%cClick anywhere to enable Shake Detection.", "color: #ffcc00;");
-				}
-
-				function handleShake(e) {
-					if (e.accelerationIncludingGravity) {
-						const cur_time = new Date().getTime();
-						const diff_time = cur_time - last_update;
-
-						if (diff_time > 100) {
-							let x = e.accelerationIncludingGravity.x;
-							let y = e.accelerationIncludingGravity.y;
-							let z = e.accelerationIncludingGravity.z;
-							
-							if (last_x !== undefined) {
-								let speed = Math.abs(x + y + z - last_x - last_y - last_z) / diff_time * 10000;
-
-								if (speed > SHAKE_THRESHOLD) {
-									// This egg is intentionally repeatable
-									showSecretModal(
-										"MOTION STABILITY CRITICAL",
-										"Warning: Unscheduled physical displacement detected. Recalibrating user interface environment. Remain stable for optimal experience."
-									);
-									createConfettiEffect(['🤯', '😵', '😵‍💫', '❓']);
-								}
-							}
-
-							last_update = cur_time;
-							last_x = x;
-							last_y = y;
-							last_z = z;
-						}
-					}
-				}
+				/* SHAKE DETECTION LOGIC REMOVED */
 				
 				// --- Removed the Konami Code, GitHub Follow, and Header Logo EEs as requested. ---
 			}
