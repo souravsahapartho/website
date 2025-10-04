@@ -2613,6 +2613,12 @@
 						return;
 					}
 					repos.forEach((repo) => {
+						const rawDescription = repo.description || "No description provided.";
+						const MAX_LENGTH = 110; // Set limit to ~2 lines
+						const displayDescription = rawDescription.length > MAX_LENGTH
+							? rawDescription.substring(0, MAX_LENGTH).trim() + "..."
+							: rawDescription;
+
 						const repoCard = `
 							<a href="${
 								repo.html_url
@@ -2620,7 +2626,7 @@
 								<div class="flex-grow"><h3 class="text-xl font-bold text-white text-glow mb-2">${
 								repo.name
 								}</h3><p class="text-brand-secondary text-sm mb-4">${
-								repo.description || "No description provided."
+								displayDescription
 							}</p></div>
 								<div class="flex items-center text-sm text-brand-secondary/80 mt-auto">
 									${
