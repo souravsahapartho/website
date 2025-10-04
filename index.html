@@ -2143,7 +2143,12 @@
 									let emojis;
 
 									if (formId === "contact-form") {
-										funnyMessage = "Message delivered! A digital carrier pigeon is on its way. 🐦";
+										// Extract, capitalize, and use the first name for the greeting
+										const rawName = object.name || 'friend';
+										const senderFirstName = rawName.split(' ')[0];
+										const greetingName = senderFirstName.charAt(0).toUpperCase() + senderFirstName.slice(1);
+										
+										funnyMessage = `Hello ${greetingName}, your message was delivered! A digital carrier pigeon is on its way. 🐦`;
 										emojis = ['💌', '📬', '🎉', '✈️'];
 									} else if (formId === "newsletter-form") {
 										funnyMessage = "You're In! Welcome to the exclusive club. Prepare for awesome things. 🚀";
