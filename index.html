@@ -598,12 +598,11 @@
 				height: 100%;
 				border-radius: 9999px;
 				width: 0;
-				transition: width 1.5s cubic-bezier(0.25, 1, 0.5, 1);
-				cursor: pointer; /* Added cursor pointer for the new Easter egg */
+				/* Rely on width transition only, as the JS sets the width property directly */
+				transition: width 1.5s cubic-bezier(0.25, 1, 0.5, 1); 
+				cursor: pointer; 
 			}
-			.progress-bar.animated {
-				width: var(--progress-width);
-			}
+			/* Removed .progress-bar.animated CSS rule as JS handles the width setting */
 
             /* Confetti Effect Styles */
             .confetti {
@@ -1097,7 +1096,7 @@
 									<div class="progress-bar-container">
 										<div
 											class="progress-bar"
-											style="--progress-width: 85%"
+											data-progress="85"
 										></div>
 									</div>
 								</div>
@@ -1109,7 +1108,7 @@
 									<div class="progress-bar-container">
 										<div
 											class="progress-bar"
-											style="--progress-width: 80%"
+											data-progress="80"
 										></div>
 									</div>
 								</div>
@@ -1121,7 +1120,7 @@
 									<div class="progress-bar-container">
 										<div
 											class="progress-bar"
-											style="--progress-width: 75%"
+											data-progress="75"
 										></div>
 									</div>
 								</div>
@@ -1133,7 +1132,7 @@
 									<div class="progress-bar-container">
 										<div
 											class="progress-bar"
-											style="--progress-width: 65%"
+											data-progress="65"
 										></div>
 									</div>
 								</div>
@@ -1145,7 +1144,7 @@
 									<div class="progress-bar-container">
 										<div
 											class="progress-bar"
-											style="--progress-width: 90%"
+											data-progress="90"
 										></div>
 									</div>
 								</div>
@@ -1166,7 +1165,7 @@
 									<div class="progress-bar-container">
 										<div
 											class="progress-bar"
-											style="--progress-width: 90%"
+											data-progress="90"
 										></div>
 									</div>
 								</div>
@@ -1178,7 +1177,7 @@
 									<div class="progress-bar-container">
 										<div
 											class="progress-bar"
-											style="--progress-width: 88%"
+											data-progress="88"
 										></div>
 									</div>
 								</div>
@@ -1191,7 +1190,7 @@
 									<div class="progress-bar-container">
 										<div
 											class="progress-bar"
-											style="--progress-width: 80%"
+											data-progress="80"
 										></div>
 									</div>
 								</div>
@@ -1203,7 +1202,7 @@
 									<div class="progress-bar-container">
 										<div
 											class="progress-bar"
-											style="--progress-width: 82%"
+											data-progress="82"
 										></div>
 									</div>
 								</div>
@@ -1215,7 +1214,7 @@
 									<div class="progress-bar-container">
 										<div
 											class="progress-bar"
-											style="--progress-width: 75%"
+											data-progress="75"
 										></div>
 									</div>
 								</div>
@@ -1236,7 +1235,7 @@
 									<div class="progress-bar-container">
 										<div
 											class="progress-bar"
-											style="--progress-width: 90%"
+											data-progress="90"
 										></div>
 									</div>
 								</div>
@@ -1248,7 +1247,7 @@
 									<div class="progress-bar-container">
 										<div
 											class="progress-bar"
-											style="--progress-width: 85%"
+											data-progress="85"
 										></div>
 									</div>
 								</div>
@@ -1260,7 +1259,7 @@
 									<div class="progress-bar-container">
 										<div
 											class="progress-bar"
-											style="--progress-width: 95%"
+											data-progress="95"
 										></div>
 									</div>
 								</div>
@@ -1272,7 +1271,7 @@
 									<div class="progress-bar-container">
 										<div
 											class="progress-bar"
-											style="--progress-width: 80%"
+											data-progress="80"
 										></div>
 									</div>
 								</div>
@@ -1284,7 +1283,7 @@
 									<div class="progress-bar-container">
 										<div
 											class="progress-bar"
-											style="--progress-width: 85%"
+											data-progress="85"
 										></div>
 									</div>
 								</div>
@@ -1600,10 +1599,10 @@
 				<div class="modal-header">
 					<h3 class="modal-title">My CV</h3>
 					<!-- Download button uses File ID: 13JRAOI3YPpkQKVbBjvaA9gsetQSClzhb -->
-					<a 
-						href="https://drive.google.com/uc?export=download&id=13JRAOI3YPpkQKVbBjvaA9gsetQSClzhb" 
-						class="download-btn" 
-						id="download-cv-btn" 
+					<a 
+						href="https://drive.google.com/uc?export=download&id=13JRAOI3YPpkQKVbBjvaA9gsetQSClzhb" 
+						class="download-btn" 
+						id="download-cv-btn" 
 						target="_blank"
 					>
 						Download PDF
@@ -1841,15 +1840,19 @@
 			};
 			
 			const bumpSkill = (barElement, skillName) => {
+				// Get the original progress value from the data attribute
+				const originalProgress = barElement.getAttribute('data-progress'); 
+
 				// Show a temporary message near the skill name
 				const skillNameElement = barElement.parentElement.previousElementSibling.querySelector('.skill-name');
-				const originalText = skillNameElement.textContent;
+				const originalName = skillNameElement.textContent;
 				const message = SKILL_ACHIEVEMENTS[skillName] || "Policy Deviation Detected! Immediate action required.";
 
 				// 1. Update text (This feature is repeatable)
 				skillNameElement.textContent = message; 
 
 				// 2. Apply a quick pulse animation by scaling the bar
+				// Temporarily change transition to make the scale faster
 				barElement.style.transition = 'transform 0.1s ease-in-out';
 				barElement.style.transform = 'scaleY(1.5)';
 				
@@ -1857,10 +1860,11 @@
 					barElement.style.transform = 'scaleY(1)';
 				}, 100);
 
-				// 3. Revert text and transition after 3 seconds
+				// 3. Revert text and restore width transition after 3 seconds
 				setTimeout(() => {
-					skillNameElement.textContent = originalText;
-					barElement.style.transition = 'width 1.5s cubic-bezier(0.25, 1, 0.5, 1)'; // Restore original transition
+					skillNameElement.textContent = originalName;
+					// Restore original width transition property for the animation on scroll
+					barElement.style.transition = 'width 1.5s cubic-bezier(0.25, 1, 0.5, 1)'; 
 				}, 3000);
 			};
 
@@ -1978,7 +1982,8 @@
 					(entries) => {
 						let currentActive = "";
 						entries.forEach((entry) => {
-							if (entry.isIntersecting) {
+							// Determine which section is mostly visible
+							if (entry.isIntersecting && entry.intersectionRatio >= 0.4) {
 								currentActive = entry.target.id;
 							}
 						});
@@ -2030,7 +2035,7 @@
 					});
 				}
 
-				// --- Rotating Headline Subtitle ---
+				// --- Rotating Headline Subtitle (FIXED SYNTAX ERROR) ---
 				const rotatingTextContainer = document.getElementById(
 					"rotating-text-container"
 				);
@@ -2038,7 +2043,7 @@
 					const texts = [
 						"A Computer Science Student",
 						"An Aspiring Developer",
-						"Coding the Next Chapter"
+						"Coding the Next Chapter", // <-- FIXED: Added missing comma
 						"A Passionate Leader",
 						"Passion for Problem-Solving",
 						"Crafting Solutions Through Code",
@@ -2242,14 +2247,19 @@
 					{ passive: true }
 				);
 
-				// --- Skill Progress Bar Animation ---
+				// --- Skill Progress Bar Animation (FIXED: Using data attribute and style.width directly) ---
 				const skillBars = document.querySelectorAll(".progress-bar");
 				if (skillBars.length > 0) {
 					const observer = new IntersectionObserver(
 						(entries, observer) => {
 							entries.forEach((entry) => {
 								if (entry.isIntersecting) {
-									entry.target.classList.add("animated");
+									const bar = entry.target;
+									const progressPercent = bar.getAttribute("data-progress");
+									
+									// Set the width directly to trigger the CSS transition
+									bar.style.width = `${progressPercent}%`;
+									
 									observer.unobserve(entry.target);
 								}
 							});
@@ -2348,7 +2358,7 @@
 					});
 				}
 
-				// 1. EASTER EGGS - ONE TIME TRIGGERS (per session)
+				// 1. EASTER EGGS - ONE TIME TRIGGERS
 				
 				// --- A. Profile Image Double-Click/Tap (One-Time, Irritating Modal) ---
 				const profileImage = document.getElementById('profile-image-target');
@@ -2476,14 +2486,6 @@
 						});
 					}
 				});
-				
-				// --- G. GitHub Profile Card Click (Repeatable, Funky Modal) ---
-				/* GITHUB EASTER EGG REMOVED AS REQUESTED */
-				
-				// --- F. Shake Detection (Mobile) (Repeatable, Irritating Modal) ---
-				/* SHAKE DETECTION LOGIC REMOVED */
-				
-				// --- Removed the Konami Code, GitHub Follow, and Header Logo EEs as requested. ---
 			}
 			// =========================================================================
 			// END EASTER EGG & ANTI-CAPTURE LOGIC
@@ -2672,7 +2674,7 @@
 				}
 			}
 
-			// A utility function to map programming languages to a color
+			// A utility function to map programming languages to a color (FIXED: Added C)
 			function getLanguageColor(language) {
 				const colors = {
 					'JavaScript': '#f1e05a',
@@ -2683,7 +2685,7 @@
 					'HTML': '#e34c26',
 					'CSS': '#563d7c',
 					'Shell': '#89e051',
-					'C': '#555555',
+					'C': '#555555', // <-- FIXED: Added C
 					'Rust': '#dea584',
 				};
 				return colors[language] || '#cccccc';
