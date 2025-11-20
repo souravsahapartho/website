@@ -67,7 +67,7 @@
 		<link rel="preconnect" href="https://fonts.googleapis.com" />
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="" />
 		<link
-			href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+			href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
 			rel="stylesheet"
 		/>
 		<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
@@ -168,14 +168,17 @@
 				color: #00c2a9;
 			}
 
-			/* Preloader - Reverted to Original */
+			/* =================================================================
+			   NEW PRELOADER STYLES 
+			   =================================================================
+			*/
 			#preloader {
 				position: fixed;
 				top: 0;
 				left: 0;
 				width: 100%;
 				height: 100%;
-				background-color: #0f172a;
+				background-color: #0f172a; /* Matches theme background */
 				z-index: 9999;
 				display: flex;
 				justify-content: center;
@@ -186,54 +189,103 @@
 				opacity: 0;
 				visibility: hidden;
 			}
-			.loader-container {
+
+			/* Wrapper for the entire loader animation */
+			.loader-content {
 				position: relative;
-				width: 100px;
-				height: 100px;
-			}
-			.loader-ring {
-				position: absolute;
-				top: 0;
-				left: 0;
-				width: 100%;
-				height: 100%;
-				border-radius: 50%;
-				border: 2px solid transparent;
-				animation: rotate 2s linear infinite;
-			}
-			.loader-ring:nth-child(1) {
-				border-top-color: #00c2a9;
-				animation-delay: -0.5s;
-			}
-			.loader-ring:nth-child(2) {
-				border-right-color: #00c2a9;
-				animation-delay: -1s;
-			}
-			.loader-ring:nth-child(3) {
-				border-bottom-color: #00c2a9;
-				animation-delay: -1.5s;
-			}
-			.loader-logo {
-				position: absolute;
-				top: 50%;
-				left: 50%;
-				transform: translate(-50%, -50%);
-				font-family: 'Inter', sans-serif;
-				font-size: 1.8rem;
-				font-weight: 700;
-				color: #ffffff;
-				opacity: 0;
-				animation: fadeInLogo 1.5s ease-in-out forwards;
+				width: 160px;
+				height: 160px;
+				display: flex;
+				justify-content: center;
+				align-items: center;
 			}
 
-			@keyframes rotate {
-				0% { transform: rotate(0deg); }
-				100% { transform: rotate(360deg); }
+			/* The Main "S" Character */
+			.loader-text {
+				font-family: 'Inter', sans-serif;
+				font-size: 5rem;
+				font-weight: 800;
+				color: #ffffff;
+				z-index: 20;
+				position: relative;
+				text-shadow: 0 0 25px rgba(0, 194, 169, 0.6);
+				animation: pulseText 2s ease-in-out infinite;
 			}
-			@keyframes fadeInLogo {
-				0% { opacity: 0; transform: translate(-50%, -50%) scale(0.8); }
-				100% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+
+			/* Outer Rotating Dashed Ring */
+			.loader-ring-dashed {
+				position: absolute;
+				width: 100%;
+				height: 100%;
+				border: 2px dashed rgba(148, 163, 184, 0.3); /* subtle slate color */
+				border-radius: 50%;
+				animation: spinSlow 12s linear infinite;
 			}
+
+			/* Inner Rotating Gradient Arcs */
+			.loader-ring-glow {
+				position: absolute;
+				width: 82%;
+				height: 82%;
+				border-radius: 50%;
+				border: 3px solid transparent;
+				border-top-color: #00c2a9;
+				border-bottom-color: #00c2a9;
+				animation: spinFast 1.5s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+				box-shadow: 0 0 15px rgba(0, 194, 169, 0.1);
+			}
+
+			/* Orbiting Particle */
+			.loader-orbit {
+				position: absolute;
+				width: 130%;
+				height: 130%;
+				border-radius: 50%;
+				animation: spinOrbit 3s linear infinite;
+			}
+			.loader-orbit::before {
+				content: '';
+				position: absolute;
+				top: 50%;
+				left: -4px;
+				width: 8px;
+				height: 8px;
+				background-color: #ffffff;
+				border-radius: 50%;
+				box-shadow: 0 0 15px #00c2a9, 0 0 5px #ffffff;
+			}
+
+			/* Background Geometric Square (Diamond) */
+			.loader-diamond {
+				position: absolute;
+				width: 55%;
+				height: 55%;
+				border: 1px solid rgba(0, 194, 169, 0.2);
+				transform: rotate(45deg);
+				animation: breatheDiamond 3s ease-in-out infinite;
+			}
+
+			/* Animation Keyframes */
+			@keyframes spinSlow { 
+				100% { transform: rotate(360deg); } 
+			}
+			@keyframes spinFast { 
+				100% { transform: rotate(360deg); } 
+			}
+			@keyframes spinOrbit { 
+				0% { transform: rotate(0deg); } 
+				100% { transform: rotate(360deg); } 
+			}
+			@keyframes pulseText { 
+				0%, 100% { transform: scale(1); opacity: 1; text-shadow: 0 0 25px rgba(0, 194, 169, 0.6); } 
+				50% { transform: scale(0.95); opacity: 0.9; text-shadow: 0 0 15px rgba(0, 194, 169, 0.3); } 
+			}
+			@keyframes breatheDiamond {
+				0%, 100% { transform: rotate(45deg) scale(1); border-color: rgba(0, 194, 169, 0.2); }
+				50% { transform: rotate(45deg) scale(1.2); border-color: rgba(0, 194, 169, 0.5); }
+			}
+
+			/* ================================================================= */
 
 
 			/* Main content animations */
@@ -599,8 +651,8 @@
 				border-radius: 9999px;
 				width: 0;
 				/* Rely on width transition only, as the JS sets the width property directly */
-				transition: width 1.5s cubic-bezier(0.25, 1, 0.5, 1); 
-				cursor: pointer; 
+				transition: width 1.5s cubic-bezier(0.25, 1, 0.5, 1); 
+				cursor: pointer; 
 			}
 			/* Removed .progress-bar.animated CSS rule as JS handles the width setting */
 
@@ -684,15 +736,24 @@
 	</head>
 	<!-- Disable right-click on the entire body -->
 	<body class="font-sans" oncontextmenu="return false;">
-		<!-- Simple, static preloader -->
+		
+		<!-- UPDATED PRELOADER START -->
 		<div id="preloader">
-			<div class="loader-container">
-				<div class="loader-ring"></div>
-				<div class="loader-ring"></div>
-				<div class="loader-ring"></div>
-				<div class="loader-logo">SS</div>
+			<div class="loader-content">
+				<!-- Rotating dashed ring (precision tech feel) -->
+				<div class="loader-ring-dashed"></div>
+				<!-- Rotating glow gradient (energy) -->
+				<div class="loader-ring-glow"></div>
+				<!-- Orbiting particle (depth) -->
+				<div class="loader-orbit"></div>
+				<!-- Breathing diamond (structure) -->
+				<div class="loader-diamond"></div>
+				<!-- The Main Visual "S" -->
+				<div class="loader-text">S</div>
 			</div>
 		</div>
+		<!-- UPDATED PRELOADER END -->
+
 		<canvas id="particle-canvas"></canvas>
 		
         <!-- ANTI-CAPTURE OVERLAY REMOVED -->
@@ -1841,7 +1902,7 @@
 			
 			const bumpSkill = (barElement, skillName) => {
 				// Get the original progress value from the data attribute
-				const originalProgress = barElement.getAttribute('data-progress'); 
+				const originalProgress = barElement.getAttribute('data-progress'); 
 
 				// Show a temporary message near the skill name
 				const skillNameElement = barElement.parentElement.previousElementSibling.querySelector('.skill-name');
@@ -1864,7 +1925,7 @@
 				setTimeout(() => {
 					skillNameElement.textContent = originalName;
 					// Restore original width transition property for the animation on scroll
-					barElement.style.transition = 'width 1.5s cubic-bezier(0.25, 1, 0.5, 1)'; 
+					barElement.style.transition = 'width 1.5s cubic-bezier(0.25, 1, 0.5, 1)'; 
 				}, 3000);
 			};
 
