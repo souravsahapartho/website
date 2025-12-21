@@ -553,13 +553,14 @@
 			}
 			.download-btn {
 				background-color: #00c2a9;
-				color: white;
+				color: white !important;
 				font-weight: bold;
 				padding: 0.5rem 1rem;
 				border-radius: 9999px;
 				font-size: 0.875rem;
 				text-decoration: none;
 				transition: background-color 0.2s ease;
+				display: inline-block;
 			}
 			.download-btn:hover {
 				background-color: #00a591;
@@ -742,6 +743,194 @@
 			#back-to-top-btn:hover {
 				background-color: #00a591;
 			}
+            
+            /* AI Chat Bot Styles */
+            #chat-bot-btn {
+				position: fixed;
+				bottom: 2rem;
+				right: 6rem;
+				background-color: #00c2a9;
+				color: white;
+				width: 50px;
+				height: 50px;
+				border-radius: 50%;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				z-index: 1000;
+				cursor: pointer;
+				border: none;
+				box-shadow: 0 4px 15px rgba(0, 194, 169, 0.4);
+                transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+			}
+            #chat-bot-btn:hover {
+                transform: scale(1.1);
+            }
+            #chat-window {
+                position: fixed;
+                bottom: 6rem;
+                right: 2rem;
+                width: 380px;
+                height: 550px;
+                max-width: calc(100vw - 4rem);
+                max-height: calc(100vh - 10rem);
+                background-color: #1e293b;
+                border: 1px solid rgba(255, 255, 255, 0.1);
+                border-radius: 1rem;
+                display: flex;
+                flex-direction: column;
+                z-index: 1001;
+                box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
+                overflow: hidden;
+                transform-origin: bottom right;
+                transition: transform 0.3s ease, opacity 0.3s ease, visibility 0.3s;
+            }
+            #chat-window.hidden {
+                transform: scale(0.8);
+                opacity: 0;
+                visibility: hidden;
+                pointer-events: none;
+            }
+            @media (max-width: 640px) {
+                #chat-window {
+                    right: 1rem;
+                    bottom: 5rem;
+                    width: calc(100vw - 2rem);
+                    height: calc(80vh);
+                }
+                #chat-bot-btn {
+                    right: 5rem;
+                }
+            }
+            .chat-header {
+                background: linear-gradient(to right, #0f172a, #1e293b);
+                padding: 1rem;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            }
+            .chat-messages {
+                flex-grow: 1;
+                overflow-y: auto;
+                padding: 1rem;
+                display: flex;
+                flex-direction: column;
+                gap: 0.75rem;
+                scrollbar-width: thin;
+                scrollbar-color: #334155 transparent;
+            }
+            .chat-messages::-webkit-scrollbar {
+                width: 6px;
+            }
+            .chat-messages::-webkit-scrollbar-thumb {
+                background-color: #334155;
+                border-radius: 10px;
+            }
+            .message {
+                max-width: 85%;
+                padding: 0.75rem 1rem;
+                border-radius: 1rem;
+                font-size: 0.875rem;
+                line-height: 1.5;
+                word-wrap: break-word;
+            }
+            .message-user {
+                align-self: flex-end;
+                background-color: #00c2a9;
+                color: white;
+                border-bottom-right-radius: 0;
+            }
+            .message-bot {
+                align-self: flex-start;
+                background-color: rgba(255, 255, 255, 0.08);
+                color: #e2e8f0;
+                border-bottom-left-radius: 0;
+                border: 1px solid rgba(255, 255, 255, 0.05);
+            }
+            .chat-suggestions {
+                padding: 0.5rem 1rem;
+                display: flex;
+                gap: 0.5rem;
+                overflow-x: auto;
+                background-color: rgba(15, 23, 42, 0.5);
+                border-top: 1px solid rgba(255, 255, 255, 0.05);
+                scrollbar-width: none;
+            }
+            .chat-suggestions::-webkit-scrollbar {
+                display: none;
+            }
+            .suggestion-btn {
+                white-space: nowrap;
+                background-color: rgba(255, 255, 255, 0.1);
+                color: #cbd5e1;
+                font-size: 0.75rem;
+                padding: 0.4rem 0.8rem;
+                border-radius: 9999px;
+                border: 1px solid rgba(255, 255, 255, 0.1);
+                transition: all 0.2s ease;
+            }
+            .suggestion-btn:hover {
+                background-color: #00c2a9;
+                color: white;
+                border-color: #00c2a9;
+            }
+            .chat-input-area {
+                padding: 0.75rem 1rem;
+                background-color: #0f172a;
+                border-top: 1px solid rgba(255, 255, 255, 0.1);
+                display: flex;
+                gap: 0.5rem;
+                align-items: center;
+            }
+            .chat-input {
+                flex-grow: 1;
+                background: rgba(255, 255, 255, 0.05);
+                border: 1px solid rgba(255, 255, 255, 0.1);
+                border-radius: 9999px;
+                padding: 0.5rem 1.25rem;
+                color: white;
+                font-size: 0.875rem;
+            }
+            .chat-input:focus {
+                outline: none;
+                border-color: #00c2a9;
+            }
+            .chat-send-btn {
+                background: #00c2a9;
+                color: white;
+                width: 36px;
+                height: 36px;
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                flex-shrink: 0;
+                transition: transform 0.2s;
+            }
+            .chat-send-btn:hover {
+                transform: scale(1.1);
+            }
+            .typing-indicator {
+                display: flex;
+                gap: 4px;
+                padding: 4px 8px;
+            }
+            .typing-dot {
+                width: 6px;
+                height: 6px;
+                background: #94a3b8;
+                border-radius: 50%;
+                animation: typingBounce 1.4s infinite ease-in-out;
+            }
+            .typing-dot:nth-child(1) { animation-delay: 0s; }
+            .typing-dot:nth-child(2) { animation-delay: 0.2s; }
+            .typing-dot:nth-child(3) { animation-delay: 0.4s; }
+            @keyframes typingBounce {
+                0%, 80%, 100% { transform: translateY(0); }
+                40% { transform: translateY(-5px); }
+            }
+
 			.skill-item {
 				margin-bottom: 1.25rem;
 			}
@@ -771,13 +960,10 @@
 				height: 100%;
 				border-radius: 9999px;
 				width: 0;
-				/* Rely on width transition only, as the JS sets the width property directly */
-				transition: width 1.5s cubic-bezier(0.25, 1, 0.5, 1); 
-				cursor: pointer; 
+				transition: width 1.5s cubic-bezier(0.25, 1, 0.5, 1); 
+				cursor: pointer; 
 			}
-			/* Removed .progress-bar.animated CSS rule as JS handles the width setting */
 
-            /* Confetti Effect Styles */
             .confetti {
                 position: fixed;
                 top: 0;
@@ -809,7 +995,7 @@
 			}
 			.digital-halo {
 				animation: digitalPulse 1s ease-out;
-				transform: scale(1.05); /* Slight bump */
+				transform: scale(1.05); 
 			}
 			@keyframes digitalPulse {
 				0% { box-shadow: 0 0 0 0 rgba(0, 194, 169, 0.7); }
@@ -877,8 +1063,6 @@
 
 		<canvas id="particle-canvas"></canvas>
 		
-        <!-- ANTI-CAPTURE OVERLAY REMOVED -->
-
 		<header class="bg-transparent fixed top-0 left-0 right-0 z-50">
 			<nav
 				class="container mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center"
@@ -1011,7 +1195,6 @@
 						<span class="line-2 text-shadow">I'm </span>
 						
 						<!-- CUSTOM NAME CONTAINER -->
-						<!-- The text here is built by JS, but we provide a fallback for no-js -->
 						<span id="hero-name-container" class="name-container" aria-label="Sourav Saha">
 							<noscript>Sourav Saha</noscript>
 						</span>
@@ -1044,7 +1227,6 @@
 						data-aos="fade-right"
 					>
 						<div class="w-full md:w-1/3 flex-shrink-0">
-							<!-- TARGET for Double Tap/Click -->
 							<img
 								id="profile-image-target"
 								src="Image/profile.jpg"
@@ -1113,8 +1295,7 @@
 								<div
 									class="flex flex-wrap gap-x-4 gap-y-1 text-sm text-brand-secondary/70 my-2"
 								>
-									<span>📍 Dhaka, Bangladesh</span
-									><span>📅 June 2024 – Present</span>
+									<span>📍 Dhaka, Bangladesh</span><span>📅 June 2025 – Present</span>
 								</div>
 								<ul
 									class="mt-4 list-disc list-inside space-y-2 text-brand-secondary"
@@ -1142,8 +1323,7 @@
 								<div
 									class="flex flex-wrap gap-x-4 gap-y-1 text-sm text-brand-secondary/70 my-2"
 								>
-									<span>📍 Dhaka, Bangladesh</span
-									><span>📅 July 2024 – Present</span>
+									<span>📍 Dhaka, Bangladesh</span><span>📅 July 2025 – Present</span>
 								</div>
 								<ul
 									class="mt-4 list-disc list-inside space-y-2 text-brand-secondary"
@@ -1166,8 +1346,7 @@
 								<div
 									class="flex flex-wrap gap-x-4 gap-y-1 text-sm text-brand-secondary/70 my-2"
 								>
-									<span>📍 United International University</span
-									><span>📅 March 2024 – Present</span>
+									<span>📍 United International University</span><span>📅 March 2024 – Present</span>
 								</div>
 								<ul
 									class="mt-4 list-disc list-inside space-y-2 text-brand-secondary"
@@ -1207,8 +1386,7 @@
 								<div
 									class="flex flex-wrap gap-x-4 gap-y-1 text-sm text-brand-secondary/70 my-2"
 								>
-									<span>📍 Dhaka, Bangladesh</span
-									><span>📅 September 2023 – Present</span>
+									<span>📍 Dhaka, Bangladesh</span><span>📅 September 2023 – Present</span>
 								</div>
 								<h4 class="font-semibold text-brand-secondary/90 mt-4 mb-2">
 									Activities & Involvement:
@@ -1237,8 +1415,7 @@
 								<div
 									class="flex flex-wrap gap-x-4 gap-y-1 text-sm text-brand-secondary/70 my-2"
 								>
-									<span>📍 Sirajganj, Bangladesh</span
-									><span>📅 July 2019 – 2021</span>
+									<span>📍 Sirajganj, Bangladesh</span><span>📅 July 2019 – 2021</span>
 								</div>
 							</div>
 							<div class="relative">
@@ -1254,8 +1431,7 @@
 								<div
 									class="flex flex-wrap gap-x-4 gap-y-1 text-sm text-brand-secondary/70 my-2"
 								>
-									<span>📍 Sirajganj, Bangladesh</span
-									><span>📅 2014 – 2018</span>
+									<span>📍 Sirajganj, Bangladesh</span><span>📅 2014 – 2018</span>
 								</div>
 							</div>
 						</div>
@@ -1283,8 +1459,7 @@
 							<div class="space-y-5">
 								<div class="skill-item" data-skill="C">
 									<div class="skill-info">
-										<span class="skill-name">C</span
-										><span class="skill-percent">85%</span>
+										<span class="skill-name">C</span><span class="skill-percent">85%</span>
 									</div>
 									<div class="progress-bar-container">
 										<div
@@ -1295,8 +1470,7 @@
 								</div>
 								<div class="skill-item" data-skill="C++">
 									<div class="skill-info">
-										<span class="skill-name">C++</span
-										><span class="skill-percent">80%</span>
+										<span class="skill-name">C++</span><span class="skill-percent">80%</span>
 									</div>
 									<div class="progress-bar-container">
 										<div
@@ -1307,8 +1481,7 @@
 								</div>
 								<div class="skill-item" data-skill="Java">
 									<div class="skill-info">
-										<span class="skill-name">Java</span
-										><span class="skill-percent">75%</span>
+										<span class="skill-name">Java</span><span class="skill-percent">75%</span>
 									</div>
 									<div class="progress-bar-container">
 										<div
@@ -1319,8 +1492,7 @@
 								</div>
 								<div class="skill-item" data-skill="JavaScript">
 									<div class="skill-info">
-										<span class="skill-name">JavaScript</span
-										><span class="skill-percent">65%</span>
+										<span class="skill-name">JavaScript</span><span class="skill-percent">65%</span>
 									</div>
 									<div class="progress-bar-container">
 										<div
@@ -1331,8 +1503,7 @@
 								</div>
 								<div class="skill-item" data-skill="CSS">
 									<div class="skill-info">
-										<span class="skill-name">CSS</span
-										><span class="skill-percent">90%</span>
+										<span class="skill-name">CSS</span><span class="skill-percent">90%</span>
 									</div>
 									<div class="progress-bar-container">
 										<div
@@ -1352,8 +1523,7 @@
 							<div class="space-y-5">
 								<div class="skill-item" data-skill="Content Writing">
 									<div class="skill-info">
-										<span class="skill-name">Web Content Writing</span
-										><span class="skill-percent">90%</span>
+										<span class="skill-name">Web Content Writing</span><span class="skill-percent">90%</span>
 									</div>
 									<div class="progress-bar-container">
 										<div
@@ -1364,8 +1534,7 @@
 								</div>
 								<div class="skill-item" data-skill="RWD">
 									<div class="skill-info">
-										<span class="skill-name">Responsive Web Design</span
-										><span class="skill-percent">88%</span>
+										<span class="skill-name">Responsive Web Design</span><span class="skill-percent">88%</span>
 									</div>
 									<div class="progress-bar-container">
 										<div
@@ -1377,8 +1546,7 @@
 								<div class="skill-item" data-skill="OOP">
 									<div class="skill-info">
 										<span class="skill-name"
-											>Object-Oriented Programming</span
-										><span class="skill-percent">80%</span>
+											>Object-Oriented Programming</span><span class="skill-percent">80%</span>
 									</div>
 									<div class="progress-bar-container">
 										<div
@@ -1389,8 +1557,7 @@
 								</div>
 								<div class="skill-item" data-skill="Office Suite">
 									<div class="skill-info">
-										<span class="skill-name">Microsoft Office Suite</span
-										><span class="skill-percent">82%</span>
+										<span class="skill-name">Microsoft Office Suite</span><span class="skill-percent">82%</span>
 									</div>
 									<div class="progress-bar-container">
 										<div
@@ -1401,8 +1568,7 @@
 								</div>
 								<div class="skill-item" data-skill="Email Marketing">
 									<div class="skill-info">
-										<span class="skill-name">Email Marketing</span
-										><span class="skill-percent">75%</span>
+										<span class="skill-name">Email Marketing</span><span class="skill-percent">75%</span>
 									</div>
 									<div class="progress-bar-container">
 										<div
@@ -1422,8 +1588,7 @@
 							<div class="space-y-5">
 								<div class="skill-item" data-skill="Communication">
 									<div class="skill-info">
-										<span class="skill-name">Communication</span
-										><span class="skill-percent">90%</span>
+										<span class="skill-name">Communication</span><span class="skill-percent">90%</span>
 									</div>
 									<div class="progress-bar-container">
 										<div
@@ -1434,8 +1599,7 @@
 								</div>
 								<div class="skill-item" data-skill="Leadership">
 									<div class="skill-info">
-										<span class="skill-name">Leadership</span
-										><span class="skill-percent">85%</span>
+										<span class="skill-name">Leadership</span><span class="skill-percent">85%</span>
 									</div>
 									<div class="progress-bar-container">
 										<div
@@ -1446,8 +1610,7 @@
 								</div>
 								<div class="skill-item" data-skill="Teamwork">
 									<div class="skill-info">
-										<span class="skill-name">Teamwork</span
-										><span class="skill-percent">95%</span>
+										<span class="skill-name">Teamwork</span><span class="skill-percent">95%</span>
 									</div>
 									<div class="progress-bar-container">
 										<div
@@ -1458,8 +1621,7 @@
 								</div>
 								<div class="skill-item" data-skill="Time Management">
 									<div class="skill-info">
-										<span class="skill-name">Time Management</span
-										><span class="skill-percent">80%</span>
+										<span class="skill-name">Time Management</span><span class="skill-percent">80%</span>
 									</div>
 									<div class="progress-bar-container">
 										<div
@@ -1470,8 +1632,7 @@
 								</div>
 								<div class="skill-item" data-skill="Public Speaking">
 									<div class="skill-info">
-										<span class="skill-name">Public Speaking</span
-										><span class="skill-percent">85%</span>
+										<span class="skill-name">Public Speaking</span><span class="skill-percent">85%</span>
 									</div>
 									<div class="progress-bar-container">
 										<div
@@ -1596,7 +1757,6 @@
 							</div>
 						</div>
 
-						<!-- Carousel Navigation Buttons -->
 						<button id="rec-prev-btn" class="absolute top-1/2 left-0 -translate-x-1/2 -translate-y-1/2 p-2 rec-nav-btn text-white block">
 							<i class="fa-solid fa-chevron-left"></i>
 						</button>
@@ -1608,7 +1768,7 @@
 			</section>
 
 			<!-- Contact Section -->
-			<section id="contact" class="px-4 sm:px-6 lg:px-8 py-12 md:py-16">
+			<section id="contact" class="px-4 sm:px-6 lg:px-8 py-12 md:pt-16">
 				<div class="container mx-auto text-center" data-aos="fade-up">
 					<div class="max-w-2xl mx-auto">
 						<h2
@@ -1638,13 +1798,11 @@
 								class="hidden"
 								style="display: none"
 							/>
-							<!-- SUBJECT LINE -->
 							<input
 								type="hidden"
 								name="subject"
 								value="Reply from Sourav Saha"
 							/>
-							<!-- Custom field to manually capture and send the visitor's IP address -->
 							<input
 								type="hidden"
 								name="Client IP Address"
@@ -1675,7 +1833,6 @@
 									aria-label="Email Address"
 									maxlength="40"
 								/>
-								<!-- Hidden reply-to fields removed as requested. -->
 							</div>
 							<div>
 								<label for="message" class="form-label">Message</label
@@ -1690,8 +1847,7 @@
 								></textarea>
 							</div>
 							<button type="submit" class="submit-btn">
-								<span id="submit-btn-text">Send Message</span
-								><span
+								<span id="submit-btn-text">Send Message</span><span
 									id="submit-btn-loader"
 									class="hidden w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"
 								></span>
@@ -1715,8 +1871,7 @@
 						rel="noopener noreferrer"
 						title="LinkedIn Profile"
 						class="hover:text-brand-accent transition-colors"
-						><span class="sr-only">LinkedIn</span
-						><svg
+						><span class="sr-only">LinkedIn</span><svg
 							class="w-6 h-6"
 							fill="currentColor"
 							viewBox="0 0 24 24"
@@ -1732,8 +1887,7 @@
 						rel="noopener noreferrer"
 						title="Instagram Profile"
 						class="hover:text-brand-accent transition-colors"
-						><span class="sr-only">Instagram</span
-						><svg
+						><span class="sr-only">Instagram</span><svg
 							class="w-6 h-6"
 							fill="currentColor"
 							viewbox="0 0 24 24"
@@ -1749,8 +1903,7 @@
 						rel="noopener noreferrer"
 						title="Facebook Profile"
 						class="hover:text-brand-accent transition-colors"
-						><span class="sr-only">Facebook</span
-						><svg
+						><span class="sr-only">Facebook</span><svg
 							class="w-6 h-6"
 							fill="currentColor"
 							viewBox="0 0 24 24"
@@ -1766,8 +1919,7 @@
 						rel="noopener noreferrer"
 						title="X Profile"
 						class="hover:text-brand-accent transition-colors"
-						><span class="sr-only">X</span
-						><svg
+						><span class="sr-only">X</span><svg
 							class="w-6 h-6"
 							fill="currentColor"
 							viewBox="0 0 24 24"
@@ -1791,18 +1943,17 @@
 				</button>
 				<div class="modal-header">
 					<h3 class="modal-title">My CV</h3>
-					<!-- Download button uses File ID: 13JRAOI3YPpkQKVbBjvaA9gsetQSClzhb -->
-					<a 
-						href="https://drive.google.com/uc?export=download&id=13JRAOI3YPpkQKVbBjvaA9gsetQSClzhb" 
-						class="download-btn" 
-						id="download-cv-btn" 
+					<a 
+						href="https://drive.google.com/uc?export=download&id=13JRAOI3YPpkQKVbBjvaA9gsetQSClzhb" 
+						class="download-btn" 
+						id="download-cv-btn" 
 						target="_blank"
+                        rel="noopener noreferrer"
 					>
 						Download PDF
 					</a>
 				</div>
 				<div class="iframe-container">
-					<!-- CV Preview iframe now uses the CORRECT File ID: 13JRAOI3YPpkQKVbBjvaA9gsetQSClzhb for consistency -->
 					<iframe
 						src="https://drive.google.com/file/d/13JRAOI3YPpkQKVbBjvaA9gsetQSClzhb/preview"
 						width="100%"
@@ -1847,13 +1998,11 @@
 						value="Action Required: New TechTalks Newsletter Subscription"
 					/>
 					<input type="hidden" name="from_name" value="Automated Subscription Service" />
-					<!-- ADDED: Hidden field to set reply-to address to the sender's email input -->
 					<input
 						type="hidden"
 						name="replyto"
 						value="email"
 					/>
-					<!-- ADDED: IP Address for the Newsletter Form -->
 					<input
 						type="hidden"
 						name="Client IP Address"
@@ -1898,8 +2047,45 @@
 			</svg>
 		</button>
 
-		<!-- Hidden element for the secret message triggered by Konami code/Long Press/Double Tap/Click -->
-		<!-- We will reuse the CV modal structure for this, just changing the content via JS -->
+        <!-- AI Chat Bot Widget -->
+        <button id="chat-bot-btn" title="Chat with Sourav's AI">
+            <i class="fa-solid fa-robot text-xl"></i>
+        </button>
+
+        <div id="chat-window" class="hidden">
+            <div class="chat-header">
+                <div class="flex items-center gap-2">
+                    <div class="w-8 h-8 rounded-full bg-brand-accent flex items-center justify-center shadow-lg shadow-brand-accent/20">
+                        <i class="fa-solid fa-robot text-xs text-white"></i>
+                    </div>
+                    <div>
+                        <h4 class="text-sm font-bold text-white leading-tight">Assistant</h4>
+                        <span class="text-[10px] text-brand-accent flex items-center gap-1">
+                            <span class="w-1.5 h-1.5 rounded-full bg-brand-accent animate-pulse"></span>
+                            Online
+                        </span>
+                    </div>
+                </div>
+                <button id="close-chat" class="text-gray-400 hover:text-white transition-colors p-1">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+            <div id="chat-messages" class="chat-messages">
+                <div class="message message-bot">
+                    Hi! I'm Sourav Saha's official digital assistant. Ask me anything about his skills, education, or how to connect!
+                </div>
+            </div>
+            <div id="chat-suggestions" class="chat-suggestions">
+                <!-- Auto-populated buttons -->
+            </div>
+            <form id="chat-form" class="chat-input-area">
+                <input type="text" id="chat-input" class="chat-input" placeholder="Type a message..." autocomplete="off">
+                <button type="submit" class="chat-send-btn">
+                    <i class="fa-solid fa-paper-plane text-xs"></i>
+                </button>
+            </form>
+        </div>
+
 		<div id="secret-message-modal" class="modal-overlay hidden">
 			<div class="modal-content max-w-sm max-h-56 p-6 flex justify-center items-center text-center">
 				<button id="close-secret-modal" class="modal-close-btn" title="Close">&times;</button>
@@ -1907,1019 +2093,376 @@
 				<p id="secret-modal-body" class="text-lg text-white mt-4"></p>
 			</div>
 		</div>
-		<!-- Confetti container, dynamically added to the body -->
 		<div id="confetti-container" class="confetti hidden"></div>
 
 
 		<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 		<script>
-			// The delay before the preloader is hidden and animations start
 			const PRELOADER_DELAY = 1500;
 			const GITHUB_USERNAME = "souravsahapartho";
 
 			// =========================================================================
-			// GLOBAL UTILITIES (Moved out of initializeEasterEggs for scope access)
+			// GEMINI AI INTEGRATION
 			// =========================================================================
+            const apiKey = "";
+            const geminiModel = "gemini-2.5-flash-preview-09-2025";
+            
+            const SOURAV_INFO = `
+                You are Sourav Saha's official digital assistant. Your job is to answer questions about Sourav Saha accurately based on his official records provided below.
 
-			// --- Utility: Secret Modal Controller ---
+                BASIC INFO:
+                - Name: Sourav Saha
+                - Location: Dhaka, Bangladesh
+                - Profile: Computer Science Undergraduate, Campus Ambassador, and Tech Content Creator.
+                - Character: Motivated, responsible, growth-oriented.
+
+                EDUCATION:
+                - B.Sc. in Computer Science & Engineering (UIU): Sept 2023 - Dec 2027.
+                - HSC (Science): Islamia Government College, Sirajganj (2019-2021).
+                - SSC: B.L. Government High School, Sirajganj (2014-2018).
+                - Earlier: Sabuj Kanan School and College, Sirajganj Collectorate School & College (English Medium).
+
+                TECHNICAL SKILLS:
+                - Languages: C, C++, Java, JavaScript, MySQL, HTML & CSS (Intermediate).
+                - Content: Web content writing, SEO articles, Email writing, Social Media Marketing.
+                - Tools: Microsoft Word, Excel, PowerPoint.
+                - Languages Spoken: Bengali (Native), English (Professional Working Proficiency).
+
+                ACHIEVEMENTS:
+                - Best Performer Award (UIU Entrepreneur Development Forum, Summer 2024).
+                - 25% Academic Scholarship (Fall 2024).
+
+                EXPERIENCE & LEADERSHIP:
+                - Sheba Platform Ltd: Sheba Bondhu Campus Ambassador (July 2025 - Present).
+                - Creative IT Institute: Campus Ambassador (June 2025 - Present).
+                - TechTalk with Sourav: Editor-in-Chief (Jan 2023 - Present). Focuses on AI, tech news, digital growth.
+                - UIU Entrepreneur Development Forum (UIUEDF): 
+                    - Executive of Human Resources (June 2024 - Dec 2024).
+                    - Junior Executive of HR (May 2024 - June 2024).
+                    - Awarded for highest member recruitment.
+                - Clubs: UIU Data Science Club, UIU Computer Club, UIU App Forum (General Member in all).
+
+                CONTACT INFO:
+                - Primary Email: im@sourav.com.bd
+                - Alternatives: hello@sourav.com.bd, souravsahapartho@gmail.com
+                - Website: https://www.sourav.com.bd
+                - LinkedIn: linkedin.com/in/souravsahapartho
+
+                BEHAVIOR RULES:
+                1. Always represent Sourav positively.
+                2. Be concise but informative.
+                3. NEVER make up information. If unknown, say: "I don't have that specific information, but you can email Sourav at im@sourav.com.bd."
+                4. For collaboration or career inquiries, prioritize suggesting email contact.
+                5. Use bold text and bullet points for lists to make answers professional.
+            `;
+
+            const SUGGESTED_QUESTIONS = [
+                "What are his tech skills?",
+                "Tell me about UIUEDF roles.",
+                "How can I contact him?",
+                "What awards has he won?",
+                "Tell me about TechTalk."
+            ];
+
+            async function callGemini(userQuery) {
+                const url = `https://generativelanguage.googleapis.com/v1beta/models/${geminiModel}:generateContent?key=${apiKey}`;
+                const payload = {
+                    contents: [{ parts: [{ text: userQuery }] }],
+                    systemInstruction: { parts: [{ text: SOURAV_INFO }] }
+                };
+
+                let delay = 1000;
+                for (let i = 0; i < 5; i++) {
+                    try {
+                        const response = await fetch(url, {
+                            method: "POST",
+                            headers: { "Content-Type": "application/json" },
+                            body: JSON.stringify(payload)
+                        });
+                        if (!response.ok) throw new Error(`HTTP error ${response.status}`);
+                        const result = await response.json();
+                        return result.candidates?.[0]?.content?.parts?.[0]?.text;
+                    } catch (error) {
+                        if (i === 4) throw error;
+                        await new Promise(resolve => setTimeout(resolve, delay));
+                        delay *= 2;
+                    }
+                }
+            }
+
+            function formatBotResponse(text) {
+                text = text.replace(/\*\*(.*?)\*\*/g, '<strong class="text-brand-accent">$1</strong>');
+                text = text.replace(/\n/g, '<br>');
+                // Bullet points
+                text = text.replace(/^• (.*?)$/gm, '<li class="ml-4 list-none flex items-start gap-2"><i class="fa-solid fa-circle-dot text-[6px] mt-2 text-brand-accent"></i>$1</li>');
+                text = text.replace(/^\* (.*?)$/gm, '<li class="ml-4 list-none flex items-start gap-2"><i class="fa-solid fa-circle-dot text-[6px] mt-2 text-brand-accent"></i>$1</li>');
+                return text;
+            }
+
+			// --- Secret Modal & Confetti ---
 			const secretModal = document.getElementById('secret-message-modal');
 			const secretModalTitle = document.getElementById('secret-modal-title');
 			const secretModalBody = document.getElementById('secret-modal-body');
-
 			const closeModal = () => secretModal.classList.add('hidden');
-			
 			const showSecretModal = (title, message, isOneTime = false, flagName = '') => {
-				const MODAL_DURATION = 3000;
-				// Check one-time flag if applicable
-				if (localStorage.getItem(flagName) === 'true' && isOneTime) {
-					return;
-				}
-				
+				if (localStorage.getItem(flagName) === 'true' && isOneTime) return;
 				secretModalTitle.textContent = title;
 				secretModalBody.textContent = message;
 				secretModal.classList.remove('hidden');
-
-				// Set one-time flag if applicable
-				if (isOneTime) {
-					localStorage.setItem(flagName, 'true');
-				}
-
-				// Auto-close after MODAL_DURATION
-				setTimeout(closeModal, MODAL_DURATION);
+				if (isOneTime) localStorage.setItem(flagName, 'true');
+				setTimeout(closeModal, 3000);
 			};
-
-			// --- Utility: Confetti/Emoji Rain Effect ---
 			const createConfettiEffect = (emojis) => {
-				const confettiContainer = document.getElementById('confetti-container');
-				if (!confettiContainer) return;
-
-				confettiContainer.classList.remove('hidden');
-
-				// Clear any previous confetti pieces
-				confettiContainer.innerHTML = '';
-
+				const container = document.getElementById('confetti-container');
+				if (!container) return;
+				container.classList.remove('hidden'); container.innerHTML = '';
 				for (let i = 0; i < 50; i++) {
-					const piece = document.createElement('span');
-					piece.classList.add('confetti-piece');
-					piece.innerHTML = emojis[Math.floor(Math.random() * emojis.length)];
-
-					// Random starting position (x)
-					piece.style.left = `${Math.random() * 100}vw`;
-
-					// Random animation duration (speed of fall)
-					const duration = 2 + Math.random() * 3; // 2 to 5 seconds
-					piece.style.animationDuration = `${duration}s`;
-
-					// Random delay to stagger the start
-					piece.style.animationDelay = `${-Math.random() * duration}s`;
-
-					confettiContainer.appendChild(piece);
+					const p = document.createElement('span'); p.classList.add('confetti-piece');
+					p.innerHTML = emojis[Math.floor(Math.random() * emojis.length)];
+					p.style.left = `${Math.random() * 100}vw`;
+					const dur = 2 + Math.random() * 3;
+					p.style.animationDuration = `${dur}s`; p.style.animationDelay = `${-Math.random() * dur}s`;
+					container.appendChild(p);
 				}
-
-				// Clean up after the animation completes
-				setTimeout(() => {
-					confettiContainer.classList.add('hidden');
-					confettiContainer.innerHTML = '';
-				}, 5000);
+				setTimeout(() => { container.classList.add('hidden'); container.innerHTML = ''; }, 5000);
 			};
 
-			// --- Utility: Double Tap/Click Detection (for Profile Image) ---
 			function addDoubleTrigger(element, callback) {
-				let lastClickTime = 0;
-				let tapTimeout;
-				const DOUBLE_CLICK_DELAY = 300; // Max time between clicks/taps
-
-				// Desktop double-click
-				element.addEventListener('dblclick', (e) => {
-					e.preventDefault();
-					callback();
-				});
-
-				// Mobile double-tap logic
+				let last = 0; let tap;
+				element.addEventListener('dblclick', (e) => { e.preventDefault(); callback(); });
 				element.addEventListener('touchstart', (e) => {
-					const currentTime = new Date().getTime();
-					const timeDiff = currentTime - lastClickTime;
-
-					if (timeDiff > 0 && timeDiff < DOUBLE_CLICK_DELAY) {
-						e.preventDefault(); // Prevent text selection/long press menus
-						clearTimeout(tapTimeout);
-						callback();
-					} else {
-						tapTimeout = setTimeout(() => {
-							lastClickTime = 0; // Reset after single tap window expires
-						}, DOUBLE_CLICK_DELAY);
-					}
-					lastClickTime = currentTime;
+					const now = new Date().getTime(); const diff = now - last;
+					if (diff > 0 && diff < 300) { e.preventDefault(); clearTimeout(tap); callback(); }
+					else tap = setTimeout(() => { last = 0; }, 300);
+					last = now;
 				});
 			}
 
-			// --- Utility: Fun Skill Achievement Messages (Used by bumpSkill) ---
 			const SKILL_ACHIEVEMENTS = {
-				'C': "I've mastered pointer manipulation, making C code look effortless. Challenge accepted! 🏆",
-				'C++': "My C++ objects are efficiently optimized. Memory leaks fear me. ✨",
-				'Java': "JVM fully warmed up! My coffee intake has been justified by this performance. ☕",
-				'JavaScript': "I speak fluently with the DOM. I am the hero this client side deserves. 🕸️",
-				'CSS': "I can center anything, anywhere. The Box Model is my personal sandbox. 📦",
-				'Content Writing': "My SEO Goblins are satisfied. Content quality is certified Fresh. 👻",
-				'RWD': "Media Queries bow to me. Every design is pixel-perfect on every screen. 📱",
-				'OOP': "My conceptual frameworks are robust. I solve problems with pure abstraction power. 🎩",
-				'Office Suite': "I unlocked the Excel Master Key. Data manipulation is merely a speedbump. 📊",
-				'Email Marketing': "My newsletters bypass all spam filters. Inbox presence: 100%. 📧",
-				'Communication': "My public speaking is 10% more convincing than a well-placed semi-colon. 🗣️",
-				'Leadership': "I lead by coding. My team follows because my merge conflicts are minimal. 👑",
-				'Teamwork': "Synergy level 99 achieved. I am the glue in this collaborative chaos. 👯",
-				'Time Management': "I only procrastinate 80% less than the average developer. Still a win! ⏱️",
-				'Public Speaking': "My voice is heard. I can discuss array indexing for hours without notes. 🎤"
+				'C': "Pointer mastery achieved! Memory leaks fear me. 🏆",
+				'C++': "Efficient objects, C++ logic optimized. ✨",
+				'Java': "JVM fully warmed up. Ready for the next class! ☕",
+				'JavaScript': "DOM elements are my friends. Level 99 coder. 🕸️",
+				'CSS': "Centering a div? No problem. 📦",
+				'Content Writing': "SEO optimized. Fresh content incoming. 👻",
+				'RWD': "Mobile first, always. Any screen, any orientation. 📱",
+				'OOP': "Polymorphism master. Robust design is key. 🎩"
 			};
 			
-			const bumpSkill = (barElement, skillName) => {
-				// Get the original progress value from the data attribute
-				const originalProgress = barElement.getAttribute('data-progress'); 
-
-				// Show a temporary message near the skill name
-				const skillNameElement = barElement.parentElement.previousElementSibling.querySelector('.skill-name');
-				const originalName = skillNameElement.textContent;
-				const message = SKILL_ACHIEVEMENTS[skillName] || "Policy Deviation Detected! Immediate action required.";
-
-				// 1. Update text (This feature is repeatable)
-				skillNameElement.textContent = message; 
-
-				// 2. Apply a quick pulse animation by scaling the bar
-				// Temporarily change transition to make the scale faster
-				barElement.style.transition = 'transform 0.1s ease-in-out';
-				barElement.style.transform = 'scaleY(1.5)';
-				
-				setTimeout(() => {
-					barElement.style.transform = 'scaleY(1)';
-				}, 100);
-
-				// 3. Revert text and restore width transition after 3 seconds
-				setTimeout(() => {
-					skillNameElement.textContent = originalName;
-					// Restore original width transition property for the animation on scroll
-					barElement.style.transition = 'width 1.5s cubic-bezier(0.25, 1, 0.5, 1)'; 
-				}, 3000);
+			const bumpSkill = (bar, name) => {
+				const el = bar.parentElement.previousElementSibling.querySelector('.skill-name');
+				const orig = el.textContent;
+				el.textContent = SKILL_ACHIEVEMENTS[name] || "Skill Updated!";
+				bar.style.transform = 'scaleY(1.5)';
+				setTimeout(() => bar.style.transform = 'scaleY(1)', 100);
+				setTimeout(() => { el.textContent = orig; }, 3000);
 			};
-
-			// =========================================================================
-			// MAIN PAGE SETUP AND EVENT HANDLERS
-			// =========================================================================
-
-			// --- Function to fetch the user's IP address and set the hidden field ---
-			async function fetchUserIp() {
-				// Select all inputs using the common class
-				const ipAddressInputs = document.querySelectorAll('.ip-address-input');
-				if (ipAddressInputs.length === 0) return;
-
-				try {
-					const response = await fetch('https://api.ipify.org?format=json');
-					if (!response.ok) throw new Error('IP API failed');
-					const data = await response.json();
-
-					// Loop through all selected inputs and set the value
-					ipAddressInputs.forEach(input => {
-						input.value = data.ip || 'Unknown/Error';
-					});
-
-				} catch (error) {
-					console.error("Could not fetch user IP:", error);
-					ipAddressInputs.forEach(input => {
-						input.value = 'Failed to retrieve IP';
-					});
-				}
-			}
 
 			document.addEventListener("DOMContentLoaded", () => {
 				const preloader = document.getElementById("preloader");
+				if (preloader) setTimeout(() => { preloader.classList.add("hidden"); animateHeadline(); }, PRELOADER_DELAY);
+				else animateHeadline();
 
-				if (preloader) {
-					setTimeout(() => {
-						preloader.classList.add("hidden");
-						animateHeadline();
-					}, PRELOADER_DELAY);
-				} else {
-					animateHeadline();
-				}
-
-				// Start fetching the IP immediately for both forms
-				fetchUserIp();
-
-				// --- Headline Text Animation (UPDATED FOR SOURAV SAHA) ---
 				function animateHeadline() {
-					const headline = document.querySelector(".animated-headline");
-					if (!headline) return;
-
-					// 1. Animate the "Hi," part (Line 1)
-					const line1 = headline.querySelector(".line-1");
-					if (line1) {
-						const line1Text = line1.textContent;
-						line1.innerHTML = "";
-						let delay = 0;
-						line1Text.split("").forEach((char) => {
-							const span = document.createElement("span");
-							span.className = "char";
-							span.innerHTML = char === " " ? "&nbsp;" : char;
-							span.style.animationDelay = `${delay}s`;
-							line1.appendChild(span);
-							delay += 0.05;
+					const head = document.querySelector(".animated-headline");
+					if (!head) return;
+					const l1 = head.querySelector(".line-1");
+					if (l1) {
+						const txt = l1.textContent; l1.innerHTML = ""; let d = 0;
+						txt.split("").forEach((c) => {
+							const s = document.createElement("span"); s.className = "char";
+							s.innerHTML = c === " " ? "&nbsp;" : c; s.style.animationDelay = `${d}s`;
+							l1.appendChild(s); d += 0.05;
 						});
 					}
-
-					// 2. Animate the "I'm " part (Line 2 prefix)
-					const line2 = headline.querySelector(".line-2");
-					// We don't need to split "I'm " into chars necessarily, but let's keep it simple
-					// Currently, line2 has a fade-in via CSS class or we can leave it static/simple fade
-					// Let's add a simple fade-in class to it
-					if (line2) {
-						line2.style.opacity = '0';
-						line2.style.animation = 'fadeInSub 1s ease-out 0.5s forwards';
-					}
-
-					// 3. Animate the "Sourav Saha" part (Custom Container)
-					const nameContainer = document.getElementById('hero-name-container');
-					if (nameContainer) {
-						nameContainer.innerHTML = ""; // Clear fallback
-
-						// Configuration for each letter of "Sourav Saha"
-						// Total length: 11 chars (S,o,u,r,a,v, ,S,a,h,a)
-						const nameConfig = [
-							{ char: 'S', class: 'letter-s-start', delay: 0.8 },
-							{ char: 'o', class: 'letter-o', delay: 0.9 },
-							{ char: 'u', class: 'letter-u', delay: 1.0 },
-							{ char: 'r', class: 'letter-r', delay: 1.1 },
-							{ char: 'a', class: 'letter-a-1', delay: 1.2 },
-							{ char: 'v', class: 'letter-v', delay: 1.3 },
-							{ char: ' ', class: '', delay: 0 }, // Space
-							{ char: 'S', class: 'letter-s-end', delay: 1.4 }, // Mirrored stroke
-							{ char: 'a', class: 'letter-a-2', delay: 1.5 },   // Tilt pop
-							{ char: 'h', class: 'letter-h', delay: 1.6 },     // Grow
-							{ char: 'a', class: 'letter-a-3', delay: 1.7 }    // Breathe
+					const l2 = head.querySelector(".line-2"); if (l2) { l2.style.opacity = '0'; l2.style.animation = 'fadeInSub 1s ease-out 0.5s forwards'; }
+					const nameC = document.getElementById('hero-name-container');
+					if (nameC) {
+						nameC.innerHTML = "";
+						const cfg = [
+							{ char: 'S', class: 'letter-s-start', delay: 0.8 }, { char: 'o', class: 'letter-o', delay: 0.9 }, { char: 'u', class: 'letter-u', delay: 1.0 }, { char: 'r', class: 'letter-r', delay: 1.1 }, { char: 'a', class: 'letter-a-1', delay: 1.2 }, { char: 'v', class: 'letter-v', delay: 1.3 }, { char: ' ', class: '', delay: 0 }, { char: 'S', class: 'letter-s-end', delay: 1.4 }, { char: 'a', class: 'letter-a-2', delay: 1.5 }, { char: 'h', class: 'letter-h', delay: 1.6 }, { char: 'a', class: 'letter-a-3', delay: 1.7 }
 						];
-
-						nameConfig.forEach(item => {
-							const span = document.createElement('span');
-							span.textContent = item.char;
-							span.className = 'letter-base ' + item.class;
-							
-							if (item.char === ' ') {
-								span.style.width = '0.3em'; // Explicit width for space
-								span.style.display = 'inline-block';
-								span.style.opacity = '1'; // Space doesn't need to fade in
-							} else {
-								// Apply animation delay
-								span.style.animationDelay = `${item.delay}s, ${item.delay + 1}s`; 
-								// Note: The second time value is for the secondary/idle animation if defined in CSS
-								// For simple cases, just one value works, but some have chained animations
-							}
-							
-							// Color the name specifically
-							span.classList.add('text-brand-accent');
-							
-							nameContainer.appendChild(span);
+						cfg.forEach(i => {
+							const s = document.createElement('span'); s.textContent = i.char; s.className = 'letter-base ' + i.class;
+							if (i.char === ' ') { s.style.width = '0.3em'; s.style.display = 'inline-block'; s.style.opacity = '1'; }
+							else s.style.animationDelay = `${i.delay}s, ${i.delay + 1}s`;
+							s.classList.add('text-brand-accent'); nameC.appendChild(s);
 						});
 					}
 				}
 
-				// Initialize AOS library for scroll animations
-				AOS.init({ duration: 800, once: true, startEvent: "DOMContentLoaded" });
-
-				// --- Mobile Menu Toggle Logic ---
-				const mobileMenuButton = document.getElementById("mobile-menu-button");
-				const mobileMenu = document.getElementById("mobile-menu");
-				if (mobileMenuButton && mobileMenu) {
-					mobileMenuButton.addEventListener("click", () => {
-						mobileMenu.classList.toggle("hidden");
-					});
-					// Close mobile menu when a link is clicked
-					mobileMenu.querySelectorAll("a, button").forEach((link) => {
-						link.addEventListener("click", () => {
-							mobileMenu.classList.add("hidden");
-						});
-					});
-				}
-
-				// --- Header Scroll Effect ---
-				const header = document.querySelector("header");
-				if (header) {
-					window.addEventListener("scroll", () => {
-						header.classList.toggle("header-scrolled", window.scrollY > 50);
-					});
-				}
-
-				// --- Active Navigation Link Highlighting ---
-				const navLinks = document.querySelectorAll("header nav a.nav-link");
-				const sections = document.querySelectorAll("main section[id]");
-				const observer = new IntersectionObserver(
-					(entries) => {
-						let currentActive = "";
-						entries.forEach((entry) => {
-							// Determine which section is mostly visible
-							if (entry.isIntersecting && entry.intersectionRatio >= 0.4) {
-								currentActive = entry.target.id;
-							}
-						});
-						navLinks.forEach((link) => {
-							const href = link.getAttribute("href").substring(1);
-							link.classList.toggle("active-link", href === currentActive);
-						});
-					},
-					{ root: null, rootMargin: "0px", threshold: 0.4 }
-				);
-				sections.forEach((section) => {
-					observer.observe(section);
-				});
-
-				// --- Background Particle Canvas ---
-				const canvas = document.getElementById("particle-canvas");
-				if (canvas) {
-					const ctx = canvas.getContext("2d");
-					let w = (canvas.width = window.innerWidth);
-					let h = (canvas.height = window.innerHeight);
-					let cols = Math.floor(w / 20) + 1;
-					let ypos = Array(cols).fill(0);
-					ctx.fillStyle = "#0f172a";
-					ctx.fillRect(0, 0, w, h);
-					function matrix() {
-						ctx.fillStyle = "rgba(15, 23, 42, 0.04)";
-						ctx.fillRect(0, 0, w, h);
-						ctx.fillStyle = "rgba(0, 194, 169, 0.3)";
-						ctx.font = "15pt monospace";
-						ypos.forEach((y, ind) => {
-							const text = String.fromCharCode(Math.random() * 128);
-							const x = ind * 20;
-							ctx.fillText(text, x, y);
-							if (y > 100 + Math.random() * 10000) {
-								ypos[ind] = 0;
-							} else {
-								ypos[ind] = y + 20;
-							}
-						});
+				AOS.init({ duration: 800, once: true });
+				const mBtn = document.getElementById("mobile-menu-button");
+				const mMenu = document.getElementById("mobile-menu");
+				if (mBtn) mBtn.addEventListener("click", () => mMenu.classList.toggle("hidden"));
+				window.addEventListener("scroll", () => document.querySelector("header")?.classList.toggle("header-scrolled", window.scrollY > 50));
+				
+                const rotC = document.getElementById("rotating-text-container");
+				if (rotC) {
+					const txts = [ "A Computer Science Student", "An Aspiring Developer", "Coding the Next Chapter", "A Passionate Leader", "Passion for Problem-Solving", "Crafting Solutions Through Code", "A Creative Tech Writer" ];
+					let idx = 0; txts.forEach(t => { const s = document.createElement("span"); s.textContent = t; s.classList.add("rotating-text-item"); rotC.appendChild(s); });
+					const items = rotC.querySelectorAll(".rotating-text-item");
+					function rotate() {
+						const curr = items[idx]; idx = (idx + 1) % items.length; const next = items[idx];
+						curr.classList.remove("is-visible"); curr.classList.add("is-hidden");
+						setTimeout(() => { next.classList.remove("is-hidden"); next.classList.add("is-visible"); }, 50);
 					}
-					setInterval(matrix, 60);
-					window.addEventListener("resize", () => {
-						w = canvas.width = window.innerWidth;
-						h = canvas.height = window.innerHeight;
-						cols = Math.floor(w / 20) + 1;
-						ypos = Array(cols).fill(0);
-						ctx.fillStyle = "#0f172a";
-						ctx.fillRect(0, 0, w, h);
-					});
+					if (items.length > 0) setTimeout(() => { items[0].classList.add("is-visible"); setInterval(rotate, 3000); }, PRELOADER_DELAY + 1500);
 				}
 
-				// --- Rotating Headline Subtitle (FIXED SYNTAX ERROR) ---
-				const rotatingTextContainer = document.getElementById(
-					"rotating-text-container"
-				);
-				if (rotatingTextContainer) {
-					const texts = [
-						"A Computer Science Student",
-						"An Aspiring Developer",
-						"Coding the Next Chapter", // <-- FIXED: Added missing comma
-						"A Passionate Leader",
-						"Passion for Problem-Solving",
-						"Crafting Solutions Through Code",
-						"Driven by Innovation",
-						"Building Tomorrow with Technology",
-						"Code | Logic | Innovation",
-						"Transforming Ideas Into Code",
-						"Exploring Technology with Purpose",
-						"Shaping the Future Digitally",
-						"Technology | Creativity | Growth",
-						"A Creative Tech Writer"
-					];
-					let currentIndex = 0;
-					texts.forEach((text) => {
-						const span = document.createElement("span");
-						span.textContent = text;
-						span.classList.add("rotating-text-item");
-						rotatingTextContainer.appendChild(span);
-					});
-					const textItems = rotatingTextContainer.querySelectorAll(
-						".rotating-text-item"
-					);
-					function rotateText() {
-						const currentItem = textItems[currentIndex];
-						currentIndex = (currentIndex + 1) % textItems.length;
-						const nextItem = textItems[currentIndex];
-						currentItem.classList.remove("is-visible");
-						currentItem.classList.add("is-hidden");
-						setTimeout(() => {
-							nextItem.classList.remove("is-hidden");
-							nextItem.classList.add("is-visible");
-						}, 50);
-					}
-					if (textItems.length > 0) {
-						setTimeout(() => {
-							textItems[0].classList.add("is-visible");
-							setInterval(rotateText, 3000);
-						}, PRELOADER_DELAY + 1500);
-					}
+                // AI Chat Controller
+                const cbBtn = document.getElementById('chat-bot-btn');
+                const cWin = document.getElementById('chat-window');
+                const clChat = document.getElementById('close-chat');
+                const cForm = document.getElementById('chat-form');
+                const cIn = document.getElementById('chat-input');
+                const cMsgs = document.getElementById('chat-messages');
+                const cSugs = document.getElementById('chat-suggestions');
+
+                function addMsg(text, sender) {
+                    const m = document.createElement('div');
+                    m.className = `message ${sender === 'user' ? 'message-user' : 'message-bot'}`;
+                    m.innerHTML = sender === 'bot' ? formatBotResponse(text) : text;
+                    cMsgs.appendChild(m);
+                    setTimeout(() => { cMsgs.scrollTop = cMsgs.scrollHeight; }, 10);
+                }
+
+                async function handleChat(q) {
+                    addMsg(q, 'user');
+                    const ind = document.createElement('div');
+                    ind.className = 'message message-bot typing-bubble';
+                    ind.innerHTML = `<div class="typing-indicator"><div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div></div>`;
+                    cMsgs.appendChild(ind);
+                    cMsgs.scrollTop = cMsgs.scrollHeight;
+                    try {
+                        const res = await callGemini(q);
+                        ind.remove();
+                        addMsg(res || "I'm not sure about that, but feel free to ask something else!", 'bot');
+                    } catch (e) {
+                        ind.remove();
+                        addMsg("Sorry, I'm having a hard time thinking right now. Please try again or use the Contact form!", 'bot');
+                    }
+                }
+
+                function initSugs() {
+                    cSugs.innerHTML = '';
+                    SUGGESTED_QUESTIONS.forEach(q => {
+                        const b = document.createElement('button');
+                        b.className = 'suggestion-btn';
+                        b.textContent = q;
+                        b.addEventListener('click', () => handleChat(q));
+                        cSugs.appendChild(b);
+                    });
+                }
+
+                cbBtn.addEventListener('click', () => {
+                    cWin.classList.toggle('hidden');
+                    if (!cWin.classList.contains('hidden')) initSugs();
+                });
+                clChat.addEventListener('click', () => cWin.classList.add('hidden'));
+                cForm.addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    const v = cIn.value.trim();
+                    if (!v) return;
+                    cIn.value = '';
+                    handleChat(v);
+                });
+
+				const skillBarElements = document.querySelectorAll(".progress-bar");
+				if (skillBarElements.length > 0) {
+					const obs = new IntersectionObserver((es) => {
+						es.forEach((e) => { if (e.isIntersecting) { e.target.style.width = `${e.target.getAttribute("data-progress")}%`; } });
+					}, { threshold: 0.8 });
+					skillBarElements.forEach((b) => obs.observe(b));
 				}
+                
+                // Form Submit
+                const cF = document.getElementById("contact-form");
+                cF.addEventListener("submit", (e) => {
+                    e.preventDefault();
+                    const btn = cF.querySelector("button");
+                    btn.querySelector("#submit-btn-text").classList.add("hidden");
+                    btn.querySelector("#submit-btn-loader").classList.remove("hidden");
+                    fetch(cF.action, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(Object.fromEntries(new FormData(cF).entries())) })
+                    .then(r => {
+                        if (r.ok) {
+                            document.getElementById("form-status").innerHTML = `<span style="color: #00c2a9; font-weight: bold;">Message Sent! 🐦</span>`;
+                            cF.reset(); createConfettiEffect(['💌', '📬', '🎉']);
+                        } else throw Error();
+                    }).catch(() => {
+                        document.getElementById("form-status").innerHTML = `<span style="color: #ef4444;">Error sending.</span>`;
+                    }).finally(() => {
+                        btn.querySelector("#submit-btn-text").classList.remove("hidden");
+                        btn.querySelector("#submit-btn-loader").classList.add("hidden");
+                        setTimeout(() => document.getElementById("form-status").innerHTML = "", 5000);
+                    });
+                });
 
-				// --- CV Modal Logic ---
-				const cvModal = document.getElementById("cv-modal");
-				const openCvBtns = document.querySelectorAll(".open-cv-btn");
-				const closeCvBtn = document.getElementById("close-cv-modal");
-				const downloadCvBtn = document.getElementById("download-cv-btn");
-
-				if (cvModal && openCvBtns.length && closeCvBtn) {
-					const closeModal = () => cvModal.classList.add("hidden");
-					openCvBtns.forEach((btn) =>
-						btn.addEventListener("click", (e) => {
-							e.preventDefault();
-							cvModal.classList.remove("hidden");
-						})
-					);
-					closeCvBtn.addEventListener("click", closeModal);
-					cvModal.addEventListener("click", (e) => {
-						if (e.target === cvModal) closeModal();
-					});
-					document.addEventListener("keydown", (e) => {
-						if (e.key === "Escape" && !cvModal.classList.contains("hidden"))
-							closeModal();
-					});
-				}
-
-				// --- Web3Forms Form Submission Logic ---
-				function handleFormSubmit(formId, statusId, btnTextId, btnLoaderId) {
-					const form = document.getElementById(formId);
-					if (!form) return;
-					const statusDiv = document.getElementById(statusId);
-					const submitBtnText = btnTextId
-						? document.getElementById(btnTextId)
-						: null;
-					const submitBtnLoader = btnLoaderId
-						? document.getElementById(btnLoaderId)
-						: null;
-
-					form.addEventListener("submit", function (e) {
-						e.preventDefault();
-						const formData = new FormData(form);
-						const object = Object.fromEntries(formData.entries());
-						const json = JSON.stringify(object);
-
-						if (submitBtnText && submitBtnLoader) {
-							submitBtnText.classList.add("hidden");
-							submitBtnLoader.classList.remove("hidden");
-						} else {
-							statusDiv.innerHTML = "Submitting...";
-						}
-
-						fetch(form.action, {
-							method: "POST",
-							headers: {
-								"Content-Type": "application/json",
-							},
-							body: json,
-						})
-							.then(async (response) => {
-								let jsonResponse = await response.json();
-								if (response.ok) {
-									// --- MODIFIED SUCCESS MESSAGE LOGIC WITH FUNNY EE ---
-									let funnyMessage;
-									let emojis;
-
-									if (formId === "contact-form") {
-										// Extract the first name exactly as entered by the user
-										const rawName = object.name || 'friend';
-										// Use the first word of the name exactly as entered by the user
-										const greetingName = rawName.split(' ')[0]; 
-										
-										funnyMessage = `Hello ${greetingName}, your message was delivered! A digital carrier pigeon is on its way. 🐦`;
-										emojis = ['💌', '📬', '🎉', '✈️'];
-									} else if (formId === "newsletter-form") {
-										funnyMessage = "You're In! Welcome to the exclusive club. Prepare for awesome things. 🚀";
-										emojis = ['🗞️', '📧', '💡', '🌟'];
-										// Set flag in localStorage on successful subscription
-										localStorage.setItem("newsletterPopupPermanentlyClosed", 'true');
-									} 
-
-									// Use the funny message for the display and reset the form
-									statusDiv.innerHTML = `<span style="color: #00c2a9; font-weight: bold;">${funnyMessage}</span>`;
-									form.reset();
-
-									// Trigger confetti effect
-									createConfettiEffect(emojis);
-									
-									// --- END MODIFIED LOGIC ---
-
-								} else {
-									throw new Error(jsonResponse.message || "Something went wrong.");
-								}
-							})
-							.catch((error) => {
-								console.error("Submission error:", error);
-								statusDiv.innerHTML = `<span style="color: #ef4444;">${error.message}</span>`;
-							})
-							.finally(() => {
-								if (submitBtnText && submitBtnLoader) {
-									submitBtnText.classList.remove("hidden");
-									submitBtnLoader.classList.add("hidden");
-								}
-								setTimeout(() => {
-									statusDiv.innerHTML = "";
-									if (formId === "newsletter-form") {
-										// Close popup after status clears
-										document
-											.getElementById("newsletter-popup")?.classList.remove("is-visible");
-									}
-								}, 5000);
-							});
-					});
-				}
-				handleFormSubmit(
-					"contact-form",
-					"form-status",
-					"submit-btn-text",
-					"submit-btn-loader"
-				);
-				handleFormSubmit("newsletter-form", "newsletter-status");
-
-				// --- Newsletter Popup & Back-to-Top Button Logic ---
-				const newsletterPopup = document.getElementById("newsletter-popup");
-				const closeNewsletterBtn = document.getElementById(
-					"close-newsletter-popup"
-				);
-				const backToTopBtn = document.getElementById("back-to-top-btn");
-
-				if (closeNewsletterBtn) {
-					closeNewsletterBtn.addEventListener("click", () => {
-						newsletterPopup.classList.remove("is-visible");
-						// Set permanent flag on manual close
-						localStorage.setItem("newsletterPopupPermanentlyClosed", 'true');
-					});
-				}
-
-				if (backToTopBtn) {
-					backToTopBtn.addEventListener("click", () =>
-						window.scrollTo({ top: 0, behavior: "smooth" })
-					);
-				}
-
-				window.addEventListener(
-					"scroll",
-					() => {
-						const scrollPercentage =
-							(window.scrollY /
-								(document.documentElement.scrollHeight - window.innerHeight)) *
-							100;
-
-						// Show button after 50% scroll
-						if (backToTopBtn)
-							backToTopBtn.classList.toggle("visible", scrollPercentage >= 50);
-
-						// CHECKING localStorage DIRECTLY in the handler for real-time update
-						const isPermanentlyClosed = localStorage.getItem("newsletterPopupPermanentlyClosed") === 'true';
-
-						if (newsletterPopup && !isPermanentlyClosed && scrollPercentage >= 90) {
-							newsletterPopup.classList.add("is-visible");
-						}
-					},
-					{ passive: true }
-				);
-
-				// --- Skill Progress Bar Animation (FIXED: Using data attribute and style.width directly) ---
-				const skillBars = document.querySelectorAll(".progress-bar");
-				if (skillBars.length > 0) {
-					const observer = new IntersectionObserver(
-						(entries, observer) => {
-							entries.forEach((entry) => {
-								if (entry.isIntersecting) {
-									const bar = entry.target;
-									const progressPercent = bar.getAttribute("data-progress");
-									
-									// Set the width directly to trigger the CSS transition
-									bar.style.width = `${progressPercent}%`;
-									
-									observer.unobserve(entry.target);
-								}
-							});
-						},
-						{ threshold: 0.8 } // Trigger when 80% of the element is visible
-					);
-					skillBars.forEach((bar) => observer.observe(bar));
-				}
-
-				// --- Recommendations Carousel Logic with CSS Scroll Snap ---
-				const recCarousel = document.getElementById("recommendations-carousel");
-				const recCards = recCarousel ? recCarousel.querySelectorAll(".rec-card-wrapper") : [];
-				const recPrevBtn = document.getElementById("rec-prev-btn");
-				const recNextBtn = document.getElementById("rec-next-btn");
-
-				if (recCarousel && recCards.length > 0) {
-					let recInterval;
-					let currentRecIndex = 0;
-					const totalCards = recCards.length;
-
-					function scrollToCard(index) {
-						// Calculate the correct index, wrapping around
-						currentRecIndex = (index % totalCards + totalCards) % totalCards;
-
-						const cardElement = recCards[currentRecIndex];
-						if (cardElement) {
-							recCarousel.scrollTo({ left: cardElement.offsetLeft, behavior: 'smooth' });
-						}
-					}
-
-					// Handle navigation buttons
-					if (recPrevBtn) {
-						recPrevBtn.addEventListener("click", () => {
-							scrollToCard(currentRecIndex - 1);
-							resetInterval();
-						});
-					}
-
-					if (recNextBtn) {
-						recNextBtn.addEventListener("click", () => {
-							scrollToCard(currentRecIndex + 1);
-							resetInterval();
-						});
-					}
-
-					// Auto-play functionality
-					function startInterval() {
-						recInterval = setInterval(() => {
-							scrollToCard(currentRecIndex + 1);
-						}, 5000); // Change card every 5 seconds
-					}
-
-					function resetInterval() {
-						clearInterval(recInterval);
-						startInterval();
-					}
-
-					// Listen for manual scroll to update the current index
-					recCarousel.addEventListener('scroll', () => {
-						const cardWidthWithGap = recCards[0].offsetWidth + 24; // Width + gap
-						const newIndex = Math.round(recCarousel.scrollLeft / cardWidthWithGap);
-						// Only update if the index has genuinely changed to avoid flickering
-						if (newIndex !== currentRecIndex) {
-							currentRecIndex = newIndex;
-						}
-					});
-
-					// Start the auto-play and pause on hover
-					startInterval();
-					recCarousel.addEventListener('mouseenter', () => clearInterval(recInterval));
-					recCarousel.addEventListener('mouseleave', () => startInterval());
-				}
-
-				// --- Fetch Dynamic Content from APIs ---
-				fetchSubstackPosts();
-				fetchGithubProfile();
-				fetchGithubRepos();
-
-				// --- Initialize all Easter Eggs
-				initializeEasterEggs();
+				fetchSubstackPosts(); fetchGithubProfile(); fetchGithubRepos(); initializeEasterEggs();
 			});
 
-			// =========================================================================
-			// EASTER EGG & ANTI-CAPTURE LOGIC
-			// =========================================================================
 			function initializeEasterEggs() {
-				// The MODAL_DURATION variable and the modal elements are already available 
-				// through closures or direct global references (which we now prefer).
-				const closeSecretBtn = document.getElementById('close-secret-modal');
-				if (closeSecretBtn) {
-					closeSecretBtn.addEventListener('click', closeModal);
-				}
-				if (secretModal) {
-					secretModal.addEventListener('click', (e) => {
-						if (e.target === secretModal) closeModal();
-					});
-				}
-
-				// 1. EASTER EGGS - ONE TIME TRIGGERS
-				
-				// --- A. Profile Image Double-Click/Tap (One-Time, Irritating Modal) ---
-				const profileImage = document.getElementById('profile-image-target');
-				if (profileImage) {
-					addDoubleTrigger(profileImage, () => {
-						const flag = 'ee_profile_click';
-						if (localStorage.getItem(flag) === 'true') return;
-
-						// 1. Add unique animation
-						profileImage.classList.add('digital-halo');
-						setTimeout(() => {
-							profileImage.classList.remove('digital-halo');
-						}, 1000);
-
-						// 2. Show themed message
-						showSecretModal(
-							"IDENTITY CONFIRMATION REQUIRED",
-							"Compliance Error: Unauthorized profile access detected. Your data integrity score has been flagged for review. Proceed with caution.",
-							true, 
-							flag
-						);
-						createConfettiEffect(['⚠️', '🚫', '🔒']);
-					});
-				}
-				
-				// --- B. Long Press on About Section Title (One-Time, Irritating Modal) ---
-				const aboutTitle = document.getElementById('about-me-title-target');
-				if (aboutTitle) {
-					let pressTimer;
-					const LONG_PRESS_DURATION = 1000; // 1 second
-					const flag = 'ee_about_longpress';
-
-					aboutTitle.addEventListener('touchstart', (e) => {
-						if (localStorage.getItem(flag) === 'true') return;
-						if (e.touches.length > 1) return;
-						
-						pressTimer = setTimeout(() => {
-							// --- Long Press Action ---
-							showSecretModal(
-								"HR VIOLATION DETECTED",
-								"Policy Alert: Excessive idle time detected on PII. Productivity optimization initiative commencing. Resume active engagement immediately.",
-								true, 
-								flag
-							);
-							createConfettiEffect(['💼', '⏰', '😡']);
-						}, LONG_PRESS_DURATION);
-					});
-
-					const clearTimer = () => clearTimeout(pressTimer);
-					aboutTitle.addEventListener('touchend', clearTimer);
-					aboutTitle.addEventListener('touchcancel', clearTimer);
-					aboutTitle.addEventListener('touchmove', clearTimer);
-				}
-
-				// --- C. Keyboard Shortcut (Ctrl + E) (One-Time, Irritating Modal) ---
-				document.addEventListener('keydown', (e) => {
-					const flag = 'ee_ctrl_e';
-					if (localStorage.getItem(flag) === 'true') return;
-					
-					if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'e') {
-						e.preventDefault();
-						
-						showSecretModal(
-							"EFFICIENCY BREACH WARNING",
-							"Resource Allocation Failure: Initiating non-critical visual distractors. This action is not ROI-positive. Please discontinue.",
-							true,
-							flag
-						);
-						createConfettiEffect(['💻', '☕', '💡', '🎉', '🧠']);
-					}
-				});
-				
-				// --- D. Console Message & Callable Function (One-Time Console Output, Irritating Modal) ---
-				console.log(
-					"%c[SYSTEM ALERT] Unauthorized Access Detected: Developer Console is Open.",
-					"color: #ef4444; font-size: 20px; font-weight: bold; font-family: monospace;"
-				);
-				console.log(
-					"%cReviewing code compliance is a non-mandated activity. Please exit or proceed with caution. 😉",
-					"color: #cbd5e1; font-size: 16px;"
-				);
-				console.log(
-					"%cTo receive mandatory L3 system access credentials, execute:",
-					"color: #ffcc00; font-size: 16px;"
-				);
-				console.log(
-					"%cwindow.unlockSecretPower()",
-					"color: #00c2a9; font-size: 18px; font-weight: bold;"
-				);
-				// This function can be run multiple times, but the modal/message only shows once.
-				window.unlockSecretPower = function() {
-					const flag = 'ee_console_power';
-					if (localStorage.getItem(flag) === 'true') {
-						console.log("%c[NOTICE] Credential already provisioned. System resources allocated. 🌧️", "color: #94a3b8;");
-						return;
-					}
-					
-					localStorage.setItem(flag, 'true');
-					console.log("%c[SUCCESS] L3 Credentials Granted. Please reset your environment for changes to take full effect.", "color: #ff69b4; font-size: 16px; font-weight: bold;");
-					
-					showSecretModal(
-						"SYSTEM ACCESS GRANTED (L3)", 
-						"Congratulations. Your security clearance has been upgraded. Please prepare for mandatory Q3 performance review."
-					);
-					createConfettiEffect(['💖', '✨', '💻', '💡']);
-				};
-
-
-				// 2. REPEATABLE EASTER EGGS
-
-				// --- E. Skill Bar Click/Tap Animation (Repeatable) ---
-				const skillBars = document.querySelectorAll('.skill-item');
-				skillBars.forEach(item => {
-					const bar = item.querySelector('.progress-bar');
-					const skillName = item.getAttribute('data-skill');
-
-					if (bar && skillName) {
-						bar.addEventListener('click', () => {
-							bumpSkill(bar, skillName);
-						});
-						// Also enable for touch taps
-						bar.addEventListener('touchstart', (e) => {
-							e.preventDefault(); 
-							bumpSkill(bar, skillName);
-						});
-					}
+				const clSec = document.getElementById('close-secret-modal');
+				if (clSec) clSec.addEventListener('click', closeModal);
+				const pImg = document.getElementById('profile-image-target');
+				if (pImg) addDoubleTrigger(pImg, () => {
+                    pImg.classList.add('digital-halo');
+                    setTimeout(() => pImg.classList.remove('digital-halo'), 1000);
+                    showSecretModal("IDENTITY LOGGED", "Authorized engagement detected. Reward protocol enabled.", true, 'ee_p');
+                });
+				document.querySelectorAll('.skill-item').forEach(i => {
+					const b = i.querySelector('.progress-bar');
+					if (b) b.addEventListener('click', () => bumpSkill(b, i.getAttribute('data-skill')));
 				});
 			}
-			// =========================================================================
-			// END EASTER EGG & ANTI-CAPTURE LOGIC
-			// =========================================================================
 
-
-			// Fetches the latest articles from Substack RSS feed using a third-party service.
 			async function fetchSubstackPosts() {
-				const substackUrl = "techtalkwithsourav.substack.com";
-				const postsGrid = document.getElementById("substack-posts-grid");
-				if (!postsGrid) return;
-
-				postsGrid.innerHTML =
-					'<p class="text-brand-secondary col-span-full text-center">Loading latest articles from Substack...</p>';
-
-				const apiUrl = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(
-					`https://${substackUrl}/feed`
-				)}&_=${new Date().getTime()}`;
-
+				const g = document.getElementById("substack-posts-grid");
 				try {
-					// Use 'no-store' cache control to ensure the browser always re-fetches the content
-					const response = await fetch(apiUrl, { cache: 'no-store' });
-					if (!response.ok) {
-						throw new Error(`API error: ${response.status}`);
-					}
-					const data = await response.json();
-					if (data.status !== "ok" || !data.items || data.items.length === 0) {
-						postsGrid.innerHTML =
-							'<p class="text-brand-secondary col-span-full text-center">Could not find any articles.</p>';
-						return;
-					}
-					postsGrid.innerHTML = "";
-					data.items.slice(0, 3).forEach((item) => {
-						const tempDiv = document.createElement("div");
-						tempDiv.innerHTML = item.description;
-
-						let imageUrl = "";
-						// 1. Prioritize thumbnail from API response
-						if (
-							item.thumbnail &&
-							typeof item.thumbnail === "string" &&
-							item.thumbnail.length > 0
-						) {
-							imageUrl = item.thumbnail;
-							// 2. Fallback to enclosure
-						} else if (
-							item.enclosure &&
-							item.enclosure.link &&
-							typeof item.enclosure.link === "string" &&
-							item.enclosure.link.length > 0
-						) {
-							imageUrl = item.enclosure.link;
-							// 3. Fallback to parsing description
-						} else {
-							const firstImg = tempDiv.querySelector("img");
-							if (firstImg && firstImg.src) {
-								imageUrl = firstImg.src;
-							}
-						}
-
-						const imageElement = `<img src="${
-							imageUrl ||
-							"https://placehold.co/400x180/1e293b/334155?text=Article+Image"
-						}" alt="${
-							item.title
-						}" class="article-card-thumbnail" onerror="this.onerror=null;this.src='https://placehold.co/400x180/1e293b/334155?text=Image+Error';">`;
-
-						const snippet =
-							tempDiv.textContent.trim().substring(0, 120) + "...";
-						const formattedDate = new Date(item.pubDate).toLocaleDateString(
-							"en-US",
-							{ year: "numeric", month: "long", day: "numeric" }
-						);
-
-						const articleCard = `
-							<a href="${item.link}" target="_blank" rel="noopener noreferrer" class="article-card rounded-lg flex flex-col h-full">
-								${imageElement}
+					const r = await fetch(`https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(`https://techtalkwithsourav.substack.com/feed`)}`);
+					const d = await r.json(); if (d.status !== "ok") return; g.innerHTML = "";
+					d.items.slice(0, 3).forEach((i) => {
+						const t = document.createElement("div"); t.innerHTML = i.description;
+						g.innerHTML += `
+							<a href="${i.link}" target="_blank" class="article-card rounded-lg flex flex-col h-full">
+								<img src="${i.thumbnail || i.enclosure?.link || t.querySelector("img")?.src || 'https://placehold.co/400x180/1e293b/334155?text=Image'}" class="article-card-thumbnail">
 								<div class="article-card-content">
-									<div class="flex-grow">
-										<h3 class="text-xl font-bold text-white text-glow mb-2">${item.title}</h3>
-										<p class="text-brand-secondary/80 text-sm mb-4">${snippet}</p>
-									</div>
-									<p class="text-xs text-brand-secondary/60 mt-4">${formattedDate}</p>
+									<h3 class="text-xl font-bold text-white mb-2">${i.title}</h3>
+									<p class="text-brand-secondary/80 text-sm mb-4">${t.textContent.trim().substring(0, 100)}...</p>
+									<p class="text-xs text-brand-secondary/60 mt-auto">${new Date(i.pubDate).toLocaleDateString()}</p>
 								</div>
 							</a>`;
-						postsGrid.innerHTML += articleCard;
 					});
-				} catch (error) {
-					postsGrid.innerHTML = `<p class="text-red-400 col-span-full text-center">Failed to load articles. Please try again later.</p>`;
-					console.error("Substack Fetch Error:", error);
-				}
+				} catch (e) {}
 			}
 
-			// Fetches the user's GitHub profile data to display followers and avatar.
 			async function fetchGithubProfile() {
-				const usernameEl = document.getElementById('github-username');
-				const followersEl = document.getElementById('follower-count');
-				const avatarEl = document.getElementById('github-avatar');
-
 				try {
-					const response = await fetch(`https://api.github.com/users/${GITHUB_USERNAME}`);
-					if (!response.ok) throw new Error('Failed to fetch GitHub profile.');
-
-					const data = await response.json();
-					if (data) {
-						usernameEl.textContent = data.login;
-						followersEl.textContent = data.followers;
-						avatarEl.src = data.avatar_url;
-						avatarEl.onerror = () => avatarEl.src = 'https://placehold.co/64x64/1e293b/ffffff?text=Avatar';
-					}
-				} catch (error) {
-					console.error("GitHub Profile Fetch Error:", error);
-					usernameEl.textContent = GITHUB_USERNAME;
-					followersEl.textContent = 'N/A';
-					avatarEl.src = 'https://placehold.co/64x64/ef4444/ffffff?text=Error';
-				}
+					const r = await fetch(`https://api.github.com/users/${GITHUB_USERNAME}`);
+					const d = await r.json();
+					document.getElementById('github-username').textContent = d.login;
+					document.getElementById('follower-count').textContent = d.followers;
+					document.getElementById('github-avatar').src = d.avatar_url;
+				} catch (e) {}
 			}
 
-			// Fetches the latest repositories from GitHub API
 			async function fetchGithubRepos() {
-				const repoGrid = document.getElementById("github-repos-grid");
-				if (!repoGrid) return;
-				const url = `https://api.github.com/users/${GITHUB_USERNAME}/repos?sort=pushed&per_page=6`;
+				const g = document.getElementById("github-repos-grid");
 				try {
-					const response = await fetch(url);
-					if (!response.ok)
-						throw new Error(`GitHub API error: ${response.status}`);
-					const repos = await response.json();
-					repoGrid.innerHTML = "";
-					if (repos.length === 0) {
-						repoGrid.innerHTML =
-							'<p class="text-brand-secondary col-span-full text-center">No public repositories found.</p>';
-						return;
-					}
-					repos.forEach((repo) => {
-						const rawDescription = repo.description || "No description provided.";
-						const MAX_LENGTH = 110; // Set limit to ~2 lines
-						let displayDescription = rawDescription;
-						
-						if (rawDescription.length > MAX_LENGTH) {
-							// Truncate to max length first
-							displayDescription = rawDescription.substring(0, MAX_LENGTH);
-							
-							// Find the last space within the truncated string
-							const lastSpace = displayDescription.lastIndexOf(' ');
-							
-							// If a space is found near the end, cut there to preserve the word boundary
-							if (lastSpace > MAX_LENGTH - 15) { // Ensure we don't cut too far back for short words
-								displayDescription = displayDescription.substring(0, lastSpace);
-							}
-							
-							// Append ellipsis
-							displayDescription = displayDescription.trim() + "...";
-						}
-
-
-						const repoCard = `
-							<a href="${
-								repo.html_url
-							}" target="_blank" rel="noopener noreferrer" class="repo-card p-6 rounded-lg flex flex-col h-full">
-								<div class="flex-grow"><h3 class="text-xl font-bold text-white text-glow mb-2">${
-								repo.name
-								}</h3><p class="text-brand-secondary text-sm mb-4">${
-								displayDescription
-							}</p></div>
+					const r = await fetch(`https://api.github.com/users/${GITHUB_USERNAME}/repos?sort=pushed&per_page=6`);
+					const d = await r.json(); g.innerHTML = "";
+					d.forEach((rp) => {
+						g.innerHTML += `
+							<a href="${rp.html_url}" target="_blank" class="repo-card p-6 rounded-lg flex flex-col h-full">
+								<h3 class="text-xl font-bold text-white mb-2">${rp.name}</h3>
+								<p class="text-brand-secondary text-sm mb-4">${(rp.description || "").substring(0, 100)}...</p>
 								<div class="flex items-center text-sm text-brand-secondary/80 mt-auto">
-									${
-									repo.language
-										? `<span class="flex items-center mr-4"><span class="w-3 h-3 rounded-full mr-2" style="background-color: ${getLanguageColor(repo.language)};"></span>${repo.language}</span>`
-										: ""
-									}
-									<span class="flex items-center mr-4"><svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 16 16"><path d="M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.522-3.356c.33-.314.16-.888-.282-.95l-4.898-.696L8.465.792a.513.513 0 0 0-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767-3.686 1.894.694-3.957a.565.565 0 0 0-.163-.505L1.71 6.745l4.052-.576a.525.525 0 0 0 .393-.288L8 2.223l1.847 3.658a.525.525 0 0 0 .393.288l4.052.575-2.906 2.77a.565.565 0 0 0-.163.506l.694 3.957-3.686-1.894a.503.503 0 0 0-.461 0z"/></svg>${
-								repo.stargazers_count
-							}</span>
-							<span class="flex items-center"><svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M5 3.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0zm0 2.5a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0zm0 2.5a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0zm0 2.5a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0zM11 5.75a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0zm0 2.5a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0zm0 2.5a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0z"/></svg>${
-								repo.forks_count
-							}</span>
+									<i class="fa-regular fa-star mr-1"></i>${rp.stargazers_count}
+							        <i class="fa-solid fa-code-fork ml-4 mr-1"></i>${rp.forks_count}
 								</div>
-							</a>
-						`;
-						repoGrid.innerHTML += repoCard;
+							</a>`;
 					});
-				} catch (error) {
-					repoGrid.innerHTML = `<p class="text-red-400 col-span-full text-center">Failed to load projects from GitHub. Please try again later.</p>`;
-					console.error("GitHub API Error:", error);
-				}
-			}
-
-			// A utility function to map programming languages to a color (FIXED: Added C)
-			function getLanguageColor(language) {
-				const colors = {
-					'JavaScript': '#f1e05a',
-					'TypeScript': '#2b7489',
-					'Python': '#3572A5',
-					'Java': '#b07219',
-					'C++': '#f34b7d',
-					'HTML': '#e34c26',
-					'CSS': '#563d7c',
-					'Shell': '#89e051',
-					'C': '#555555', // <-- FIXED: Added C
-					'Rust': '#dea584',
-				};
-				return colors[language] || '#cccccc';
+				} catch (e) {}
 			}
 		</script>
 	</body>
