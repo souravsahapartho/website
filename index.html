@@ -1822,7 +1822,6 @@
 						id="download-cv-btn" 
 						target="_blank"
                         rel="noopener noreferrer"
-                        download="Sourav_Saha_CV.pdf"
 					>
 						Download PDF
 					</a>
@@ -2358,17 +2357,15 @@
 
                     // Explicit fix for phone download unresponsiveness
                     if (downloadCvBtn) {
-                        const triggerDownload = (e) => {
-                            // Don't prevent default, we want the link to work
-                            // But manually ensuring the click goes through
-                            console.log("Download triggered");
-                        };
-                        downloadCvBtn.addEventListener("click", triggerDownload);
-                        downloadCvBtn.addEventListener("touchstart", (e) => {
-                            // On some mobile devices, clicks inside fixed elements with iframes
-                            // are swallowed. Force-clicking ensures interaction.
-                            downloadCvBtn.click();
-                        }, { passive: true });
+                        downloadCvBtn.addEventListener("click", function(e) {
+                            // Check if user is on mobile to force direct location assignment
+                            // This bypasses popup blockers often found in mobile browsers
+                            if (/Android|iPhone|iPad|iPod/i.test(navigator.userAgent)) {
+                                e.preventDefault();
+                                window.location.href = this.getAttribute('href');
+                                console.log("Mobile download forced via window.location");
+                            }
+                        });
                     }
 				}
 
