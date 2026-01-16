@@ -1832,40 +1832,15 @@
 				</p>
 				<form
 					id="newsletter-form"
-					action="https://api.web3forms.com/submit"
-					method="POST"
 					class="space-y-4"
 				>
-					<input
-						type="hidden"
-						name="access_key"
-						value="9f4ad3eb-6a2c-42a1-b06c-ec515d72da59"
-					/>
-					<input
-						type="hidden"
-						name="subject"
-						value="Action Required: New TechTalks Newsletter Subscription"
-					/>
-					<input type="hidden" name="from_name" value="Automated Subscription Service" />
-					<!-- ADDED: Hidden field to set reply-to address to the sender's email input -->
-					<input
-						type="hidden"
-						name="replyto"
-						value="email"
-					/>
-					<!-- ADDED: IP Address for the Newsletter Form -->
+					<!-- IP Address for the Newsletter Form -->
 					<input
 						type="hidden"
 						name="Client IP Address"
 						id="newsletter-client-ip-address"
 						class="ip-address-input"
 						value="N/A"
-					/>
-					<input
-						type="checkbox"
-						name="botcheck"
-						class="hidden"
-						style="display: none"
 					/>
 					<input
 						type="email"
@@ -1912,8 +1887,10 @@
 
 		<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 		<script>
-			// Live Google Apps Script Web App URL
-			const GOOGLE_SHEET_URL = "https://script.google.com/macros/s/AKfycbzMWfiGDExArJO8u3OUB1HubBnkrTVKL13XM49KByE2naa5rfi5jaytQbcDPRyz3_ROMQ/exec"; 
+			// Live Google Apps Script URLs
+			const CONTACT_FORM_URL = "https://script.google.com/macros/s/AKfycbzMWfiGDExArJO8u3OUB1HubBnkrTVKL13XM49KByE2naa5rfi5jaytQbcDPRyz3_ROMQ/exec"; 
+			const NEWSLETTER_FORM_URL = "https://script.google.com/macros/s/AKfycbz75jSznR-_fgNrSHW3ctYtsY7FUX3gL6o_FJ27EC8gAX8NpoeId8v0QOhlaAjsZkb1XA/exec";
+			
 			const PRELOADER_DELAY = 1500;
 			const GITHUB_USERNAME = "souravsahapartho";
 
@@ -2224,7 +2201,7 @@
 					}
 				}
 
-				// --- UPDATED: Google Apps Script Contact Form Handler ---
+				// --- Google Apps Script Contact Form Handler ---
 				const contactForm = document.getElementById("contact-form");
 				if (contactForm) {
 					const statusDiv = document.getElementById("form-status");
@@ -2234,7 +2211,6 @@
 					contactForm.addEventListener("submit", function(e) {
 						e.preventDefault();
 						const formData = new FormData(contactForm);
-						// Map form "name" to script's "fullName" to match provided Apps Script code
 						const payload = {
 							fullName: formData.get("name"),
 							email: formData.get("email"),
@@ -2244,16 +2220,14 @@
 						btnText.classList.add("hidden");
 						btnLoader.classList.remove("hidden");
 
-						fetch(GOOGLE_SHEET_URL, {
+						fetch(CONTACT_FORM_URL, {
 							method: "POST",
-							mode: "no-cors", // Required for Google Apps Script Web App standard POST
+							mode: "no-cors",
 							cache: "no-cache",
 							headers: { "Content-Type": "application/json" },
 							body: JSON.stringify(payload)
 						})
 						.then(() => {
-							// Using no-cors prevents reading the response body (token),
-							// but it successfully triggers the script.
 							const firstName = payload.fullName.split(' ')[0];
 							const successMsg = `Hello ${firstName}, your message was delivered! A digital carrier pigeon is on its way. 🐦`;
 							statusDiv.innerHTML = `<span style="color: #00c2a9; font-weight: bold;">${successMsg}</span>`;
@@ -2271,30 +2245,38 @@
 					});
 				}
 
-				// Standard handleFormSubmit for Newsletter (using Web3Forms as before)
+				// --- UPDATED: Google Apps Script Newsletter Subscriber Handler ---
 				const newsletterForm = document.getElementById("newsletter-form");
 				if (newsletterForm) {
 					const nsStatus = document.getElementById("newsletter-status");
 					newsletterForm.addEventListener("submit", function(e) {
 						e.preventDefault();
 						const fd = new FormData(newsletterForm);
-						const obj = Object.fromEntries(fd.entries());
+						const payload = {
+							email: fd.get("email")
+						};
+
 						nsStatus.innerHTML = "Subscribing...";
-						fetch(newsletterForm.action, {
+
+						fetch(NEWSLETTER_FORM_URL, {
 							method: "POST",
+							mode: "no-cors",
+							cache: "no-cache",
 							headers: { "Content-Type": "application/json" },
-							body: JSON.stringify(obj),
+							body: JSON.stringify(payload)
 						})
-						.then(async (res) => {
-							if (res.ok) {
-								nsStatus.innerHTML = `<span style="color: #00c2a9;">You're In! Welcome to the club. 🚀</span>`;
-								newsletterForm.reset();
-								createConfettiEffect(['🗞️', '📧', '💡', '🌟']);
-								localStorage.setItem("newsletterPopupPermanentlyClosed", 'true');
-								setTimeout(() => document.getElementById("newsletter-popup")?.classList.remove("is-visible"), 3000);
-							}
+						.then(() => {
+							nsStatus.innerHTML = `<span style="color: #00c2a9; font-weight: bold;">You're In! Welcome to the exclusive club. 🚀</span>`;
+							newsletterForm.reset();
+							createConfettiEffect(['🗞️', '📧', '💡', '🌟']);
+							localStorage.setItem("newsletterPopupPermanentlyClosed", 'true');
+							setTimeout(() => {
+								document.getElementById("newsletter-popup")?.classList.remove("is-visible");
+							}, 3000);
 						})
-						.catch(() => nsStatus.innerHTML = "Error occurred.");
+						.catch(() => {
+							nsStatus.innerHTML = `<span style="color: #ef4444;">Failed to subscribe. Please try again.</span>`;
+						});
 					});
 				}
 
