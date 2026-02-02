@@ -1,13 +1,15 @@
+
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth dark">
 	<head>
 		<!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-8KCF1FV861"></script>
 <script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-8KCF1FV861');
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-8KCF1FV861');
 </script>
 		<meta charset="UTF-8" />
 		<meta name="google-site-verification" content="vTm-xq-2Z5tDTQ5sZ4vED1bsYXbuRm2bwLfwJ2SBdtQ" />
@@ -25,51 +27,26 @@
 		<!-- Open Graph / Facebook -->
 		<meta property="og:type" content="website" />
 		<meta property="og:url" content="https://sourav.com.bd/" />
-		<meta
-			property="og:title"
-			content="Sourav Saha - Computer Science Student, Developer & Tech Writer"
-		/>
-		<meta
-			property="og:description"
-			content="A passionate Computer Science student, aspiring developer, and tech writer. Explore my projects and articles."
-		/>
-		<meta
-			property="og:image"
-			content="https://sourav.com.bd/image/share-card.jpg"
-		/>
+		<meta property="og:title" content="Sourav Saha - Computer Science Student, Developer & Tech Writer" />
+		<meta property="og:description" content="A passionate Computer Science student, aspiring developer, and tech writer. Explore my projects and articles." />
+		<meta property="og:image" content="https://sourav.com.bd/image/share-card.jpg" />
 		<meta property="og:locale" content="en_US" />
 
 		<!-- Twitter -->
 		<meta property="twitter:card" content="summary_large_image" />
 		<meta property="twitter:url" content="https://sourav.com.bd/" />
-		<meta
-			property="twitter:title"
-			content="Sourav Saha - Computer Science Student, Developer & Tech Writer"
-		/>
-		<meta
-			property="twitter:description"
-			content="A passionate Computer Science student, aspiring developer, and tech writer. Explore my work."
-		/>
-		<meta
-			property="twitter:image"
-			content="https://sourav.com.bd/image/share-card.jpg"
-		/>
+		<meta property="twitter:title" content="Sourav Saha - Computer Science Student, Developer & Tech Writer" />
+		<meta property="twitter:description" content="A passionate Computer Science student, aspiring developer, and tech writer. Explore my work." />
+		<meta property="twitter:image" content="https://sourav.com.bd/image/share-card.jpg" />
 
 		<!-- Favicon -->
-		<link
-			rel="icon"
-			href="https://placehold.co/32x32/00c2a9/ffffff?text=SS"
-			type="image/png"
-		/>
+		<link rel="icon" href="https://placehold.co/32x32/00c2a9/ffffff?text=SS" type="image/png" />
 
 		<!-- Stylesheets & Fonts -->
 		<script src="https://cdn.tailwindcss.com"></script>
 		<link rel="preconnect" href="https://fonts.googleapis.com" />
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="" />
-		<link
-			href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
-			rel="stylesheet"
-		/>
+		<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
 		<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 
@@ -95,461 +72,530 @@
 			/* General & Background */
 			.transition-all { transition: all 0.3s ease-in-out; }
 			html { background: #0f172a; overflow-x: hidden; }
-			body { background: transparent; color: #ffffff; overflow-x: hidden; user-select: none; -webkit-user-select: none; }
+			body {
+				background: transparent;
+				color: #ffffff;
+				overflow-x: hidden;
+				user-select: none;
+				-webkit-user-select: none;
+				-moz-user-select: none;
+				-ms-user-select: none;
+			}
 			#particle-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; display: block; }
 			.text-glow { text-shadow: 0 0 8px rgba(0, 194, 169, 0.5), 0 0 20px rgba(0, 0, 0, 0.7); }
 			.text-shadow { text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.6); }
 
-			/* Preloader */
+			/* Header & Navigation */
+			header { transition: background-color 0.4s ease-out; opacity: 0; animation: slideDown 1s ease-out 2.6s forwards; }
+			header.header-scrolled { background-color: rgba(15, 23, 42, 0.7); backdrop-filter: blur(10px); }
+			.nav-link { position: relative; padding-bottom: 5px; transition: color 0.3s ease, transform 0.3s ease; }
+			.nav-link:hover { color: #00c2a9; transform: translateY(-2px); }
+			.nav-link::after { content: ""; position: absolute; bottom: 0; left: 0; width: 100%; height: 2px; background-color: #00c2a9; transform: scaleX(0); transform-origin: left; transition: transform 0.3s ease-out; }
+			.nav-link:hover::after, .nav-link.active-link::after { transform: scaleX(1); }
+			.nav-link.active-link { color: #00c2a9; }
+
+			/* Preloader Styles */
 			#preloader { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: #0f172a; z-index: 9999; display: flex; justify-content: center; align-items: center; transition: opacity 0.8s ease-out, visibility 0.8s ease-out; }
 			#preloader.hidden { opacity: 0; visibility: hidden; }
 			.loader-content { position: relative; width: 160px; height: 160px; display: flex; justify-content: center; align-items: center; }
 			.loader-text { font-family: 'Inter', sans-serif; font-size: 5rem; font-weight: 800; color: #ffffff; z-index: 20; position: relative; text-shadow: 0 0 25px rgba(0, 194, 169, 0.6); animation: pulseText 2s ease-in-out infinite; }
 			.loader-ring-dashed { position: absolute; width: 100%; height: 100%; border: 2px dashed rgba(148, 163, 184, 0.3); border-radius: 50%; animation: spinSlow 12s linear infinite; }
-			.loader-ring-glow { position: absolute; width: 82%; height: 82%; border-radius: 50%; border: 3px solid transparent; border-top-color: #00c2a9; border-bottom-color: #00c2a9; animation: spinFast 1.5s cubic-bezier(0.5, 0, 0.5, 1) infinite; }
+			.loader-ring-glow { position: absolute; width: 82%; height: 82%; border-radius: 50%; border: 3px solid transparent; border-top-color: #00c2a9; border-bottom-color: #00c2a9; animation: spinFast 1.5s cubic-bezier(0.5, 0, 0.5, 1) infinite; box-shadow: 0 0 15px rgba(0, 194, 169, 0.1); }
 			.loader-orbit { position: absolute; width: 130%; height: 130%; border-radius: 50%; animation: spinOrbit 3s linear infinite; }
 			.loader-orbit::before { content: ''; position: absolute; top: 50%; left: -4px; width: 8px; height: 8px; background-color: #ffffff; border-radius: 50%; box-shadow: 0 0 15px #00c2a9, 0 0 5px #ffffff; }
+			.loader-diamond { position: absolute; width: 55%; height: 55%; border: 1px solid rgba(0, 194, 169, 0.2); transform: rotate(45deg); animation: breatheDiamond 3s ease-in-out infinite; }
+
 			@keyframes spinSlow { 100% { transform: rotate(360deg); } }
 			@keyframes spinFast { 100% { transform: rotate(360deg); } }
 			@keyframes spinOrbit { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-			@keyframes pulseText { 0%, 100% { transform: scale(1); opacity: 1; } 50% { transform: scale(0.95); opacity: 0.9; } }
+			@keyframes pulseText { 0%, 100% { transform: scale(1); opacity: 1; text-shadow: 0 0 25px rgba(0, 194, 169, 0.6); } 50% { transform: scale(0.95); opacity: 0.9; text-shadow: 0 0 15px rgba(0, 194, 169, 0.3); } }
+			@keyframes breatheDiamond { 0%, 100% { transform: rotate(45deg) scale(1); border-color: rgba(0, 194, 169, 0.2); } 50% { transform: rotate(45deg) scale(1.2); border-color: rgba(0, 194, 169, 0.5); } }
 
-			/* Chat Widget Styles */
-			#ai-chat-widget {
-				position: fixed;
-				bottom: 2rem;
-				left: 2rem;
-				z-index: 1001;
-				font-family: 'Inter', sans-serif;
-			}
-			#chat-container {
-				position: absolute;
-				bottom: 4.5rem;
-				left: 0;
-				width: 320px;
-				max-width: 90vw;
-				height: 450px;
-				background: #1e293b;
-				border: 1px solid rgba(0, 194, 169, 0.3);
-				border-radius: 1rem;
-				display: flex;
-				flex-direction: column;
-				overflow: hidden;
-				box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
-				opacity: 0;
-				visibility: hidden;
-				transform: translateY(20px) scale(0.95);
-				transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-			}
-			#chat-container.open {
-				opacity: 1;
-				visibility: visible;
-				transform: translateY(0) scale(1);
-			}
-			.chat-header {
-				background: #00c2a9;
-				padding: 1rem;
-				display: flex;
-				justify-content: space-between;
-				align-items: center;
-				color: white;
-			}
-			.chat-messages {
-				flex-grow: 1;
-				overflow-y: auto;
-				padding: 1rem;
-				display: flex;
-				flex-direction: column;
-				gap: 0.75rem;
-			}
-			.message {
-				max-width: 85%;
-				padding: 0.75rem;
-				border-radius: 0.75rem;
-				font-size: 0.875rem;
-				line-height: 1.4;
-			}
-			.bot-message {
-				background: rgba(255, 255, 255, 0.1);
-				color: #e2e8f0;
-				align-self: flex-start;
-				border-bottom-left-radius: 0.1rem;
-			}
-			.user-message {
-				background: #00c2a9;
-				color: white;
-				align-self: flex-end;
-				border-bottom-right-radius: 0.1rem;
-			}
-			.chat-input-area {
-				padding: 0.75rem;
-				border-top: 1px solid rgba(255, 255, 255, 0.1);
-				display: flex;
-				gap: 0.5rem;
-			}
-			.chat-input {
-				flex-grow: 1;
-				background: rgba(15, 23, 42, 0.5);
-				border: 1px solid rgba(255, 255, 255, 0.2);
-				border-radius: 0.5rem;
-				padding: 0.5rem 0.75rem;
-				color: white;
-				font-size: 0.875rem;
-				outline: none;
-			}
+			/* Custom Name Animation */
+			.name-container { display: inline-block; white-space: nowrap; }
+			.letter-base { display: inline-block; opacity: 0; position: relative; transform-origin: center bottom; }
+			.letter-s-start { animation: s-draw 0.8s cubic-bezier(0.22, 0.9, 0.3, 1) forwards, s-glow 2s ease-in-out infinite 1s; }
+			@keyframes s-draw { 0% { clip-path: inset(0 100% 0 0); opacity: 0; transform: translateX(-10px); } 100% { clip-path: inset(0 0 0 0); opacity: 1; transform: translateX(0); } }
+			@keyframes s-glow { 0%, 100% { text-shadow: 0 0 5px rgba(0,194,169,0.2); } 50% { text-shadow: 0 0 15px rgba(0,194,169,0.5); } }
+			.letter-o { animation: o-reveal 0.7s cubic-bezier(0.22, 0.9, 0.3, 1) forwards; }
+			@keyframes o-reveal { 0% { transform: scale(0); opacity: 0; } 60% { transform: scale(1.1); opacity: 1; } 100% { transform: scale(1); opacity: 1; } }
+			.letter-u { animation: u-bounce 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards; }
+			@keyframes u-bounce { 0% { transform: translateY(50px); opacity: 0; } 100% { transform: translateY(0); opacity: 1; } }
+			.letter-r { animation: r-elastic 0.9s cubic-bezier(0.22, 0.9, 0.3, 1) forwards; }
+			@keyframes r-elastic { 0% { transform: scale(0.8) skewX(-20deg); opacity: 0; } 70% { transform: scale(1.05) skewX(5deg); opacity: 1; } 100% { transform: scale(1) skewX(0); opacity: 1; } }
+			.letter-a-1 { animation: a-flip 0.8s ease-out forwards; }
+			@keyframes a-flip { 0% { transform: perspective(400px) rotateY(90deg); opacity: 0; } 100% { transform: perspective(400px) rotateY(0deg); opacity: 1; } }
+			.letter-a-1::after { content: ''; position: absolute; top: -5px; right: 0; width: 4px; height: 4px; background: #00c2a9; border-radius: 50%; opacity: 0; animation: spark-pop 0.4s ease-out 0.4s forwards; }
+			@keyframes spark-pop { 0% { transform: scale(0); opacity: 1; } 100% { transform: scale(2) translate(5px, -5px); opacity: 0; } }
+			.letter-v { animation: v-wipe 0.7s cubic-bezier(0.22, 0.9, 0.3, 1) forwards; }
+			@keyframes v-wipe { 0% { clip-path: polygon(0 0, 0 0, 0 100%, 0% 100%); opacity: 0; } 100% { clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%); opacity: 1; } }
+			.letter-s-end { animation: s-draw-mirror 0.7s cubic-bezier(0.22, 0.9, 0.3, 1) forwards; }
+			@keyframes s-draw-mirror { 0% { clip-path: inset(0 0 0 100%); opacity: 0; transform: scale(0.9); } 100% { clip-path: inset(0 0 0 0); opacity: 1; transform: scale(1); } }
+			.letter-a-2 { animation: a-tilt 0.7s cubic-bezier(0.22, 0.9, 0.3, 1) forwards; }
+			@keyframes a-tilt { 0% { transform: scale(0.5) rotate(-10deg); opacity: 0; } 80% { transform: scale(1.1) rotate(5deg); opacity: 1; } 100% { transform: scale(1) rotate(0); opacity: 1; } }
+			.letter-h { animation: h-grow 0.8s cubic-bezier(0.22, 0.9, 0.3, 1) forwards; }
+			@keyframes h-grow { 0% { transform: scaleY(0); opacity: 0; } 100% { transform: scaleY(1); opacity: 1; } }
+			.letter-a-3 { animation: a-pulse-in 0.8s ease-out forwards, a-breathe 4s ease-in-out infinite 1s; }
+			@keyframes a-pulse-in { 0% { opacity: 0; transform: scale(1.2); } 100% { opacity: 1; transform: scale(1); } }
+			@keyframes a-breathe { 0%, 100% { transform: scale(1); opacity: 1; } 50% { transform: scale(1.05); opacity: 0.9; color: #00c2a9; } }
+
+			/* Carousel & Responsive Cards */
+			.recommendation-card { height: 100%; display: flex; flex-direction: column; }
+			.rec-card-wrapper { min-width: 100%; padding: 0 10px; box-sizing: border-box; }
+			@media (min-width: 768px) { .rec-card-wrapper { min-width: 50%; } }
+			@media (min-width: 1024px) { .rec-card-wrapper { min-width: 100%; } }
+
+			/* Newsletter & Modals */
+			.modal-overlay { position: fixed; inset: 0; background: rgba(0, 0, 0, 0.8); backdrop-filter: blur(5px); display: flex; justify-content: center; align-items: center; z-index: 1000; opacity: 0; visibility: hidden; transition: 0.3s ease; }
+			.modal-overlay:not(.hidden) { opacity: 1; visibility: visible; }
+			.modal-content { background: #1e293b; border: 1px solid #334155; border-radius: 0.75rem; width: 95%; height: 90%; max-width: 1200px; display: flex; flex-direction: column; position: relative; transform: scale(0.95); transition: 0.3s ease; }
+			.modal-overlay:not(.hidden) .modal-content { transform: scale(1); }
+
+			/* AI Assistant (NEW) */
+			#ai-chat-widget { position: fixed; bottom: 2rem; left: 2rem; z-index: 1001; font-family: 'Inter', sans-serif; }
+			#chat-container { position: absolute; bottom: 4.5rem; left: 0; width: 320px; max-width: 85vw; height: 450px; background: #1e293b; border: 1px solid rgba(0, 194, 169, 0.3); border-radius: 1rem; display: flex; flex-direction: column; overflow: hidden; box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5); opacity: 0; visibility: hidden; transform: translateY(20px) scale(0.95); transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+			#chat-container.open { opacity: 1; visibility: visible; transform: translateY(0) scale(1); }
+			.chat-header { background: #00c2a9; padding: 1rem; display: flex; justify-content: space-between; align-items: center; color: white; flex-shrink: 0; }
+			.chat-messages { flex-grow: 1; overflow-y: auto; padding: 1rem; display: flex; flex-direction: column; gap: 0.75rem; background: rgba(15, 23, 42, 0.3); }
+			.chat-msg { max-width: 85%; padding: 0.75rem; border-radius: 0.75rem; font-size: 0.875rem; line-height: 1.4; word-wrap: break-word; }
+			.bot-msg { background: rgba(255, 255, 255, 0.1); color: #e2e8f0; align-self: flex-start; border-bottom-left-radius: 0.1rem; }
+			.user-msg { background: #00c2a9; color: white; align-self: flex-end; border-bottom-right-radius: 0.1rem; }
+			.chat-input-area { padding: 0.75rem; border-top: 1px solid rgba(255, 255, 255, 0.1); display: flex; gap: 0.5rem; background: #1e293b; }
+			.chat-input { flex-grow: 1; background: rgba(15, 23, 42, 0.5); border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 0.5rem; padding: 0.5rem 0.75rem; color: white; font-size: 0.875rem; outline: none; }
 			.chat-input:focus { border-color: #00c2a9; }
-			.chat-toggle {
-				width: 50px;
-				height: 50px;
-				background: #00c2a9;
-				border-radius: 50%;
-				display: flex;
-				align-items: center;
-				justify-content: center;
-				color: white;
-				cursor: pointer;
-				box-shadow: 0 4px 15px rgba(0, 194, 169, 0.4);
-				transition: transform 0.3s;
-			}
+			.chat-toggle { width: 50px; height: 50px; background: #00c2a9; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; cursor: pointer; box-shadow: 0 4px 15px rgba(0, 194, 169, 0.4); transition: transform 0.3s; }
 			.chat-toggle:hover { transform: scale(1.1); }
-			.typing-indicator { font-size: 0.75rem; color: #94a3b8; margin-bottom: 0.5rem; display: none; }
+			.typing-indicator { font-size: 0.75rem; color: #94a3b8; margin-top: 0.25rem; display: none; }
 
-			/* Existing Header & Animations */
-			header { opacity: 0; animation: slideDown 1s ease-out 2.6s forwards; }
-			header.header-scrolled { background-color: rgba(15, 23, 42, 0.7); backdrop-filter: blur(10px); }
-			.nav-link { position: relative; padding-bottom: 5px; transition: color 0.3s ease; }
-			.nav-link:hover { color: #00c2a9; }
-			.nav-link::after { content: ""; position: absolute; bottom: 0; left: 0; width: 100%; height: 2px; background-color: #00c2a9; transform: scaleX(0); transition: transform 0.3s ease-out; }
-			.nav-link:hover::after, .nav-link.active-link::after { transform: scaleX(1); }
-			@keyframes slideDown { from { transform: translateY(-100%); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
-			
-			/* Profile & Repo Cards */
-			.repo-card, .article-card, .recommendation-card { background-color: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 0.5rem; transition: 0.3s; }
-			.repo-card:hover, .article-card:hover { transform: translateY(-5px); border-color: #00c2a9; }
-			
-			/* Modal */
-			.modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.8); backdrop-filter: blur(5px); z-index: 1000; display: flex; justify-content: center; align-items: center; }
-			.hidden { display: none !important; }
+			/* Existing UI Overrides */
+			@keyframes slideDown { from { opacity: 0; transform: translateY(-100%); } to { opacity: 1; transform: translateY(0); } }
+			@keyframes reveal-char { to { opacity: 1; transform: translateY(0) rotate(0); } }
+			@keyframes fadeInSub { to { opacity: 1; } }
+			@keyframes fadeInButton { to { opacity: 1; transform: translateY(0); } }
 		</style>
 	</head>
 	<body class="font-sans" oncontextmenu="return false;">
 		
-		<!-- Preloader -->
 		<div id="preloader">
 			<div class="loader-content">
 				<div class="loader-ring-dashed"></div>
 				<div class="loader-ring-glow"></div>
 				<div class="loader-orbit"></div>
+				<div class="loader-diamond"></div>
 				<div class="loader-text">S</div>
 			</div>
 		</div>
 
 		<canvas id="particle-canvas"></canvas>
 		
-		<!-- Header -->
 		<header class="bg-transparent fixed top-0 left-0 right-0 z-50">
-			<nav class="container mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
-				<a href="#" class="text-xl md:text-2xl font-bold text-white text-glow">Sourav Saha</a>
-				<div class="hidden md:flex items-center space-x-6 text-sm font-medium">
+			<nav class="container mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center" aria-label="Main Navigation">
+				<a href="#" class="header-logo text-xl md:text-2xl font-bold text-white text-glow cursor-pointer" title="Try double-clicking!">Sourav Saha</a>
+				<div class="hidden md:flex items-center space-x-6">
 					<a href="#about" class="nav-link text-gray-300">About</a>
 					<a href="#experience-education" class="nav-link text-gray-300">Journey</a>
 					<a href="#skills" class="nav-link text-gray-300">Skills</a>
 					<a href="#portfolio" class="nav-link text-gray-300">Portfolio</a>
 					<a href="#articles" class="nav-link text-gray-300">Articles</a>
 					<a href="#contact" class="nav-link text-gray-300">Contact</a>
-					<button class="open-cv-btn bg-brand-accent text-white py-2 px-5 rounded-full hover:bg-opacity-90 transition-all">Download CV</button>
+					<button class="open-cv-btn bg-brand-accent text-white font-bold py-2 px-5 rounded-full text-sm">Download CV</button>
 				</div>
 				<button id="mobile-menu-button" class="md:hidden text-white"><i class="fas fa-bars"></i></button>
 			</nav>
-			<div id="mobile-menu" class="hidden md:hidden bg-black/80 backdrop-blur-md p-4 space-y-3">
-				<a href="#about" class="block text-gray-200">About</a>
-				<a href="#experience-education" class="block text-gray-200">Journey</a>
-				<a href="#skills" class="block text-gray-200">Skills</a>
-				<a href="#portfolio" class="block text-gray-200">Portfolio</a>
-				<button class="open-cv-btn w-full bg-brand-accent text-white py-2 rounded-full">Download CV</button>
+			<div id="mobile-menu" class="hidden md:hidden bg-black/50 backdrop-blur-md">
+				<a href="#about" class="block py-2 px-4 text-sm text-gray-200">About</a>
+				<a href="#experience-education" class="block py-2 px-4 text-sm text-gray-200">Journey</a>
+				<a href="#skills" class="block py-2 px-4 text-sm text-gray-200">Skills</a>
+				<a href="#portfolio" class="block py-2 px-4 text-sm text-gray-200">Portfolio</a>
+				<a href="#articles" class="block py-2 px-4 text-sm text-gray-200">Articles</a>
+				<a href="#contact" class="block py-2 px-4 text-sm text-gray-200">Contact</a>
+				<div class="px-4 py-3"><button class="open-cv-btn w-full bg-brand-accent text-white font-bold py-2 rounded-full text-sm">Download CV</button></div>
 			</div>
 		</header>
 
 		<main>
-			<!-- Hero Section -->
-			<section id="home" class="min-h-screen flex items-center px-4">
+			<section id="home" class="min-h-screen flex items-center px-4 sm:px-6 lg:px-8">
 				<div class="container mx-auto text-center">
-					<h1 class="text-4xl sm:text-6xl md:text-7xl font-bold text-white mb-4">
-						Hi,<br><span class="text-shadow">I'm </span><span id="hero-name-container" class="text-brand-accent">Sourav Saha</span>
+					<h1 class="animated-headline text-4xl sm:text-6xl md:text-7xl font-bold text-white leading-tight mb-4" aria-label="Hi, I'm Sourav Saha">
+						<span class="line-1">Hi,</span><br />
+						<span class="line-2 text-shadow">I'm </span>
+						<span id="hero-name-container" class="name-container" aria-label="Sourav Saha"></span>
 					</h1>
-					<div class="text-lg md:text-2xl text-brand-secondary h-12">
-						<div id="rotating-text-container"></div>
+					<div class="text-lg md:text-2xl text-brand-secondary text-shadow headline-subtitle mx-auto">
+						<div id="rotating-text-container" class="rotating-text-container"></div>
 					</div>
-					<div class="mt-8">
-						<a href="#about" class="bg-brand-accent text-white py-3 px-8 rounded-full font-bold hover:scale-105 transition-all inline-block">Explore My Profile</a>
-					</div>
-				</div>
-			</section>
-
-			<!-- About Section -->
-			<section id="about" class="px-4 py-16">
-				<div class="container mx-auto flex flex-col md:flex-row items-center gap-12" data-aos="fade-up">
-					<div class="w-full md:w-1/3">
-						<img src="Image/profile.jpg" alt="Sourav Saha" class="rounded-full shadow-2xl w-64 h-64 mx-auto object-cover border-4 border-brand-accent/20" onerror="this.src='https://placehold.co/256x256/0f172a/ffffff?text=Sourav';">
-					</div>
-					<div class="w-full md:w-2/3 text-center md:text-left">
-						<h2 class="text-3xl font-bold mb-6 text-glow">About Me</h2>
-						<p class="text-brand-secondary mb-4">I’m Sourav Saha, a passionate Computer Science student at United International University and Campus Ambassador at Creative IT Institute.</p>
-						<p class="text-brand-secondary mb-4"><strong>My Mission:</strong> To empower myself and others through continuous learning.</p>
-						<p class="text-brand-secondary"><strong>My Vision:</strong> To become a tech leader who creates meaningful solutions.</p>
+					<div class="mt-8 explore-button-container">
+						<a href="#about" class="inline-block bg-brand-accent text-white font-bold py-3 px-8 rounded-full transform hover:scale-105">Explore My Profile</a>
 					</div>
 				</div>
 			</section>
 
-            <!-- Experience/Education & Skills Sections (Simplified markup for brevity, full logic included below) -->
-            <section id="experience-education" class="px-4 py-16 bg-white/5">
-                <div class="container mx-auto grid md:grid-cols-2 gap-12">
-                    <div data-aos="fade-right">
-                        <h2 class="text-3xl font-bold mb-8 text-center text-glow">Experience</h2>
-                        <div class="space-y-8 border-l-2 border-brand-accent/30 pl-6">
-                            <div>
-                                <h3 class="font-bold text-xl">Campus Ambassador</h3>
-                                <p class="text-brand-accent">Creative IT Institute</p>
-                                <p class="text-sm text-gray-400">June 2024 – Present</p>
-                            </div>
-                            <div>
-                                <h3 class="font-bold text-xl">Campus Ambassador</h3>
-                                <p class="text-brand-accent">Sheba Platform Ltd.</p>
-                                <p class="text-sm text-gray-400">July 2024 – Present</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div data-aos="fade-left">
-                        <h2 class="text-3xl font-bold mb-8 text-center text-glow">Education</h2>
-                        <div class="space-y-8 border-l-2 border-brand-accent/30 pl-6">
-                            <div>
-                                <h3 class="font-bold text-xl">B.Sc. in CSE</h3>
-                                <p class="text-brand-accent">United International University</p>
-                                <p class="text-sm text-gray-400">2023 – Present</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-			<!-- Skills -->
-			<section id="skills" class="px-4 py-16">
+			<section id="about" class="px-4 sm:px-6 lg:px-8 pt-12 md:pt-16">
 				<div class="container mx-auto">
-					<h2 class="text-3xl font-bold mb-12 text-center text-glow">Skills</h2>
-					<div class="grid md:grid-cols-3 gap-8">
-						<div class="bg-white/5 p-6 rounded-lg">
-							<h3 class="font-bold text-xl mb-6"><i class="fas fa-code mr-2"></i> Programming</h3>
-							<div class="space-y-4">
-								<div><div class="flex justify-between text-sm mb-1"><span>C/C++</span><span>90%</span></div><div class="h-2 bg-white/10 rounded-full overflow-hidden"><div class="h-full bg-brand-accent" style="width: 90%"></div></div></div>
-								<div><div class="flex justify-between text-sm mb-1"><span>Java</span><span>78%</span></div><div class="h-2 bg-white/10 rounded-full overflow-hidden"><div class="h-full bg-brand-accent" style="width: 78%"></div></div></div>
-								<div><div class="flex justify-between text-sm mb-1"><span>React</span><span>70%</span></div><div class="h-2 bg-white/10 rounded-full overflow-hidden"><div class="h-full bg-brand-accent" style="width: 70%"></div></div></div>
+					<div class="flex flex-col md:flex-row items-center gap-8 md:gap-12" data-aos="fade-right">
+						<div class="w-full md:w-1/3 flex-shrink-0">
+							<img id="profile-image-target" src="Image/profile.jpg" alt="Sourav Saha" class="rounded-full shadow-2xl w-48 h-48 sm:w-64 sm:h-64 mx-auto object-cover cursor-pointer" onerror="this.src='https://placehold.co/256x256/0f172a/ffffff?text=Profile';" title="Try double-clicking!">
+						</div>
+						<div class="w-full md:w-2/3 text-center md:text-left">
+							<h2 id="about-me-title-target" class="text-3xl sm:text-4xl font-bold text-white mb-4 text-glow cursor-pointer">About Me</h2>
+							<p class="text-brand-secondary leading-relaxed mb-4">I’m Sourav Saha, a passionate Computer Science student at United International University and Campus Ambassador at Creative IT Institute.</p>
+							<p class="text-brand-secondary leading-relaxed"><strong>My Mission:</strong> To empower myself and others through continuous learning.</p>
+						</div>
+					</div>
+				</div>
+			</section>
+
+			<section id="experience-education" class="px-4 sm:px-6 lg:px-8 pt-12 md:pt-16">
+				<div class="container mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16">
+					<div id="experience" data-aos="fade-right">
+						<h2 class="text-3xl sm:text-4xl font-bold text-center text-white mb-8 md:mb-12 text-glow">Experience</h2>
+						<div class="max-w-3xl mx-auto border-l-2 border-brand-accent/30 pl-6 sm:pl-10 relative">
+							<div class="mb-8 relative">
+								<div class="absolute -left-[30px] sm:-left-[46px] top-1 w-4 h-4 rounded-full bg-brand-accent border-4 border-brand-dark"></div>
+								<h3 class="text-2xl font-bold">Campus Ambassador</h3>
+								<p class="text-lg text-brand-secondary/90 font-medium">Creative IT Institute</p>
+								<p class="text-sm text-brand-secondary/70">📍 Dhaka | 📅 June 2024 – Present</p>
+							</div>
+							<div class="relative">
+								<div class="absolute -left-[30px] sm:-left-[46px] top-1 w-4 h-4 rounded-full bg-brand-accent border-4 border-brand-dark"></div>
+								<h3 class="text-2xl font-bold text-white">General Member</h3>
+								<p class="text-lg text-brand-secondary/90 font-medium">UIU Data Science Club</p>
 							</div>
 						</div>
-                        <div class="bg-white/5 p-6 rounded-lg">
-							<h3 class="font-bold text-xl mb-6"><i class="fas fa-brain mr-2"></i> Technical</h3>
-							<div class="space-y-4">
-								<div><div class="flex justify-between text-sm mb-1"><span>Content Writing</span><span>90%</span></div><div class="h-2 bg-white/10 rounded-full overflow-hidden"><div class="h-full bg-brand-accent" style="width: 90%"></div></div></div>
-								<div><div class="flex justify-between text-sm mb-1"><span>RWD</span><span>88%</span></div><div class="h-2 bg-white/10 rounded-full overflow-hidden"><div class="h-full bg-brand-accent" style="width: 88%"></div></div></div>
-							</div>
-						</div>
-                        <div class="bg-white/5 p-6 rounded-lg">
-							<h3 class="font-bold text-xl mb-6"><i class="fas fa-users mr-2"></i> Soft Skills</h3>
-							<div class="space-y-4">
-								<div><div class="flex justify-between text-sm mb-1"><span>Communication</span><span>90%</span></div><div class="h-2 bg-white/10 rounded-full overflow-hidden"><div class="h-full bg-brand-accent" style="width: 90%"></div></div></div>
-								<div><div class="flex justify-between text-sm mb-1"><span>Leadership</span><span>85%</span></div><div class="h-2 bg-white/10 rounded-full overflow-hidden"><div class="h-full bg-brand-accent" style="width: 85%"></div></div></div>
+					</div>
+					<div id="education" data-aos="fade-left">
+						<h2 class="text-3xl sm:text-4xl font-bold text-center text-white mb-8 md:mb-12 text-glow">Education</h2>
+						<div class="max-w-3xl mx-auto border-l-2 border-brand-accent/30 pl-6 sm:pl-10 relative">
+							<div class="relative">
+								<div class="absolute -left-[30px] sm:-left-[46px] top-1 w-4 h-4 rounded-full bg-brand-accent border-4 border-brand-dark"></div>
+								<h3 class="text-2xl font-bold">Bachelor of Science</h3>
+								<p class="text-brand-accent">Computer Science & Engineering</p>
+								<p class="text-sm text-brand-secondary/70">📍 UIU | 📅 Sept 2023 – Present</p>
 							</div>
 						</div>
 					</div>
 				</div>
 			</section>
 
-			<!-- Contact -->
-			<section id="contact" class="px-4 py-16">
-				<div class="container mx-auto max-w-2xl text-center">
-					<h2 class="text-3xl font-bold mb-8 text-glow">Get In Touch</h2>
+			<section id="skills" class="px-4 sm:px-6 lg:px-8 pt-12 md:pt-16">
+				<div class="container mx-auto" data-aos="fade-up">
+					<h2 class="text-3xl sm:text-4xl font-bold text-center text-white mb-8 text-glow">Skills</h2>
+					<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+						<div class="bg-white/5 p-6 rounded-lg">
+							<h3 class="text-xl font-bold mb-6 text-white text-shadow">💻 Programming</h3>
+							<div class="space-y-5">
+								<div class="skill-item" data-skill="C"><div class="skill-info"><span class="skill-name">C</span><span class="skill-percent">90%</span></div><div class="progress-bar-container"><div class="progress-bar" data-progress="90"></div></div></div>
+								<div class="skill-item" data-skill="React"><div class="skill-info"><span class="skill-name">React</span><span class="skill-percent">70%</span></div><div class="progress-bar-container"><div class="progress-bar" data-progress="70"></div></div></div>
+							</div>
+						</div>
+						<div class="bg-white/5 p-6 rounded-lg">
+							<h3 class="text-xl font-bold mb-6 text-white text-shadow">🧠 Technical</h3>
+							<div class="skill-item" data-skill="RWD"><div class="skill-info"><span class="skill-name">Responsive Design</span><span class="skill-percent">88%</span></div><div class="progress-bar-container"><div class="progress-bar" data-progress="88"></div></div></div>
+						</div>
+						<div class="bg-white/5 p-6 rounded-lg">
+							<h3 class="text-xl font-bold mb-6 text-white text-shadow">🎯 Soft Skills</h3>
+							<div class="skill-item" data-skill="Leadership"><div class="skill-info"><span class="skill-name">Leadership</span><span class="skill-percent">85%</span></div><div class="progress-bar-container"><div class="progress-bar" data-progress="85"></div></div></div>
+						</div>
+					</div>
+				</div>
+			</section>
+
+			<section id="portfolio" class="px-4 sm:px-6 lg:px-8 pt-12 md:pt-16">
+				<div class="container mx-auto" data-aos="fade-up">
+					<h2 class="text-3xl sm:text-4xl font-bold text-center text-white mb-8 text-glow">GitHub</h2>
+					<div id="github-profile-card" class="bg-white/5 p-6 rounded-lg mb-8 text-center flex flex-col md:flex-row items-center justify-between">
+						<div class="flex items-center flex-grow mb-4 md:mb-0">
+							<img id="github-avatar" class="w-16 h-16 rounded-full mr-4" src="https://placehold.co/64x64/1e293b/ffffff?text=..." alt="Avatar">
+							<div class="text-left"><h3 id="github-username" class="text-xl font-bold text-white">Loading...</h3><p class="text-brand-secondary">Followers: <span id="follower-count">...</span></p></div>
+						</div>
+						<a id="follow-button" href="https://github.com/souravsahapartho" target="_blank" class="bg-brand-accent text-white font-bold py-2 px-6 rounded-full transition-all"><i class="fab fa-github mr-2"></i> Follow me on GitHub</a>
+					</div>
+					<div id="github-repos-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"></div>
+				</div>
+			</section>
+
+			<section id="articles" class="px-4 sm:px-6 lg:px-8 pt-12 md:pt-16">
+				<div class="container mx-auto" data-aos="fade-up">
+					<h2 class="text-3xl sm:text-4xl font-bold text-center text-white mb-8 text-glow">Recent Articles</h2>
+					<div id="substack-posts-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"></div>
+				</div>
+			</section>
+
+			<section id="recommendations" class="px-4 sm:px-6 lg:px-8 py-12 md:py-16">
+				<div class="container mx-auto" data-aos="fade-up">
+					<h2 class="text-3xl sm:text-4xl font-bold text-center text-white mb-12 text-glow">What People Say</h2>
+					<div class="relative max-w-4xl mx-auto overflow-hidden">
+						<div id="recommendations-carousel" class="flex snap-x snap-mandatory overflow-x-auto gap-6 pb-4">
+							<div class="rec-card-wrapper flex-shrink-0 snap-center">
+								<div class="recommendation-card bg-white/5 p-8 rounded-lg text-center">
+									<i class="fa-solid fa-quote-left text-brand-accent text-3xl opacity-50 mb-6"></i>
+									<p class="text-brand-secondary text-lg italic mb-6">"Sourav is a highly motivated and dedicated individual. His commitment to learning and leadership skills make him an asset."</p>
+									<p class="font-bold text-white">Md. Shakil Khan</p>
+									<p class="text-xs text-gray-400">Mentor & Developer</p>
+								</div>
+							</div>
+							<div class="rec-card-wrapper flex-shrink-0 snap-center">
+								<div class="recommendation-card bg-white/5 p-8 rounded-lg text-center">
+									<i class="fa-solid fa-quote-left text-brand-accent text-3xl opacity-50 mb-6"></i>
+									<p class="text-brand-secondary text-lg italic mb-6">"His work ethic and ability to quickly grasp new concepts are truly impressive. Enthusiasm for technology is infectious."</p>
+									<p class="font-bold text-white">Fahim Hasan</p>
+									<p class="text-xs text-gray-400">Lead Web Developer</p>
+								</div>
+							</div>
+						</div>
+						<button id="rec-prev-btn" class="absolute top-1/2 left-0 -translate-y-1/2 p-2 text-white bg-black/30 rounded-full"><i class="fa-solid fa-chevron-left"></i></button>
+						<button id="rec-next-btn" class="absolute top-1/2 right-0 -translate-y-1/2 p-2 text-white bg-black/30 rounded-full"><i class="fa-solid fa-chevron-right"></i></button>
+					</div>
+				</div>
+			</section>
+
+			<section id="contact" class="px-4 sm:px-6 lg:px-8 py-12 md:pt-16">
+				<div class="container mx-auto max-w-2xl text-center" data-aos="fade-up">
+					<h2 class="text-3xl font-bold text-white mb-8 text-glow">Send Me a Message</h2>
 					<form id="contact-form" class="space-y-6 text-left">
-						<input type="text" name="name" placeholder="Your Name" class="w-full bg-white/5 border border-white/20 p-3 rounded-lg text-white outline-none focus:border-brand-accent" required>
-						<input type="email" name="email" placeholder="Your Email" class="w-full bg-white/5 border border-white/20 p-3 rounded-lg text-white outline-none focus:border-brand-accent" required>
-						<textarea name="message" rows="5" placeholder="Your Message" class="w-full bg-white/5 border border-white/20 p-3 rounded-lg text-white outline-none focus:border-brand-accent" required></textarea>
-						<button type="submit" class="w-full bg-brand-accent py-3 rounded-full font-bold hover:bg-opacity-90 transition-all">Send Message</button>
+						<input type="hidden" name="Client IP Address" class="ip-address-input">
+						<div><label class="form-label">Full Name</label><input type="text" name="name" required class="form-input"></div>
+						<div><label class="form-label">Email</label><input type="email" name="email" required class="form-input"></div>
+						<div><label class="form-label">Message</label><textarea name="message" rows="5" required class="form-textarea"></textarea></div>
+						<button type="submit" class="submit-btn"><span id="submit-btn-text">Send Message</span><span id="submit-btn-loader" class="hidden w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></span></button>
 						<div id="form-status" class="mt-4 text-center"></div>
 					</form>
 				</div>
 			</section>
 		</main>
 
+		<footer class="border-t border-white/10 mt-8 py-8 px-4 text-center">
+			<div class="flex justify-center space-x-6 mb-6">
+				<a href="https://www.linkedin.com/in/souravsahapartho/" target="_blank" class="text-gray-400 hover:text-brand-accent"><i class="fab fa-linkedin-in text-xl"></i></a>
+				<a href="https://github.com/souravsahapartho" target="_blank" class="text-gray-400 hover:text-brand-accent"><i class="fab fa-github text-xl"></i></a>
+				<a href="https://www.facebook.com/souravsahapartho/" target="_blank" class="text-gray-400 hover:text-brand-accent"><i class="fab fa-facebook text-xl"></i></a>
+				<a href="https://x.com/souravpartho" target="_blank" class="text-gray-400 hover:text-brand-accent"><i class="fab fa-x-twitter text-xl"></i></a>
+			</div>
+			<p class="text-sm text-gray-500">© 2026 Sourav Saha. All Rights Reserved.</p>
+		</footer>
+
+		<!-- Modals & AI -->
+		<div id="cv-modal" class="modal-overlay hidden">
+			<div class="modal-content">
+				<button id="close-cv-modal" class="modal-close-btn">&times;</button>
+				<div class="modal-header"><h3 class="modal-title">My CV</h3><a href="https://drive.google.com/uc?export=download&id=13JRAOI3YPpkQKVbBjvaA9gsetQSClzhb" class="download-btn" target="_blank">Download PDF</a></div>
+				<div class="iframe-container"><iframe src="https://drive.google.com/file/d/13JRAOI3YPpkQKVbBjvaA9gsetQSClzhb/preview" width="100%" height="100%"></iframe></div>
+			</div>
+		</div>
+
 		<!-- AI Chat Widget -->
 		<div id="ai-chat-widget">
 			<div id="chat-container">
-				<div class="chat-header">
-					<span class="font-bold text-sm"><i class="fas fa-robot mr-2"></i>Sourav's Assistant</span>
-					<button id="close-chat" class="text-white hover:text-gray-200"><i class="fas fa-times"></i></button>
-				</div>
-				<div id="chat-messages" class="chat-messages">
-					<div class="message bot-message">Hi! I'm Sourav's AI assistant. Ask me anything about his projects, skills, or university life!</div>
-				</div>
-				<div id="typing-indicator" class="typing-indicator px-4">AI is thinking...</div>
-				<form id="chat-form" class="chat-input-area">
-					<input type="text" id="chat-input" class="chat-input" placeholder="Type a question..." autocomplete="off">
-					<button type="submit" class="text-brand-accent p-2"><i class="fas fa-paper-plane"></i></button>
-				</form>
+				<div class="chat-header"><span class="font-bold text-sm"><i class="fas fa-robot mr-2"></i>Sourav's Assistant</span><button id="close-chat-btn" class="text-white"><i class="fas fa-times"></i></button></div>
+				<div id="chat-messages" class="chat-messages"><div class="chat-msg bot-msg">Hi! I'm Sourav's AI assistant. Ask me anything about his projects or skills!</div></div>
+				<div id="typing-indicator" class="px-4 typing-indicator">Thinking...</div>
+				<form id="chat-form" class="chat-input-area"><input type="text" id="chat-input" class="chat-input" placeholder="Ask a question..." autocomplete="off"><button type="submit" class="text-brand-accent"><i class="fas fa-paper-plane"></i></button></form>
 			</div>
-			<div id="chat-toggle" class="chat-toggle">
-				<i class="fas fa-comment-dots text-xl"></i>
-			</div>
+			<div id="chat-toggle" class="chat-toggle"><i class="fas fa-comment-dots text-xl"></i></div>
 		</div>
 
-		<footer class="py-12 border-t border-white/10 text-center">
-			<p class="text-gray-500">© 2026 Sourav Saha. Built with passion.</p>
-		</footer>
-
-		<!-- CV Modal -->
-		<div id="cv-modal" class="modal-overlay hidden">
-			<div class="bg-brand-dark border border-white/10 rounded-xl w-11/12 max-w-4xl h-5/6 flex flex-col overflow-hidden">
-				<div class="p-4 border-b border-white/10 flex justify-between items-center">
-					<h3 class="font-bold">Resume</h3>
-					<button id="close-cv-modal" class="text-2xl">&times;</button>
-				</div>
-				<iframe src="https://drive.google.com/file/d/13JRAOI3YPpkQKVbBjvaA9gsetQSClzhb/preview" class="flex-grow"></iframe>
-			</div>
-		</div>
+		<button id="back-to-top-btn" title="Go to top"><i class="fas fa-chevron-up"></i></button>
 
 		<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 		<script>
-			// Constants & Configuration
-			const apiKey = ""; // Provided by environment
+			const apiKey = ""; // Runtime Key
 			const GITHUB_USERNAME = "souravsahapartho";
-			const SOURAV_BIO = `
-				Sourav Saha is a Computer Science student at United International University (UIU). 
-				He is a Campus Ambassador for Creative IT Institute and Sheba Platform Ltd. 
-				Skills: C (90%), C++ (82%), Java (78%), JavaScript (80%), React (70%), MySQL (65%), CSS (95%).
-				Technical Interests: Web Content Writing, Responsive Web Design, OOP, Data Science.
-				Experience: Promoting tech learning programs, organizing campus events, active member of UIU Data Science Club.
-				Education: B.Sc. in CSE at UIU (Dhaka), HSC from Islamia Government College (Sirajganj), SSC from B.L. Govt High School.
-			`;
+			const SOURAV_INFO = "Sourav Saha is a Computer Science student at UIU, Dhaka. He is a Campus Ambassador for Creative IT Institute and Sheba Platform. Skills: C, Java, JS, React.";
 
 			document.addEventListener("DOMContentLoaded", () => {
-				AOS.init({ duration: 800, once: true });
-
-				// --- AI Chat Logic ---
-				const chatToggle = document.getElementById('chat-toggle');
-				const chatContainer = document.getElementById('chat-container');
-				const closeChat = document.getElementById('close-chat');
-				const chatForm = document.getElementById('chat-form');
-				const chatInput = document.getElementById('chat-input');
-				const chatMessages = document.getElementById('chat-messages');
-				const typingIndicator = document.getElementById('typing-indicator');
-
-				let chatHistory = [];
-
-				chatToggle.addEventListener('click', () => chatContainer.classList.toggle('open'));
-				closeChat.addEventListener('click', () => chatContainer.classList.remove('open'));
-
-				chatForm.addEventListener('submit', async (e) => {
-					e.preventDefault();
-					const query = chatInput.value.trim();
-					if (!query) return;
-
-					addMessage(query, 'user');
-					chatInput.value = '';
-					chatHistory.push({ role: "user", parts: [{ text: query }] });
-
-					typingIndicator.style.display = 'block';
-					chatMessages.scrollTop = chatMessages.scrollHeight;
-
-					const response = await callGeminiAPI(query);
-					typingIndicator.style.display = 'none';
-					
-					if (response) {
-						addMessage(response, 'bot');
-						chatHistory.push({ role: "model", parts: [{ text: response }] });
-					} else {
-						addMessage("Sorry, I'm having trouble connecting. Please try again later.", 'bot');
-					}
-				});
-
-				function addMessage(text, sender) {
-					const msgDiv = document.createElement('div');
-					msgDiv.className = `message ${sender}-message`;
-					msgDiv.textContent = text;
-					chatMessages.appendChild(msgDiv);
-					chatMessages.scrollTop = chatMessages.scrollHeight;
-				}
-
-				async function callGeminiAPI(userQuery, retryCount = 0) {
-					const systemPrompt = `You are an AI assistant for Sourav Saha's portfolio. 
-					Answer questions about Sourav based on this data: ${SOURAV_BIO}. 
-					Keep answers professional, friendly, and concise (max 2-3 sentences). 
-					If asked about something not in the data, politely say you only know about Sourav's professional background.`;
-					
-					const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
-					
-					const payload = {
-						contents: [
-							{ role: "user", parts: [{ text: `System context: ${systemPrompt}` }] },
-							...chatHistory.slice(-6) // Keep last 3 turns of context
-						]
-					};
-
-					try {
-						const response = await fetch(url, {
-							method: 'POST',
-							headers: { 'Content-Type': 'application/json' },
-							body: JSON.stringify(payload)
-						});
-
-						if (!response.ok) throw new Error('API request failed');
-
-						const data = await response.json();
-						return data.candidates?.[0]?.content?.parts?.[0]?.text;
-					} catch (error) {
-						if (retryCount < 5) {
-							const delay = Math.pow(2, retryCount) * 1000;
-							await new Promise(resolve => setTimeout(resolve, delay));
-							return callGeminiAPI(userQuery, retryCount + 1);
-						}
-						return null;
-					}
-				}
-
-				// --- UI Animations & Matrix Background ---
 				const preloader = document.getElementById("preloader");
-				setTimeout(() => preloader.classList.add("hidden"), 1500);
+				setTimeout(() => {
+					preloader.classList.add("hidden");
+					animateHero();
+				}, 1500);
 
+				AOS.init({ duration: 800, once: true });
+				initMatrix();
+				initRotatingText();
+				initHeroName();
+				fetchGithub();
+				fetchSubstack();
+				initInteractive();
+				initAI();
+			});
+
+			function initHeroName() {
+				const nameContainer = document.getElementById('hero-name-container');
+				const nameConfig = [
+					{ char: 'S', class: 'letter-s-start', delay: 0.8 }, { char: 'o', class: 'letter-o', delay: 0.9 },
+					{ char: 'u', class: 'letter-u', delay: 1.0 }, { char: 'r', class: 'letter-r', delay: 1.1 },
+					{ char: 'a', class: 'letter-a-1', delay: 1.2 }, { char: 'v', class: 'letter-v', delay: 1.3 },
+					{ char: ' ', class: '', delay: 0 }, { char: 'S', class: 'letter-s-end', delay: 1.4 },
+					{ char: 'a', class: 'letter-a-2', delay: 1.5 }, { char: 'h', class: 'letter-h', delay: 1.6 },
+					{ char: 'a', class: 'letter-a-3', delay: 1.7 }
+				];
+				nameContainer.innerHTML = "";
+				nameConfig.forEach(item => {
+					const span = document.createElement('span');
+					span.textContent = item.char;
+					span.className = 'letter-base text-brand-accent ' + item.class;
+					if (item.char === ' ') span.style.width = '0.3em';
+					else span.style.animationDelay = `${item.delay}s`;
+					nameContainer.appendChild(span);
+				});
+			}
+
+			function animateHero() {
+				const line1 = document.querySelector(".animated-headline .line-1");
+				const text = line1.textContent;
+				line1.innerHTML = "";
+				text.split("").forEach((c, i) => {
+					const s = document.createElement("span");
+					s.className = "char";
+					s.innerHTML = c === " " ? "&nbsp;" : c;
+					s.style.animationDelay = `${i * 0.05}s`;
+					line1.appendChild(s);
+				});
+			}
+
+			function initMatrix() {
 				const canvas = document.getElementById("particle-canvas");
 				const ctx = canvas.getContext("2d");
 				let w = canvas.width = window.innerWidth, h = canvas.height = window.innerHeight;
 				let cols = Math.floor(w / 20) + 1, ypos = Array(cols).fill(0);
 				function matrix() {
-					ctx.fillStyle = "rgba(15, 23, 42, 0.05)";
-					ctx.fillRect(0, 0, w, h);
-					ctx.fillStyle = "rgba(0, 194, 169, 0.25)";
-					ctx.font = "14px monospace";
+					ctx.fillStyle = "rgba(15, 23, 42, 0.05)"; ctx.fillRect(0, 0, w, h);
+					ctx.fillStyle = "rgba(0, 194, 169, 0.2)"; ctx.font = "15px monospace";
 					ypos.forEach((y, i) => {
 						ctx.fillText(String.fromCharCode(Math.random() * 128), i * 20, y);
 						ypos[i] = y > 100 + Math.random() * 10000 ? 0 : y + 20;
 					});
 				}
 				setInterval(matrix, 50);
+			}
 
-				// Rotating Text
-				const rotateBox = document.getElementById("rotating-text-container");
-				const roles = ["CSE Student", "Aspiring Developer", "Tech Writer", "Campus Ambassador"];
-				let roleIdx = 0;
-				setInterval(() => {
-					rotateBox.style.opacity = 0;
-					setTimeout(() => {
-						roleIdx = (roleIdx + 1) % roles.length;
-						rotateBox.textContent = roles[roleIdx];
-						rotateBox.style.opacity = 1;
-					}, 500);
-				}, 3000);
+			function initRotatingText() {
+				const container = document.getElementById("rotating-text-container");
+				const texts = ["A Computer Science Student", "An Aspiring Developer", "A Passionate Leader", "Driven by Innovation"];
+				let idx = 0;
+				texts.forEach(t => {
+					const s = document.createElement("span");
+					s.textContent = t; s.className = "rotating-text-item";
+					container.appendChild(s);
+				});
+				const items = container.querySelectorAll(".rotating-text-item");
+				function rot() {
+					items[idx].classList.remove("is-visible");
+					idx = (idx + 1) % items.length;
+					items[idx].classList.add("is-visible");
+				}
+				if (items.length) { items[0].classList.add("is-visible"); setInterval(rot, 3000); }
+			}
 
-				// Modal logic
-				const cvModal = document.getElementById("cv-modal");
-				document.querySelectorAll(".open-cv-btn").forEach(btn => btn.onclick = () => cvModal.classList.remove("hidden"));
-				document.getElementById("close-cv-modal").onclick = () => cvModal.classList.add("hidden");
-			});
+			async function fetchGithub() {
+				try {
+					const [uRes, rRes] = await Promise.all([
+						fetch(`https://api.github.com/users/${GITHUB_USERNAME}`),
+						fetch(`https://api.github.com/users/${GITHUB_USERNAME}/repos?sort=pushed&per_page=6`)
+					]);
+					const user = await uRes.json();
+					const repos = await rRes.json();
+					document.getElementById('github-username').textContent = user.login;
+					document.getElementById('follower-count').textContent = user.followers;
+					document.getElementById('github-avatar').src = user.avatar_url;
+					document.getElementById('github-repos-grid').innerHTML = repos.map(r => `
+						<a href="${r.html_url}" target="_blank" class="repo-card p-6 rounded-lg bg-white/5">
+							<h3 class="font-bold text-white mb-2">${r.name}</h3>
+							<p class="text-sm text-gray-400 mb-4">${r.description || "Project"}</p>
+							<div class="text-xs text-brand-accent">⭐ ${r.stargazers_count} | 🍴 ${r.forks_count}</div>
+						</a>`).join("");
+				} catch (e) {}
+			}
+
+			async function fetchSubstack() {
+				const url = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent('https://techtalkwithsourav.substack.com/feed')}`;
+				try {
+					const res = await fetch(url);
+					const data = await res.json();
+					if (data.status === "ok") {
+						document.getElementById("substack-posts-grid").innerHTML = data.items.slice(0, 3).map(item => `
+							<a href="${item.link}" target="_blank" class="article-card bg-white/5 rounded-lg overflow-hidden">
+								<img src="${item.thumbnail || 'https://placehold.co/400x180/1e293b/334155'}" class="w-full h-40 object-cover">
+								<div class="p-6"><h3 class="font-bold text-white mb-2">${item.title}</h3><p class="text-xs text-gray-500">${new Date(item.pubDate).toLocaleDateString()}</p></div>
+							</a>`).join("");
+					}
+				} catch (e) {}
+			}
+
+			function initInteractive() {
+				const skillObs = new IntersectionObserver(es => es.forEach(e => {
+					if (e.isIntersecting) e.target.style.width = e.target.getAttribute("data-progress") + "%";
+				}), { threshold: 0.5 });
+				document.querySelectorAll(".progress-bar").forEach(b => skillObs.observe(b));
+
+				document.querySelectorAll(".open-cv-btn").forEach(btn => btn.onclick = () => document.getElementById("cv-modal").classList.remove("hidden"));
+				document.getElementById("close-cv-modal").onclick = () => document.getElementById("cv-modal").classList.add("hidden");
+
+				const carousel = document.getElementById("recommendations-carousel");
+				document.getElementById("rec-next-btn").onclick = () => carousel.scrollBy({ left: carousel.clientWidth, behavior: 'smooth' });
+				document.getElementById("rec-prev-btn").onclick = () => carousel.scrollBy({ left: -carousel.clientWidth, behavior: 'smooth' });
+
+				window.onscroll = () => {
+					document.querySelector("header").classList.toggle("header-scrolled", window.scrollY > 50);
+					document.getElementById("back-to-top-btn").classList.toggle("visible", window.scrollY > 500);
+				};
+				document.getElementById("back-to-top-btn").onclick = () => window.scrollTo({ top: 0, behavior: "smooth" });
+			}
+
+			function initAI() {
+				const container = document.getElementById("chat-container");
+				const toggle = document.getElementById("chat-toggle");
+				const close = document.getElementById("close-chat-btn");
+				const form = document.getElementById("chat-form");
+				const input = document.getElementById("chat-input");
+				const msgs = document.getElementById("chat-messages");
+				const indicator = document.getElementById("typing-indicator");
+
+				toggle.onclick = () => container.classList.toggle("open");
+				close.onclick = () => container.classList.remove("open");
+
+				form.onsubmit = async (e) => {
+					e.preventDefault();
+					const q = input.value.trim();
+					if (!q) return;
+					addChatMsg(q, "user");
+					input.value = "";
+					indicator.style.display = "block";
+					const reply = await callGemini(q);
+					indicator.style.display = "none";
+					addChatMsg(reply, "bot");
+				};
+
+				function addChatMsg(text, sender) {
+					const div = document.createElement("div");
+					div.className = `chat-msg ${sender}-msg`;
+					div.textContent = text;
+					msgs.appendChild(div);
+					msgs.scrollTop = msgs.scrollHeight;
+				}
+
+				async function callGemini(q, retry = 0) {
+					const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
+					try {
+						const res = await fetch(url, {
+							method: 'POST',
+							headers: { 'Content-Type': 'application/json' },
+							body: JSON.stringify({
+								contents: [{ parts: [{ text: q }] }],
+								systemInstruction: { parts: [{ text: `Answer as Sourav's AI assistant. Professional/Brief. Info: ${SOURAV_INFO}` }] }
+							})
+						});
+						const data = await res.json();
+						return data.candidates?.[0]?.content?.parts?.[0]?.text || "Connection Issue.";
+					} catch (e) {
+						if (retry < 5) {
+							await new Promise(r => setTimeout(r, Math.pow(2, retry) * 1000));
+							return callGemini(q, retry + 1);
+						}
+						return "Error connecting to AI. Please check your network.";
+					}
+				}
+			}
 		</script>
 	</body>
 </html>
