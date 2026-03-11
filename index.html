@@ -17,6 +17,10 @@
 		<title>Sourav Saha – CSE Student at UIU | Tech Enthusiast from Bangladesh</title>
 		<meta name="description" content="Sourav Saha is a Computer Science (CSE) student at United International University (UIU), Bangladesh and a technology enthusiast passionate about web development, SEO, and tech blogging.">
 		<meta name="keywords" content="Sourav Saha, Sourav Saha UIU, Sourav Saha CSE, Sourav Saha Bangladesh, Sourav Saha tech enthusiast, Sourav Saha computer science student, Sourav Saha developer, Sourav Saha portfolio, Sourav Saha website, Sourav Saha tech blog, UIU CSE student, United International University CSE student, CSE student UIU Bangladesh, Computer Science student UIU, Tech enthusiast Bangladesh, CSE student Bangladesh, Bangladesh technology blogger, HTML CSS developer student, C C++ programmer student, Java programming student, Web development learner, SEO learner Bangladesh, TechTalk with Sourav, technology blog Bangladesh, tech education blog, technology enthusiast from Bangladesh">
+		<meta name="author" content="Sourav Saha">
+		<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+		<meta name="theme-color" content="#0f172a" media="(prefers-color-scheme: dark)">
+		<meta name="theme-color" content="#f4f7fb" media="(prefers-color-scheme: light)">
 		<link rel="canonical" href="https://sourav.com.bd/" />
 
 		<!-- Open Graph / Facebook -->
@@ -25,6 +29,7 @@
 		<meta property="og:title" content="Sourav Saha – CSE Student at UIU | Tech Enthusiast from Bangladesh" />
 		<meta property="og:description" content="Sourav Saha is a Computer Science (CSE) student at United International University (UIU), Bangladesh and a technology enthusiast passionate about web development, SEO, and tech blogging." />
 		<meta property="og:image" content="https://sourav.com.bd/image/share-card.jpg" />
+		<meta property="og:site_name" content="Sourav Saha Portfolio">
 		<meta property="og:locale" content="en_US" />
 
 		<!-- Twitter -->
@@ -33,6 +38,7 @@
 		<meta property="twitter:title" content="Sourav Saha – CSE Student at UIU | Tech Enthusiast from Bangladesh" />
 		<meta property="twitter:description" content="Sourav Saha is a Computer Science (CSE) student at United International University (UIU), Bangladesh and a technology enthusiast passionate about web development, SEO, and tech blogging." />
 		<meta property="twitter:image" content="https://sourav.com.bd/image/share-card.jpg" />
+		<meta property="twitter:creator" content="@souravpartho">
 
 		<!-- Favicon -->
 		<link rel="icon" href="https://placehold.co/32x32/00c2a9/ffffff?text=SS" type="image/png" />
@@ -312,11 +318,9 @@
 			.confetti-piece { position: absolute; font-size: 1.5rem; opacity: 0; animation: fall-and-spin linear infinite; }
 			@keyframes fall-and-spin { 0% { opacity: 1; transform: translate(0, -10vh) rotate(0deg); } 100% { opacity: 0; transform: translate(0, 100vh) rotate(720deg); } }
 
-			/* Easter Egg Glow */
+			/* Profile Image Hover */
 			#profile-image-target { transform: scale(1); transition: transform 0.3s ease, box-shadow 0.3s ease; }
 			#profile-image-target:hover { transform: scale(1.02); box-shadow: var(--glass-shadow); }
-			.digital-halo { animation: digitalPulse 1s ease-out; transform: scale(1.05); }
-			@keyframes digitalPulse { 0% { box-shadow: 0 0 0 0 rgba(0, 194, 169, 0.7); } 70% { box-shadow: 0 0 0 20px rgba(0, 194, 169, 0); } 100% { box-shadow: 0 0 0 0 rgba(0, 194, 169, 0); } }
 			
 			/* Custom Scrollbar */
 			::-webkit-scrollbar { width: 8px; }
@@ -452,17 +456,15 @@
 						</span>
 					</h1>
 
-					<!-- SEO Optimized Screen-Reader Only Keyword Header (Google sees this, users see the clean design) -->
-					<h2 class="sr-only">Computer Science (CSE) Student at United International University (UIU), Bangladesh & Technology Enthusiast</h2>
-					
-					<!-- Static Visible Subtitle -->
-					<h3 class="text-lg sm:text-xl md:text-2xl font-semibold text-transparent bg-clip-text bg-gradient-to-r from-brand-accent to-[var(--text-muted)] tracking-wide mb-2 opacity-0" style="animation: fadeInSub 1s ease-out 4.2s forwards;">
-						A Computer Science Student
-					</h3>
-					
-					<!-- Rotating Subtitle -->
-					<div class="text-base sm:text-lg md:text-xl font-medium headline-subtitle mx-auto text-[var(--text-muted)] h-8 sm:h-10">
-						<div id="rotating-text-container" class="rotating-text-container"></div>
+					<!-- SEO Optimized Shuffling Headers (In the DOM for Google, Shuffling visually for users) -->
+					<div class="relative overflow-hidden h-8 sm:h-10 opacity-0 mx-auto w-full mb-4" style="animation: fadeInSub 1s ease-out 4.2s forwards;">
+						<h2 id="rotating-text-container" class="rotating-text-container">
+							<span class="rotating-text-item is-visible text-lg sm:text-xl md:text-2xl font-semibold text-[var(--text-muted)] tracking-wide">Computer Science (CSE) Student at UIU</span>
+							<span class="rotating-text-item text-lg sm:text-xl md:text-2xl font-semibold text-[var(--text-muted)] tracking-wide">Tech Enthusiast from Bangladesh</span>
+							<span class="rotating-text-item text-lg sm:text-xl md:text-2xl font-semibold text-[var(--text-muted)] tracking-wide">Web Developer & SEO Learner</span>
+							<span class="rotating-text-item text-lg sm:text-xl md:text-2xl font-semibold text-[var(--text-muted)] tracking-wide">Technology Blogger at TechTalk</span>
+							<span class="rotating-text-item text-lg sm:text-xl md:text-2xl font-semibold text-[var(--text-muted)] tracking-wide">HTML, CSS & Java Programmer</span>
+						</h2>
 					</div>
 					
 					<div class="mt-8 md:mt-10 explore-button-container">
@@ -486,9 +488,8 @@
 								id="profile-image-target"
 								src="Image/profile.jpg"
 								alt="Sourav Saha - Computer Science (CSE) student at UIU, Bangladesh"
-								class="relative rounded-full border-4 border-[var(--card-bg)] shadow-2xl w-48 h-48 sm:w-64 sm:h-64 lg:w-72 lg:h-72 mx-auto object-cover cursor-pointer z-10"
+								class="relative rounded-full border-4 border-[var(--card-bg)] shadow-2xl w-48 h-48 sm:w-64 sm:h-64 lg:w-72 lg:h-72 mx-auto object-cover z-10"
 								onerror="this.onerror=null;this.src='https://placehold.co/300x300/0f172a/ffffff?text=Sourav+Saha';"
-								title="Sourav Saha - Tech Enthusiast"
 								loading="lazy"
 							/>
 						</div>
@@ -499,19 +500,19 @@
 							</h2>
 							<div class="space-y-4 text-base sm:text-lg leading-relaxed text-[var(--text-muted)] font-medium">
 								<p>
-									I’m <strong class="text-[var(--text-main)]">Sourav Saha</strong>, a passionate <strong class="text-[var(--text-main)]">Computer Science (CSE) student</strong> at <em>United International University (UIU)</em>, Bangladesh and Campus Ambassador at Creative IT Institute.
+									I’m <strong class="text-[var(--text-main)]">Sourav Saha</strong>, a passionate <strong class="text-[var(--text-main)]">Computer Science (CSE) student</strong> at <em>United International University (UIU)</em>, Bangladesh. I am a dedicated technology enthusiast, an aspiring web developer, and the founder of the tech education platform, <span class="font-bold text-brand-accent">TechTalk with Sourav</span>. 
 								</p>
 								<p>
-									With a strong interest in technology and creativity, I’m constantly exploring ways to grow, connect, and make an impact as a <strong>tech enthusiast</strong> and the founder of <span class="font-bold text-brand-accent">TechTalk with Sourav</span>.
+									Currently exploring my journey as a UIU CSE student and Campus Ambassador at Creative IT Institute. With a deep-rooted interest in modern technology, I'm constantly learning as an HTML CSS developer student and SEO learner to build digital solutions that make a meaningful impact.
 								</p>
 								<div class="grid sm:grid-cols-2 gap-4 sm:gap-6 mt-8">
 									<div class="p-5 rounded-2xl bg-[var(--bg-main)] border border-[var(--card-border)] text-left shadow-sm hover:shadow-md transition-shadow">
 										<h3 class="font-bold text-brand-accent mb-2 text-lg"><i class="fa-solid fa-bullseye mr-2"></i>My Mission</h3>
-										<p class="text-sm">To empower myself and others through continuous learning and practical skill-building.</p>
+										<p class="text-sm">To empower myself and others through continuous learning, coding, and practical skill-building in the tech ecosystem.</p>
 									</div>
 									<div class="p-5 rounded-2xl bg-[var(--bg-main)] border border-[var(--card-border)] text-left shadow-sm hover:shadow-md transition-shadow">
 										<h3 class="font-bold text-brand-accent mb-2 text-lg"><i class="fa-solid fa-eye mr-2"></i>My Vision</h3>
-										<p class="text-sm">To become a tech leader who creates meaningful solutions and inspires others to innovate and grow with purpose.</p>
+										<p class="text-sm">To become a top developer in Bangladesh who creates meaningful software solutions and inspires others to innovate with purpose.</p>
 									</div>
 								</div>
 							</div>
@@ -1154,25 +1155,26 @@
 				}, { threshold: 0.3 });
 				sections.forEach(section => observerNav.observe(section));
 
-				// Rotating Text
+				// Rotating Text - SEO Integrated and Randomly Shuffled
 				const rotatingTextContainer = document.getElementById("rotating-text-container");
 				if (rotatingTextContainer) {
-					const texts = ["Tech Enthusiast from Bangladesh", "Web Development Learner", "Tech Blogger from UIU", "HTML & CSS Developer", "Open Source Contributor"];
-					let currentIndex = 0;
-					texts.forEach(text => {
-						const span = document.createElement("span");
-						span.textContent = text;
-						span.className = "rotating-text-item";
-						rotatingTextContainer.appendChild(span);
-					});
 					const items = rotatingTextContainer.querySelectorAll(".rotating-text-item");
-					if (items.length) {
-						items[0].classList.add("is-visible");
+					let currentIndex = 0;
+					if (items.length > 0) {
 						setInterval(() => {
-							items[currentIndex].classList.replace("is-visible", "is-hidden");
-							currentIndex = (currentIndex + 1) % items.length;
-							setTimeout(() => items[currentIndex].classList.replace("is-hidden", "is-visible"), 50);
-						}, 000);
+							items[currentIndex].classList.remove("is-visible");
+							items[currentIndex].classList.add("is-hidden");
+							
+							let nextIndex;
+							do {
+								nextIndex = Math.floor(Math.random() * items.length);
+							} while (nextIndex === currentIndex && items.length > 1);
+							
+							currentIndex = nextIndex;
+							
+							items[currentIndex].classList.remove("is-hidden");
+							setTimeout(() => items[currentIndex].classList.add("is-visible"), 50);
+						}, 3000);
 					}
 				}
 
@@ -1340,16 +1342,6 @@
 
 			function initEasterEggs() {
 				document.getElementById('close-secret-modal')?.addEventListener('click', closeModal);
-				
-				const profileImg = document.getElementById('profile-image-target');
-				if (profileImg) {
-					addDoubleTrigger(profileImg, () => {
-						profileImg.classList.add('digital-halo');
-						setTimeout(() => profileImg.classList.remove('digital-halo'), 1000);
-						showSecretModal("SYSTEM OVERRIDE", "Accessing deeper matrix levels... Developer mode visually confirmed.", true, 'ee_profile');
-						createConfettiEffect(['⚙️', '💻', '🔋']);
-					});
-				}
 
 				document.addEventListener('keydown', e => {
 					if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'e') {
