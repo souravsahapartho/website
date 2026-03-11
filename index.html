@@ -43,7 +43,8 @@
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 		<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet" />
 		<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
-		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+		<!-- Updated FontAwesome to latest version to ensure X logo support -->
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
 
 		<!-- Theme Init Script (Prevents FOUC) -->
 		<script>
@@ -698,6 +699,18 @@
 			<section id="portfolio" class="relative px-4 sm:px-6 lg:px-8 py-16 md:py-24 overflow-hidden">
 				<div class="bg-anim-portfolio"></div> <!-- Unique Section Animation -->
 				
+				<!-- Background Flying Icons (GitHub/Portfolio) -->
+				<div class="absolute inset-0 pointer-events-none z-0 overflow-hidden">
+					<i class="fa-brands fa-github floating-icon text-6xl" style="top: 10%; left: 5%; animation-duration: 8s; animation-delay: 0s;"></i>
+					<i class="fa-solid fa-book-bookmark floating-icon text-4xl" style="top: 20%; left: 85%; animation-duration: 9s; animation-delay: 1.5s;"></i>
+					<i class="fa-solid fa-code-branch floating-icon text-5xl" style="top: 50%; left: 10%; animation-duration: 7s; animation-delay: 2.5s;"></i>
+					<i class="fa-solid fa-code-fork floating-icon text-4xl" style="top: 65%; left: 90%; animation-duration: 8.5s; animation-delay: 0.5s;"></i>
+					<i class="fa-solid fa-star floating-icon text-3xl" style="top: 80%; left: 20%; animation-duration: 6.5s; animation-delay: 1.2s;"></i>
+					<i class="fa-solid fa-code-commit floating-icon text-5xl" style="top: 35%; left: 45%; animation-duration: 10s; animation-delay: 3s;"></i>
+					<i class="fa-solid fa-code floating-icon text-6xl" style="top: 85%; left: 75%; animation-duration: 7.5s; animation-delay: 0.8s;"></i>
+					<i class="fa-solid fa-terminal floating-icon text-4xl" style="top: 5%; left: 55%; animation-duration: 9.5s; animation-delay: 2s;"></i>
+				</div>
+
 				<div class="container mx-auto relative z-10" data-aos="fade-up">
 					<h2 class="text-3xl md:text-4xl font-extrabold text-center mb-12 text-glow text-[var(--text-main)]">Open Source Projects</h2>
 
@@ -860,9 +873,7 @@
 
 				<div class="flex flex-wrap justify-center gap-4 sm:space-x-5">
 					<a href="https://www.linkedin.com/in/souravsahapartho/" target="_blank" rel="noopener noreferrer" class="w-10 h-10 rounded-full bg-[var(--card-border)] flex items-center justify-center hover:bg-brand-accent hover:text-white transition-all text-lg text-[var(--text-main)]" title="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
-					<a href="https://github.com/souravsahapartho" target="_blank" rel="noopener noreferrer" class="w-10 h-10 rounded-full bg-[var(--card-border)] flex items-center justify-center hover:bg-brand-accent hover:text-white transition-all text-lg text-[var(--text-main)]" title="GitHub"><i class="fa-brands fa-github"></i></a>
 					<a href="https://x.com/souravpartho" target="_blank" rel="noopener noreferrer" class="w-10 h-10 rounded-full bg-[var(--card-border)] flex items-center justify-center hover:bg-brand-accent hover:text-white transition-all text-lg text-[var(--text-main)]" title="X (Twitter)"><i class="fa-brands fa-x-twitter"></i></a>
-					<a href="https://techtalkwithsourav.substack.com/" target="_blank" rel="noopener noreferrer" class="w-10 h-10 rounded-full bg-[var(--card-border)] flex items-center justify-center hover:bg-brand-accent hover:text-white transition-all text-lg text-[var(--text-main)]" title="Substack Blog"><i class="fa-solid fa-pen-nib"></i></a>
 					<a href="https://www.instagram.com/souravsahapartho/" target="_blank" rel="noopener noreferrer" class="w-10 h-10 rounded-full bg-[var(--card-border)] flex items-center justify-center hover:bg-brand-accent hover:text-white transition-all text-lg text-[var(--text-main)]" title="Instagram"><i class="fa-brands fa-instagram"></i></a>
 					<a href="https://www.facebook.com/souravsahapartho/" target="_blank" rel="noopener noreferrer" class="w-10 h-10 rounded-full bg-[var(--card-border)] flex items-center justify-center hover:bg-brand-accent hover:text-white transition-all text-lg text-[var(--text-main)]" title="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
 				</div>
