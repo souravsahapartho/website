@@ -156,8 +156,8 @@
 				content: ''; position: absolute; border-radius: 50%; filter: blur(80px); opacity: 0.4;
 				animation: floatOrb 10s infinite alternate ease-in-out;
 			}
-			.bg-anim-about::before { width: 300px; height: 300px; background: rgba(0, 194, 169, 0.15); top: 10%; left: 10%; }
-			.bg-anim-about::after { width: 250px; height: 250px; background: rgba(56, 189, 248, 0.1); bottom: 10%; right: 10%; animation-delay: -5s; }
+			.bg-anim-about::before { width: 40vw; max-width: 400px; height: 40vw; max-height: 400px; background: rgba(0, 194, 169, 0.15); top: 10%; left: 10%; }
+			.bg-anim-about::after { width: 35vw; max-width: 350px; height: 35vw; max-height: 350px; background: rgba(56, 189, 248, 0.1); bottom: 10%; right: 10%; animation-delay: -5s; }
 			@keyframes floatOrb { 0% { transform: translate(0, 0) scale(1); } 100% { transform: translate(50px, 50px) scale(1.2); } }
 
 			/* 3. Journey - Circuit Pattern */
@@ -528,7 +528,7 @@
 			</section>
 
 			<!-- Journey Section -->
-			<section id="experience-education" class="relative px-4 sm:px-6 lg:px-8 py-16 md:py-24">
+			<section id="experience-education" class="relative px-4 sm:px-6 lg:px-8 py-16 md:py-24 overflow-hidden">
 				<div class="bg-anim-journey"></div> <!-- Unique Section Animation -->
 				
 				<div class="container mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 relative z-10">
@@ -731,15 +731,15 @@
 					<h2 class="text-3xl md:text-4xl font-extrabold text-center mb-12 text-glow text-[var(--text-main)]">Open Source Projects</h2>
 
 					<!-- GitHub Profile Card -->
-					<div id="github-profile-card" class="glass-card rounded-3xl p-6 sm:p-8 md:p-10 mb-8 flex flex-col md:flex-row items-center justify-between border-brand-accent/30 shadow-[0_10px_30px_rgba(0,194,169,0.15)]" data-aos="fade-up">
-						<div class="flex flex-col sm:flex-row items-center flex-grow mb-6 md:mb-0 text-center sm:text-left w-full">
+					<div id="github-profile-card" class="glass-card rounded-3xl p-6 sm:p-8 md:p-10 mb-8 flex flex-col md:flex-row items-center justify-between border-brand-accent/30 shadow-[0_10px_30px_rgba(0,194,169,0.15)] gap-6" data-aos="fade-up">
+						<div class="flex flex-col sm:flex-row items-center flex-grow text-center sm:text-left w-full">
 							<img id="github-avatar" class="w-24 h-24 sm:w-20 sm:h-20 rounded-full border-4 border-[var(--bg-main)] shadow-lg sm:mr-6 mb-4 sm:mb-0" src="https://placehold.co/80x80/1e293b/ffffff?text=..." alt="Sourav Saha GitHub Profile" loading="lazy">
 							<div>
 								<h3 id="github-username" class="text-2xl font-extrabold text-glow text-[var(--text-main)]">Loading...</h3>
 								<p class="text-[var(--text-muted)] font-mono mt-2 font-bold"><i class="fa-solid fa-users mr-2 text-brand-accent"></i>Followers: <span id="follower-count" class="text-[var(--text-main)]">...</span></p>
 							</div>
 						</div>
-						<a id="follow-button" href="https://github.com/souravsahapartho" target="_blank" rel="noopener noreferrer" class="bg-brand-accent text-white font-bold py-3 px-8 rounded-full hover:bg-brand-accentHover transition-all hover:scale-105 shadow-glow w-full md:w-auto text-center" title="Double click for a secret!">
+						<a id="follow-button" href="https://github.com/souravsahapartho" target="_blank" rel="noopener noreferrer" class="whitespace-nowrap flex-shrink-0 bg-brand-accent text-white font-bold py-3 px-8 rounded-full hover:bg-brand-accentHover transition-all hover:scale-105 shadow-glow w-full md:w-auto text-center" title="Double click for a secret!">
 							<i class="fab fa-github mr-2"></i> Explore My GitHub
 						</a>
 					</div>
@@ -747,9 +747,10 @@
 					<!-- GitHub Contribution Chart -->
 					<div class="glass-card rounded-3xl p-6 sm:p-8 mb-12 border-[var(--card-border)] overflow-x-auto hide-scrollbar" data-aos="fade-up" data-aos-delay="100">
 						<h3 class="text-lg font-bold mb-6 text-[var(--text-main)] flex items-center"><i class="fa-solid fa-chart-pie mr-3 text-brand-accent"></i>Contribution Activity</h3>
-						<div class="w-full flex justify-center overflow-x-auto hide-scrollbar">
-							<!-- Removed hex color to default to GitHub Green. Added responsive min-w logic for mobile scrolling -->
-							<img src="https://ghchart.rshah.org/souravsahapartho" alt="Sourav's Github Contributions" class="w-full min-w-[550px] lg:min-w-full max-w-4xl opacity-90 hover:opacity-100 transition-opacity" decoding="async" />
+						
+						<!-- Clean, robust scroll container that prevents left-clipping -->
+						<div class="w-full min-w-[700px] max-w-4xl mx-auto">
+							<img src="https://ghchart.rshah.org/souravsahapartho" alt="Sourav's Github Contributions" class="w-full h-auto opacity-90 hover:opacity-100 transition-opacity block" decoding="async" />
 						</div>
 					</div>
 
