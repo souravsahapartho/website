@@ -1349,6 +1349,29 @@
 				fetchGithubRepos();
 				fetchSubstackPosts();
 				initEasterEggs();
+
+				// Network Recovery Logic (Auto reload if internet drops and reconnects)
+				window.addEventListener('online', () => {
+					// 1. Retry dynamic API fetches
+					fetchGithubProfile();
+					fetchGithubRepos();
+					fetchSubstackPosts();
+
+					// 2. Find ALL images on the page and intelligently force reload them
+					document.querySelectorAll('img').forEach(img => {
+						// Check if image failed to load, has 0 width, or is a dynamic chart/profile pic
+						if (!img.complete || img.naturalWidth === 0 || img.src.includes('ghchart') || img.src.includes('profile.jpg')) {
+							
+							// Remove any inline "display: none" set by previous onerror events (like in Substack cards)
+							img.style.display = '';
+							
+							// Clean existing retry params and force a fresh fetch with a timestamp
+							const baseUrl = img.src.split('?retry=')[0].split('&retry=')[0];
+							const separator = baseUrl.includes('?') ? '&' : '?';
+							img.src = baseUrl + separator + "retry=" + new Date().getTime();
+						}
+					});
+				});
 			});
 
 			async function fetchGithubProfile() {
