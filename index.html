@@ -43,6 +43,10 @@
 		<!-- Favicon -->
 		<link rel="icon" href="https://placehold.co/32x32/00c2a9/ffffff?text=SS" type="image/png" />
 
+		<!-- Preconnect to external APIs for faster loading -->
+		<link rel="preconnect" href="https://ghchart.rshah.org" />
+		<link rel="preconnect" href="https://wsrv.nl" />
+
 		<!-- Stylesheets & Fonts -->
 		<script src="https://cdn.tailwindcss.com"></script>
 		<link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -98,6 +102,7 @@
 				--glow-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow in light mode instead of neon glow */
 				--icon-opacity: 0.15; /* Slightly more visible background icons in light mode */
 				--preloader-glow: 0 0 20px rgba(0, 194, 169, 0.4);
+				--header-bg: rgba(255, 255, 255, 0.98); /* Highly opaque background for scrolled nav */
 			}
 
 			.dark {
@@ -111,6 +116,7 @@
 				--glow-shadow: 0 0 12px rgba(0, 194, 169, 0.5); /* Neon glow in dark mode */
 				--icon-opacity: 0.08;
 				--preloader-glow: 0 0 25px rgba(0, 194, 169, 0.6);
+				--header-bg: rgba(15, 23, 42, 0.98); /* Highly opaque background for scrolled nav */
 			}
 
 			/* General Base Styles */
@@ -213,7 +219,7 @@
 
 			/* Navigation & Layout styling */
 			header { transition: background-color 0.4s ease, backdrop-filter 0.4s ease; opacity: 0; animation: slideDown 1s ease-out 2.6s forwards; }
-			header.header-scrolled { background-color: var(--card-bg); backdrop-filter: blur(15px); border-bottom: 1px solid var(--card-border); }
+			header.header-scrolled { background-color: var(--header-bg); backdrop-filter: blur(15px); border-bottom: 1px solid var(--card-border); }
 			
 			.nav-link { position: relative; padding-bottom: 5px; transition: color 0.3s ease, transform 0.3s ease; font-weight: 600; }
 			.nav-link:hover { color: var(--accent); transform: translateY(-2px); }
@@ -310,7 +316,7 @@
 
 			/* Skill Progress Bars */
 			.progress-bar-container { width: 100%; background-color: var(--card-border); border-radius: 9999px; height: 8px; overflow: hidden; position: relative; }
-			.progress-bar { background-color: var(--accent); height: 100%; border-radius: 9999px; width: 0; transition: width 1.5s cubic-bezier(0.25, 1, 0.5, 1); cursor: pointer; box-shadow: var(--glow-shadow); }
+			.progress-bar { background-color: var(--accent); height: 100%; border-radius: 9999px; width: 0; transition: width 2s ease-out; cursor: pointer; box-shadow: var(--glow-shadow); will-change: width; }
 			
 			/* Confetti */
 			.confetti { position: fixed; inset: 0; pointer-events: none; z-index: 2000; overflow: hidden; }
@@ -725,7 +731,7 @@
 					<h2 class="text-3xl md:text-4xl font-extrabold text-center mb-12 text-glow text-[var(--text-main)]">Open Source Projects</h2>
 
 					<!-- GitHub Profile Card -->
-					<div id="github-profile-card" class="glass-card rounded-3xl p-6 sm:p-8 md:p-10 mb-12 flex flex-col md:flex-row items-center justify-between border-brand-accent/30 shadow-[0_10px_30px_rgba(0,194,169,0.15)]" data-aos="fade-up">
+					<div id="github-profile-card" class="glass-card rounded-3xl p-6 sm:p-8 md:p-10 mb-8 flex flex-col md:flex-row items-center justify-between border-brand-accent/30 shadow-[0_10px_30px_rgba(0,194,169,0.15)]" data-aos="fade-up">
 						<div class="flex flex-col sm:flex-row items-center flex-grow mb-6 md:mb-0 text-center sm:text-left w-full">
 							<img id="github-avatar" class="w-24 h-24 sm:w-20 sm:h-20 rounded-full border-4 border-[var(--bg-main)] shadow-lg sm:mr-6 mb-4 sm:mb-0" src="https://placehold.co/80x80/1e293b/ffffff?text=..." alt="Sourav Saha GitHub Profile" loading="lazy">
 							<div>
@@ -736,6 +742,15 @@
 						<a id="follow-button" href="https://github.com/souravsahapartho" target="_blank" rel="noopener noreferrer" class="bg-brand-accent text-white font-bold py-3 px-8 rounded-full hover:bg-brand-accentHover transition-all hover:scale-105 shadow-glow w-full md:w-auto text-center" title="Double click for a secret!">
 							<i class="fab fa-github mr-2"></i> Explore My GitHub
 						</a>
+					</div>
+
+					<!-- GitHub Contribution Chart -->
+					<div class="glass-card rounded-3xl p-6 sm:p-8 mb-12 border-[var(--card-border)] overflow-x-auto hide-scrollbar" data-aos="fade-up" data-aos-delay="100">
+						<h3 class="text-lg font-bold mb-6 text-[var(--text-main)] flex items-center"><i class="fa-solid fa-chart-pie mr-3 text-brand-accent"></i>Contribution Activity</h3>
+						<div class="w-full flex justify-center overflow-x-auto hide-scrollbar">
+							<!-- Removed hex color to default to GitHub Green. Added responsive min-w logic for mobile scrolling -->
+							<img src="https://ghchart.rshah.org/souravsahapartho" alt="Sourav's Github Contributions" class="w-full min-w-[550px] lg:min-w-full max-w-4xl opacity-90 hover:opacity-100 transition-opacity" decoding="async" />
+						</div>
 					</div>
 
 					<!-- Repos Grid -->
@@ -768,6 +783,12 @@
 						<p class="col-span-full text-center py-10 font-mono font-bold text-[var(--text-muted)]">
 							<i class="fa-solid fa-rss fa-spin mr-2"></i> Loading latest publications from Substack...
 						</p>
+					</div>
+					
+					<div class="mt-12 text-center">
+						<a href="https://blog.sourav.com.bd" target="_blank" rel="noopener noreferrer" class="inline-block border-2 border-brand-accent text-brand-accent dark:text-white font-bold py-3 px-8 rounded-full hover:bg-brand-accent hover:text-white transition-all transform hover:-translate-y-1 shadow-glow text-lg">
+							Read More Articles <i class="fa-solid fa-arrow-up-right-from-square ml-2"></i>
+						</a>
 					</div>
 				</div>
 			</section>
@@ -860,9 +881,8 @@
 								<textarea name="message" id="message" rows="5" required class="form-textarea resize-none font-medium" placeholder="Hello Sourav, let's build something awesome..." maxlength="200"></textarea>
 							</div>
 							
-							<button type="submit" class="w-full bg-brand-accent text-white font-bold py-4 rounded-xl hover:bg-brand-accentHover transition-all shadow-[0_10px_20px_rgba(0,194,169,0.3)] flex justify-center items-center group text-lg">
+							<button type="submit" id="submit-btn" class="w-full bg-brand-accent text-white font-bold py-4 rounded-xl hover:bg-brand-accentHover transition-all shadow-[0_10px_20px_rgba(0,194,169,0.3)] flex justify-center items-center group text-lg disabled:opacity-75 disabled:cursor-wait">
 								<span id="submit-btn-text" class="flex items-center">Transmit Data <i class="fa-solid fa-paper-plane ml-2 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform"></i></span>
-								<span id="submit-btn-loader" class="hidden w-6 h-6 border-3 border-white border-t-transparent rounded-full animate-spin"></span>
 							</button>
 							
 							<div id="form-status" class="mt-4 text-center font-mono text-sm font-bold"></div>
@@ -914,7 +934,7 @@
 
 		<!-- Newsletter Popup -->
 		<div id="newsletter-popup" class="fixed bottom-4 sm:bottom-6 right-4 sm:right-6 w-[calc(100%-2rem)] sm:w-[calc(100%-3rem)] max-w-[400px] glass-card border-brand-accent/30 rounded-3xl shadow-2xl z-[999] opacity-0 translate-y-full invisible transition-all duration-500">
-			<button id="close-newsletter-popup" class="absolute top-4 right-4 w-8 h-8 flex items-center justify-center rounded-full bg-[var(--card-border)] hover:bg-red-500 hover:text-white transition-colors text-[var(--text-main)]">&times;</button>
+			<button id="close-newsletter-popup" class="absolute top-4 right-4 w-8 h-8 flex items-center justify-center rounded-full bg-[var(--card-border)] hover:bg-brand-accent hover:text-white transition-colors text-[var(--text-main)]">&times;</button>
 			<div class="p-6 sm:p-8">
 				<div class="w-12 h-12 bg-brand-accent/20 text-brand-accent rounded-full flex items-center justify-center text-2xl mb-4"><i class="fa-solid fa-envelope-open-text"></i></div>
 				<h3 class="font-extrabold text-xl mb-2 text-[var(--text-main)]">Subscribe to TechTalk</h3>
@@ -922,7 +942,9 @@
 				<form id="newsletter-form" class="space-y-4">
 					<input type="hidden" name="Client IP Address" id="newsletter-client-ip-address" class="ip-address-input" value="N/A" />
 					<input type="email" name="email" class="form-input w-full font-medium" placeholder="your@email.com" required maxlength="40" />
-					<button type="submit" class="w-full bg-brand-accent text-white font-bold py-3 rounded-xl hover:bg-brand-accentHover transition-all shadow-glow text-lg">Subscribe Now</button>
+					<button type="submit" id="newsletter-submit-btn" class="w-full bg-brand-accent text-white font-bold py-3 rounded-xl hover:bg-brand-accentHover transition-all shadow-glow text-lg flex justify-center items-center disabled:opacity-75 disabled:cursor-wait">
+						<span id="newsletter-submit-text">Subscribe Now</span>
+					</button>
 					<div id="newsletter-status" class="mt-2 text-center text-sm font-mono font-bold"></div>
 				</form>
 			</div>
@@ -950,6 +972,7 @@
 			// Constants
 			const CONTACT_FORM_URL = "https://script.google.com/macros/s/AKfycbzMWfiGDExArJO8u3OUB1HubBnkrTVKL13XM49KByE2naa5rfi5jaytQbcDPRyz3_ROMQ/exec"; 
 			const NEWSLETTER_FORM_URL = "https://script.google.com/macros/s/AKfycbz75jSznR-_fgNrSHW3ctYtsY7FUX3gL6o_FJ27EC8gAX8NpoeId8v0QOhlaAjsZkb1XA/exec";
+			const WEB3FORMS_ACCESS_KEY = "9f4ad3eb-6a2c-42a1-b06c-ec515d72da59"; // Web3Forms Access Key
 			const PRELOADER_DELAY = 1500;
 			const GITHUB_USERNAME = "souravsahapartho";
 
@@ -1184,18 +1207,43 @@
 				document.getElementById("close-cv-modal")?.addEventListener("click", () => cvModal.classList.add("hidden"));
 				cvModal?.addEventListener("click", e => { if (e.target === cvModal) cvModal.classList.add("hidden"); });
 
-				// Contact Form
+				// Contact Form (Dual Submit: Google Sheets + Web3Forms)
 				const contactForm = document.getElementById("contact-form");
 				if (contactForm) {
+					const submitBtnText = document.getElementById("submit-btn-text");
+					const submitBtn = document.getElementById("submit-btn");
+					const originalBtnHTML = submitBtnText.innerHTML;
+
 					contactForm.addEventListener("submit", e => {
 						e.preventDefault();
 						const fd = new FormData(contactForm);
 						const payload = { fullName: fd.get("name"), email: fd.get("email"), message: fd.get("message") };
 						
-						document.getElementById("submit-btn-text").classList.add("hidden");
-						document.getElementById("submit-btn-loader").classList.remove("hidden");
+						// Update button state to "Transmitting..."
+						submitBtn.disabled = true;
+						submitBtnText.innerHTML = 'Transmitting... <i class="fa-solid fa-satellite-dish ml-2 animate-pulse"></i>';
 						
-						fetch(CONTACT_FORM_URL, { method: "POST", mode: "no-cors", headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload) })
+						// 1. Send to Google Sheets
+						const googlePromise = fetch(CONTACT_FORM_URL, { method: "POST", mode: "no-cors", headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload) });
+						
+						// 2. Send to Web3Forms to receive an email notification
+						const web3Payload = {
+							access_key: WEB3FORMS_ACCESS_KEY,
+							subject: "Reply from Sourav Saha",
+							from_name: payload.fullName,
+							name: payload.fullName,
+							email: payload.email,
+							message: payload.message,
+							"IP Address": fd.get("Client IP Address")
+						};
+						const web3Promise = fetch("https://api.web3forms.com/submit", {
+							method: "POST",
+							headers: { "Content-Type": "application/json", "Accept": "application/json" },
+							body: JSON.stringify(web3Payload)
+						});
+
+						// Wait for both promises to complete
+						Promise.all([googlePromise, web3Promise])
 						.then(() => {
 							document.getElementById("form-status").innerHTML = `<span class="text-brand-accent">Transmission successful, ${payload.fullName.split(' ')[0]}! 🚀</span>`;
 							contactForm.reset();
@@ -1203,26 +1251,66 @@
 						})
 						.catch(() => document.getElementById("form-status").innerHTML = `<span class="text-red-500">Transmission Failed. Check connection.</span>`)
 						.finally(() => {
-							document.getElementById("submit-btn-text").classList.remove("hidden");
-							document.getElementById("submit-btn-loader").classList.add("hidden");
+							// Revert button state
+							submitBtnText.innerHTML = originalBtnHTML;
+							submitBtn.disabled = false;
 							setTimeout(() => { document.getElementById("form-status").innerHTML = ""; }, 5000);
 						});
 					});
 				}
 
-				// Newsletter logic
+				// Newsletter logic (Dual Submit: Google Sheets + Web3Forms)
 				const newsletterPopup = document.getElementById("newsletter-popup");
 				const newsletterForm = document.getElementById("newsletter-form");
 				if (newsletterForm) {
+					const nSubmitBtn = document.getElementById("newsletter-submit-btn");
+					const nSubmitText = document.getElementById("newsletter-submit-text");
+					const originalNBtnHTML = nSubmitText.innerHTML;
+
 					newsletterForm.addEventListener("submit", e => {
 						e.preventDefault();
-						fetch(NEWSLETTER_FORM_URL, { method: "POST", mode: "no-cors", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ email: new FormData(newsletterForm).get("email") }) })
+						const fd = new FormData(newsletterForm);
+						const email = fd.get("email");
+						const ip = fd.get("Client IP Address");
+
+						// Update UI to loading state
+						nSubmitBtn.disabled = true;
+						nSubmitText.innerHTML = 'Subscribing...';
+
+						// 1. Send to Google Sheets
+						const googlePromise = fetch(NEWSLETTER_FORM_URL, { method: "POST", mode: "no-cors", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ email: email }) });
+
+						// 2. Send to Web3Forms to receive an email notification
+						const web3Payload = {
+							access_key: WEB3FORMS_ACCESS_KEY,
+							subject: "New Newsletter Subscriber - TechTalk",
+							from_name: "Newsletter Bot",
+							email: email,
+							message: `New subscriber email: ${email}\nIP Address: ${ip}`
+						};
+						const web3Promise = fetch("https://api.web3forms.com/submit", {
+							method: "POST",
+							headers: { "Content-Type": "application/json", "Accept": "application/json" },
+							body: JSON.stringify(web3Payload)
+						});
+
+						// Wait for both promises to complete
+						Promise.all([googlePromise, web3Promise])
 						.then(() => {
 							document.getElementById("newsletter-status").innerHTML = `<span class="text-brand-accent">Access Granted. Welcome to the loop. 🌐</span>`;
 							newsletterForm.reset();
 							createConfettiEffect(['🗞️', '💡', '🔥']);
 							localStorage.setItem("newsletterClosed", 'true');
 							setTimeout(() => { newsletterPopup.classList.replace("is-visible", "invisible"); newsletterPopup.style.opacity = '0'; }, 3000);
+						})
+						.catch(() => {
+							document.getElementById("newsletter-status").innerHTML = `<span class="text-red-500">Subscription Failed. Please try again.</span>`;
+						})
+						.finally(() => {
+							// Restore button state
+							nSubmitBtn.disabled = false;
+							nSubmitText.innerHTML = originalNBtnHTML;
+							setTimeout(() => { document.getElementById("newsletter-status").innerHTML = ""; }, 5000);
 						});
 					});
 				}
