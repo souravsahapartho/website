@@ -13,7 +13,7 @@
 		<meta name="google-site-verification" content="vTm-xq-2Z5tDTQ5sZ4vED1bsYXbuRm2bwLfwJ2SBdtQ" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-		<!-- SEO & Sharing Meta Tags (Highly Optimized) -->
+		<!-- SEO & Sharing Meta Tags -->
 		<title>Sourav Saha – CSE Student at UIU | Tech Enthusiast from Bangladesh</title>
 		<meta name="description" content="Sourav Saha is a Computer Science (CSE) student at United International University (UIU), Bangladesh and a technology enthusiast passionate about web development, SEO, and tech blogging.">
 		<meta name="keywords" content="Sourav Saha, Sourav Saha UIU, Sourav Saha CSE, Sourav Saha Bangladesh, Sourav Saha tech enthusiast, Sourav Saha computer science student, Sourav Saha developer, Sourav Saha portfolio, Sourav Saha website, Sourav Saha tech blog, UIU CSE student, United International University CSE student, CSE student UIU Bangladesh, Computer Science student UIU, Tech enthusiast Bangladesh, CSE student Bangladesh, Bangladesh technology blogger, HTML CSS developer student, C C++ programmer student, Java programming student, Web development learner, SEO learner Bangladesh, TechTalk with Sourav, technology blog Bangladesh, tech education blog, technology enthusiast from Bangladesh">
@@ -70,43 +70,40 @@
 								secondary: "#cbd5e1",
 								accent: "#00c2a9",
 								accentHover: "#00a591",
-								darkBg: "#0f172a",
-								darkCard: "rgba(30, 41, 59, 0.7)",
-								lightBg: "#f8fafc",
-								lightCard: "rgba(255, 255, 255, 0.8)",
 							}
 						},
-						boxShadow: {
-							'glass': '0 8px 32px 0 rgba(0, 0, 0, 0.1)',
-							'glass-light': '0 8px 32px 0 rgba(148, 163, 184, 0.2)',
-							'glow': '0 0 15px rgba(0, 194, 169, 0.5)',
-						}
 					},
 				},
 			};
 		</script>
 
 		<style>
-			/* CSS Variables for Theme Support */
+			/* CSS Variables for Robust Theme Support */
 			:root {
-				--bg-main: #f8fafc;
-				--text-main: #0f172a;
-				--text-muted: #475569;
-				--card-bg: rgba(255, 255, 255, 0.7);
-				--card-border: rgba(148, 163, 184, 0.2);
-				--glass-shadow: 0 8px 32px 0 rgba(148, 163, 184, 0.15);
+				--bg-main: #f4f7fb; /* Softer, cleaner light gray-blue background */
+				--text-main: #1e293b; /* Crisp dark slate for high readability */
+				--text-muted: #475569; /* Medium slate for secondary text */
+				--card-bg: rgba(255, 255, 255, 0.95); /* Pure white glass cards */
+				--card-border: rgba(148, 163, 184, 0.3);
+				--glass-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.08);
 				--accent: #00c2a9;
-				--anim-grid: rgba(0, 194, 169, 0.1);
+				--anim-grid: rgba(0, 194, 169, 0.08);
+				--glow-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow in light mode instead of neon glow */
+				--icon-opacity: 0.15; /* Slightly more visible background icons in light mode */
+				--preloader-glow: 0 0 20px rgba(0, 194, 169, 0.4);
 			}
 
 			.dark {
 				--bg-main: #0f172a;
-				--text-main: #ffffff;
+				--text-main: #f8fafc;
 				--text-muted: #cbd5e1;
 				--card-bg: rgba(30, 41, 59, 0.6);
 				--card-border: rgba(255, 255, 255, 0.1);
 				--glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
 				--anim-grid: rgba(0, 194, 169, 0.15);
+				--glow-shadow: 0 0 12px rgba(0, 194, 169, 0.5); /* Neon glow in dark mode */
+				--icon-opacity: 0.08;
+				--preloader-glow: 0 0 25px rgba(0, 194, 169, 0.6);
 			}
 
 			/* General Base Styles */
@@ -121,7 +118,7 @@
 			}
 			
 			/* Utilities */
-			.text-glow { text-shadow: 0 0 8px rgba(0, 194, 169, 0.4); }
+			.text-glow { text-shadow: var(--glow-shadow); transition: text-shadow 0.4s ease; }
 			.glass-card {
 				background: var(--card-bg);
 				backdrop-filter: blur(12px);
@@ -130,20 +127,18 @@
 				box-shadow: var(--glass-shadow);
 				transition: all 0.3s ease;
 			}
-			.glass-card:hover { transform: translateY(-5px); box-shadow: 0 12px 40px rgba(0, 194, 169, 0.2); border-color: rgba(0, 194, 169, 0.4); }
+			.glass-card:hover { transform: translateY(-5px); box-shadow: 0 12px 40px rgba(0, 194, 169, 0.15); border-color: rgba(0, 194, 169, 0.4); }
 
 			/* =================================================================
 			   UNIQUE SECTION ANIMATIONS (CSS Based)
 			   ================================================================= */
 			
-			/* 1. Hero Particle Canvas (Restricted to relative container now) */
+			/* 1. Hero Particle Canvas */
 			#home { position: relative; overflow: hidden; }
-			#particle-canvas { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; }
+			#particle-canvas { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; transition: opacity 0.4s ease; }
 
 			/* 2. About - Floating Neural/Orb Animation */
-			.bg-anim-about {
-				position: absolute; inset: 0; z-index: -1; overflow: hidden; pointer-events: none;
-			}
+			.bg-anim-about { position: absolute; inset: 0; z-index: -1; overflow: hidden; pointer-events: none; }
 			.bg-anim-about::before, .bg-anim-about::after {
 				content: ''; position: absolute; border-radius: 50%; filter: blur(80px); opacity: 0.4;
 				animation: floatOrb 10s infinite alternate ease-in-out;
@@ -181,9 +176,7 @@
 			}
 
 			/* 6. Articles - Data Stream */
-			.bg-anim-articles {
-				position: absolute; inset: 0; z-index: -1; pointer-events: none; overflow: hidden;
-			}
+			.bg-anim-articles { position: absolute; inset: 0; z-index: -1; pointer-events: none; overflow: hidden; }
 			.data-drop {
 				position: absolute; width: 1px; background: linear-gradient(to bottom, transparent, var(--accent));
 				animation: dropFall 3s linear infinite; opacity: 0;
@@ -198,11 +191,24 @@
 			}
 			@keyframes pulseWave { 0% { opacity: 0.5; transform: scale(0.95); } 100% { opacity: 1; transform: scale(1.05); } }
 
+			/* Floating Background Icons */
+			@keyframes floatIconAnim {
+				0% { transform: translateY(0) translateX(0) rotate(0deg); }
+				50% { transform: translateY(-30px) translateX(15px) rotate(15deg); }
+				100% { transform: translateY(-60px) translateX(-15px) rotate(-15deg); }
+			}
+			.floating-icon {
+				position: absolute;
+				color: var(--accent);
+				opacity: var(--icon-opacity);
+				animation: floatIconAnim 8s ease-in-out infinite alternate;
+			}
+
 			/* Navigation & Layout styling */
 			header { transition: background-color 0.4s ease, backdrop-filter 0.4s ease; opacity: 0; animation: slideDown 1s ease-out 2.6s forwards; }
 			header.header-scrolled { background-color: var(--card-bg); backdrop-filter: blur(15px); border-bottom: 1px solid var(--card-border); }
 			
-			.nav-link { position: relative; padding-bottom: 5px; transition: color 0.3s ease, transform 0.3s ease; color: var(--text-main); font-weight: 500; }
+			.nav-link { position: relative; padding-bottom: 5px; transition: color 0.3s ease, transform 0.3s ease; font-weight: 600; }
 			.nav-link:hover { color: var(--accent); transform: translateY(-2px); }
 			.nav-link::after {
 				content: ""; position: absolute; bottom: 0; left: 0; width: 100%; height: 2px;
@@ -212,17 +218,18 @@
 			.nav-link.active-link { color: var(--accent); }
 
 			/* Form Styles */
-			.form-label { font-size: 0.875rem; font-weight: 500; color: var(--text-muted); }
+			.form-label { font-size: 0.875rem; font-weight: 600; color: var(--text-muted); }
 			.form-input, .form-textarea {
 				width: 100%; padding: 0.875rem 1.25rem; border-radius: 0.5rem;
 				background-color: var(--card-bg); border: 1px solid var(--card-border);
 				color: var(--text-main); transition: border-color 0.3s ease, box-shadow 0.3s ease;
 			}
+			.form-input::placeholder, .form-textarea::placeholder { color: var(--text-muted); opacity: 0.6; }
 			.form-input:focus, .form-textarea:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px rgba(0, 194, 169, 0.2); }
 			
 			/* Modals */
 			.modal-overlay {
-				position: fixed; inset: 0; background-color: rgba(0, 0, 0, 0.6); backdrop-filter: blur(8px);
+				position: fixed; inset: 0; background-color: rgba(0, 0, 0, 0.7); backdrop-filter: blur(8px);
 				display: flex; justify-content: center; align-items: center; z-index: 1000;
 				opacity: 0; visibility: hidden; transition: opacity 0.3s ease, visibility 0.3s ease;
 			}
@@ -234,27 +241,27 @@
 			}
 			.modal-overlay:not(.hidden) .modal-content { transform: scale(1); }
 
-			/* Preloader (Kept dark & immersive) */
+			/* Preloader */
 			#preloader {
-				position: fixed; inset: 0; background-color: #0f172a; z-index: 9999;
+				position: fixed; inset: 0; background-color: var(--bg-main); z-index: 9999;
 				display: flex; justify-content: center; align-items: center; transition: opacity 0.8s ease-out, visibility 0.8s ease-out;
 			}
 			#preloader.hidden { opacity: 0; visibility: hidden; }
 			.loader-content { position: relative; width: 160px; height: 160px; display: flex; justify-content: center; align-items: center; }
-			.loader-text { font-family: 'Inter', sans-serif; font-size: 5rem; font-weight: 800; color: #ffffff; z-index: 20; position: relative; text-shadow: 0 0 25px rgba(0, 194, 169, 0.6); animation: pulseText 2s ease-in-out infinite; }
-			.loader-ring-dashed { position: absolute; width: 100%; height: 100%; border: 2px dashed rgba(148, 163, 184, 0.3); border-radius: 50%; animation: spinSlow 12s linear infinite; }
-			.loader-ring-glow { position: absolute; width: 82%; height: 82%; border-radius: 50%; border: 3px solid transparent; border-top-color: var(--accent); border-bottom-color: var(--accent); animation: spinFast 1.5s cubic-bezier(0.5, 0, 0.5, 1) infinite; box-shadow: 0 0 15px rgba(0, 194, 169, 0.1); }
+			.loader-text { font-family: 'Inter', sans-serif; font-size: 5rem; font-weight: 800; color: var(--accent); z-index: 20; position: relative; text-shadow: var(--preloader-glow); animation: pulseText 2s ease-in-out infinite; }
+			.loader-ring-dashed { position: absolute; width: 100%; height: 100%; border: 2px dashed rgba(148, 163, 184, 0.4); border-radius: 50%; animation: spinSlow 12s linear infinite; }
+			.loader-ring-glow { position: absolute; width: 82%; height: 82%; border-radius: 50%; border: 3px solid transparent; border-top-color: var(--accent); border-bottom-color: var(--accent); animation: spinFast 1.5s cubic-bezier(0.5, 0, 0.5, 1) infinite; box-shadow: 0 0 15px rgba(0, 194, 169, 0.2); }
 			.loader-orbit { position: absolute; width: 130%; height: 130%; border-radius: 50%; animation: spinOrbit 3s linear infinite; }
-			.loader-orbit::before { content: ''; position: absolute; top: 50%; left: -4px; width: 8px; height: 8px; background-color: #ffffff; border-radius: 50%; box-shadow: 0 0 15px var(--accent), 0 0 5px #ffffff; }
-			.loader-diamond { position: absolute; width: 55%; height: 55%; border: 1px solid rgba(0, 194, 169, 0.2); transform: rotate(45deg); animation: breatheDiamond 3s ease-in-out infinite; }
+			.loader-orbit::before { content: ''; position: absolute; top: 50%; left: -4px; width: 8px; height: 8px; background-color: var(--accent); border-radius: 50%; box-shadow: 0 0 15px var(--accent); }
+			.loader-diamond { position: absolute; width: 55%; height: 55%; border: 1px solid rgba(0, 194, 169, 0.4); transform: rotate(45deg); animation: breatheDiamond 3s ease-in-out infinite; }
 
 			@keyframes spinSlow { 100% { transform: rotate(360deg); } }
 			@keyframes spinFast { 100% { transform: rotate(360deg); } }
 			@keyframes spinOrbit { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-			@keyframes pulseText { 0%, 100% { transform: scale(1); opacity: 1; text-shadow: 0 0 25px rgba(0, 194, 169, 0.6); } 50% { transform: scale(0.95); opacity: 0.9; text-shadow: 0 0 15px rgba(0, 194, 169, 0.3); } }
-			@keyframes breatheDiamond { 0%, 100% { transform: rotate(45deg) scale(1); border-color: rgba(0, 194, 169, 0.2); } 50% { transform: rotate(45deg) scale(1.2); border-color: rgba(0, 194, 169, 0.5); } }
+			@keyframes pulseText { 0%, 100% { transform: scale(1); opacity: 1; text-shadow: var(--preloader-glow); } 50% { transform: scale(0.95); opacity: 0.8; text-shadow: 0 0 10px rgba(0,194,169,0.2); } }
+			@keyframes breatheDiamond { 0%, 100% { transform: rotate(45deg) scale(1); border-color: rgba(0, 194, 169, 0.3); } 50% { transform: rotate(45deg) scale(1.2); border-color: rgba(0, 194, 169, 0.6); } }
 
-			/* Animations for Hero and interactions */
+			/* Hero Animations */
 			@keyframes slideDown { from { opacity: 0; transform: translateY(-100%); } to { opacity: 1; transform: translateY(0); } }
 			.animated-headline .char { display: inline-block; opacity: 0; transform: translateY(100%) rotate(10deg); transform-origin: bottom left; animation: reveal-char 0.7s cubic-bezier(0.2, 0.8, 0.2, 1) forwards; }
 			@keyframes reveal-char { to { opacity: 1; transform: translateY(0) rotate(0); } }
@@ -273,7 +280,7 @@
 			.letter-base { display: inline-block; opacity: 0; position: relative; transform-origin: center bottom; color: var(--accent); }
 			.letter-s-start { animation: s-draw 0.8s cubic-bezier(0.22, 0.9, 0.3, 1) forwards, s-glow 2s ease-in-out infinite 1s; }
 			@keyframes s-draw { 0% { clip-path: inset(0 100% 0 0); opacity: 0; transform: translateX(-10px); } 100% { clip-path: inset(0 0 0 0); opacity: 1; transform: translateX(0); } }
-			@keyframes s-glow { 0%, 100% { text-shadow: 0 0 5px rgba(0,194,169,0.2); } 50% { text-shadow: 0 0 15px rgba(0,194,169,0.5); } }
+			@keyframes s-glow { 0%, 100% { filter: brightness(1); } 50% { filter: brightness(1.2); text-shadow: var(--glow-shadow); } }
 			.letter-o { animation: o-reveal 0.7s cubic-bezier(0.22, 0.9, 0.3, 1) forwards; }
 			@keyframes o-reveal { 0% { transform: scale(0); opacity: 0; } 60% { transform: scale(1.1); opacity: 1; } 100% { transform: scale(1); opacity: 1; } }
 			.letter-u { animation: u-bounce 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards; }
@@ -296,7 +303,7 @@
 
 			/* Skill Progress Bars */
 			.progress-bar-container { width: 100%; background-color: var(--card-border); border-radius: 9999px; height: 8px; overflow: hidden; position: relative; }
-			.progress-bar { background-color: var(--accent); height: 100%; border-radius: 9999px; width: 0; transition: width 1.5s cubic-bezier(0.25, 1, 0.5, 1); cursor: pointer; box-shadow: 0 0 10px rgba(0,194,169,0.5); }
+			.progress-bar { background-color: var(--accent); height: 100%; border-radius: 9999px; width: 0; transition: width 1.5s cubic-bezier(0.25, 1, 0.5, 1); cursor: pointer; box-shadow: var(--glow-shadow); }
 			
 			/* Confetti */
 			.confetti { position: fixed; inset: 0; pointer-events: none; z-index: 2000; overflow: hidden; }
@@ -306,7 +313,7 @@
 
 			/* Easter Egg Glow */
 			#profile-image-target { transform: scale(1); transition: transform 0.3s ease, box-shadow 0.3s ease; }
-			#profile-image-target:hover { transform: scale(1.02); box-shadow: var(--glow); }
+			#profile-image-target:hover { transform: scale(1.02); box-shadow: var(--glass-shadow); }
 			.digital-halo { animation: digitalPulse 1s ease-out; transform: scale(1.05); }
 			@keyframes digitalPulse { 0% { box-shadow: 0 0 0 0 rgba(0, 194, 169, 0.7); } 70% { box-shadow: 0 0 0 20px rgba(0, 194, 169, 0); } 100% { box-shadow: 0 0 0 0 rgba(0, 194, 169, 0); } }
 			
@@ -315,6 +322,12 @@
 			::-webkit-scrollbar-track { background: var(--bg-main); }
 			::-webkit-scrollbar-thumb { background: var(--card-border); border-radius: 4px; }
 			::-webkit-scrollbar-thumb:hover { background: var(--accent); }
+
+			/* Timeline Utilities */
+			.timeline-container { border-left: 2px solid rgba(0, 194, 169, 0.5); padding-left: 1.5rem; margin-left: 0.5rem; }
+			@media (min-width: 768px) { .timeline-container { padding-left: 2rem; } }
+			.timeline-dot { position: absolute; width: 1rem; height: 1rem; border-radius: 50%; background-color: var(--accent); border: 4px solid var(--bg-main); top: 1.5rem; left: -1.5rem; transform: translateX(-6px); box-shadow: var(--glow-shadow); }
+			@media (min-width: 768px) { .timeline-dot { left: -2rem; } }
 		</style>
 
 		<!-- JSON-LD Schema Markup for SEO -->
@@ -409,13 +422,13 @@
 
 			<!-- Mobile Menu -->
 			<div id="mobile-menu" class="hidden md:hidden glass-card absolute w-full top-full left-0 border-t-0 rounded-b-xl shadow-xl">
-				<a href="#about" class="block py-3 px-6 text-sm font-medium hover:bg-brand-accent/10">About</a>
-				<a href="#experience-education" class="block py-3 px-6 text-sm font-medium hover:bg-brand-accent/10">Journey</a>
-				<a href="#skills" class="block py-3 px-6 text-sm font-medium hover:bg-brand-accent/10">Skills</a>
-				<a href="#portfolio" class="block py-3 px-6 text-sm font-medium hover:bg-brand-accent/10">Portfolio</a>
-				<a href="#articles" class="block py-3 px-6 text-sm font-medium hover:bg-brand-accent/10">Articles</a>
-				<a href="#contact" class="block py-3 px-6 text-sm font-medium hover:bg-brand-accent/10">Contact</a>
-				<div class="px-6 py-4 border-t border-slate-200 dark:border-white/10">
+				<a href="#about" class="block py-3 px-6 text-sm font-bold text-[var(--text-main)] hover:bg-brand-accent/10">About</a>
+				<a href="#experience-education" class="block py-3 px-6 text-sm font-bold text-[var(--text-main)] hover:bg-brand-accent/10">Journey</a>
+				<a href="#skills" class="block py-3 px-6 text-sm font-bold text-[var(--text-main)] hover:bg-brand-accent/10">Skills</a>
+				<a href="#portfolio" class="block py-3 px-6 text-sm font-bold text-[var(--text-main)] hover:bg-brand-accent/10">Portfolio</a>
+				<a href="#articles" class="block py-3 px-6 text-sm font-bold text-[var(--text-main)] hover:bg-brand-accent/10">Articles</a>
+				<a href="#contact" class="block py-3 px-6 text-sm font-bold text-[var(--text-main)] hover:bg-brand-accent/10">Contact</a>
+				<div class="px-6 py-4 border-t border-[var(--card-border)]">
 					<button class="open-cv-btn w-full text-center bg-brand-accent text-white font-bold py-2 px-5 rounded-full text-sm hover:bg-brand-accentHover transition-all">
 						Download CV
 					</button>
@@ -430,19 +443,19 @@
 				<canvas id="particle-canvas"></canvas>
 				
 				<div class="container mx-auto text-center z-10 relative">
-					<h1 class="animated-headline text-5xl sm:text-6xl md:text-7xl font-bold leading-tight mb-4" aria-label="Hi, I'm Sourav Saha">
-						<span class="line-1 drop-shadow-md">Hi,</span><br />
-						<span class="line-2 drop-shadow-md">I'm </span>
+					<h1 class="animated-headline text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold leading-tight mb-4" aria-label="Hi, I'm Sourav Saha">
+						<span class="line-1 drop-shadow-md text-[var(--text-main)]">Hi,</span><br />
+						<span class="line-2 drop-shadow-md text-[var(--text-main)]">I'm </span>
 						<span id="hero-name-container" class="name-container drop-shadow-lg" aria-label="Sourav Saha">
 							<noscript>Sourav Saha</noscript>
 						</span>
 					</h1>
 					
-					<h2 class="text-xl md:text-2xl text-slate-600 dark:text-slate-300 font-medium headline-subtitle mx-auto">
+					<h2 class="text-lg sm:text-xl md:text-2xl font-semibold headline-subtitle mx-auto text-[var(--text-muted)]">
 						<div id="rotating-text-container" class="rotating-text-container"></div>
 					</h2>
 					
-					<div class="mt-10 explore-button-container">
+					<div class="mt-8 md:mt-10 explore-button-container">
 						<a href="#about" class="inline-block bg-brand-accent text-white font-bold py-3 px-8 rounded-full hover:bg-brand-accentHover transition-all transform hover:-translate-y-1 shadow-lg hover:shadow-brand-accent/50">
 							Explore My Profile
 						</a>
@@ -451,43 +464,43 @@
 			</section>
 
 			<!-- About Section -->
-			<section id="about" class="relative px-4 sm:px-6 lg:px-8 py-20 md:py-28 overflow-hidden">
+			<section id="about" class="relative px-4 sm:px-6 lg:px-8 py-16 md:py-24 overflow-hidden">
 				<div class="bg-anim-about"></div> <!-- Unique Section Animation -->
 				
 				<div class="container mx-auto relative z-10">
-					<div class="glass-card rounded-2xl p-8 md:p-12 flex flex-col md:flex-row items-center gap-10 md:gap-16" data-aos="fade-up">
+					<div class="glass-card rounded-3xl p-6 sm:p-8 md:p-12 flex flex-col lg:flex-row items-center gap-8 md:gap-12 lg:gap-16" data-aos="fade-up">
 						
-						<div class="w-full md:w-1/3 flex-shrink-0 relative group">
+						<div class="w-full lg:w-1/3 flex-shrink-0 relative group max-w-[280px] lg:max-w-none mx-auto">
 							<div class="absolute inset-0 bg-brand-accent/20 rounded-full blur-2xl group-hover:bg-brand-accent/40 transition-all duration-500"></div>
 							<img
 								id="profile-image-target"
 								src="Image/profile.jpg"
 								alt="Sourav Saha - Computer Science (CSE) student at UIU, Bangladesh"
-								class="relative rounded-full border-4 border-white/10 shadow-2xl w-56 h-56 sm:w-72 sm:h-72 mx-auto object-cover cursor-pointer z-10"
+								class="relative rounded-full border-4 border-[var(--card-bg)] shadow-2xl w-48 h-48 sm:w-64 sm:h-64 lg:w-72 lg:h-72 mx-auto object-cover cursor-pointer z-10"
 								onerror="this.onerror=null;this.src='https://placehold.co/300x300/0f172a/ffffff?text=Sourav+Saha';"
 								title="Sourav Saha - Tech Enthusiast"
 								loading="lazy"
 							/>
 						</div>
 						
-						<div class="w-full md:w-2/3 text-center md:text-left">
-							<h2 id="about-me-title-target" class="text-3xl md:text-5xl font-extrabold mb-6 text-glow cursor-pointer">
+						<div class="w-full lg:w-2/3 text-center lg:text-left">
+							<h2 id="about-me-title-target" class="text-3xl md:text-4xl lg:text-5xl font-extrabold mb-6 text-glow cursor-pointer text-[var(--text-main)]">
 								About Me
 							</h2>
-							<div class="space-y-4 text-slate-700 dark:text-brand-secondary text-lg leading-relaxed">
+							<div class="space-y-4 text-base sm:text-lg leading-relaxed text-[var(--text-muted)] font-medium">
 								<p>
-									I’m <strong>Sourav Saha</strong>, a passionate <strong>Computer Science (CSE) student</strong> at <em>United International University (UIU)</em>, Bangladesh. I am a dedicated <strong>technology enthusiast</strong>, an aspiring web developer, and the founder of the tech education platform, <span class="font-semibold text-brand-accent">TechTalk with Sourav</span>. 
+									I’m <strong class="text-[var(--text-main)]">Sourav Saha</strong>, a passionate <strong class="text-[var(--text-main)]">Computer Science (CSE) student</strong> at <em>United International University (UIU)</em>, Bangladesh. I am a dedicated technology enthusiast, an aspiring web developer, and the founder of the tech education platform, <span class="font-bold text-brand-accent">TechTalk with Sourav</span>. 
 								</p>
 								<p>
-									Currently exploring my journey as a <strong>UIU CSE student</strong> and Campus Ambassador at Creative IT Institute. With a deep-rooted interest in modern technology, I'm constantly learning as an <strong>HTML CSS developer student</strong> and <strong>SEO learner</strong> to build digital solutions that make a meaningful impact.
+									Currently exploring my journey as a UIU CSE student and Campus Ambassador at Creative IT Institute. With a deep-rooted interest in modern technology, I'm constantly learning as an HTML CSS developer student and SEO learner to build digital solutions that make a meaningful impact.
 								</p>
-								<div class="grid md:grid-cols-2 gap-6 mt-6">
-									<div class="p-4 rounded-xl bg-slate-100/50 dark:bg-white/5 border border-slate-200 dark:border-white/10">
-										<h3 class="font-bold text-brand-accent mb-2"><i class="fa-solid fa-bullseye mr-2"></i>My Mission</h3>
+								<div class="grid sm:grid-cols-2 gap-4 sm:gap-6 mt-8">
+									<div class="p-5 rounded-2xl bg-[var(--bg-main)] border border-[var(--card-border)] text-left shadow-sm hover:shadow-md transition-shadow">
+										<h3 class="font-bold text-brand-accent mb-2 text-lg"><i class="fa-solid fa-bullseye mr-2"></i>My Mission</h3>
 										<p class="text-sm">To empower myself and others through continuous learning, coding, and practical skill-building in the tech ecosystem.</p>
 									</div>
-									<div class="p-4 rounded-xl bg-slate-100/50 dark:bg-white/5 border border-slate-200 dark:border-white/10">
-										<h3 class="font-bold text-brand-accent mb-2"><i class="fa-solid fa-eye mr-2"></i>My Vision</h3>
+									<div class="p-5 rounded-2xl bg-[var(--bg-main)] border border-[var(--card-border)] text-left shadow-sm hover:shadow-md transition-shadow">
+										<h3 class="font-bold text-brand-accent mb-2 text-lg"><i class="fa-solid fa-eye mr-2"></i>My Vision</h3>
 										<p class="text-sm">To become a top developer in Bangladesh who creates meaningful software solutions and inspires others to innovate with purpose.</p>
 									</div>
 								</div>
@@ -498,154 +511,183 @@
 			</section>
 
 			<!-- Journey Section -->
-			<section id="experience-education" class="relative px-4 sm:px-6 lg:px-8 py-20 md:py-28">
+			<section id="experience-education" class="relative px-4 sm:px-6 lg:px-8 py-16 md:py-24">
 				<div class="bg-anim-journey"></div> <!-- Unique Section Animation -->
 				
 				<div class="container mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 relative z-10">
 					<!-- Experience Timeline -->
-					<div id="experience" data-aos="fade-right">
-						<h2 class="text-3xl md:text-4xl font-bold text-center mb-10 text-glow">Experience</h2>
-						<div class="max-w-3xl mx-auto border-l-2 border-brand-accent/50 pl-6 sm:pl-10 relative space-y-10">
-							
-							<div class="relative glass-card p-6 rounded-xl hover:-translate-y-1 transition-transform">
-								<div class="absolute -left-[37px] sm:-left-[53px] top-6 w-5 h-5 rounded-full bg-brand-accent border-4 border-[var(--bg-main)] shadow-glow"></div>
-								<h3 class="text-xl font-bold">Campus Ambassador</h3>
-								<p class="text-md text-brand-accent font-medium mb-2">Creative IT Institute</p>
-								<div class="flex flex-wrap gap-3 text-xs text-slate-500 dark:text-slate-400 mb-3 font-mono bg-slate-100 dark:bg-slate-800/50 inline-block px-3 py-1 rounded-md">
-									<span><i class="fa-solid fa-location-dot mr-1"></i>Dhaka, Bangladesh</span>
-									<span><i class="fa-solid fa-calendar mr-1"></i>Jun 2025 – Present</span>
+					<div id="experience" data-aos="fade-right" class="relative">
+						<!-- Background Flying Icons (Experience) -->
+						<div class="absolute inset-0 pointer-events-none z-0 overflow-hidden">
+							<i class="fa-solid fa-briefcase floating-icon text-5xl" style="top: 5%; left: 0%; animation-duration: 7s; animation-delay: 0s;"></i>
+							<i class="fa-solid fa-laptop-code floating-icon text-6xl" style="top: 25%; left: 85%; animation-duration: 9s; animation-delay: 1s;"></i>
+							<i class="fa-solid fa-gear floating-icon text-5xl" style="top: 50%; left: -5%; animation-duration: 6s; animation-delay: 2s;"></i>
+							<i class="fa-solid fa-chart-line floating-icon text-6xl" style="top: 75%; left: 80%; animation-duration: 8s; animation-delay: 0.5s;"></i>
+							<i class="fa-solid fa-folder floating-icon text-5xl" style="top: 90%; left: 10%; animation-duration: 10s; animation-delay: 1.5s;"></i>
+							<i class="fa-solid fa-trophy floating-icon text-6xl" style="top: 40%; left: 40%; animation-duration: 7.5s; animation-delay: 2.5s;"></i>
+						</div>
+						
+						<div class="relative z-10">
+							<h2 class="text-3xl md:text-4xl font-extrabold text-center mb-10 text-glow text-[var(--text-main)]">Experience</h2>
+							<div class="max-w-3xl mx-auto timeline-container relative space-y-8">
+								
+								<div class="relative glass-card p-5 sm:p-6 rounded-2xl hover:-translate-y-1 transition-transform">
+									<div class="timeline-dot"></div>
+									<h3 class="text-lg sm:text-xl font-bold text-[var(--text-main)]">Campus Ambassador</h3>
+									<p class="text-sm sm:text-md text-brand-accent font-semibold mb-3">Creative IT Institute</p>
+									<div class="flex flex-wrap gap-2 sm:gap-3 text-xs font-mono bg-[var(--bg-main)] text-[var(--text-muted)] inline-flex px-3 py-1.5 rounded-lg border border-[var(--card-border)] mb-4">
+										<span class="flex items-center"><i class="fa-solid fa-location-dot mr-1.5"></i>Dhaka, Bangladesh</span>
+										<span class="hidden sm:inline">|</span>
+										<span class="flex items-center"><i class="fa-solid fa-calendar mr-1.5"></i>Jun 2025 – Present</span>
+									</div>
+									<ul class="list-none space-y-2 text-sm text-[var(--text-muted)] font-medium">
+										<li class="flex items-start"><i class="fa-solid fa-check text-brand-accent mt-1 mr-2 text-xs flex-shrink-0"></i>Promoting tech learning programs and courses among students and peers.</li>
+										<li class="flex items-start"><i class="fa-solid fa-check text-brand-accent mt-1 mr-2 text-xs flex-shrink-0"></i>Organizing and representing the institute at campus events.</li>
+									</ul>
 								</div>
-								<ul class="list-none space-y-2 text-sm text-slate-700 dark:text-slate-300">
-									<li class="flex items-start"><i class="fa-solid fa-check text-brand-accent mt-1 mr-2 text-xs"></i>Promoting tech learning programs and courses among students and peers.</li>
-									<li class="flex items-start"><i class="fa-solid fa-check text-brand-accent mt-1 mr-2 text-xs"></i>Organizing and representing the institute at campus events.</li>
-								</ul>
-							</div>
 
-							<div class="relative glass-card p-6 rounded-xl hover:-translate-y-1 transition-transform">
-								<div class="absolute -left-[37px] sm:-left-[53px] top-6 w-5 h-5 rounded-full bg-brand-accent border-4 border-[var(--bg-main)] shadow-glow"></div>
-								<h3 class="text-xl font-bold">Campus Ambassador</h3>
-								<p class="text-md text-brand-accent font-medium mb-2">Sheba Platform Ltd.</p>
-								<div class="flex flex-wrap gap-3 text-xs text-slate-500 dark:text-slate-400 mb-3 font-mono bg-slate-100 dark:bg-slate-800/50 inline-block px-3 py-1 rounded-md">
-									<span><i class="fa-solid fa-location-dot mr-1"></i>Dhaka, Bangladesh</span>
-									<span><i class="fa-solid fa-calendar mr-1"></i>Jul 2025 – Feb 2026</span>
+								<div class="relative glass-card p-5 sm:p-6 rounded-2xl hover:-translate-y-1 transition-transform">
+									<div class="timeline-dot"></div>
+									<h3 class="text-lg sm:text-xl font-bold text-[var(--text-main)]">Campus Ambassador</h3>
+									<p class="text-sm sm:text-md text-brand-accent font-semibold mb-3">Sheba Platform Ltd.</p>
+									<div class="flex flex-wrap gap-2 sm:gap-3 text-xs font-mono bg-[var(--bg-main)] text-[var(--text-muted)] inline-flex px-3 py-1.5 rounded-lg border border-[var(--card-border)] mb-4">
+										<span class="flex items-center"><i class="fa-solid fa-location-dot mr-1.5"></i>Dhaka, Bangladesh</span>
+										<span class="hidden sm:inline">|</span>
+										<span class="flex items-center"><i class="fa-solid fa-calendar mr-1.5"></i>Jul 2025 – Feb 2026</span>
+									</div>
+									<ul class="list-none space-y-2 text-sm text-[var(--text-muted)] font-medium">
+										<li class="flex items-start"><i class="fa-solid fa-check text-brand-accent mt-1 mr-2 text-xs flex-shrink-0"></i>Acted as a bridge between Sheba and the student community.</li>
+									</ul>
 								</div>
-								<ul class="list-none space-y-2 text-sm text-slate-700 dark:text-slate-300">
-									<li class="flex items-start"><i class="fa-solid fa-check text-brand-accent mt-1 mr-2 text-xs"></i>Acted as a bridge between Sheba and the student community.</li>
-								</ul>
-							</div>
 
-							<div class="relative glass-card p-6 rounded-xl hover:-translate-y-1 transition-transform">
-								<div class="absolute -left-[37px] sm:-left-[53px] top-6 w-5 h-5 rounded-full bg-brand-accent border-4 border-[var(--bg-main)] shadow-glow"></div>
-								<h3 class="text-xl font-bold">General Member</h3>
-								<p class="text-md text-brand-accent font-medium mb-2">UIU Data Science Club</p>
-								<div class="flex flex-wrap gap-3 text-xs text-slate-500 dark:text-slate-400 mb-3 font-mono bg-slate-100 dark:bg-slate-800/50 inline-block px-3 py-1 rounded-md">
-									<span><i class="fa-solid fa-location-dot mr-1"></i>UIU</span>
-									<span><i class="fa-solid fa-calendar mr-1"></i>Mar 2025 – Present</span>
+								<div class="relative glass-card p-5 sm:p-6 rounded-2xl hover:-translate-y-1 transition-transform">
+									<div class="timeline-dot"></div>
+									<h3 class="text-lg sm:text-xl font-bold text-[var(--text-main)]">General Member</h3>
+									<p class="text-sm sm:text-md text-brand-accent font-semibold mb-3">UIU Data Science Club</p>
+									<div class="flex flex-wrap gap-2 sm:gap-3 text-xs font-mono bg-[var(--bg-main)] text-[var(--text-muted)] inline-flex px-3 py-1.5 rounded-lg border border-[var(--card-border)] mb-4">
+										<span class="flex items-center"><i class="fa-solid fa-location-dot mr-1.5"></i>UIU</span>
+										<span class="hidden sm:inline">|</span>
+										<span class="flex items-center"><i class="fa-solid fa-calendar mr-1.5"></i>Mar 2025 – Present</span>
+									</div>
+									<ul class="list-none space-y-2 text-sm text-[var(--text-muted)] font-medium">
+										<li class="flex items-start"><i class="fa-solid fa-check text-brand-accent mt-1 mr-2 text-xs flex-shrink-0"></i>Engaged in data science discussions, workshops, and knowledge-sharing.</li>
+									</ul>
 								</div>
-								<ul class="list-none space-y-2 text-sm text-slate-700 dark:text-slate-300">
-									<li class="flex items-start"><i class="fa-solid fa-check text-brand-accent mt-1 mr-2 text-xs"></i>Engaged in data science discussions, workshops, and knowledge-sharing.</li>
-								</ul>
-							</div>
 
+							</div>
 						</div>
 					</div>
 
 					<!-- Education Timeline -->
-					<div id="education" data-aos="fade-left">
-						<h2 class="text-3xl md:text-4xl font-bold text-center mb-10 text-glow">Education</h2>
-						<div class="max-w-3xl mx-auto border-l-2 border-brand-accent/50 pl-6 sm:pl-10 relative space-y-10">
-							
-							<div class="relative glass-card p-6 rounded-xl border border-brand-accent/30 hover:-translate-y-1 transition-transform shadow-[0_0_20px_rgba(0,194,169,0.1)]">
-								<div class="absolute -left-[37px] sm:-left-[53px] top-6 w-5 h-5 rounded-full bg-brand-accent border-4 border-[var(--bg-main)] shadow-glow"></div>
-								<h3 class="text-xl font-bold">Bachelor of Science</h3>
-								<p class="text-md font-medium text-slate-600 dark:text-slate-300">United International University</p>
-								<p class="inline-block px-3 py-1 mt-2 mb-3 bg-brand-accent/10 rounded-md text-brand-accent text-sm font-bold border border-brand-accent/20">
-									Computer Science & Engineering
-								</p>
-								<div class="flex flex-wrap gap-3 text-xs text-slate-500 dark:text-slate-400 mb-4 font-mono">
-									<span><i class="fa-solid fa-location-dot mr-1"></i>Dhaka, BD</span>
-									<span><i class="fa-solid fa-calendar mr-1"></i>Sep 2023 – Present</span>
-								</div>
-								<div class="pt-3 border-t border-slate-200 dark:border-white/10">
-									<h4 class="font-semibold text-sm mb-2 text-slate-800 dark:text-slate-200">Involvement:</h4>
-									<ul class="list-none space-y-1 text-xs text-slate-600 dark:text-slate-400">
-										<li><i class="fa-solid fa-angle-right text-brand-accent mr-1"></i>Active Member: UIUCCL, UIUDS</li>
-										<li><i class="fa-solid fa-angle-right text-brand-accent mr-1"></i>Ex. Executive of HR at UIU EDF</li>
-										<li><i class="fa-solid fa-angle-right text-brand-accent mr-1"></i>Volunteer at Tech Seminars</li>
-									</ul>
-								</div>
-							</div>
+					<div id="education" data-aos="fade-left" class="relative mt-12 lg:mt-0">
+						<!-- Background Flying Icons (Education) -->
+						<div class="absolute inset-0 pointer-events-none z-0 overflow-hidden">
+							<i class="fa-solid fa-graduation-cap floating-icon text-6xl" style="top: 10%; left: -5%; animation-duration: 8s; animation-delay: 0.2s;"></i>
+							<i class="fa-solid fa-book floating-icon text-5xl" style="top: 35%; left: 85%; animation-duration: 7s; animation-delay: 1.2s;"></i>
+							<i class="fa-solid fa-certificate floating-icon text-6xl" style="top: 60%; left: 0%; animation-duration: 9s; animation-delay: 2.2s;"></i>
+							<i class="fa-solid fa-lightbulb floating-icon text-5xl" style="top: 85%; left: 80%; animation-duration: 6s; animation-delay: 0.7s;"></i>
+							<i class="fa-solid fa-calculator floating-icon text-5xl" style="top: 20%; left: 40%; animation-duration: 10s; animation-delay: 1.7s;"></i>
+						</div>
 
-							<div class="relative glass-card p-6 rounded-xl hover:-translate-y-1 transition-transform">
-								<div class="absolute -left-[37px] sm:-left-[53px] top-6 w-5 h-5 rounded-full bg-brand-accent border-4 border-[var(--bg-main)] shadow-glow"></div>
-								<h3 class="text-xl font-bold">Higher Secondary</h3>
-								<p class="text-md text-brand-accent font-medium mb-2">Islamia Government College</p>
-								<div class="flex flex-wrap gap-3 text-xs text-slate-500 dark:text-slate-400 font-mono">
-									<span><i class="fa-solid fa-location-dot mr-1"></i>Sirajganj, BD</span>
-									<span><i class="fa-solid fa-calendar mr-1"></i>Jul 2019 – 2021</span>
+						<div class="relative z-10">
+							<h2 class="text-3xl md:text-4xl font-extrabold text-center mb-10 text-glow text-[var(--text-main)]">Education</h2>
+							<div class="max-w-3xl mx-auto timeline-container relative space-y-8">
+								
+								<div class="relative glass-card p-5 sm:p-6 rounded-2xl border border-brand-accent/40 hover:-translate-y-1 transition-transform shadow-[0_0_20px_rgba(0,194,169,0.1)]">
+									<div class="timeline-dot"></div>
+									<h3 class="text-lg sm:text-xl font-bold text-[var(--text-main)]">Bachelor of Science</h3>
+									<p class="text-sm sm:text-md font-semibold text-[var(--text-muted)]">United International University</p>
+									<p class="inline-block px-3 py-1.5 mt-3 mb-4 bg-brand-accent/10 rounded-lg text-brand-accent text-sm font-bold border border-brand-accent/20">
+										Computer Science & Engineering
+									</p>
+									<div class="flex flex-wrap gap-2 sm:gap-3 text-xs font-mono bg-[var(--bg-main)] text-[var(--text-muted)] inline-flex px-3 py-1.5 rounded-lg border border-[var(--card-border)] mb-5">
+										<span class="flex items-center"><i class="fa-solid fa-location-dot mr-1.5"></i>Dhaka, BD</span>
+										<span class="hidden sm:inline">|</span>
+										<span class="flex items-center"><i class="fa-solid fa-calendar mr-1.5"></i>Sep 2023 – Present</span>
+									</div>
+									<div class="pt-4 border-t border-[var(--card-border)]">
+										<h4 class="font-bold text-sm mb-2 text-[var(--text-main)]">Involvement:</h4>
+										<ul class="list-none space-y-1.5 text-sm text-[var(--text-muted)] font-medium">
+											<li><i class="fa-solid fa-angle-right text-brand-accent mr-2"></i>Active Member: UIUCCL, UIUDS</li>
+											<li><i class="fa-solid fa-angle-right text-brand-accent mr-2"></i>Ex. Executive of HR at UIU EDF</li>
+											<li><i class="fa-solid fa-angle-right text-brand-accent mr-2"></i>Volunteer at Tech Seminars</li>
+										</ul>
+									</div>
 								</div>
-							</div>
 
-							<div class="relative glass-card p-6 rounded-xl hover:-translate-y-1 transition-transform">
-								<div class="absolute -left-[37px] sm:-left-[53px] top-6 w-5 h-5 rounded-full bg-brand-accent border-4 border-[var(--bg-main)] shadow-glow"></div>
-								<h3 class="text-xl font-bold">Secondary School</h3>
-								<p class="text-md text-brand-accent font-medium mb-2">B.L. Government High School</p>
-								<div class="flex flex-wrap gap-3 text-xs text-slate-500 dark:text-slate-400 font-mono">
-									<span><i class="fa-solid fa-location-dot mr-1"></i>Sirajganj, BD</span>
-									<span><i class="fa-solid fa-calendar mr-1"></i>2014 – 2018</span>
+								<div class="relative glass-card p-5 sm:p-6 rounded-2xl hover:-translate-y-1 transition-transform">
+									<div class="timeline-dot"></div>
+									<h3 class="text-lg sm:text-xl font-bold text-[var(--text-main)]">Higher Secondary</h3>
+									<p class="text-sm sm:text-md text-brand-accent font-semibold mb-3">Islamia Government College</p>
+									<div class="flex flex-wrap gap-2 sm:gap-3 text-xs font-mono bg-[var(--bg-main)] text-[var(--text-muted)] inline-flex px-3 py-1.5 rounded-lg border border-[var(--card-border)]">
+										<span class="flex items-center"><i class="fa-solid fa-location-dot mr-1.5"></i>Sirajganj, BD</span>
+										<span class="hidden sm:inline">|</span>
+										<span class="flex items-center"><i class="fa-solid fa-calendar mr-1.5"></i>Jul 2019 – 2021</span>
+									</div>
 								</div>
-							</div>
 
+								<div class="relative glass-card p-5 sm:p-6 rounded-2xl hover:-translate-y-1 transition-transform">
+									<div class="timeline-dot"></div>
+									<h3 class="text-lg sm:text-xl font-bold text-[var(--text-main)]">Secondary School</h3>
+									<p class="text-sm sm:text-md text-brand-accent font-semibold mb-3">B.L. Government High School</p>
+									<div class="flex flex-wrap gap-2 sm:gap-3 text-xs font-mono bg-[var(--bg-main)] text-[var(--text-muted)] inline-flex px-3 py-1.5 rounded-lg border border-[var(--card-border)]">
+										<span class="flex items-center"><i class="fa-solid fa-location-dot mr-1.5"></i>Sirajganj, BD</span>
+										<span class="hidden sm:inline">|</span>
+										<span class="flex items-center"><i class="fa-solid fa-calendar mr-1.5"></i>2014 – 2018</span>
+									</div>
+								</div>
+
+							</div>
 						</div>
 					</div>
 				</div>
 			</section>
 
 			<!-- Skills Section -->
-			<section id="skills" class="relative px-4 sm:px-6 lg:px-8 py-20 md:py-28 overflow-hidden">
+			<section id="skills" class="relative px-4 sm:px-6 lg:px-8 py-16 md:py-24 overflow-hidden">
 				<div class="bg-anim-skills"></div> <!-- Unique Section Animation -->
 				
 				<div class="container mx-auto relative z-10" data-aos="fade-up">
-					<h2 class="text-3xl md:text-4xl font-bold text-center mb-12 text-glow">Technical Arsenal</h2>
+					<h2 class="text-3xl md:text-4xl font-extrabold text-center mb-12 text-glow text-[var(--text-main)]">Technical Arsenal</h2>
 					
-					<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+					<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
 						<!-- Programming Block -->
-						<div class="glass-card p-8 rounded-2xl relative overflow-hidden group">
-							<div class="absolute top-0 right-0 p-4 opacity-10 text-6xl group-hover:scale-110 transition-transform"><i class="fa-solid fa-code"></i></div>
-							<h3 class="text-2xl font-bold mb-6 text-brand-accent border-b border-brand-accent/20 pb-2 inline-block">💻 Programming</h3>
-							<div class="space-y-6">
-								<div class="skill-item" data-skill="C"><div class="flex justify-between mb-2 text-sm font-medium"><span class="skill-name">C / C++ Developer</span><span class="text-brand-accent font-mono">90%</span></div><div class="progress-bar-container"><div class="progress-bar" data-progress="90"></div></div></div>
-								<div class="skill-item" data-skill="Java"><div class="flex justify-between mb-2 text-sm font-medium"><span class="skill-name">Java Programming</span><span class="text-brand-accent font-mono">78%</span></div><div class="progress-bar-container"><div class="progress-bar" data-progress="78"></div></div></div>
-								<div class="skill-item" data-skill="JavaScript"><div class="flex justify-between mb-2 text-sm font-medium"><span class="skill-name">JavaScript</span><span class="text-brand-accent font-mono">80%</span></div><div class="progress-bar-container"><div class="progress-bar" data-progress="80"></div></div></div>
-								<div class="skill-item" data-skill="React"><div class="flex justify-between mb-2 text-sm font-medium"><span class="skill-name">React</span><span class="text-brand-accent font-mono">70%</span></div><div class="progress-bar-container"><div class="progress-bar" data-progress="70"></div></div></div>
-								<div class="skill-item" data-skill="MySQL"><div class="flex justify-between mb-2 text-sm font-medium"><span class="skill-name">MySQL</span><span class="text-brand-accent font-mono">65%</span></div><div class="progress-bar-container"><div class="progress-bar" data-progress="65"></div></div></div>
-								<div class="skill-item" data-skill="CSS"><div class="flex justify-between mb-2 text-sm font-medium"><span class="skill-name">HTML CSS / Tailwind</span><span class="text-brand-accent font-mono">95%</span></div><div class="progress-bar-container"><div class="progress-bar" data-progress="95"></div></div></div>
+						<div class="glass-card p-6 sm:p-8 rounded-3xl relative overflow-hidden group">
+							<div class="absolute top-0 right-0 p-5 opacity-5 text-7xl group-hover:scale-110 group-hover:text-brand-accent group-hover:opacity-10 transition-all duration-500"><i class="fa-solid fa-code"></i></div>
+							<h3 class="text-xl sm:text-2xl font-extrabold mb-6 text-brand-accent border-b-2 border-brand-accent/20 pb-3 inline-block">💻 Programming</h3>
+							<div class="space-y-5">
+								<div class="skill-item" data-skill="C"><div class="flex justify-between mb-2 text-sm font-bold text-[var(--text-muted)]"><span class="skill-name">C / C++ Developer</span><span class="text-brand-accent font-mono">90%</span></div><div class="progress-bar-container"><div class="progress-bar" data-progress="90"></div></div></div>
+								<div class="skill-item" data-skill="Java"><div class="flex justify-between mb-2 text-sm font-bold text-[var(--text-muted)]"><span class="skill-name">Java Programming</span><span class="text-brand-accent font-mono">78%</span></div><div class="progress-bar-container"><div class="progress-bar" data-progress="78"></div></div></div>
+								<div class="skill-item" data-skill="JavaScript"><div class="flex justify-between mb-2 text-sm font-bold text-[var(--text-muted)]"><span class="skill-name">JavaScript</span><span class="text-brand-accent font-mono">80%</span></div><div class="progress-bar-container"><div class="progress-bar" data-progress="80"></div></div></div>
+								<div class="skill-item" data-skill="React"><div class="flex justify-between mb-2 text-sm font-bold text-[var(--text-muted)]"><span class="skill-name">React</span><span class="text-brand-accent font-mono">70%</span></div><div class="progress-bar-container"><div class="progress-bar" data-progress="70"></div></div></div>
+								<div class="skill-item" data-skill="MySQL"><div class="flex justify-between mb-2 text-sm font-bold text-[var(--text-muted)]"><span class="skill-name">MySQL</span><span class="text-brand-accent font-mono">65%</span></div><div class="progress-bar-container"><div class="progress-bar" data-progress="65"></div></div></div>
+								<div class="skill-item" data-skill="CSS"><div class="flex justify-between mb-2 text-sm font-bold text-[var(--text-muted)]"><span class="skill-name">HTML CSS / Tailwind</span><span class="text-brand-accent font-mono">95%</span></div><div class="progress-bar-container"><div class="progress-bar" data-progress="95"></div></div></div>
 							</div>
 						</div>
 
 						<!-- Core Tech Block -->
-						<div class="glass-card p-8 rounded-2xl relative overflow-hidden group">
-							<div class="absolute top-0 right-0 p-4 opacity-10 text-6xl group-hover:scale-110 transition-transform"><i class="fa-solid fa-microchip"></i></div>
-							<h3 class="text-2xl font-bold mb-6 text-brand-accent border-b border-brand-accent/20 pb-2 inline-block">🧠 Core Tech</h3>
-							<div class="space-y-6">
-								<div class="skill-item" data-skill="Content Writing"><div class="flex justify-between mb-2 text-sm font-medium"><span class="skill-name">Tech Blogger</span><span class="text-brand-accent font-mono">90%</span></div><div class="progress-bar-container"><div class="progress-bar" data-progress="90"></div></div></div>
-								<div class="skill-item" data-skill="RWD"><div class="flex justify-between mb-2 text-sm font-medium"><span class="skill-name">Responsive Design</span><span class="text-brand-accent font-mono">88%</span></div><div class="progress-bar-container"><div class="progress-bar" data-progress="88"></div></div></div>
-								<div class="skill-item" data-skill="OOP"><div class="flex justify-between mb-2 text-sm font-medium"><span class="skill-name">OOP Principles</span><span class="text-brand-accent font-mono">80%</span></div><div class="progress-bar-container"><div class="progress-bar" data-progress="80"></div></div></div>
-								<div class="skill-item" data-skill="SEO"><div class="flex justify-between mb-2 text-sm font-medium"><span class="skill-name">SEO Learner</span><span class="text-brand-accent font-mono">82%</span></div><div class="progress-bar-container"><div class="progress-bar" data-progress="82"></div></div></div>
-								<div class="skill-item" data-skill="Email Marketing"><div class="flex justify-between mb-2 text-sm font-medium"><span class="skill-name">Email Marketing</span><span class="text-brand-accent font-mono">75%</span></div><div class="progress-bar-container"><div class="progress-bar" data-progress="75"></div></div></div>
+						<div class="glass-card p-6 sm:p-8 rounded-3xl relative overflow-hidden group">
+							<div class="absolute top-0 right-0 p-5 opacity-5 text-7xl group-hover:scale-110 group-hover:text-brand-accent group-hover:opacity-10 transition-all duration-500"><i class="fa-solid fa-microchip"></i></div>
+							<h3 class="text-xl sm:text-2xl font-extrabold mb-6 text-brand-accent border-b-2 border-brand-accent/20 pb-3 inline-block">🧠 Core Tech</h3>
+							<div class="space-y-5">
+								<div class="skill-item" data-skill="Content Writing"><div class="flex justify-between mb-2 text-sm font-bold text-[var(--text-muted)]"><span class="skill-name">Tech Blogger</span><span class="text-brand-accent font-mono">90%</span></div><div class="progress-bar-container"><div class="progress-bar" data-progress="90"></div></div></div>
+								<div class="skill-item" data-skill="RWD"><div class="flex justify-between mb-2 text-sm font-bold text-[var(--text-muted)]"><span class="skill-name">Responsive Design</span><span class="text-brand-accent font-mono">88%</span></div><div class="progress-bar-container"><div class="progress-bar" data-progress="88"></div></div></div>
+								<div class="skill-item" data-skill="OOP"><div class="flex justify-between mb-2 text-sm font-bold text-[var(--text-muted)]"><span class="skill-name">OOP Principles</span><span class="text-brand-accent font-mono">80%</span></div><div class="progress-bar-container"><div class="progress-bar" data-progress="80"></div></div></div>
+								<div class="skill-item" data-skill="SEO"><div class="flex justify-between mb-2 text-sm font-bold text-[var(--text-muted)]"><span class="skill-name">SEO Learner</span><span class="text-brand-accent font-mono">82%</span></div><div class="progress-bar-container"><div class="progress-bar" data-progress="82"></div></div></div>
+								<div class="skill-item" data-skill="Email Marketing"><div class="flex justify-between mb-2 text-sm font-bold text-[var(--text-muted)]"><span class="skill-name">Email Marketing</span><span class="text-brand-accent font-mono">75%</span></div><div class="progress-bar-container"><div class="progress-bar" data-progress="75"></div></div></div>
 							</div>
 						</div>
 
 						<!-- Soft Skills Block -->
-						<div class="glass-card p-8 rounded-2xl relative overflow-hidden group">
-							<div class="absolute top-0 right-0 p-4 opacity-10 text-6xl group-hover:scale-110 transition-transform"><i class="fa-solid fa-users"></i></div>
-							<h3 class="text-2xl font-bold mb-6 text-brand-accent border-b border-brand-accent/20 pb-2 inline-block">🎯 Soft Skills</h3>
-							<div class="space-y-6">
-								<div class="skill-item" data-skill="Communication"><div class="flex justify-between mb-2 text-sm font-medium"><span class="skill-name">Communication</span><span class="text-brand-accent font-mono">90%</span></div><div class="progress-bar-container"><div class="progress-bar" data-progress="90"></div></div></div>
-								<div class="skill-item" data-skill="Leadership"><div class="flex justify-between mb-2 text-sm font-medium"><span class="skill-name">Leadership</span><span class="text-brand-accent font-mono">85%</span></div><div class="progress-bar-container"><div class="progress-bar" data-progress="85"></div></div></div>
-								<div class="skill-item" data-skill="Teamwork"><div class="flex justify-between mb-2 text-sm font-medium"><span class="skill-name">Teamwork</span><span class="text-brand-accent font-mono">95%</span></div><div class="progress-bar-container"><div class="progress-bar" data-progress="95"></div></div></div>
-								<div class="skill-item" data-skill="Time Management"><div class="flex justify-between mb-2 text-sm font-medium"><span class="skill-name">Time Management</span><span class="text-brand-accent font-mono">80%</span></div><div class="progress-bar-container"><div class="progress-bar" data-progress="80"></div></div></div>
-								<div class="skill-item" data-skill="Public Speaking"><div class="flex justify-between mb-2 text-sm font-medium"><span class="skill-name">Public Speaking</span><span class="text-brand-accent font-mono">85%</span></div><div class="progress-bar-container"><div class="progress-bar" data-progress="85"></div></div></div>
+						<div class="glass-card p-6 sm:p-8 rounded-3xl relative overflow-hidden group">
+							<div class="absolute top-0 right-0 p-5 opacity-5 text-7xl group-hover:scale-110 group-hover:text-brand-accent group-hover:opacity-10 transition-all duration-500"><i class="fa-solid fa-users"></i></div>
+							<h3 class="text-xl sm:text-2xl font-extrabold mb-6 text-brand-accent border-b-2 border-brand-accent/20 pb-3 inline-block">🎯 Soft Skills</h3>
+							<div class="space-y-5">
+								<div class="skill-item" data-skill="Communication"><div class="flex justify-between mb-2 text-sm font-bold text-[var(--text-muted)]"><span class="skill-name">Communication</span><span class="text-brand-accent font-mono">90%</span></div><div class="progress-bar-container"><div class="progress-bar" data-progress="90"></div></div></div>
+								<div class="skill-item" data-skill="Leadership"><div class="flex justify-between mb-2 text-sm font-bold text-[var(--text-muted)]"><span class="skill-name">Leadership</span><span class="text-brand-accent font-mono">85%</span></div><div class="progress-bar-container"><div class="progress-bar" data-progress="85"></div></div></div>
+								<div class="skill-item" data-skill="Teamwork"><div class="flex justify-between mb-2 text-sm font-bold text-[var(--text-muted)]"><span class="skill-name">Teamwork</span><span class="text-brand-accent font-mono">95%</span></div><div class="progress-bar-container"><div class="progress-bar" data-progress="95"></div></div></div>
+								<div class="skill-item" data-skill="Time Management"><div class="flex justify-between mb-2 text-sm font-bold text-[var(--text-muted)]"><span class="skill-name">Time Management</span><span class="text-brand-accent font-mono">80%</span></div><div class="progress-bar-container"><div class="progress-bar" data-progress="80"></div></div></div>
+								<div class="skill-item" data-skill="Public Speaking"><div class="flex justify-between mb-2 text-sm font-bold text-[var(--text-muted)]"><span class="skill-name">Public Speaking</span><span class="text-brand-accent font-mono">85%</span></div><div class="progress-bar-container"><div class="progress-bar" data-progress="85"></div></div></div>
 							</div>
 						</div>
 					</div>
@@ -653,19 +695,19 @@
 			</section>
 
 			<!-- Portfolio Section -->
-			<section id="portfolio" class="relative px-4 sm:px-6 lg:px-8 py-20 md:py-28 overflow-hidden">
+			<section id="portfolio" class="relative px-4 sm:px-6 lg:px-8 py-16 md:py-24 overflow-hidden">
 				<div class="bg-anim-portfolio"></div> <!-- Unique Section Animation -->
 				
 				<div class="container mx-auto relative z-10" data-aos="fade-up">
-					<h2 class="text-3xl md:text-4xl font-bold text-center mb-12 text-glow">Open Source Projects</h2>
+					<h2 class="text-3xl md:text-4xl font-extrabold text-center mb-12 text-glow text-[var(--text-main)]">Open Source Projects</h2>
 
 					<!-- GitHub Profile Card -->
-					<div id="github-profile-card" class="glass-card rounded-2xl p-6 md:p-8 mb-12 flex flex-col md:flex-row items-center justify-between border-brand-accent/30 shadow-[0_10px_30px_rgba(0,194,169,0.15)]" data-aos="fade-up">
-						<div class="flex items-center flex-grow mb-6 md:mb-0">
-							<img id="github-avatar" class="w-20 h-20 rounded-full border-4 border-[var(--bg-main)] shadow-lg mr-6" src="https://placehold.co/80x80/1e293b/ffffff?text=..." alt="Sourav Saha GitHub Profile" loading="lazy">
-							<div class="text-left">
-								<h3 id="github-username" class="text-2xl font-bold text-glow">Loading...</h3>
-								<p class="text-slate-600 dark:text-slate-300 font-mono mt-1"><i class="fa-solid fa-users mr-2"></i>Followers: <span id="follower-count" class="font-bold text-brand-accent">...</span></p>
+					<div id="github-profile-card" class="glass-card rounded-3xl p-6 sm:p-8 md:p-10 mb-12 flex flex-col md:flex-row items-center justify-between border-brand-accent/30 shadow-[0_10px_30px_rgba(0,194,169,0.15)]" data-aos="fade-up">
+						<div class="flex flex-col sm:flex-row items-center flex-grow mb-6 md:mb-0 text-center sm:text-left w-full">
+							<img id="github-avatar" class="w-24 h-24 sm:w-20 sm:h-20 rounded-full border-4 border-[var(--bg-main)] shadow-lg sm:mr-6 mb-4 sm:mb-0" src="https://placehold.co/80x80/1e293b/ffffff?text=..." alt="Sourav Saha GitHub Profile" loading="lazy">
+							<div>
+								<h3 id="github-username" class="text-2xl font-extrabold text-glow text-[var(--text-main)]">Loading...</h3>
+								<p class="text-[var(--text-muted)] font-mono mt-2 font-bold"><i class="fa-solid fa-users mr-2 text-brand-accent"></i>Followers: <span id="follower-count" class="text-[var(--text-main)]">...</span></p>
 							</div>
 						</div>
 						<a id="follow-button" href="https://github.com/souravsahapartho" target="_blank" rel="noopener noreferrer" class="bg-brand-accent text-white font-bold py-3 px-8 rounded-full hover:bg-brand-accentHover transition-all hover:scale-105 shadow-glow w-full md:w-auto text-center" title="Double click for a secret!">
@@ -674,8 +716,8 @@
 					</div>
 
 					<!-- Repos Grid -->
-					<div id="github-repos-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-						<p class="text-slate-500 col-span-full text-center py-10 font-mono">
+					<div id="github-repos-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+						<p class="col-span-full text-center py-10 font-mono font-bold text-[var(--text-muted)]">
 							<i class="fa-solid fa-circle-notch fa-spin mr-2"></i> Fetching repositories from GitHub API...
 						</p>
 					</div>
@@ -683,7 +725,7 @@
 			</section>
 
 			<!-- Articles Section -->
-			<section id="articles" class="relative px-4 sm:px-6 lg:px-8 py-20 md:py-28 overflow-hidden">
+			<section id="articles" class="relative px-4 sm:px-6 lg:px-8 py-16 md:py-24 overflow-hidden">
 				<div class="bg-anim-articles">
 					<!-- Data drops dynamically inserted by CSS -->
 					<div class="data-drop" style="left:10%; animation-delay:0s;"></div>
@@ -695,12 +737,12 @@
 				
 				<div class="container mx-auto relative z-10" data-aos="fade-up">
 					<div class="text-center mb-12">
-						<h2 class="text-3xl md:text-4xl font-bold text-glow mb-4">TechTalk with Sourav - Technology Blog Bangladesh</h2>
-						<p class="text-slate-600 dark:text-slate-300 max-w-2xl mx-auto">Explore my tech education blog featuring technology articles, programming insights, and the latest from a tech blogger in Bangladesh.</p>
+						<h2 class="text-3xl md:text-4xl font-extrabold text-glow mb-4 text-[var(--text-main)]">TechTalk with Sourav</h2>
+						<p class="text-base sm:text-lg font-medium max-w-2xl mx-auto text-[var(--text-muted)]">Explore my tech education blog featuring technology articles, programming insights, and the latest from a tech blogger in Bangladesh.</p>
 					</div>
 					
-					<div id="substack-posts-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-						<p class="text-slate-500 col-span-full text-center py-10 font-mono">
+					<div id="substack-posts-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+						<p class="col-span-full text-center py-10 font-mono font-bold text-[var(--text-muted)]">
 							<i class="fa-solid fa-rss fa-spin mr-2"></i> Loading latest publications from Substack...
 						</p>
 					</div>
@@ -708,47 +750,47 @@
 			</section>
 
 			<!-- Recommendations Section -->
-			<section id="recommendations" class="relative px-4 sm:px-6 lg:px-8 py-20 md:py-28">
+			<section id="recommendations" class="relative px-4 sm:px-6 lg:px-8 py-16 md:py-24">
 				<div class="bg-anim-contact"></div> <!-- Reusing the wave animation for fluidity -->
 				
 				<div class="container mx-auto relative z-10" data-aos="fade-up">
-					<h2 class="text-3xl md:text-4xl font-bold text-center mb-12 text-glow">What Mentors Say</h2>
+					<h2 class="text-3xl md:text-4xl font-extrabold text-center mb-12 text-glow text-[var(--text-main)]">What Mentors Say</h2>
 					
 					<div class="relative max-w-5xl mx-auto">
-						<div id="recommendations-carousel" class="flex snap-x snap-mandatory overflow-x-auto gap-6 pb-8 hide-scrollbar cursor-grab" style="scrollbar-width: none;">
+						<div id="recommendations-carousel" class="flex snap-x snap-mandatory overflow-x-auto gap-4 sm:gap-6 pb-8 hide-scrollbar cursor-grab" style="scrollbar-width: none;">
 							
 							<!-- Card 1 -->
 							<div class="rec-card-wrapper w-full md:w-[calc(50%-12px)] flex-shrink-0 snap-center">
-								<div class="glass-card p-8 rounded-2xl flex flex-col items-center text-center h-full">
+								<div class="glass-card p-6 sm:p-8 rounded-3xl flex flex-col items-center text-center h-full">
 									<div class="text-brand-accent mb-6 text-4xl opacity-40"><i class="fa-solid fa-quote-left"></i></div>
-									<p class="text-slate-700 dark:text-slate-300 text-lg italic flex-grow font-medium leading-relaxed">"Sourav is a highly motivated and dedicated individual. His commitment to learning and his natural leadership skills make him an asset to any team. He's always eager to take on new challenges and consistently delivers high-quality work."</p>
-									<div class="mt-8 pt-6 border-t border-slate-200 dark:border-white/10 w-full">
-										<p class="font-bold text-lg">Md. Shakil Khan</p>
-										<p class="text-sm text-brand-accent font-mono mt-1">Mentor & Full-Stack Developer</p>
+									<p class="text-base sm:text-lg italic flex-grow font-semibold leading-relaxed text-[var(--text-muted)]">"Sourav is a highly motivated and dedicated individual. His commitment to learning and his natural leadership skills make him an asset to any team. He's always eager to take on new challenges and consistently delivers high-quality work."</p>
+									<div class="mt-8 pt-6 border-t border-[var(--card-border)] w-full">
+										<p class="font-extrabold text-lg text-[var(--text-main)]">Md. Shakil Khan</p>
+										<p class="text-sm text-brand-accent font-mono font-bold mt-1">Mentor & Full-Stack Developer</p>
 									</div>
 								</div>
 							</div>
 
 							<!-- Card 2 -->
 							<div class="rec-card-wrapper w-full md:w-[calc(50%-12px)] flex-shrink-0 snap-center">
-								<div class="glass-card p-8 rounded-2xl flex flex-col items-center text-center h-full">
+								<div class="glass-card p-6 sm:p-8 rounded-3xl flex flex-col items-center text-center h-full">
 									<div class="text-brand-accent mb-6 text-4xl opacity-40"><i class="fa-solid fa-quote-left"></i></div>
-									<p class="text-slate-700 dark:text-slate-300 text-lg italic flex-grow font-medium leading-relaxed">"His work ethic and ability to quickly grasp new concepts are truly impressive. Sourav's enthusiasm for technology is infectious, and he contributes positively to every project he's involved in."</p>
-									<div class="mt-8 pt-6 border-t border-slate-200 dark:border-white/10 w-full">
-										<p class="font-bold text-lg">Fahim Hasan</p>
-										<p class="text-sm text-brand-accent font-mono mt-1">Lead Web Developer</p>
+									<p class="text-base sm:text-lg italic flex-grow font-semibold leading-relaxed text-[var(--text-muted)]">"His work ethic and ability to quickly grasp new concepts are truly impressive. Sourav's enthusiasm for technology is infectious, and he contributes positively to every project he's involved in."</p>
+									<div class="mt-8 pt-6 border-t border-[var(--card-border)] w-full">
+										<p class="font-extrabold text-lg text-[var(--text-main)]">Fahim Hasan</p>
+										<p class="text-sm text-brand-accent font-mono font-bold mt-1">Lead Web Developer</p>
 									</div>
 								</div>
 							</div>
 
 							<!-- Card 3 -->
 							<div class="rec-card-wrapper w-full md:w-[calc(50%-12px)] flex-shrink-0 snap-center">
-								<div class="glass-card p-8 rounded-2xl flex flex-col items-center text-center h-full">
+								<div class="glass-card p-6 sm:p-8 rounded-3xl flex flex-col items-center text-center h-full">
 									<div class="text-brand-accent mb-6 text-4xl opacity-40"><i class="fa-solid fa-quote-left"></i></div>
-									<p class="text-slate-700 dark:text-slate-300 text-lg italic flex-grow font-medium leading-relaxed">"Sourav's passion for learning and his collaborative spirit are outstanding. He is an excellent team player who is always ready to share his knowledge and support others. I highly recommend him."</p>
-									<div class="mt-8 pt-6 border-t border-slate-200 dark:border-white/10 w-full">
-										<p class="font-bold text-lg">Dr. Anisur Rahman</p>
-										<p class="text-sm text-brand-accent font-mono mt-1">Professor of Computer Science</p>
+									<p class="text-base sm:text-lg italic flex-grow font-semibold leading-relaxed text-[var(--text-muted)]">"Sourav's passion for learning and his collaborative spirit are outstanding. He is an excellent team player who is always ready to share his knowledge and support others. I highly recommend him."</p>
+									<div class="mt-8 pt-6 border-t border-[var(--card-border)] w-full">
+										<p class="font-extrabold text-lg text-[var(--text-main)]">Dr. Anisur Rahman</p>
+										<p class="text-sm text-brand-accent font-mono font-bold mt-1">Professor of Computer Science</p>
 									</div>
 								</div>
 							</div>
@@ -768,13 +810,13 @@
 			</section>
 
 			<!-- Contact Section -->
-			<section id="contact" class="relative px-4 sm:px-6 lg:px-8 py-20 md:py-28 overflow-hidden">
+			<section id="contact" class="relative px-4 sm:px-6 lg:px-8 py-16 md:py-24 overflow-hidden">
 				<div class="bg-anim-contact"></div> <!-- Unique Section Animation -->
 				
 				<div class="container mx-auto text-center relative z-10" data-aos="fade-up">
-					<div class="max-w-3xl mx-auto glass-card p-8 md:p-12 rounded-3xl">
-						<h2 class="text-3xl md:text-5xl font-bold mb-4 text-glow">Establish Connection</h2>
-						<p class="text-slate-600 dark:text-slate-400 mb-8">Have a project in mind or want to discuss tech? Send a secure transmission.</p>
+					<div class="max-w-3xl mx-auto glass-card p-6 sm:p-8 md:p-12 rounded-3xl">
+						<h2 class="text-3xl md:text-4xl lg:text-5xl font-extrabold mb-4 text-glow text-[var(--text-main)]">Establish Connection</h2>
+						<p class="text-base sm:text-lg font-medium mb-8 text-[var(--text-muted)]">Have a project in mind or want to discuss tech? Send a secure transmission.</p>
 						
 						<form id="contact-form" class="space-y-6 text-left">
 							<input type="hidden" name="Client IP Address" id="client-ip-address" class="ip-address-input" value="N/A" />
@@ -782,25 +824,25 @@
 							<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
 								<div>
 									<label for="name" class="form-label mb-2 block"><i class="fa-solid fa-user mr-2 text-brand-accent"></i>Full Name</label>
-									<input type="text" name="name" id="name" required class="form-input" placeholder="John Doe" maxlength="25" />
+									<input type="text" name="name" id="name" required class="form-input font-medium" placeholder="John Doe" maxlength="25" />
 								</div>
 								<div>
 									<label for="email" class="form-label mb-2 block"><i class="fa-solid fa-envelope mr-2 text-brand-accent"></i>Email Address</label>
-									<input type="email" name="email" id="email" required class="form-input" placeholder="john@example.com" maxlength="40" />
+									<input type="email" name="email" id="email" required class="form-input font-medium" placeholder="john@example.com" maxlength="40" />
 								</div>
 							</div>
 							
 							<div>
 								<label for="message" class="form-label mb-2 block"><i class="fa-solid fa-message mr-2 text-brand-accent"></i>Message Payload</label>
-								<textarea name="message" id="message" rows="5" required class="form-textarea resize-none" placeholder="Hello Sourav, let's build something awesome..." maxlength="200"></textarea>
+								<textarea name="message" id="message" rows="5" required class="form-textarea resize-none font-medium" placeholder="Hello Sourav, let's build something awesome..." maxlength="200"></textarea>
 							</div>
 							
-							<button type="submit" class="w-full bg-brand-accent text-white font-bold py-4 rounded-xl hover:bg-brand-accentHover transition-all shadow-[0_10px_20px_rgba(0,194,169,0.3)] flex justify-center items-center group">
+							<button type="submit" class="w-full bg-brand-accent text-white font-bold py-4 rounded-xl hover:bg-brand-accentHover transition-all shadow-[0_10px_20px_rgba(0,194,169,0.3)] flex justify-center items-center group text-lg">
 								<span id="submit-btn-text" class="flex items-center">Transmit Data <i class="fa-solid fa-paper-plane ml-2 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform"></i></span>
 								<span id="submit-btn-loader" class="hidden w-6 h-6 border-3 border-white border-t-transparent rounded-full animate-spin"></span>
 							</button>
 							
-							<div id="form-status" class="mt-4 text-center font-mono text-sm"></div>
+							<div id="form-status" class="mt-4 text-center font-mono text-sm font-bold"></div>
 						</form>
 					</div>
 				</div>
@@ -808,24 +850,24 @@
 		</main>
 
 		<!-- Footer -->
-		<footer class="border-t border-slate-200 dark:border-white/10 mt-10 py-12 px-4 sm:px-6 lg:px-8 bg-slate-50 dark:bg-[#0b1120]" role="contentinfo">
-			<div class="container mx-auto flex flex-col md:flex-row justify-between items-center text-slate-500 dark:text-slate-400">
+		<footer class="border-t border-[var(--card-border)] mt-10 py-12 px-4 sm:px-6 lg:px-8 bg-slate-100/50 dark:bg-[#0b1120]" role="contentinfo">
+			<div class="container mx-auto flex flex-col md:flex-row justify-between items-center text-[var(--text-muted)] font-medium">
 				
-				<div class="mb-6 md:mb-0 text-center md:text-left">
-					<span class="text-xl font-bold text-glow text-slate-800 dark:text-white block mb-2">Sourav Saha</span>
+				<div class="mb-8 md:mb-0 text-center md:text-left">
+					<span class="text-xl font-extrabold text-glow text-[var(--text-main)] block mb-2">Sourav Saha</span>
 					<p class="text-sm">Computer science student portfolio Bangladesh.</p>
 				</div>
 
-				<div class="flex space-x-5">
-					<a href="https://www.linkedin.com/in/souravsahapartho/" target="_blank" rel="noopener noreferrer" class="w-10 h-10 rounded-full bg-slate-200 dark:bg-white/10 flex items-center justify-center hover:bg-brand-accent hover:text-white transition-all text-lg" title="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
-					<a href="https://github.com/souravsahapartho" target="_blank" rel="noopener noreferrer" class="w-10 h-10 rounded-full bg-slate-200 dark:bg-white/10 flex items-center justify-center hover:bg-brand-accent hover:text-white transition-all text-lg" title="GitHub"><i class="fa-brands fa-github"></i></a>
-					<a href="https://x.com/souravpartho" target="_blank" rel="noopener noreferrer" class="w-10 h-10 rounded-full bg-slate-200 dark:bg-white/10 flex items-center justify-center hover:bg-brand-accent hover:text-white transition-all text-lg" title="X (Twitter)"><i class="fa-brands fa-x-twitter"></i></a>
-					<a href="https://techtalkwithsourav.substack.com/" target="_blank" rel="noopener noreferrer" class="w-10 h-10 rounded-full bg-slate-200 dark:bg-white/10 flex items-center justify-center hover:bg-brand-accent hover:text-white transition-all text-lg" title="Substack Blog"><i class="fa-solid fa-pen-nib"></i></a>
-					<a href="https://www.instagram.com/souravsahapartho/" target="_blank" rel="noopener noreferrer" class="w-10 h-10 rounded-full bg-slate-200 dark:bg-white/10 flex items-center justify-center hover:bg-brand-accent hover:text-white transition-all text-lg" title="Instagram"><i class="fa-brands fa-instagram"></i></a>
-					<a href="https://www.facebook.com/souravsahapartho/" target="_blank" rel="noopener noreferrer" class="w-10 h-10 rounded-full bg-slate-200 dark:bg-white/10 flex items-center justify-center hover:bg-brand-accent hover:text-white transition-all text-lg" title="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+				<div class="flex flex-wrap justify-center gap-4 sm:space-x-5">
+					<a href="https://www.linkedin.com/in/souravsahapartho/" target="_blank" rel="noopener noreferrer" class="w-10 h-10 rounded-full bg-[var(--card-border)] flex items-center justify-center hover:bg-brand-accent hover:text-white transition-all text-lg text-[var(--text-main)]" title="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+					<a href="https://github.com/souravsahapartho" target="_blank" rel="noopener noreferrer" class="w-10 h-10 rounded-full bg-[var(--card-border)] flex items-center justify-center hover:bg-brand-accent hover:text-white transition-all text-lg text-[var(--text-main)]" title="GitHub"><i class="fa-brands fa-github"></i></a>
+					<a href="https://x.com/souravpartho" target="_blank" rel="noopener noreferrer" class="w-10 h-10 rounded-full bg-[var(--card-border)] flex items-center justify-center hover:bg-brand-accent hover:text-white transition-all text-lg text-[var(--text-main)]" title="X (Twitter)"><i class="fa-brands fa-x-twitter"></i></a>
+					<a href="https://techtalkwithsourav.substack.com/" target="_blank" rel="noopener noreferrer" class="w-10 h-10 rounded-full bg-[var(--card-border)] flex items-center justify-center hover:bg-brand-accent hover:text-white transition-all text-lg text-[var(--text-main)]" title="Substack Blog"><i class="fa-solid fa-pen-nib"></i></a>
+					<a href="https://www.instagram.com/souravsahapartho/" target="_blank" rel="noopener noreferrer" class="w-10 h-10 rounded-full bg-[var(--card-border)] flex items-center justify-center hover:bg-brand-accent hover:text-white transition-all text-lg text-[var(--text-main)]" title="Instagram"><i class="fa-brands fa-instagram"></i></a>
+					<a href="https://www.facebook.com/souravsahapartho/" target="_blank" rel="noopener noreferrer" class="w-10 h-10 rounded-full bg-[var(--card-border)] flex items-center justify-center hover:bg-brand-accent hover:text-white transition-all text-lg text-[var(--text-main)]" title="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
 				</div>
 				
-				<p class="text-sm mt-6 md:mt-0 font-mono">
+				<p class="text-sm mt-8 md:mt-0 font-mono font-bold">
 					&copy; 2026 Sourav Saha. All Rights Reserved.
 				</p>
 			</div>
@@ -834,49 +876,49 @@
 		<!-- Modals & Overlays -->
 		<div id="cv-modal" class="modal-overlay hidden">
 			<div class="modal-content">
-				<div class="p-4 border-b border-slate-200 dark:border-white/10 flex justify-between items-center bg-slate-50 dark:bg-slate-800 rounded-t-xl">
-					<h3 class="font-bold text-lg"><i class="fa-solid fa-file-pdf text-brand-accent mr-2"></i>Curriculum Vitae</h3>
-					<div class="flex items-center gap-4">
-						<a href="https://drive.google.com/uc?export=download&id=13JRAOI3YPpkQKVbBjvaA9gsetQSClzhb" id="download-cv-btn" target="_blank" rel="noopener noreferrer" class="bg-brand-accent text-white px-4 py-1.5 rounded-full text-sm font-bold hover:bg-brand-accentHover transition-colors">
-							Download PDF
+				<div class="p-4 sm:p-6 border-b border-[var(--card-border)] flex justify-between items-center bg-[var(--bg-main)] rounded-t-xl">
+					<h3 class="font-extrabold text-lg sm:text-xl text-[var(--text-main)]"><i class="fa-solid fa-file-pdf text-brand-accent mr-2"></i>Curriculum Vitae</h3>
+					<div class="flex items-center gap-3 sm:gap-4">
+						<a href="https://drive.google.com/uc?export=download&id=13JRAOI3YPpkQKVbBjvaA9gsetQSClzhb" id="download-cv-btn" target="_blank" rel="noopener noreferrer" class="bg-brand-accent text-white px-4 py-2 rounded-full text-xs sm:text-sm font-bold hover:bg-brand-accentHover transition-colors text-center">
+							Download <span class="hidden sm:inline">PDF</span>
 						</a>
-						<button id="close-cv-modal" class="text-2xl hover:text-red-500 transition-colors" title="Close">&times;</button>
+						<button id="close-cv-modal" class="text-3xl text-[var(--text-main)] hover:text-red-500 transition-colors leading-none" title="Close">&times;</button>
 					</div>
 				</div>
-				<div class="flex-grow p-2">
-					<iframe src="https://drive.google.com/file/d/13JRAOI3YPpkQKVbBjvaA9gsetQSClzhb/preview" class="w-full h-full rounded-b-lg border-none" loading="lazy"></iframe>
+				<div class="flex-grow p-2 sm:p-4 bg-[var(--bg-main)] rounded-b-xl">
+					<iframe src="https://drive.google.com/file/d/13JRAOI3YPpkQKVbBjvaA9gsetQSClzhb/preview" class="w-full h-full rounded-lg border-none shadow-inner" loading="lazy"></iframe>
 				</div>
 			</div>
 		</div>
 
 		<!-- Newsletter Popup -->
-		<div id="newsletter-popup" class="fixed bottom-6 right-6 w-[calc(100%-3rem)] max-w-[400px] glass-card border-brand-accent/30 rounded-2xl shadow-2xl z-[999] opacity-0 translate-y-full invisible transition-all duration-500">
-			<button id="close-newsletter-popup" class="absolute top-4 right-4 w-8 h-8 flex items-center justify-center rounded-full bg-slate-200 dark:bg-white/10 hover:bg-red-500 hover:text-white transition-colors">&times;</button>
-			<div class="p-8">
+		<div id="newsletter-popup" class="fixed bottom-4 sm:bottom-6 right-4 sm:right-6 w-[calc(100%-2rem)] sm:w-[calc(100%-3rem)] max-w-[400px] glass-card border-brand-accent/30 rounded-3xl shadow-2xl z-[999] opacity-0 translate-y-full invisible transition-all duration-500">
+			<button id="close-newsletter-popup" class="absolute top-4 right-4 w-8 h-8 flex items-center justify-center rounded-full bg-[var(--card-border)] hover:bg-red-500 hover:text-white transition-colors text-[var(--text-main)]">&times;</button>
+			<div class="p-6 sm:p-8">
 				<div class="w-12 h-12 bg-brand-accent/20 text-brand-accent rounded-full flex items-center justify-center text-2xl mb-4"><i class="fa-solid fa-envelope-open-text"></i></div>
-				<h3 class="font-bold text-xl mb-2">Subscribe to TechTalk</h3>
-				<p class="text-slate-600 dark:text-slate-400 text-sm mb-6">Get my latest tech education articles, projects, and tech insights delivered straight to your inbox.</p>
+				<h3 class="font-extrabold text-xl mb-2 text-[var(--text-main)]">Subscribe to TechTalk</h3>
+				<p class="text-[var(--text-muted)] font-medium text-sm mb-6">Get my latest tech education articles, projects, and tech insights delivered straight to your inbox.</p>
 				<form id="newsletter-form" class="space-y-4">
 					<input type="hidden" name="Client IP Address" id="newsletter-client-ip-address" class="ip-address-input" value="N/A" />
-					<input type="email" name="email" class="form-input w-full" placeholder="your@email.com" required maxlength="40" />
-					<button type="submit" class="w-full bg-brand-accent text-white font-bold py-3 rounded-xl hover:bg-brand-accentHover transition-all shadow-glow">Subscribe Now</button>
-					<div id="newsletter-status" class="mt-2 text-center text-sm font-mono"></div>
+					<input type="email" name="email" class="form-input w-full font-medium" placeholder="your@email.com" required maxlength="40" />
+					<button type="submit" class="w-full bg-brand-accent text-white font-bold py-3 rounded-xl hover:bg-brand-accentHover transition-all shadow-glow text-lg">Subscribe Now</button>
+					<div id="newsletter-status" class="mt-2 text-center text-sm font-mono font-bold"></div>
 				</form>
 			</div>
 		</div>
 
 		<!-- Back to top -->
-		<button id="back-to-top-btn" class="fixed bottom-6 right-6 w-12 h-12 bg-brand-accent text-white rounded-full flex items-center justify-center shadow-glow hover:bg-brand-accentHover hover:-translate-y-2 transition-all opacity-0 invisible z-40">
+		<button id="back-to-top-btn" class="fixed bottom-4 sm:bottom-6 right-4 sm:right-6 w-10 h-10 sm:w-12 sm:h-12 bg-brand-accent text-white rounded-full flex items-center justify-center shadow-glow hover:bg-brand-accentHover hover:-translate-y-2 transition-all opacity-0 invisible z-40 text-lg">
 			<i class="fa-solid fa-arrow-up"></i>
 		</button>
 
 		<!-- Easter Egg Modals -->
 		<div id="secret-message-modal" class="modal-overlay hidden">
-			<div class="glass-card max-w-sm p-8 flex flex-col items-center text-center rounded-2xl border-brand-accent/50 relative">
-				<button id="close-secret-modal" class="absolute top-4 right-4 text-2xl hover:text-red-500 transition-colors">&times;</button>
+			<div class="glass-card max-w-sm p-8 flex flex-col items-center text-center rounded-3xl border-brand-accent/50 relative">
+				<button id="close-secret-modal" class="absolute top-4 right-4 text-3xl hover:text-red-500 transition-colors text-[var(--text-main)] leading-none">&times;</button>
 				<div class="text-5xl text-brand-accent mb-4"><i class="fa-solid fa-user-secret"></i></div>
 				<h3 id="secret-modal-title" class="text-xl font-bold text-brand-accent font-mono mb-2">SECRET UNLOCKED!</h3>
-				<p id="secret-modal-body" class="text-slate-700 dark:text-slate-300"></p>
+				<p id="secret-modal-body" class="text-[var(--text-muted)] font-medium"></p>
 			</div>
 		</div>
 		<div id="confetti-container" class="confetti hidden"></div>
@@ -895,10 +937,6 @@
 			const themeToggleMobileBtn = document.getElementById('theme-toggle-mobile');
 			const htmlEl = document.documentElement;
 
-			function updateThemeIcon() {
-				// Icons are handled by CSS display utility classes based on .dark
-			}
-
 			function toggleTheme() {
 				if (htmlEl.classList.contains('dark')) {
 					htmlEl.classList.remove('dark');
@@ -908,11 +946,23 @@
 					localStorage.setItem('theme', 'dark');
 				}
 				// Re-initialize canvas to match theme colors
-				initParticleCanvas();
+				if (typeof initParticleCanvas === 'function') initParticleCanvas();
 			}
 
 			if (themeToggleBtn) themeToggleBtn.addEventListener('click', toggleTheme);
 			if (themeToggleMobileBtn) themeToggleMobileBtn.addEventListener('click', toggleTheme);
+
+			// Listen for OS system theme changes
+			window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
+				if (e.matches) {
+					htmlEl.classList.add('dark');
+					localStorage.setItem('theme', 'dark');
+				} else {
+					htmlEl.classList.remove('dark');
+					localStorage.setItem('theme', 'light');
+				}
+				if (typeof initParticleCanvas === 'function') initParticleCanvas();
+			});
 
 			// Canvas Particle Logic
 			let canvasInterval;
@@ -928,9 +978,9 @@
 				let ypos = Array(cols).fill(0);
 				
 				const isDark = document.documentElement.classList.contains('dark');
-				const bgColor = isDark ? "#0f172a" : "#f8fafc";
-				const fadeColor = isDark ? "rgba(15, 23, 42, 0.04)" : "rgba(248, 250, 252, 0.04)";
-				const textColor = isDark ? "rgba(0, 194, 169, 0.4)" : "rgba(0, 194, 169, 0.3)";
+				const bgColor = isDark ? "#0f172a" : "#f4f7fb";
+				const fadeColor = isDark ? "rgba(15, 23, 42, 0.04)" : "rgba(244, 247, 251, 0.1)";
+				const textColor = isDark ? "rgba(0, 194, 169, 0.4)" : "rgba(0, 194, 169, 0.15)"; // Softer text color for light mode
 
 				ctx.fillStyle = bgColor;
 				ctx.fillRect(0, 0, w, h);
@@ -1029,7 +1079,7 @@
 				}, PRELOADER_DELAY);
 
 				fetchUserIp();
-				AOS.init({ duration: 800, once: true, offset: 100 });
+				AOS.init({ duration: 800, once: true, offset: 50 }); // Reduced offset for mobile
 
 				// Name Animation
 				function animateHeadline() {
@@ -1084,7 +1134,7 @@
 				}, { threshold: 0.3 });
 				sections.forEach(section => observerNav.observe(section));
 
-				// Rotating Text - SEO Integrated 
+				// Rotating Text
 				const rotatingTextContainer = document.getElementById("rotating-text-container");
 				if (rotatingTextContainer) {
 					const texts = ["CSE Student at UIU", "Tech Enthusiast from Bangladesh", "Web Development Learner", "Tech Blogger from UIU", "HTML CSS Developer Student"];
@@ -1160,7 +1210,7 @@
 					localStorage.setItem("newsletterClosed", 'true');
 				});
 
-				// Scroll triggers (Back to top, Newsletter, Progress bars)
+				// Scroll triggers
 				const backToTop = document.getElementById("back-to-top-btn");
 				backToTop?.addEventListener("click", () => window.scrollTo({ top: 0, behavior: "smooth" }));
 				
@@ -1183,7 +1233,7 @@
 							entry.target.style.width = `${entry.target.getAttribute("data-progress")}%`;
 						}
 					});
-				}, { threshold: 0.8 });
+				}, { threshold: 0.5 });
 				document.querySelectorAll(".progress-bar").forEach(bar => obsBar.observe(bar));
 
 				// Fetch APIs
@@ -1215,17 +1265,17 @@
 						const desc = repo.description || "System logic module. No description available.";
 						const color = getLangColor(repo.language);
 						grid.innerHTML += `
-							<a href="${repo.html_url}" target="_blank" rel="noopener noreferrer" class="glass-card p-6 rounded-xl flex flex-col h-full group border-brand-accent/20">
-								<h3 class="text-xl font-bold mb-3 group-hover:text-brand-accent transition-colors flex items-center"><i class="fa-solid fa-code-branch mr-2 opacity-50"></i>${repo.name}</h3>
-								<p class="text-sm text-slate-600 dark:text-slate-400 mb-6 flex-grow font-mono">${desc.length > 100 ? desc.substring(0, 100) + "..." : desc}</p>
-								<div class="flex items-center text-xs text-slate-500 font-mono mt-auto pt-4 border-t border-slate-200 dark:border-white/5">
-									${repo.language ? `<span class="mr-4 flex items-center"><span class="w-2.5 h-2.5 rounded-full mr-1.5" style="background-color: ${color};"></span>${repo.language}</span>` : ""}
-									<span class="mr-3"><i class="fa-solid fa-star mr-1"></i>${repo.stargazers_count}</span>
-									<span><i class="fa-solid fa-code-fork mr-1"></i>${repo.forks_count}</span>
+							<a href="${repo.html_url}" target="_blank" rel="noopener noreferrer" class="glass-card p-6 sm:p-8 rounded-3xl flex flex-col h-full group border-[var(--card-border)]">
+								<h3 class="text-xl font-extrabold mb-3 group-hover:text-brand-accent transition-colors flex items-center text-[var(--text-main)]"><i class="fa-solid fa-code-branch mr-2 opacity-50"></i>${repo.name}</h3>
+								<p class="text-sm text-[var(--text-muted)] font-medium mb-6 flex-grow font-mono leading-relaxed">${desc.length > 100 ? desc.substring(0, 100) + "..." : desc}</p>
+								<div class="flex flex-wrap items-center text-xs text-[var(--text-muted)] font-mono font-bold mt-auto pt-4 border-t border-[var(--card-border)]">
+									${repo.language ? `<span class="mr-4 flex items-center mb-1"><span class="w-3 h-3 rounded-full mr-2" style="background-color: ${color};"></span>${repo.language}</span>` : ""}
+									<span class="mr-4 mb-1"><i class="fa-solid fa-star mr-1"></i>${repo.stargazers_count}</span>
+									<span class="mb-1"><i class="fa-solid fa-code-fork mr-1"></i>${repo.forks_count}</span>
 								</div>
 							</a>`;
 					});
-				} catch (e) { grid.innerHTML = "<p class='col-span-full text-center text-red-500'>API Link severed.</p>"; }
+				} catch (e) { grid.innerHTML = "<p class='col-span-full text-center text-red-500 font-bold'>API Link severed.</p>"; }
 			}
 
 			async function fetchSubstackPosts() {
@@ -1240,28 +1290,27 @@
 							const t = document.createElement("div"); t.innerHTML = item.content || item.description || "";
 							const rawImg = item.thumbnail || (item.enclosure && item.enclosure.link) || t.querySelector("img")?.src || "https://placehold.co/600x300/0f172a/00c2a9?text=TechTalk";
 							
-							// Pass image through a fast CDN to resize, compress, and convert to WebP
 							const optimizedImg = rawImg.includes("placehold.co") ? rawImg : `https://wsrv.nl/?url=${encodeURIComponent(rawImg)}&w=600&h=400&fit=cover&output=webp&q=80`;
 							
 							const snippet = t.textContent.trim().substring(0, 100) + "...";
 							grid.innerHTML += `
-								<a href="${item.link}" target="_blank" rel="noopener noreferrer" class="glass-card rounded-2xl overflow-hidden flex flex-col h-full group border-brand-accent/20">
-									<div class="overflow-hidden h-48 relative">
+								<a href="${item.link}" target="_blank" rel="noopener noreferrer" class="glass-card rounded-3xl overflow-hidden flex flex-col h-full group border-[var(--card-border)]">
+									<div class="overflow-hidden h-48 sm:h-56 relative">
 										<div class="absolute inset-0 bg-brand-accent/20 opacity-0 group-hover:opacity-100 transition-opacity z-10"></div>
 										<img src="${optimizedImg}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" loading="lazy" decoding="async" onerror="this.src='https://placehold.co/600x300/0f172a/00c2a9?text=TechTalk'">
 									</div>
-									<div class="p-6 flex flex-col flex-grow bg-white/50 dark:bg-[#131e33]/50">
-										<h3 class="text-xl font-bold mb-3 group-hover:text-brand-accent transition-colors leading-snug">${item.title}</h3>
-										<p class="text-sm text-slate-600 dark:text-slate-400 mb-4 flex-grow">${snippet}</p>
-										<div class="flex justify-between items-center text-xs text-brand-accent font-mono mt-auto pt-4 border-t border-slate-200 dark:border-white/5">
+									<div class="p-6 sm:p-8 flex flex-col flex-grow bg-[var(--card-bg)]">
+										<h3 class="text-xl font-extrabold mb-3 group-hover:text-brand-accent transition-colors leading-snug text-[var(--text-main)]">${item.title}</h3>
+										<p class="text-sm font-medium text-[var(--text-muted)] mb-5 flex-grow leading-relaxed">${snippet}</p>
+										<div class="flex justify-between items-center text-xs text-brand-accent font-mono font-bold mt-auto pt-4 border-t border-[var(--card-border)]">
 											<span>${new Date(item.pubDate).toLocaleDateString()}</span>
-											<span class="font-bold">Read <i class="fa-solid fa-arrow-right ml-1 -rotate-45 group-hover:rotate-0 transition-transform"></i></span>
+											<span>Read <i class="fa-solid fa-arrow-right ml-1 -rotate-45 group-hover:rotate-0 transition-transform"></i></span>
 										</div>
 									</div>
 								</a>`;
 						});
 					}
-				} catch (e) { grid.innerHTML = "<p class='col-span-full text-center text-red-500 font-mono'>Data stream interrupted.</p>"; }
+				} catch (e) { grid.innerHTML = "<p class='col-span-full text-center text-red-500 font-mono font-bold'>Data stream interrupted.</p>"; }
 			}
 
 			function getLangColor(lang) {
@@ -1303,7 +1352,7 @@
 							el.textContent = skillMessages[sName] || "Skill limit break achieved!";
 							el.classList.add("text-brand-accent", "font-mono", "text-xs");
 							bar.style.boxShadow = "0 0 20px #00c2a9";
-							setTimeout(() => { el.textContent = old; el.classList.remove("text-brand-accent", "font-mono", "text-xs"); bar.style.boxShadow = ""; }, 3000);
+							setTimeout(() => { el.textContent = old; el.classList.remove("text-brand-accent", "font-mono", "text-xs"); bar.style.boxShadow = "var(--glow-shadow)"; }, 3000);
 						};
 						bar.addEventListener('click', trigger);
 					}
