@@ -926,7 +926,7 @@
 		<div id="cv-modal" class="modal-overlay hidden">
 			<div class="modal-content h-[90%] sm:h-[85%] max-h-[900px] w-[95%] sm:w-[80%] max-w-4xl">
 				<div class="p-4 sm:p-6 border-b border-[var(--card-border)] flex justify-between items-center bg-[var(--bg-main)] rounded-t-xl shrink-0">
-					<h3 class="font-extrabold text-lg sm:text-xl text-[var(--text-main)]"><i class="fa-solid fa-file-image text-brand-accent mr-2"></i>Resume Preview</h3>
+					<h3 class="font-extrabold text-lg sm:text-xl text-[var(--text-main)]"><i class="fa-solid fa-file-pdf text-brand-accent mr-2"></i>Resume Preview</h3>
 					<div class="flex items-center gap-3 sm:gap-4">
 						<button id="download-cv-btn" class="bg-brand-accent text-white px-4 py-2 rounded-full text-xs sm:text-sm font-bold hover:bg-brand-accentHover transition-colors text-center shadow-glow">
 							Download <span class="hidden sm:inline">PDF</span>
@@ -934,9 +934,17 @@
 						<button id="close-cv-modal" class="text-3xl text-[var(--text-main)] hover:text-red-500 transition-colors leading-none" title="Close">&times;</button>
 					</div>
 				</div>
-				<!-- Removed lazy loading so it triggers immediately when modal opens on mobile -->
-				<div class="flex-grow p-2 sm:p-4 bg-[var(--bg-main)] rounded-b-xl overflow-y-auto custom-scrollbar text-center relative">
-					<img src="sourav-saha-resume.jpg" alt="Sourav Saha Resume Preview" class="w-full max-w-3xl h-auto bg-white rounded shadow-md border border-[var(--card-border)] inline-block mx-auto" onerror="this.onerror=null;this.src='https://placehold.co/800x1131/ffffff/00c2a9?text=Image+Preview+Not+Found+%0A(Please+upload+sourav-saha-resume.jpg)';">
+				<div class="flex-grow p-2 sm:p-4 bg-[var(--bg-main)] rounded-b-xl overflow-hidden relative">
+					<!-- Robust PDF Viewer using Object with iFrame fallback -->
+					<object data="sourav-saha-resume.pdf#view=FitH" type="application/pdf" class="w-full h-full min-h-[60vh] bg-white rounded shadow-md border border-[var(--card-border)]">
+						<iframe src="sourav-saha-resume.pdf#view=FitH" class="w-full h-full min-h-[60vh] border-none" title="Resume Preview">
+							<div class="flex flex-col items-center justify-center h-full w-full p-8 text-center mt-12">
+								<i class="fa-solid fa-file-pdf text-5xl text-brand-accent opacity-50 mb-4"></i>
+								<p class="text-[var(--text-main)] font-extrabold text-lg mb-2">Live Preview Not Supported</p>
+								<p class="text-[var(--text-muted)] font-medium text-sm">Your device's browser does not support inline PDF viewing.<br>Please use the download button above to save and view the resume.</p>
+							</div>
+						</iframe>
+					</object>
 				</div>
 			</div>
 		</div>
