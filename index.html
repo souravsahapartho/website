@@ -381,6 +381,16 @@
 				animation: eyeBlink 4s ease-in-out infinite;
 				will-change: transform;
 			}
+
+			/* Read Arrow Animation */
+			@keyframes readArrowBop {
+				0%, 100% { transform: translate(0, 0); }
+				50% { transform: translate(3px, -3px); }
+			}
+			.read-arrow-anim {
+				display: inline-block;
+				animation: readArrowBop 1.5s ease-in-out infinite;
+			}
 		</style>
 
 		<!-- JSON-LD Schema Markup for SEO -->
@@ -497,13 +507,6 @@
 				<canvas id="particle-canvas"></canvas>
 				
 				<div class="container mx-auto text-center z-10 relative">
-					
-					<!-- Added Profile Image for Hero Section -->
-					<div class="mx-auto w-28 h-28 sm:w-36 sm:h-36 md:w-44 md:h-44 mb-6 sm:mb-8 relative opacity-0" style="animation: slideDown 1s ease-out 1.6s forwards;">
-						<div class="absolute inset-0 bg-brand-accent/20 rounded-full blur-2xl animate-pulse"></div>
-						<img src="Image/profile.jpg" alt="Sourav Saha" class="relative rounded-full border-4 border-[var(--card-bg)] shadow-[0_0_30px_rgba(0,194,169,0.2)] w-full h-full object-cover z-10" onerror="this.onerror=null;this.src='https://placehold.co/200x200/0f172a/ffffff?text=SS';" />
-					</div>
-
 					<h1 class="animated-headline text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold leading-tight mb-4" aria-label="Hi, I'm Sourav Saha">
 						<span class="line-1 drop-shadow-md text-[var(--text-main)]">Hi,</span><br />
 						<span class="line-2 drop-shadow-md text-[var(--text-main)]">I'm </span>
@@ -552,8 +555,8 @@
 									loading="lazy"
 								/>
 								
-								<!-- GitHub Total Contributions Badge - Dynamic Auto Updater -->
-								<div class="glass-card absolute bottom-4 -right-8 sm:bottom-8 sm:-right-12 rounded-xl px-2.5 py-1.5 flex flex-col items-center justify-center z-20 shadow-[0_5px_15px_rgba(0,194,169,0.15)] pointer-events-none">
+								<!-- GitHub Total Contributions Badge - Static -->
+								<div class="glass-card absolute -bottom-6 -right-2 sm:-bottom-10 sm:-right-6 rounded-xl px-2.5 py-1.5 flex flex-col items-center justify-center z-20 shadow-[0_5px_15px_rgba(0,194,169,0.15)] pointer-events-none">
 									<span id="github-total-count" class="text-brand-accent font-extrabold text-base sm:text-lg font-sans leading-none">0</span>
 									<span class="text-[var(--text-main)] text-[7px] sm:text-[8px] font-bold uppercase tracking-wider mt-0.5 whitespace-nowrap flex items-center gap-1"><i class="fa-brands fa-github opacity-75"></i> GitHub Contributions</span>
 								</div>
@@ -1570,6 +1573,7 @@
 					fetchGithubProfile();
 					fetchGithubRepos();
 					fetchSubstackPosts();
+					fetchTotalContributions();
 
 					// 2. Find ALL images on the page and intelligently force reload them
 					document.querySelectorAll('img').forEach(img => {
