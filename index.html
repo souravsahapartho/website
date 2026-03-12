@@ -787,9 +787,20 @@
 				</div>
 				
 				<div class="container mx-auto relative z-10" data-aos="fade-up">
-					<div class="text-center mb-12">
+					<div class="text-center mb-8">
 						<h2 class="text-2xl sm:text-3xl md:text-4xl font-extrabold text-glow mb-4 text-[var(--text-main)] whitespace-nowrap">TechTalk with Sourav</h2>
-						<p class="text-base sm:text-lg font-medium max-w-2xl mx-auto text-[var(--text-muted)]">Explore my tech education blog featuring technology articles, programming insights, and the latest from a tech blogger in Bangladesh.</p>
+						<p class="text-base sm:text-lg font-medium max-w-2xl mx-auto text-[var(--text-muted)] mb-8">Explore my tech education blog featuring technology articles, programming insights, and the latest from a tech blogger in Bangladesh.</p>
+						
+						<!-- AI Feed Personalizer -->
+						<div class="glass-card inline-block p-2 rounded-2xl border-brand-accent/30 shadow-[0_5px_15px_rgba(0,194,169,0.1)] mb-4" data-aos="zoom-in">
+							<div class="flex items-center justify-center gap-1 sm:gap-2 flex-wrap">
+								<span class="text-xs sm:text-sm font-bold text-[var(--text-main)] px-2 sm:px-3 flex items-center whitespace-nowrap"><i class="fa-solid fa-wand-magic-sparkles text-brand-accent mr-2 animate-pulse"></i>AI Feed Filter:</span>
+								<button class="topic-btn bg-brand-accent text-white px-3 sm:px-4 py-1.5 rounded-xl text-xs sm:text-sm font-bold transition-all shadow-glow" data-topic="all">Latest</button>
+								<button class="topic-btn hover:bg-[var(--card-border)] px-3 sm:px-4 py-1.5 rounded-xl text-xs sm:text-sm font-bold transition-all text-[var(--text-muted)]" data-topic="dev">Web Dev</button>
+								<button class="topic-btn hover:bg-[var(--card-border)] px-3 sm:px-4 py-1.5 rounded-xl text-xs sm:text-sm font-bold transition-all text-[var(--text-muted)]" data-topic="seo">SEO</button>
+								<button class="topic-btn hover:bg-[var(--card-border)] px-3 sm:px-4 py-1.5 rounded-xl text-xs sm:text-sm font-bold transition-all text-[var(--text-muted)]" data-topic="tech">Tech</button>
+							</div>
+						</div>
 					</div>
 					
 					<div id="substack-posts-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
@@ -934,8 +945,27 @@
 						<button id="close-cv-modal" class="text-3xl text-[var(--text-main)] hover:text-red-500 transition-colors leading-none" title="Close">&times;</button>
 					</div>
 				</div>
-				<div class="flex-grow p-2 sm:p-4 bg-[var(--bg-main)] rounded-b-xl overflow-y-auto custom-scrollbar text-center relative">
-					<img src="sourav-saha-resume.jpg" alt="Sourav Saha Resume Preview" class="w-full max-w-3xl h-auto bg-white rounded shadow-md border border-[var(--card-border)] inline-block mx-auto">
+				<!-- Dynamically loaded robust image preview to bypass mobile hidden DOM bugs -->
+				<div class="flex-grow p-4 sm:p-6 bg-[var(--bg-main)] rounded-b-xl overflow-y-auto custom-scrollbar relative flex flex-col items-center justify-start min-h-[50vh]">
+					<!-- Loader showing behind the image while it fetches -->
+					<div id="cv-loader" class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex flex-col items-center justify-center text-[var(--text-muted)] font-mono z-0">
+						<i class="fa-solid fa-spinner fa-spin text-4xl text-brand-accent mb-4"></i>
+						<p>Loading document...</p>
+					</div>
+					
+					<!-- Alert Fallback Message (Hidden by default) -->
+					<div id="cv-error-msg" style="display: none;" class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex-col items-center justify-center text-center w-full px-4 sm:px-6 z-0">
+						<div class="w-16 h-16 rounded-full bg-red-500/10 flex items-center justify-center mb-4 border border-red-500/20">
+							<i class="fa-solid fa-triangle-exclamation text-3xl text-red-500"></i>
+						</div>
+						<p class="font-extrabold text-lg sm:text-xl text-[var(--text-main)] mb-2">Preview Unavailable</p>
+						<p class="text-[var(--text-muted)] font-medium text-sm sm:text-base max-w-sm mx-auto leading-relaxed">For some issues, CV preview showing is not possible right now. You may click the download button above and then view it easily.</p>
+					</div>
+
+					<!-- Actual image injected dynamically via JS -->
+					<img id="cv-preview-image" alt="Sourav Saha Resume Preview" class="w-full max-w-3xl h-auto bg-white rounded shadow-2xl border border-[var(--card-border)] relative z-10 hidden" 
+					onload="this.classList.remove('hidden'); document.getElementById('cv-loader').style.display='none'; document.getElementById('cv-error-msg').style.display='none';" 
+					onerror="this.style.display='none'; document.getElementById('cv-loader').style.display='none'; document.getElementById('cv-error-msg').style.display='flex';">
 				</div>
 			</div>
 		</div>
@@ -996,6 +1026,9 @@
 			const WEB3FORMS_ACCESS_KEY = "9f4ad3eb-6a2c-42a1-b06c-ec515d72da59"; // Web3Forms Access Key
 			const PRELOADER_DELAY = 1500;
 			const GITHUB_USERNAME = "souravsahapartho";
+
+			// Global Variables for AI Personalization
+			let globalSubstackPosts = [];
 
 			// Theme Logic
 			const themeToggleBtn = document.getElementById('theme-toggle');
@@ -1113,17 +1146,6 @@
 				}, 5000);
 			};
 
-			function addDoubleTrigger(element, callback) {
-				let lastClickTime = 0; let tapTimeout; const DOUBLE_CLICK_DELAY = 300;
-				element.addEventListener('dblclick', (e) => { e.preventDefault(); callback(); });
-				element.addEventListener('touchstart', (e) => {
-					const currentTime = new Date().getTime(); const timeDiff = currentTime - lastClickTime;
-					if (timeDiff > 0 && timeDiff < DOUBLE_CLICK_DELAY) { e.preventDefault(); clearTimeout(tapTimeout); callback(); }
-					else { tapTimeout = setTimeout(() => { lastClickTime = 0; }, DOUBLE_CLICK_DELAY); }
-					lastClickTime = currentTime;
-				});
-			}
-
 			// Core App Logic
 			async function fetchUserIp() {
 				const ipInputs = document.querySelectorAll('.ip-address-input');
@@ -1199,7 +1221,7 @@
 				}, { threshold: 0.3 });
 				sections.forEach(section => observerNav.observe(section));
 
-				// Mentors Carousel Logic (Fixed for proper clicking width)
+				// Mentors Carousel Logic
 				const recCarousel = document.getElementById("recommendations-carousel");
 				const recPrevBtn = document.getElementById("rec-prev-btn");
 				const recNextBtn = document.getElementById("rec-next-btn");
@@ -1216,10 +1238,19 @@
 
 				// CV Modal & Download Confirmation Logic
 				const cvModal = document.getElementById("cv-modal");
+				const cvImage = document.getElementById("cv-preview-image");
 				
 				document.querySelectorAll(".open-cv-btn").forEach(btn => btn.addEventListener("click", (e) => {
 					e.preventDefault();
 					cvModal.classList.remove("hidden");
+					// Dynamically trigger image load only when the modal opens to avoid hidden mobile browser bugs
+					if (!cvImage.getAttribute('src') || cvImage.getAttribute('src') === "") {
+						document.getElementById('cv-loader').style.display = 'flex';
+						document.getElementById('cv-error-msg').style.display = 'none';
+						cvImage.classList.add('hidden');
+						cvImage.style.display = ''; 
+						cvImage.setAttribute('src', 'sourav-saha-resume.jpg');
+					}
 				}));
 				
 				document.getElementById("close-cv-modal")?.addEventListener("click", () => cvModal.classList.add("hidden"));
@@ -1265,6 +1296,22 @@
 						}, 3000);
 					}
 				}
+
+				// AI Personalization UI Logic
+				document.querySelectorAll('.topic-btn').forEach(btn => {
+					btn.addEventListener('click', (e) => {
+						const topic = e.target.getAttribute('data-topic');
+						localStorage.setItem('ai_blog_pref', topic);
+						
+						// Update Active Classes
+						document.querySelectorAll('.topic-btn').forEach(b => {
+							b.className = "topic-btn hover:bg-[var(--card-border)] px-3 sm:px-4 py-1.5 rounded-xl text-xs sm:text-sm font-bold transition-all text-[var(--text-muted)]";
+						});
+						e.target.className = "topic-btn active bg-brand-accent text-white px-3 sm:px-4 py-1.5 rounded-xl text-xs sm:text-sm font-bold transition-all shadow-glow";
+
+						renderPersonalizedPosts(topic);
+					});
+				});
 
 				// Contact Form (Dual Submit: Google Sheets + Web3Forms)
 				const contactForm = document.getElementById("contact-form");
@@ -1493,53 +1540,108 @@
 				try {
 					const res = await fetch(url);
 					const data = await res.json();
-					if (data.status === "ok") {
-						grid.innerHTML = "";
-						data.items.slice(0, 3).forEach(item => {
-							const t = document.createElement("div"); t.innerHTML = item.content || item.description || "";
-							
-							// Extract raw image URL
-							let rawImg = item.thumbnail || (item.enclosure && item.enclosure.link) || t.querySelector("img")?.src || "";
-							
-							let imageHTML = "";
-							if (rawImg && !rawImg.includes("placehold.co")) {
-								const optimizedImg = `https://wsrv.nl/?url=${encodeURIComponent(rawImg)}&w=600&h=400&fit=cover&output=webp&q=80`;
-								imageHTML = `<img src="${optimizedImg}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500 relative z-10" loading="lazy" decoding="async" onerror="this.style.display='none';">`;
-							} else if (rawImg) {
-								imageHTML = `<img src="${rawImg}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500 relative z-10" loading="lazy" decoding="async" onerror="this.style.display='none';">`;
+					if (data.status === "ok" && data.items.length > 0) {
+						globalSubstackPosts = data.items;
+						
+						// Auto-load user's saved AI preference
+						const savedPref = localStorage.getItem('ai_blog_pref') || 'all';
+						document.querySelectorAll('.topic-btn').forEach(btn => {
+							if (btn.getAttribute('data-topic') === savedPref) {
+								btn.className = "topic-btn active bg-brand-accent text-white px-3 sm:px-4 py-1.5 rounded-xl text-xs sm:text-sm font-bold transition-all shadow-glow";
+							} else {
+								btn.className = "topic-btn hover:bg-[var(--card-border)] px-3 sm:px-4 py-1.5 rounded-xl text-xs sm:text-sm font-bold transition-all text-[var(--text-muted)]";
 							}
-							
-							const snippet = t.textContent.trim().substring(0, 100) + "...";
-							grid.innerHTML += `
-								<a href="${item.link}" target="_blank" rel="noopener noreferrer" class="glass-card rounded-3xl overflow-hidden flex flex-col h-full group border-[var(--card-border)]">
-									<div class="overflow-hidden h-48 sm:h-56 relative bg-[var(--bg-main)]">
-										
-										<!-- Animated Fallback (Visible while loading, or if no image/broken image) -->
-										<div class="absolute inset-0 flex flex-col items-center justify-center p-4 text-center z-0">
-											<div class="absolute inset-0 opacity-20 bg-[radial-gradient(circle_at_center,var(--accent)_0%,transparent_70%)] animate-pulse"></div>
-											<i class="fa-solid fa-rss text-4xl text-brand-accent/50 mb-3 animate-bounce" style="animation-duration: 2s;"></i>
-											<span class="font-extrabold text-lg text-[var(--text-main)] relative z-10 tracking-wide">
-												TechTalk <br/><span class="text-brand-accent font-mono text-sm">with Sourav</span>
-											</span>
-										</div>
-
-										<div class="absolute inset-0 bg-brand-accent/20 opacity-0 group-hover:opacity-100 transition-opacity z-20 pointer-events-none"></div>
-										
-										<!-- The actual image layer -->
-										${imageHTML}
-									</div>
-									<div class="p-6 sm:p-8 flex flex-col flex-grow bg-[var(--card-bg)] relative z-30">
-										<h3 class="text-xl font-extrabold mb-3 group-hover:text-brand-accent transition-colors leading-snug text-[var(--text-main)]">${item.title}</h3>
-										<p class="text-sm font-medium text-[var(--text-muted)] mb-5 flex-grow leading-relaxed">${snippet}</p>
-										<div class="flex justify-between items-center text-xs text-brand-accent font-mono font-bold mt-auto pt-4 border-t border-[var(--card-border)]">
-											<span>${new Date(item.pubDate).toLocaleDateString()}</span>
-											<span>Read <i class="fa-solid fa-arrow-right ml-1 -rotate-45 group-hover:rotate-0 transition-transform"></i></span>
-										</div>
-									</div>
-								</a>`;
 						});
+						
+						// Initially render with the saved preference
+						renderPersonalizedPosts(savedPref);
+					} else {
+						throw new Error("No items");
 					}
-				} catch (e) { grid.innerHTML = "<p class='col-span-full text-center text-red-500 font-mono font-bold'>Data stream interrupted.</p>"; }
+				} catch (e) { 
+					grid.innerHTML = "<p class='col-span-full text-center text-red-500 font-mono font-bold'>Data stream interrupted.</p>"; 
+				}
+			}
+
+			function renderPersonalizedPosts(topic) {
+				const grid = document.getElementById("substack-posts-grid");
+				grid.innerHTML = `<p class="col-span-full text-center py-10 font-mono font-bold text-brand-accent animate-pulse"><i class="fa-solid fa-wand-magic-sparkles mr-2"></i> AI is curating your feed...</p>`;
+				
+				setTimeout(() => { // Fake AI delay for premium UX
+					let filteredPosts = [...globalSubstackPosts];
+
+					if (topic !== 'all') {
+						const keywords = {
+							'dev': ['web', 'dev', 'code', 'html', 'css', 'js', 'react', 'java', 'programming', 'software'],
+							'seo': ['seo', 'search', 'ranking', 'google', 'marketing', 'keyword'],
+							'tech': ['tech', 'ai', 'future', 'news', 'gadget', 'update', 'cyber', 'data']
+						}[topic] || [];
+
+						// Simple AI Scoring based on keyword hits in title or content
+						filteredPosts.forEach(post => {
+							post.aiScore = 0;
+							const textToSearch = (post.title + " " + post.content).toLowerCase();
+							keywords.forEach(kw => {
+								if (textToSearch.includes(kw)) post.aiScore++;
+							});
+						});
+
+						// Sort descending by highest match score
+						filteredPosts.sort((a, b) => b.aiScore - a.aiScore);
+						
+						// Ensure we only use scored items, fallback to everything if none match the strict filter
+						const matchingPosts = filteredPosts.filter(p => p.aiScore > 0);
+						if (matchingPosts.length >= 1) {
+							filteredPosts = matchingPosts;
+						}
+					}
+
+					const postsToShow = filteredPosts.slice(0, 3);
+					grid.innerHTML = "";
+
+					postsToShow.forEach(item => {
+						const t = document.createElement("div"); t.innerHTML = item.content || item.description || "";
+						
+						// Extract raw image URL
+						let rawImg = item.thumbnail || (item.enclosure && item.enclosure.link) || t.querySelector("img")?.src || "";
+						
+						let imageHTML = "";
+						if (rawImg && !rawImg.includes("placehold.co")) {
+							const optimizedImg = `https://wsrv.nl/?url=${encodeURIComponent(rawImg)}&w=600&h=400&fit=cover&output=webp&q=80`;
+							imageHTML = `<img src="${optimizedImg}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500 relative z-10" loading="lazy" decoding="async" onerror="this.style.display='none';">`;
+						} else if (rawImg) {
+							imageHTML = `<img src="${rawImg}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500 relative z-10" loading="lazy" decoding="async" onerror="this.style.display='none';">`;
+						}
+						
+						const snippet = t.textContent.trim().substring(0, 100) + "...";
+						grid.innerHTML += `
+							<a href="${item.link}" target="_blank" rel="noopener noreferrer" class="glass-card rounded-3xl overflow-hidden flex flex-col h-full group border-[var(--card-border)]">
+								<div class="overflow-hidden h-48 sm:h-56 relative bg-[var(--bg-main)]">
+									
+									<!-- Animated Fallback -->
+									<div class="absolute inset-0 flex flex-col items-center justify-center p-4 text-center z-0">
+										<div class="absolute inset-0 opacity-20 bg-[radial-gradient(circle_at_center,var(--accent)_0%,transparent_70%)] animate-pulse"></div>
+										<i class="fa-solid fa-rss text-4xl text-brand-accent/50 mb-3 animate-bounce" style="animation-duration: 2s;"></i>
+										<span class="font-extrabold text-lg text-[var(--text-main)] relative z-10 tracking-wide">
+											TechTalk <br/><span class="text-brand-accent font-mono text-sm">with Sourav</span>
+										</span>
+									</div>
+
+									<div class="absolute inset-0 bg-brand-accent/20 opacity-0 group-hover:opacity-100 transition-opacity z-20 pointer-events-none"></div>
+									
+									${imageHTML}
+								</div>
+								<div class="p-6 sm:p-8 flex flex-col flex-grow bg-[var(--card-bg)] relative z-30">
+									<h3 class="text-xl font-extrabold mb-3 group-hover:text-brand-accent transition-colors leading-snug text-[var(--text-main)]">${item.title}</h3>
+									<p class="text-sm font-medium text-[var(--text-muted)] mb-5 flex-grow leading-relaxed">${snippet}</p>
+									<div class="flex justify-between items-center text-xs text-brand-accent font-mono font-bold mt-auto pt-4 border-t border-[var(--card-border)]">
+										<span>${new Date(item.pubDate).toLocaleDateString()}</span>
+										<span>Read <i class="fa-solid fa-arrow-right ml-1 -rotate-45 group-hover:rotate-0 transition-transform"></i></span>
+									</div>
+								</div>
+							</a>`;
+					});
+				}, 500); // 500ms fake AI delay
 			}
 
 			function getLangColor(lang) {
