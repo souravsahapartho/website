@@ -30,7 +30,6 @@
 		<meta property="og:url" content="https://sourav.com.bd/" />
 		<meta property="og:title" content="Sourav Saha – CSE Student at UIU | Tech Enthusiast from Bangladesh" />
 		<meta property="og:description" content="Sourav Saha is a Computer Science (CSE) student at United International University (UIU), Bangladesh and a technology enthusiast passionate about web development, SEO, and tech blogging." />
-		<!-- Fixed OG Image to use profile picture explicitly to guarantee rendering -->
 		<meta property="og:image" content="https://sourav.com.bd/Image/profile.jpg" />
 		<meta property="og:image:type" content="image/jpeg" />
 		<meta property="og:image:width" content="800" />
@@ -365,7 +364,7 @@
 							"https://www.instagram.com/souravsahapartho/",
 							"https://www.facebook.com/souravsahapartho/",
 							"https://x.com/souravpartho",
-							"https://techtalkwithsourav.substack.com/"
+							"https://blog.sourav.com.bd/"
 						],
 						"jobTitle": "Computer Science (CSE) Student & Tech Writer",
 						"alumniOf": {
@@ -803,9 +802,9 @@
 						</div>
 					</div>
 					
-					<div id="substack-posts-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+					<div id="blog-posts-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
 						<p class="col-span-full text-center py-10 font-mono font-bold text-[var(--text-muted)]">
-							<i class="fa-solid fa-rss fa-spin mr-2"></i> Loading latest publications from Substack...
+							<i class="fa-solid fa-rss fa-spin mr-2"></i> Fetching latest publications from Google Blogger...
 						</p>
 					</div>
 					
@@ -1027,8 +1026,8 @@
 			const PRELOADER_DELAY = 1500;
 			const GITHUB_USERNAME = "souravsahapartho";
 
-			// Global Variables for AI Personalization
-			let globalSubstackPosts = [];
+			// Global Variables for Blog Personalization
+			let globalBlogPosts = [];
 			let cachedFeeds = {}; // Caches the rendered HTML to show instantly on revisit
 
 			// Theme Logic
@@ -1309,11 +1308,17 @@
 					}
 				}
 
-				// Personalization UI Logic
+				// Blog Filter Tracking and UI Logic
 				document.querySelectorAll('.topic-btn').forEach(btn => {
 					btn.addEventListener('click', (e) => {
 						const topic = e.target.getAttribute('data-topic');
-						localStorage.setItem('blog_pref', topic);
+						
+						// Secretly track user interests for the "For You" feature!
+						if (topic === 'tech' || topic === 'ai' || topic === 'cybersecurity') {
+							let interests = JSON.parse(localStorage.getItem('user_interests') || '{}');
+							interests[topic] = (interests[topic] || 0) + 1;
+							localStorage.setItem('user_interests', JSON.stringify(interests));
+						}
 						
 						// Update Active Classes
 						document.querySelectorAll('.topic-btn').forEach(b => {
@@ -1467,7 +1472,7 @@
 				// Fetch APIs
 				fetchGithubProfile();
 				fetchGithubRepos();
-				fetchSubstackPosts();
+				fetchBlogPosts();
 				initEasterEggs();
 
 				// Network Recovery Logic (Auto reload if internet drops and reconnects)
@@ -1475,7 +1480,7 @@
 					// 1. Retry dynamic API fetches
 					fetchGithubProfile();
 					fetchGithubRepos();
-					fetchSubstackPosts();
+					fetchBlogPosts();
 
 					// 2. Find ALL images on the page and intelligently force reload them
 					document.querySelectorAll('img').forEach(img => {
@@ -1546,37 +1551,55 @@
 				}
 			}
 
-			async function fetchSubstackPosts() {
-				const grid = document.getElementById("substack-posts-grid");
-				const url = `https://api.rss2json.com/v1/api.json?rss_url=https://techtalkwithsourav.substack.com/feed&_=${new Date().getTime()}`;
+			// GOOGLE BLOGGER API FETCHER
+			async function fetchBlogPosts() {
+				const grid = document.getElementById("blog-posts-grid");
+				const url = `https://blog.sourav.com.bd/feeds/posts/default?alt=json&max-results=30`;
+				
 				try {
 					const res = await fetch(url);
 					const data = await res.json();
-					if (data.status === "ok" && data.items.length > 0) {
-						globalSubstackPosts = data.items;
-						
-						// Auto-load user's saved preference
-						const savedPref = localStorage.getItem('blog_pref') || 'foryou';
-						document.querySelectorAll('.topic-btn').forEach(btn => {
-							if (btn.getAttribute('data-topic') === savedPref) {
-								btn.className = "topic-btn active bg-brand-accent text-white px-4 py-1.5 rounded-xl text-xs sm:text-sm font-bold transition-all shadow-glow flex-shrink-0 whitespace-nowrap";
+					const entries = data.feed.entry || [];
+
+					if (entries.length > 0) {
+						// Clean up the messy Blogger JSON into a nice universal format
+						globalBlogPosts = entries.map(entry => {
+							let link = entry.link.find(l => l.rel === 'alternate')?.href || '#';
+							let categories = entry.category ? entry.category.map(c => c.term) : [];
+							let content = entry.content ? entry.content.$t : (entry.summary ? entry.summary.$t : "");
+							
+							// Extract high-quality thumbnail
+							let thumbnail = "";
+							if (entry.media$thumbnail && entry.media$thumbnail.url) {
+								thumbnail = entry.media$thumbnail.url.replace('s72-c', 's600'); // Force Blogger to give high-res image
 							} else {
-								btn.className = "topic-btn hover:bg-[var(--card-border)] px-4 py-1.5 rounded-xl text-xs sm:text-sm font-bold transition-all text-[var(--text-muted)] flex-shrink-0 whitespace-nowrap";
+								// Fallback: Check inside content for the first image
+								const imgMatch = content.match(/<img[^>]+src="([^">]+)"/);
+								if (imgMatch) thumbnail = imgMatch[1];
 							}
+
+							return {
+								title: entry.title.$t,
+								link: link,
+								content: content,
+								categories: categories,
+								pubDate: entry.published.$t,
+								thumbnail: thumbnail
+							};
 						});
 						
-						// Initially render with the saved preference
-						renderPosts(savedPref);
+						// Initially render the default "For You" feed
+						renderPosts('foryou');
 					} else {
 						throw new Error("No items");
 					}
 				} catch (e) { 
-					grid.innerHTML = "<p class='col-span-full text-center text-red-500 font-mono font-bold'>Data stream interrupted.</p>"; 
+					grid.innerHTML = "<p class='col-span-full text-center text-red-500 font-mono font-bold'>Data stream interrupted or Blog API offline.</p>"; 
 				}
 			}
 
 			function renderPosts(topic) {
-				const grid = document.getElementById("substack-posts-grid");
+				const grid = document.getElementById("blog-posts-grid");
 				
 				// Show instantly if previously visited (No delay)
 				if (cachedFeeds[topic]) {
@@ -1587,44 +1610,34 @@
 				grid.innerHTML = `<p class="col-span-full text-center py-10 font-mono font-bold text-brand-accent animate-pulse"><i class="fa-solid fa-spinner fa-spin mr-2"></i> Updating feed...</p>`;
 				
 				setTimeout(() => { // slight delay for smooth transition UX
-					let filteredPosts = [...globalSubstackPosts];
+					let filteredPosts = [...globalBlogPosts];
 
 					if (topic === 'foryou') {
-						// Randomly shuffle to create a "discovery" curated feel
-						filteredPosts = filteredPosts.sort(() => 0.5 - Math.random());
+						// AI Interest Logic: Check localStorage to see what they click on the most
+						let interests = JSON.parse(localStorage.getItem('user_interests') || '{}');
+						
+						// Find the category they clicked the most
+						let topInterest = Object.keys(interests).sort((a,b) => interests[b] - interests[a])[0];
+						
+						if (topInterest) {
+							// If they have an interest, secretly filter by that topic
+							filteredPosts = filterByTopic(filteredPosts, topInterest);
+							
+							// If their top interest doesn't yield enough posts, mix in some latest posts
+							if (filteredPosts.length < 3) {
+								const nonMatching = globalBlogPosts.filter(p => !filteredPosts.includes(p));
+								filteredPosts = filteredPosts.concat(nonMatching.slice(0, 3 - filteredPosts.length));
+							}
+						} else {
+							// Brand new user? Shuffle all posts to create a discovery feed!
+							filteredPosts = filteredPosts.sort(() => 0.5 - Math.random());
+						}
+						
 					} else if (topic !== 'latest') {
-						const keywords = {
-							'tech': ['tech', 'technology', 'hardware', 'software', 'update', 'digital', 'cloud', 'data', 'it', 'gadget', 'app', 'system', 'programming', 'web', 'developer', 'code'],
-							'ai': ['ai', 'artificial intelligence', 'machine learning', 'gpt', 'llm', 'neural', 'openai', 'gemini', 'chatgpt', 'prompt', 'deepseek', 'copilot'],
-							'cybersecurity': ['cybersecurity', 'cyber security', 'cyber', 'security', 'hack', 'privacy', 'malware', 'phishing', 'threat', 'breach', 'vulnerability', 'encryption']
-						}[topic] || [];
-
-						filteredPosts = filteredPosts.filter(post => {
-							// Strip HTML tags for clean text searching so we don't match code attributes
-							const cleanContent = (post.content || post.description || "").replace(/<[^>]*>?/gm, ' ');
-							const textToSearch = (post.title + " " + cleanContent).toLowerCase();
-							let match = false;
-							
-							if (post.categories && Array.isArray(post.categories)) {
-								match = post.categories.some(cat => keywords.some(kw => cat.toLowerCase().includes(kw)));
-							}
-							
-							if (!match) {
-								match = keywords.some(kw => {
-									// Only use word boundary for very short keywords like 'ai' or 'it' to prevent false positives inside words like 'email'
-									if (kw.length <= 2) {
-										const regex = new RegExp('\\b' + kw + '\\b', 'gi');
-										return regex.test(textToSearch);
-									} else {
-										return textToSearch.includes(kw);
-									}
-								});
-							}
-							return match;
-						});
+						filteredPosts = filterByTopic(filteredPosts, topic);
 					}
 
-					// We strictly take up to 3 posts. If there is only 1 or 2, we leave it as is without adding random filler posts!
+					// We strictly take up to 3 posts. 
 					const postsToShow = filteredPosts.slice(0, 3);
 					let resultHTML = "";
 
@@ -1638,25 +1651,25 @@
 						`;
 					} else {
 						postsToShow.forEach(item => {
-							const t = document.createElement("div"); t.innerHTML = item.content || item.description || "";
-							
-							// Extract raw image URL
-							let rawImg = item.thumbnail || (item.enclosure && item.enclosure.link) || t.querySelector("img")?.src || "";
 							
 							let imageHTML = "";
-							if (rawImg && !rawImg.includes("placehold.co")) {
-								const optimizedImg = `https://wsrv.nl/?url=${encodeURIComponent(rawImg)}&w=600&h=400&fit=cover&output=webp&q=80`;
+							if (item.thumbnail && !item.thumbnail.includes("placehold.co")) {
+								// Use wsrv.nl to optimize and crop the image beautifully
+								const optimizedImg = `https://wsrv.nl/?url=${encodeURIComponent(item.thumbnail)}&w=600&h=400&fit=cover&output=webp&q=80`;
 								imageHTML = `<img src="${optimizedImg}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500 relative z-10" loading="lazy" decoding="async" onerror="this.style.display='none';">`;
-							} else if (rawImg) {
-								imageHTML = `<img src="${rawImg}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500 relative z-10" loading="lazy" decoding="async" onerror="this.style.display='none';">`;
+							} else if (item.thumbnail) {
+								imageHTML = `<img src="${item.thumbnail}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500 relative z-10" loading="lazy" decoding="async" onerror="this.style.display='none';">`;
 							}
 							
-							const snippet = t.textContent.trim().substring(0, 100) + "...";
+							// Strip HTML tags from content to make a clean text snippet
+							const cleanContent = (item.content || "").replace(/<[^>]*>?/gm, ' ');
+							const snippet = cleanContent.trim().substring(0, 100) + "...";
+							
 							resultHTML += `
 								<a href="${item.link}" target="_blank" rel="noopener noreferrer" class="glass-card rounded-3xl overflow-hidden flex flex-col h-full group border-[var(--card-border)]">
 									<div class="overflow-hidden h-48 sm:h-56 relative bg-[var(--bg-main)]">
 										
-										<!-- Animated Fallback -->
+										<!-- Animated Fallback Background -->
 										<div class="absolute inset-0 flex flex-col items-center justify-center p-4 text-center z-0">
 											<div class="absolute inset-0 opacity-20 bg-[radial-gradient(circle_at_center,var(--accent)_0%,transparent_70%)] animate-pulse"></div>
 											<i class="fa-solid fa-rss text-4xl text-brand-accent/50 mb-3 animate-bounce" style="animation-duration: 2s;"></i>
@@ -1685,7 +1698,41 @@
 					cachedFeeds[topic] = resultHTML;
 					grid.innerHTML = resultHTML;
 
-				}, 400); // slight UI delay
+				}, 300); // slight UI delay
+			}
+
+			// Helper function to handle strict Label/Keyword filtering
+			function filterByTopic(postsArray, topic) {
+				const keywords = {
+					'tech': ['tech', 'technology', 'hardware', 'software', 'update', 'digital', 'cloud', 'data', 'it', 'gadget', 'app', 'system', 'programming', 'web', 'developer', 'code'],
+					'ai': ['ai', 'artificial intelligence', 'machine learning', 'gpt', 'llm', 'neural', 'openai', 'gemini', 'chatgpt', 'prompt', 'deepseek', 'copilot'],
+					'cybersecurity': ['cybersecurity', 'cyber security', 'cyber', 'security', 'hack', 'privacy', 'malware', 'phishing', 'threat', 'breach', 'vulnerability', 'encryption']
+				}[topic] || [];
+
+				return postsArray.filter(post => {
+					// 1. Strictly check Blogger Labels (Categories) first
+					if (post.categories && post.categories.length > 0) {
+						let categoryMatch = post.categories.some(cat => {
+							const c = cat.toLowerCase();
+							return keywords.some(kw => c.includes(kw));
+						});
+						if (categoryMatch) return true;
+					}
+
+					// 2. Fallback check plain text (Strip HTML so we don't accidentally match code tags)
+					const cleanContent = (post.content || "").replace(/<[^>]*>?/gm, ' ');
+					const textToSearch = (post.title + " " + cleanContent).toLowerCase();
+					
+					return keywords.some(kw => {
+						// Use word boundary for tiny words so "ai" doesn't match inside "email"
+						if (kw.length <= 2) {
+							const regex = new RegExp('\\b' + kw + '\\b', 'gi');
+							return regex.test(textToSearch);
+						} else {
+							return textToSearch.includes(kw);
+						}
+					});
+				});
 			}
 
 			function getLangColor(lang) {
