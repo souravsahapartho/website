@@ -15,7 +15,7 @@
 
 		<!-- SEO & Sharing Meta Tags -->
 		<title>Sourav Saha – CSE Student at UIU | Tech Enthusiast from Bangladesh</title>
-		<meta name="description" content="Sourav Saha is a Computer Science (CSE) student at UIU, a passionate leader crafting solutions through code. Explore the portfolio of a web developer and tech writer at TechTalk, building tomorrow with technology.">
+		<meta name="description" content="Sourav Saha is a Computer Science (CSE) student at UIU and a tech enthusiast from Bangladesh. A passionate leader crafting solutions through code, building tomorrow with technology as a web developer and tech writer at TechTalk.">
 		<meta name="keywords" content="Sourav Saha, Sourav Saha UIU, Sourav Saha CSE, Sourav Saha Bangladesh, Sourav Saha tech enthusiast, Sourav Saha computer science student, Sourav Saha developer, Sourav Saha portfolio, Sourav Saha website, Sourav Saha tech blog, UIU CSE student, United International University CSE student, crafting solutions through code, code logic innovation, tech writer at TechTalk, building tomorrow with technology, passionate tech leader Bangladesh, HTML CSS developer student, C C++ programmer student, Java programming student, TechTalk with Sourav, technology blog Bangladesh">
 		<meta name="author" content="Sourav Saha">
 		<meta name="application-name" content="Sourav Saha">
@@ -29,7 +29,7 @@
 		<meta property="og:type" content="website" />
 		<meta property="og:url" content="https://sourav.com.bd/" />
 		<meta property="og:title" content="Sourav Saha – CSE Student at UIU | Tech Enthusiast from Bangladesh" />
-		<meta property="og:description" content="Sourav Saha is a Computer Science (CSE) student at United International University (UIU), Bangladesh and a technology enthusiast passionate about web development, SEO, and tech blogging." />
+		<meta property="og:description" content="Sourav Saha is a Computer Science (CSE) student at UIU and a tech enthusiast from Bangladesh. A passionate leader crafting solutions through code, building tomorrow with technology as a web developer and tech writer at TechTalk." />
 		<!-- Fixed OG Image to use profile picture explicitly to guarantee rendering -->
 		<meta property="og:image" content="https://sourav.com.bd/Image/profile.jpg" />
 		<meta property="og:image:type" content="image/jpeg" />
@@ -42,7 +42,7 @@
 		<meta property="twitter:card" content="summary_large_image" />
 		<meta property="twitter:url" content="https://sourav.com.bd/" />
 		<meta property="twitter:title" content="Sourav Saha – CSE Student at UIU | Tech Enthusiast from Bangladesh" />
-		<meta property="twitter:description" content="Sourav Saha is a Computer Science (CSE) student at United International University (UIU), Bangladesh and a technology enthusiast passionate about web development, SEO, and tech blogging." />
+		<meta property="twitter:description" content="Sourav Saha is a Computer Science (CSE) student at UIU and a tech enthusiast from Bangladesh. A passionate leader crafting solutions through code, building tomorrow with technology as a web developer and tech writer at TechTalk." />
 		<meta property="twitter:image" content="https://sourav.com.bd/Image/profile.jpg" />
 		<meta property="twitter:creator" content="@souravpartho">
 
@@ -346,6 +346,30 @@
 			@media (min-width: 768px) { .timeline-container { padding-left: 2rem; } }
 			.timeline-dot { position: absolute; width: 1rem; height: 1rem; border-radius: 50%; background-color: var(--accent); border: 4px solid var(--bg-main); top: 1.5rem; left: -1.5rem; transform: translateX(-6px); box-shadow: var(--glow-shadow); }
 			@media (min-width: 768px) { .timeline-dot { left: -2rem; } }
+
+			/* Mission Focus Animation */
+			@keyframes targetFocus {
+				0%, 100% { transform: scale(1); }
+				50% { transform: scale(1.15); }
+			}
+			.mission-focus-anim {
+				display: inline-block;
+				transform-origin: center;
+				animation: targetFocus 3s ease-in-out infinite;
+				will-change: transform;
+			}
+
+			/* Eye Blink Animation */
+			@keyframes eyeBlink {
+				0%, 92%, 98%, 100% { transform: scaleY(1); }
+				95% { transform: scaleY(0.1); }
+			}
+			.eye-blink-anim {
+				display: inline-block;
+				transform-origin: center;
+				animation: eyeBlink 4s ease-in-out infinite;
+				will-change: transform;
+			}
 		</style>
 
 		<!-- JSON-LD Schema Markup for SEO -->
@@ -372,7 +396,7 @@
 							"@type": "CollegeOrUniversity",
 							"name": "United International University (UIU)"
 						},
-						"description": "Sourav Saha is a Computer Science (CSE) student at UIU, a passionate leader crafting solutions through code, an aspiring web developer, and the tech writer at TechTalk based in Bangladesh."
+						"description": "Sourav Saha is a Computer Science (CSE) student at UIU and a tech enthusiast from Bangladesh. A passionate leader crafting solutions through code, an aspiring web developer, and the tech writer at TechTalk."
 					},
 					{
 						"@type": "WebSite",
@@ -474,11 +498,12 @@
 					<div class="relative overflow-hidden h-6 sm:h-8 md:h-10 opacity-0 mx-auto w-full mb-4 px-2" style="animation: fadeInSub 1s ease-out 4.2s forwards;">
 						<h2 id="rotating-text-container" class="rotating-text-container">
 							<span class="rotating-text-item is-visible text-[13px] sm:text-base md:text-xl lg:text-2xl font-semibold text-[var(--text-muted)] tracking-wide whitespace-nowrap">Computer Science (CSE) Student at UIU</span>
+							<span class="rotating-text-item text-[13px] sm:text-base md:text-xl lg:text-2xl font-semibold text-[var(--text-muted)] tracking-wide whitespace-nowrap">Tech Enthusiast from Bangladesh</span>
 							<span class="rotating-text-item text-[13px] sm:text-base md:text-xl lg:text-2xl font-semibold text-[var(--text-muted)] tracking-wide whitespace-nowrap">Crafting Solutions Through Code</span>
 							<span class="rotating-text-item text-[13px] sm:text-base md:text-xl lg:text-2xl font-semibold text-[var(--text-muted)] tracking-wide whitespace-nowrap">Tech Writer at TechTalk</span>
 							<span class="rotating-text-item text-[13px] sm:text-base md:text-xl lg:text-2xl font-semibold text-[var(--text-muted)] tracking-wide whitespace-nowrap">Code | Logic | Innovation</span>
 							<span class="rotating-text-item text-[13px] sm:text-base md:text-xl lg:text-2xl font-semibold text-[var(--text-muted)] tracking-wide whitespace-nowrap">Building Tomorrow With Technology</span>
-							<span class="rotating-text-item text-[13px] sm:text-base md:text-xl lg:text-2xl font-semibold text-[var(--text-muted)] tracking-wide whitespace-nowrap">A Passionate Leader & Tech Enthusiast</span>
+							<span class="rotating-text-item text-[13px] sm:text-base md:text-xl lg:text-2xl font-semibold text-[var(--text-muted)] tracking-wide whitespace-nowrap">A Passionate Leader</span>
 						</h2>
 					</div>
 					
@@ -522,11 +547,11 @@
 								</p>
 								<div class="grid sm:grid-cols-2 gap-4 sm:gap-6 mt-8">
 									<div class="p-5 rounded-2xl bg-[var(--bg-main)] border border-[var(--card-border)] text-left shadow-sm hover:shadow-md transition-shadow">
-										<h3 class="font-bold text-brand-accent mb-2 text-lg"><i class="fa-solid fa-bullseye mr-2"></i>My Mission</h3>
+										<h3 class="font-bold text-brand-accent mb-2 text-lg"><i class="fa-solid fa-bullseye mission-focus-anim mr-2"></i>My Mission</h3>
 										<p class="text-sm">To empower myself and others through continuous learning, coding, and practical skill-building in the tech ecosystem.</p>
 									</div>
 									<div class="p-5 rounded-2xl bg-[var(--bg-main)] border border-[var(--card-border)] text-left shadow-sm hover:shadow-md transition-shadow">
-										<h3 class="font-bold text-brand-accent mb-2 text-lg"><i class="fa-solid fa-eye mr-2"></i>My Vision</h3>
+										<h3 class="font-bold text-brand-accent mb-2 text-lg"><i class="fa-solid fa-eye eye-blink-anim mr-2"></i>My Vision</h3>
 										<p class="text-sm">To become a top developer in Bangladesh who creates meaningful software solutions and inspires others to innovate with purpose.</p>
 									</div>
 								</div>
@@ -778,7 +803,7 @@
 			</section>
 
 			<!-- Articles Section -->
-			<section id="articles" class="relative px-4 sm:px-6 lg:px-8 py-16 md:py-24 overflow-hidden">
+			<section id="articles" class="relative px-4 sm:px-6 lg:px-8 pt-16 md:pt-24 pb-8 md:pb-12 overflow-hidden">
 				<div class="bg-anim-articles">
 					<!-- Data drops dynamically inserted by CSS -->
 					<div class="data-drop" style="left:10%; animation-delay:0s;"></div>
@@ -1017,6 +1042,10 @@
 			const WEB3FORMS_ACCESS_KEY = "9f4ad3eb-6a2c-42a1-b06c-ec515d72da59"; // Web3Forms Access Key
 			const PRELOADER_DELAY = 1500;
 			const GITHUB_USERNAME = "souravsahapartho";
+
+			// Global Variables for AI Personalization
+			let globalSubstackPosts = [];
+			let cachedFeeds = {}; // Caches the rendered HTML to show instantly on revisit
 
 			// Theme Logic
 			const themeToggleBtn = document.getElementById('theme-toggle');
