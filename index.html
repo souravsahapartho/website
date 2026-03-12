@@ -30,6 +30,7 @@
 		<meta property="og:url" content="https://sourav.com.bd/" />
 		<meta property="og:title" content="Sourav Saha – CSE Student at UIU | Tech Enthusiast from Bangladesh" />
 		<meta property="og:description" content="Sourav Saha is a Computer Science (CSE) student at United International University (UIU), Bangladesh and a technology enthusiast passionate about web development, SEO, and tech blogging." />
+		<!-- Fixed OG Image to use profile picture explicitly to guarantee rendering -->
 		<meta property="og:image" content="https://sourav.com.bd/Image/profile.jpg" />
 		<meta property="og:image:type" content="image/jpeg" />
 		<meta property="og:image:width" content="800" />
@@ -364,7 +365,7 @@
 							"https://www.instagram.com/souravsahapartho/",
 							"https://www.facebook.com/souravsahapartho/",
 							"https://x.com/souravpartho",
-							"https://blog.sourav.com.bd/"
+							"https://techtalkwithsourav.substack.com/"
 						],
 						"jobTitle": "Computer Science (CSE) Student & Tech Writer",
 						"alumniOf": {
@@ -786,25 +787,14 @@
 				</div>
 				
 				<div class="container mx-auto relative z-10" data-aos="fade-up">
-					<div class="text-center mb-8">
+					<div class="text-center mb-12">
 						<h2 class="text-2xl sm:text-3xl md:text-4xl font-extrabold text-glow mb-4 text-[var(--text-main)] whitespace-nowrap">TechTalk with Sourav</h2>
-						<p class="text-base sm:text-lg font-medium max-w-2xl mx-auto text-[var(--text-muted)] mb-8">Explore my tech education blog featuring technology articles, programming insights, and the latest from a tech blogger in Bangladesh.</p>
-						
-						<!-- Blog Feed Filter -->
-						<div class="glass-card mx-auto max-w-full overflow-x-auto hide-scrollbar p-2 rounded-2xl border-brand-accent/30 shadow-[0_5px_15px_rgba(0,194,169,0.1)] mb-6 inline-block" data-aos="zoom-in">
-							<div class="flex items-center gap-2 flex-nowrap w-max px-2">
-								<button class="topic-btn active bg-brand-accent text-white px-4 py-1.5 rounded-xl text-xs sm:text-sm font-bold transition-all shadow-glow flex-shrink-0 whitespace-nowrap" data-topic="foryou">For You</button>
-								<button class="topic-btn hover:bg-[var(--card-border)] px-4 py-1.5 rounded-xl text-xs sm:text-sm font-bold transition-all text-[var(--text-muted)] flex-shrink-0 whitespace-nowrap" data-topic="latest">Latest</button>
-								<button class="topic-btn hover:bg-[var(--card-border)] px-4 py-1.5 rounded-xl text-xs sm:text-sm font-bold transition-all text-[var(--text-muted)] flex-shrink-0 whitespace-nowrap" data-topic="tech">Tech</button>
-								<button class="topic-btn hover:bg-[var(--card-border)] px-4 py-1.5 rounded-xl text-xs sm:text-sm font-bold transition-all text-[var(--text-muted)] flex-shrink-0 whitespace-nowrap" data-topic="ai">AI</button>
-								<button class="topic-btn hover:bg-[var(--card-border)] px-4 py-1.5 rounded-xl text-xs sm:text-sm font-bold transition-all text-[var(--text-muted)] flex-shrink-0 whitespace-nowrap" data-topic="cybersecurity">Cyber Security</button>
-							</div>
-						</div>
+						<p class="text-base sm:text-lg font-medium max-w-2xl mx-auto text-[var(--text-muted)]">Explore my tech education blog featuring technology articles, programming insights, and the latest from a tech blogger in Bangladesh.</p>
 					</div>
 					
-					<div id="blog-posts-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+					<div id="substack-posts-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
 						<p class="col-span-full text-center py-10 font-mono font-bold text-[var(--text-muted)]">
-							<i class="fa-solid fa-rss fa-spin mr-2"></i> Fetching latest publications from Google Blogger...
+							<i class="fa-solid fa-rss fa-spin mr-2"></i> Loading latest publications from Substack...
 						</p>
 					</div>
 					
@@ -1025,10 +1015,6 @@
 			const WEB3FORMS_ACCESS_KEY = "9f4ad3eb-6a2c-42a1-b06c-ec515d72da59"; // Web3Forms Access Key
 			const PRELOADER_DELAY = 1500;
 			const GITHUB_USERNAME = "souravsahapartho";
-
-			// Global Variables for Blog Personalization
-			let globalBlogPosts = [];
-			let cachedFeeds = {}; // Caches the rendered HTML to show instantly on revisit
 
 			// Theme Logic
 			const themeToggleBtn = document.getElementById('theme-toggle');
@@ -1308,28 +1294,6 @@
 					}
 				}
 
-				// Blog Filter Tracking and UI Logic
-				document.querySelectorAll('.topic-btn').forEach(btn => {
-					btn.addEventListener('click', (e) => {
-						const topic = e.target.getAttribute('data-topic');
-						
-						// Secretly track user interests for the "For You" feature!
-						if (topic === 'tech' || topic === 'ai' || topic === 'cybersecurity') {
-							let interests = JSON.parse(localStorage.getItem('user_interests') || '{}');
-							interests[topic] = (interests[topic] || 0) + 1;
-							localStorage.setItem('user_interests', JSON.stringify(interests));
-						}
-						
-						// Update Active Classes
-						document.querySelectorAll('.topic-btn').forEach(b => {
-							b.className = "topic-btn hover:bg-[var(--card-border)] px-4 py-1.5 rounded-xl text-xs sm:text-sm font-bold transition-all text-[var(--text-muted)] flex-shrink-0 whitespace-nowrap";
-						});
-						e.target.className = "topic-btn active bg-brand-accent text-white px-4 py-1.5 rounded-xl text-xs sm:text-sm font-bold transition-all shadow-glow flex-shrink-0 whitespace-nowrap";
-
-						renderPosts(topic);
-					});
-				});
-
 				// Contact Form (Dual Submit: Google Sheets + Web3Forms)
 				const contactForm = document.getElementById("contact-form");
 				if (contactForm) {
@@ -1472,7 +1436,7 @@
 				// Fetch APIs
 				fetchGithubProfile();
 				fetchGithubRepos();
-				fetchBlogPosts();
+				fetchSubstackPosts();
 				initEasterEggs();
 
 				// Network Recovery Logic (Auto reload if internet drops and reconnects)
@@ -1480,7 +1444,7 @@
 					// 1. Retry dynamic API fetches
 					fetchGithubProfile();
 					fetchGithubRepos();
-					fetchBlogPosts();
+					fetchSubstackPosts();
 
 					// 2. Find ALL images on the page and intelligently force reload them
 					document.querySelectorAll('img').forEach(img => {
@@ -1551,121 +1515,30 @@
 				}
 			}
 
-			// GOOGLE BLOGGER API FETCHER
-			async function fetchBlogPosts() {
-				const grid = document.getElementById("blog-posts-grid");
-				const url = `https://blog.sourav.com.bd/feeds/posts/default?alt=json&max-results=30`;
-				
+			async function fetchSubstackPosts() {
+				const grid = document.getElementById("substack-posts-grid");
+				const url = `https://api.rss2json.com/v1/api.json?rss_url=https://techtalkwithsourav.substack.com/feed&_=${new Date().getTime()}`;
 				try {
 					const res = await fetch(url);
 					const data = await res.json();
-					const entries = data.feed.entry || [];
-
-					if (entries.length > 0) {
-						// Clean up the messy Blogger JSON into a nice universal format
-						globalBlogPosts = entries.map(entry => {
-							let link = entry.link.find(l => l.rel === 'alternate')?.href || '#';
-							let categories = entry.category ? entry.category.map(c => c.term) : [];
-							let content = entry.content ? entry.content.$t : (entry.summary ? entry.summary.$t : "");
+					if (data.status === "ok") {
+						grid.innerHTML = "";
+						data.items.slice(0, 3).forEach(item => {
+							const t = document.createElement("div"); t.innerHTML = item.content || item.description || "";
 							
-							// Extract high-quality thumbnail
-							let thumbnail = "";
-							if (entry.media$thumbnail && entry.media$thumbnail.url) {
-								thumbnail = entry.media$thumbnail.url.replace('s72-c', 's600'); // Force Blogger to give high-res image
-							} else {
-								// Fallback: Check inside content for the first image
-								const imgMatch = content.match(/<img[^>]+src="([^">]+)"/);
-								if (imgMatch) thumbnail = imgMatch[1];
-							}
-
-							return {
-								title: entry.title.$t,
-								link: link,
-								content: content,
-								categories: categories,
-								pubDate: entry.published.$t,
-								thumbnail: thumbnail
-							};
-						});
-						
-						// Initially render the default "For You" feed
-						renderPosts('foryou');
-					} else {
-						throw new Error("No items");
-					}
-				} catch (e) { 
-					grid.innerHTML = "<p class='col-span-full text-center text-red-500 font-mono font-bold'>Data stream interrupted or Blog API offline.</p>"; 
-				}
-			}
-
-			function renderPosts(topic) {
-				const grid = document.getElementById("blog-posts-grid");
-				
-				// Show instantly if previously visited (No delay)
-				if (cachedFeeds[topic]) {
-					grid.innerHTML = cachedFeeds[topic];
-					return;
-				}
-
-				grid.innerHTML = `<p class="col-span-full text-center py-10 font-mono font-bold text-brand-accent animate-pulse"><i class="fa-solid fa-spinner fa-spin mr-2"></i> Updating feed...</p>`;
-				
-				setTimeout(() => { // slight delay for smooth transition UX
-					let filteredPosts = [...globalBlogPosts];
-
-					if (topic === 'foryou') {
-						// AI Interest Logic: Check localStorage to see what they click on the most
-						let interests = JSON.parse(localStorage.getItem('user_interests') || '{}');
-						
-						// Find the category they clicked the most
-						let topInterest = Object.keys(interests).sort((a,b) => interests[b] - interests[a])[0];
-						
-						if (topInterest) {
-							// If they have an interest, secretly filter by that topic
-							filteredPosts = filterByTopic(filteredPosts, topInterest);
-							
-							// If their top interest doesn't yield enough posts, mix in some latest posts
-							if (filteredPosts.length < 3) {
-								const nonMatching = globalBlogPosts.filter(p => !filteredPosts.includes(p));
-								filteredPosts = filteredPosts.concat(nonMatching.slice(0, 3 - filteredPosts.length));
-							}
-						} else {
-							// Brand new user? Shuffle all posts to create a discovery feed!
-							filteredPosts = filteredPosts.sort(() => 0.5 - Math.random());
-						}
-						
-					} else if (topic !== 'latest') {
-						filteredPosts = filterByTopic(filteredPosts, topic);
-					}
-
-					// We strictly take up to 3 posts. 
-					const postsToShow = filteredPosts.slice(0, 3);
-					let resultHTML = "";
-
-					if (postsToShow.length === 0) {
-						resultHTML = `
-							<div class="col-span-full flex flex-col items-center justify-center py-12 text-center glass-card rounded-3xl border border-[var(--card-border)]">
-								<i class="fa-solid fa-folder-open text-4xl text-[var(--text-muted)] mb-3 opacity-50"></i>
-								<p class="font-extrabold text-[var(--text-main)] text-lg mb-1">No exact matches</p>
-								<p class="text-[var(--text-muted)] font-medium text-sm">I haven't written about this specific topic recently. Check back soon!</p>
-							</div>
-						`;
-					} else {
-						postsToShow.forEach(item => {
+							// Extract raw image URL
+							let rawImg = item.thumbnail || (item.enclosure && item.enclosure.link) || t.querySelector("img")?.src || "";
 							
 							let imageHTML = "";
-							if (item.thumbnail && !item.thumbnail.includes("placehold.co")) {
-								// Use wsrv.nl to optimize and crop the image beautifully
-								const optimizedImg = `https://wsrv.nl/?url=${encodeURIComponent(item.thumbnail)}&w=600&h=400&fit=cover&output=webp&q=80`;
+							if (rawImg && !rawImg.includes("placehold.co")) {
+								const optimizedImg = `https://wsrv.nl/?url=${encodeURIComponent(rawImg)}&w=600&h=400&fit=cover&output=webp&q=80`;
 								imageHTML = `<img src="${optimizedImg}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500 relative z-10" loading="lazy" decoding="async" onerror="this.style.display='none';">`;
-							} else if (item.thumbnail) {
-								imageHTML = `<img src="${item.thumbnail}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500 relative z-10" loading="lazy" decoding="async" onerror="this.style.display='none';">`;
+							} else if (rawImg) {
+								imageHTML = `<img src="${rawImg}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500 relative z-10" loading="lazy" decoding="async" onerror="this.style.display='none';">`;
 							}
 							
-							// Strip HTML tags from content to make a clean text snippet
-							const cleanContent = (item.content || "").replace(/<[^>]*>?/gm, ' ');
-							const snippet = cleanContent.trim().substring(0, 100) + "...";
-							
-							resultHTML += `
+							const snippet = t.textContent.trim().substring(0, 100) + "...";
+							grid.innerHTML += `
 								<a href="${item.link}" target="_blank" rel="noopener noreferrer" class="glass-card rounded-3xl overflow-hidden flex flex-col h-full group border-[var(--card-border)]">
 									<div class="overflow-hidden h-48 sm:h-56 relative bg-[var(--bg-main)]">
 										
@@ -1692,47 +1565,10 @@
 									</div>
 								</a>`;
 						});
+					} else {
+						throw new Error("Failed to load");
 					}
-
-					// Save generated HTML to cache and display
-					cachedFeeds[topic] = resultHTML;
-					grid.innerHTML = resultHTML;
-
-				}, 300); // slight UI delay
-			}
-
-			// Helper function to handle strict Label/Keyword filtering
-			function filterByTopic(postsArray, topic) {
-				const keywords = {
-					'tech': ['tech', 'technology', 'hardware', 'software', 'update', 'digital', 'cloud', 'data', 'it', 'gadget', 'app', 'system', 'programming', 'web', 'developer', 'code'],
-					'ai': ['ai', 'artificial intelligence', 'machine learning', 'gpt', 'llm', 'neural', 'openai', 'gemini', 'chatgpt', 'prompt', 'deepseek', 'copilot'],
-					'cybersecurity': ['cybersecurity', 'cyber security', 'cyber', 'security', 'hack', 'privacy', 'malware', 'phishing', 'threat', 'breach', 'vulnerability', 'encryption']
-				}[topic] || [];
-
-				return postsArray.filter(post => {
-					// 1. Strictly check Blogger Labels (Categories) first
-					if (post.categories && post.categories.length > 0) {
-						let categoryMatch = post.categories.some(cat => {
-							const c = cat.toLowerCase();
-							return keywords.some(kw => c.includes(kw));
-						});
-						if (categoryMatch) return true;
-					}
-
-					// 2. Fallback check plain text (Strip HTML so we don't accidentally match code tags)
-					const cleanContent = (post.content || "").replace(/<[^>]*>?/gm, ' ');
-					const textToSearch = (post.title + " " + cleanContent).toLowerCase();
-					
-					return keywords.some(kw => {
-						// Use word boundary for tiny words so "ai" doesn't match inside "email"
-						if (kw.length <= 2) {
-							const regex = new RegExp('\\b' + kw + '\\b', 'gi');
-							return regex.test(textToSearch);
-						} else {
-							return textToSearch.includes(kw);
-						}
-					});
-				});
+				} catch (e) { grid.innerHTML = "<p class='col-span-full text-center text-red-500 font-mono font-bold'>Data stream interrupted.</p>"; }
 			}
 
 			function getLangColor(lang) {
