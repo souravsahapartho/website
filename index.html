@@ -1668,7 +1668,7 @@
 							<p class="text-sm font-medium text-[var(--text-muted)] mb-5 flex-grow leading-relaxed">${snippet}</p>
 							<div class="flex justify-between items-center text-xs text-brand-accent font-mono font-bold mt-auto pt-4 border-t border-[var(--card-border)]">
 								<span>${new Date(item.pubDate).toLocaleDateString()}</span>
-								<a href="${item.link}" target="_blank" rel="noopener noreferrer" class="hover:text-brand-accentHover transition-colors cursor-pointer px-2 py-1 -mr-2 z-40 relative">
+								<a href="${item.link}" target="_blank" rel="noopener noreferrer" class="hover:text-brand-accentHover transition-colors cursor-pointer px-2 py-1 -mr-2 z-40 relative" onclick="this.querySelector('.read-arrow-anim')?.classList.remove('read-arrow-anim');">
 									Read <i class="fa-solid fa-arrow-up-right-from-square ml-1 read-arrow-anim"></i>
 								</a>
 							</div>
