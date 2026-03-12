@@ -46,6 +46,9 @@
 		<meta property="twitter:image" content="https://sourav.com.bd/Image/profile.jpg" />
 		<meta property="twitter:creator" content="@souravpartho">
 
+		<!-- Preload critical assets for faster rendering -->
+		<link rel="preload" as="image" href="sourav-saha-resume.jpg">
+		
 		<!-- Universal Favicon Setup -->
 		<link rel="icon" href="https://placehold.co/32x32/00c2a9/ffffff?text=SS" type="image/png" sizes="32x32" />
 		<link rel="icon" href="https://placehold.co/16x16/00c2a9/ffffff?text=S" type="image/png" sizes="16x16" />
@@ -556,8 +559,8 @@
 								/>
 								
 								<!-- GitHub Total Contributions Badge - Static -->
-								<div class="glass-card absolute -bottom-6 -right-2 sm:-bottom-4 sm:-right-6 rounded-xl px-2.5 py-1.5 flex flex-col items-center justify-center z-20 shadow-[0_5px_15px_rgba(0,194,169,0.15)] pointer-events-none">
-									<span id="github-total-count" class="text-brand-accent font-extrabold text-base sm:text-lg font-sans leading-none">0</span>
+								<div class="glass-card absolute bottom-4 -right-4 sm:bottom-8 sm:-right-8 rounded-xl px-2.5 py-1.5 flex flex-col items-center justify-center z-20 shadow-[0_5px_15px_rgba(0,194,169,0.15)] pointer-events-none">
+									<span id="github-total-count" class="text-brand-accent text-glow font-extrabold text-base sm:text-lg font-sans leading-none">0</span>
 									<span class="text-[var(--text-main)] text-[7px] sm:text-[8px] font-bold uppercase tracking-wider mt-0.5 whitespace-nowrap flex items-center gap-1"><i class="fa-brands fa-github opacity-75"></i> GitHub Contributions</span>
 								</div>
 							</div>
@@ -1324,12 +1327,8 @@
 				document.querySelectorAll(".open-cv-btn").forEach(btn => btn.addEventListener("click", (e) => {
 					e.preventDefault();
 					cvModal.classList.add("is-active");
-					// Dynamically trigger image load only when the modal opens to avoid hidden mobile browser bugs
+					// Pre-assign src if needed, but theDOMContentLoaded logic already did it.
 					if (!cvImage.getAttribute('src') || cvImage.getAttribute('src') === "") {
-						document.getElementById('cv-loader').style.display = 'flex';
-						document.getElementById('cv-error-msg').style.display = 'none';
-						cvImage.classList.add('hidden');
-						cvImage.style.display = ''; 
 						cvImage.setAttribute('src', 'sourav-saha-resume.jpg');
 					}
 				}));
@@ -1561,6 +1560,9 @@
 				fetchGithubRepos();
 				fetchSubstackPosts();
 				fetchTotalContributions();
+				
+				// Pre-assign CV image source so browser caches it immediately
+				if (cvImage) cvImage.src = 'sourav-saha-resume.jpg';
 				
 				// Set an interval to quietly fetch the exact data every 5 minutes (300000 ms)
 				setInterval(fetchTotalContributions, 300000); 
