@@ -791,14 +791,14 @@
 						<h2 class="text-2xl sm:text-3xl md:text-4xl font-extrabold text-glow mb-4 text-[var(--text-main)] whitespace-nowrap">TechTalk with Sourav</h2>
 						<p class="text-base sm:text-lg font-medium max-w-2xl mx-auto text-[var(--text-muted)] mb-8">Explore my tech education blog featuring technology articles, programming insights, and the latest from a tech blogger in Bangladesh.</p>
 						
-						<!-- AI Feed Personalizer -->
-						<div class="glass-card mx-auto max-w-full overflow-x-auto hide-scrollbar p-2 rounded-2xl border-brand-accent/30 shadow-[0_5px_15px_rgba(0,194,169,0.1)] mb-4 inline-block" data-aos="zoom-in">
-							<div class="flex items-center gap-1 sm:gap-2 flex-nowrap w-max px-2">
-								<span class="text-xs sm:text-sm font-bold text-[var(--text-main)] pr-2 flex items-center whitespace-nowrap flex-shrink-0"><i class="fa-solid fa-wand-magic-sparkles text-brand-accent mr-2 animate-pulse"></i>AI Filter:</span>
-								<button class="topic-btn bg-brand-accent text-white px-3 sm:px-4 py-1.5 rounded-xl text-xs sm:text-sm font-bold transition-all shadow-glow flex-shrink-0 whitespace-nowrap" data-topic="all">Latest</button>
-								<button class="topic-btn hover:bg-[var(--card-border)] px-3 sm:px-4 py-1.5 rounded-xl text-xs sm:text-sm font-bold transition-all text-[var(--text-muted)] flex-shrink-0 whitespace-nowrap" data-topic="tech">Tech</button>
-								<button class="topic-btn hover:bg-[var(--card-border)] px-3 sm:px-4 py-1.5 rounded-xl text-xs sm:text-sm font-bold transition-all text-[var(--text-muted)] flex-shrink-0 whitespace-nowrap" data-topic="ai">AI</button>
-								<button class="topic-btn hover:bg-[var(--card-border)] px-3 sm:px-4 py-1.5 rounded-xl text-xs sm:text-sm font-bold transition-all text-[var(--text-muted)] flex-shrink-0 whitespace-nowrap" data-topic="cybersecurity">Cybersecurity</button>
+						<!-- Blog Feed Filter -->
+						<div class="glass-card mx-auto max-w-full overflow-x-auto hide-scrollbar p-2 rounded-2xl border-brand-accent/30 shadow-[0_5px_15px_rgba(0,194,169,0.1)] mb-6 inline-block" data-aos="zoom-in">
+							<div class="flex items-center gap-2 flex-nowrap w-max px-2">
+								<button class="topic-btn active bg-brand-accent text-white px-4 py-1.5 rounded-xl text-xs sm:text-sm font-bold transition-all shadow-glow flex-shrink-0 whitespace-nowrap" data-topic="foryou">For You</button>
+								<button class="topic-btn hover:bg-[var(--card-border)] px-4 py-1.5 rounded-xl text-xs sm:text-sm font-bold transition-all text-[var(--text-muted)] flex-shrink-0 whitespace-nowrap" data-topic="latest">Latest</button>
+								<button class="topic-btn hover:bg-[var(--card-border)] px-4 py-1.5 rounded-xl text-xs sm:text-sm font-bold transition-all text-[var(--text-muted)] flex-shrink-0 whitespace-nowrap" data-topic="tech">Tech</button>
+								<button class="topic-btn hover:bg-[var(--card-border)] px-4 py-1.5 rounded-xl text-xs sm:text-sm font-bold transition-all text-[var(--text-muted)] flex-shrink-0 whitespace-nowrap" data-topic="ai">AI</button>
+								<button class="topic-btn hover:bg-[var(--card-border)] px-4 py-1.5 rounded-xl text-xs sm:text-sm font-bold transition-all text-[var(--text-muted)] flex-shrink-0 whitespace-nowrap" data-topic="cybersecurity">Cyber Security</button>
 							</div>
 						</div>
 					</div>
@@ -1029,6 +1029,7 @@
 
 			// Global Variables for AI Personalization
 			let globalSubstackPosts = [];
+			let cachedFeeds = {}; // Caches the rendered HTML to show instantly on revisit
 
 			// Theme Logic
 			const themeToggleBtn = document.getElementById('theme-toggle');
@@ -1146,6 +1147,17 @@
 				}, 5000);
 			};
 
+			function addDoubleTrigger(element, callback) {
+				let lastClickTime = 0; let tapTimeout; const DOUBLE_CLICK_DELAY = 300;
+				element.addEventListener('dblclick', (e) => { e.preventDefault(); callback(); });
+				element.addEventListener('touchstart', (e) => {
+					const currentTime = new Date().getTime(); const timeDiff = currentTime - lastClickTime;
+					if (timeDiff > 0 && timeDiff < DOUBLE_CLICK_DELAY) { e.preventDefault(); clearTimeout(tapTimeout); callback(); }
+					else { tapTimeout = setTimeout(() => { lastClickTime = 0; }, DOUBLE_CLICK_DELAY); }
+					lastClickTime = currentTime;
+				});
+			}
+
 			// Core App Logic
 			async function fetchUserIp() {
 				const ipInputs = document.querySelectorAll('.ip-address-input');
@@ -1221,7 +1233,7 @@
 				}, { threshold: 0.3 });
 				sections.forEach(section => observerNav.observe(section));
 
-				// Mentors Carousel Logic
+				// Mentors Carousel Logic (Fixed for proper clicking width)
 				const recCarousel = document.getElementById("recommendations-carousel");
 				const recPrevBtn = document.getElementById("rec-prev-btn");
 				const recNextBtn = document.getElementById("rec-next-btn");
@@ -1297,19 +1309,19 @@
 					}
 				}
 
-				// AI Personalization UI Logic
+				// Personalization UI Logic
 				document.querySelectorAll('.topic-btn').forEach(btn => {
 					btn.addEventListener('click', (e) => {
 						const topic = e.target.getAttribute('data-topic');
-						localStorage.setItem('ai_blog_pref', topic);
+						localStorage.setItem('blog_pref', topic);
 						
 						// Update Active Classes
 						document.querySelectorAll('.topic-btn').forEach(b => {
-							b.className = "topic-btn hover:bg-[var(--card-border)] px-3 sm:px-4 py-1.5 rounded-xl text-xs sm:text-sm font-bold transition-all text-[var(--text-muted)] flex-shrink-0 whitespace-nowrap";
+							b.className = "topic-btn hover:bg-[var(--card-border)] px-4 py-1.5 rounded-xl text-xs sm:text-sm font-bold transition-all text-[var(--text-muted)] flex-shrink-0 whitespace-nowrap";
 						});
-						e.target.className = "topic-btn active bg-brand-accent text-white px-3 sm:px-4 py-1.5 rounded-xl text-xs sm:text-sm font-bold transition-all shadow-glow flex-shrink-0 whitespace-nowrap";
+						e.target.className = "topic-btn active bg-brand-accent text-white px-4 py-1.5 rounded-xl text-xs sm:text-sm font-bold transition-all shadow-glow flex-shrink-0 whitespace-nowrap";
 
-						renderPersonalizedPosts(topic);
+						renderPosts(topic);
 					});
 				});
 
@@ -1543,18 +1555,18 @@
 					if (data.status === "ok" && data.items.length > 0) {
 						globalSubstackPosts = data.items;
 						
-						// Auto-load user's saved AI preference
-						const savedPref = localStorage.getItem('ai_blog_pref') || 'all';
+						// Auto-load user's saved preference
+						const savedPref = localStorage.getItem('blog_pref') || 'foryou';
 						document.querySelectorAll('.topic-btn').forEach(btn => {
 							if (btn.getAttribute('data-topic') === savedPref) {
-								btn.className = "topic-btn active bg-brand-accent text-white px-3 sm:px-4 py-1.5 rounded-xl text-xs sm:text-sm font-bold transition-all shadow-glow flex-shrink-0 whitespace-nowrap";
+								btn.className = "topic-btn active bg-brand-accent text-white px-4 py-1.5 rounded-xl text-xs sm:text-sm font-bold transition-all shadow-glow flex-shrink-0 whitespace-nowrap";
 							} else {
-								btn.className = "topic-btn hover:bg-[var(--card-border)] px-3 sm:px-4 py-1.5 rounded-xl text-xs sm:text-sm font-bold transition-all text-[var(--text-muted)] flex-shrink-0 whitespace-nowrap";
+								btn.className = "topic-btn hover:bg-[var(--card-border)] px-4 py-1.5 rounded-xl text-xs sm:text-sm font-bold transition-all text-[var(--text-muted)] flex-shrink-0 whitespace-nowrap";
 							}
 						});
 						
 						// Initially render with the saved preference
-						renderPersonalizedPosts(savedPref);
+						renderPosts(savedPref);
 					} else {
 						throw new Error("No items");
 					}
@@ -1563,54 +1575,60 @@
 				}
 			}
 
-			function renderPersonalizedPosts(topic) {
+			function renderPosts(topic) {
 				const grid = document.getElementById("substack-posts-grid");
-				grid.innerHTML = `<p class="col-span-full text-center py-10 font-mono font-bold text-brand-accent animate-pulse"><i class="fa-solid fa-wand-magic-sparkles mr-2"></i> AI is curating your feed...</p>`;
 				
-				setTimeout(() => { // Fake AI delay for premium UX
+				// Show instantly if previously visited (No AI delay)
+				if (cachedFeeds[topic]) {
+					grid.innerHTML = cachedFeeds[topic];
+					return;
+				}
+
+				grid.innerHTML = `<p class="col-span-full text-center py-10 font-mono font-bold text-brand-accent animate-pulse"><i class="fa-solid fa-wand-magic-sparkles mr-2"></i> AI curating...</p>`;
+				
+				setTimeout(() => { // slight delay for smooth transition UX
 					let filteredPosts = [...globalSubstackPosts];
 
-					if (topic !== 'all') {
+					if (topic === 'foryou') {
+						// Randomly shuffle to create a "discovery" curated feel
+						filteredPosts = filteredPosts.sort(() => 0.5 - Math.random());
+					} else if (topic !== 'latest') {
 						const keywords = {
-							'dev': ['web', 'dev', 'code', 'html', 'css', 'js', 'react', 'java', 'programming', 'software'],
-							'seo': ['seo', 'search', 'ranking', 'google', 'marketing', 'keyword'],
-							'tech': ['tech', 'hardware', 'software', 'update', 'digital', 'cloud', 'data', 'it'],
-							'ai': ['ai', 'artificial intelligence', 'machine learning', 'gpt', 'llm', 'neural', 'openai', 'gemini'],
-							'cybersecurity': ['cyber', 'security', 'hack', 'privacy', 'malware', 'phishing', 'threat', 'breach', 'vulnerability']
+							'tech': ['tech', 'technology', 'hardware', 'software', 'update', 'digital', 'cloud', 'data', 'it', 'gadget', 'app', 'system'],
+							'ai': ['ai', 'artificial', 'intelligence', 'machine learning', 'gpt', 'llm', 'neural', 'openai', 'gemini', 'chatgpt', 'prompt'],
+							'cybersecurity': ['cybersecurity', 'cyber', 'security', 'hack', 'privacy', 'malware', 'phishing', 'threat', 'breach', 'vulnerability', 'encryption']
 						}[topic] || [];
 
-						// Simple AI Scoring based on keyword hits in title or content
-						filteredPosts.forEach(post => {
-							post.aiScore = 0;
+						const strictlyMatching = filteredPosts.filter(post => {
 							const textToSearch = (post.title + " " + post.content).toLowerCase();
+							let match = false;
 							
-							// Score based on categories (strong match)
 							if (post.categories && Array.isArray(post.categories)) {
-								post.categories.forEach(cat => {
-									if (keywords.some(kw => cat.toLowerCase().includes(kw))) {
-										post.aiScore += 5; // Heavy weight for explicit categories
-									}
+								match = post.categories.some(cat => keywords.some(kw => cat.toLowerCase().includes(kw)));
+							}
+							
+							if (!match) {
+								match = keywords.some(kw => {
+									const regex = new RegExp('\\b' + kw + '\\b', 'gi');
+									return regex.test(textToSearch);
 								});
 							}
-
-							// Score based on text content
-							keywords.forEach(kw => {
-								if (textToSearch.includes(kw)) post.aiScore++;
-							});
+							return match;
 						});
 
-						// Sort descending by highest match score
-						filteredPosts.sort((a, b) => b.aiScore - a.aiScore);
-						
-						// Ensure we only use scored items, fallback to everything if none match the strict filter
-						const matchingPosts = filteredPosts.filter(p => p.aiScore > 0);
-						if (matchingPosts.length >= 1) {
-							filteredPosts = matchingPosts;
+						if (strictlyMatching.length > 0) {
+							filteredPosts = strictlyMatching;
+							// Pad with recent posts if less than 3 so layout doesn't break
+							if (filteredPosts.length < 3) {
+								const nonMatching = globalSubstackPosts.filter(p => !filteredPosts.includes(p));
+								filteredPosts = filteredPosts.concat(nonMatching.slice(0, 3 - filteredPosts.length));
+							}
 						}
+						// If nothing strictly matched, it safely falls back to displaying the latest posts
 					}
 
 					const postsToShow = filteredPosts.slice(0, 3);
-					grid.innerHTML = "";
+					let resultHTML = "";
 
 					postsToShow.forEach(item => {
 						const t = document.createElement("div"); t.innerHTML = item.content || item.description || "";
@@ -1627,7 +1645,7 @@
 						}
 						
 						const snippet = t.textContent.trim().substring(0, 100) + "...";
-						grid.innerHTML += `
+						resultHTML += `
 							<a href="${item.link}" target="_blank" rel="noopener noreferrer" class="glass-card rounded-3xl overflow-hidden flex flex-col h-full group border-[var(--card-border)]">
 								<div class="overflow-hidden h-48 sm:h-56 relative bg-[var(--bg-main)]">
 									
@@ -1654,7 +1672,12 @@
 								</div>
 							</a>`;
 					});
-				}, 500); // 500ms fake AI delay
+
+					// Save generated HTML to cache and display
+					cachedFeeds[topic] = resultHTML;
+					grid.innerHTML = resultHTML;
+
+				}, 450); // slight AI delay
 			}
 
 			function getLangColor(lang) {
