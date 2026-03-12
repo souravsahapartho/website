@@ -934,8 +934,9 @@
 						<button id="close-cv-modal" class="text-3xl text-[var(--text-main)] hover:text-red-500 transition-colors leading-none" title="Close">&times;</button>
 					</div>
 				</div>
-				<div class="flex-grow p-4 bg-[var(--bg-main)] rounded-b-xl overflow-y-auto custom-scrollbar flex flex-col items-center">
-					<img src="sourav-saha-resume.jpg" alt="Sourav Saha Resume Preview" class="w-full max-w-3xl h-auto bg-white rounded shadow-md border border-[var(--card-border)]" onerror="this.onerror=null;this.src='https://placehold.co/800x1131/ffffff/00c2a9?text=Image+Preview+Not+Found+%0A(Please+upload+sourav-saha-resume.jpg)';">
+				<!-- Removed lazy loading so it triggers immediately when modal opens on mobile -->
+				<div class="flex-grow p-2 sm:p-4 bg-[var(--bg-main)] rounded-b-xl overflow-y-auto custom-scrollbar text-center relative">
+					<img src="sourav-saha-resume.jpg" alt="Sourav Saha Resume Preview" class="w-full max-w-3xl h-auto bg-white rounded shadow-md border border-[var(--card-border)] inline-block mx-auto" onerror="this.onerror=null;this.src='https://placehold.co/800x1131/ffffff/00c2a9?text=Image+Preview+Not+Found+%0A(Please+upload+sourav-saha-resume.jpg)';">
 				</div>
 			</div>
 		</div>
