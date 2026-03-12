@@ -935,16 +935,26 @@
 					</div>
 				</div>
 				<!-- Dynamically loaded robust image preview to bypass mobile hidden DOM bugs -->
-				<div class="flex-grow p-2 sm:p-4 bg-[var(--bg-main)] rounded-b-xl overflow-y-auto custom-scrollbar relative flex flex-col items-center justify-start min-h-[50vh]">
+				<div class="flex-grow p-4 sm:p-6 bg-[var(--bg-main)] rounded-b-xl overflow-y-auto custom-scrollbar relative flex flex-col items-center justify-start min-h-[50vh]">
 					<!-- Loader showing behind the image while it fetches -->
 					<div id="cv-loader" class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex flex-col items-center justify-center text-[var(--text-muted)] font-mono z-0">
 						<i class="fa-solid fa-spinner fa-spin text-4xl text-brand-accent mb-4"></i>
 						<p>Loading document...</p>
 					</div>
+					
+					<!-- Alert Fallback Message (Hidden by default) -->
+					<div id="cv-error-msg" style="display: none;" class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex-col items-center justify-center text-center w-full px-4 sm:px-6 z-0">
+						<div class="w-16 h-16 rounded-full bg-red-500/10 flex items-center justify-center mb-4 border border-red-500/20">
+							<i class="fa-solid fa-triangle-exclamation text-3xl text-red-500"></i>
+						</div>
+						<p class="font-extrabold text-lg sm:text-xl text-[var(--text-main)] mb-2">Preview Unavailable</p>
+						<p class="text-[var(--text-muted)] font-medium text-sm sm:text-base max-w-sm mx-auto leading-relaxed">For some issues, CV preview showing is not possible right now. You may click the download button above and then view it easily.</p>
+					</div>
+
 					<!-- Actual image injected dynamically via JS -->
 					<img id="cv-preview-image" alt="Sourav Saha Resume Preview" class="w-full max-w-3xl h-auto bg-white rounded shadow-2xl border border-[var(--card-border)] relative z-10 hidden" 
-					onload="this.classList.remove('hidden'); document.getElementById('cv-loader').style.display='none';" 
-					onerror="document.getElementById('cv-loader').innerHTML='<i class=\'fa-solid fa-file-circle-xmark text-4xl mb-4 opacity-50\'></i><p class=\'font-bold text-lg\'>Resume Not Found</p>'; this.style.display='none';">
+					onload="this.classList.remove('hidden'); document.getElementById('cv-loader').style.display='none'; document.getElementById('cv-error-msg').style.display='none';" 
+					onerror="this.style.display='none'; document.getElementById('cv-loader').style.display='none'; document.getElementById('cv-error-msg').style.display='flex';">
 				</div>
 			</div>
 		</div>
@@ -1208,16 +1218,18 @@
 				}, { threshold: 0.3 });
 				sections.forEach(section => observerNav.observe(section));
 
-				// Mentors Carousel Logic
+				// Mentors Carousel Logic (Fixed for proper clicking width)
 				const recCarousel = document.getElementById("recommendations-carousel");
 				const recPrevBtn = document.getElementById("rec-prev-btn");
 				const recNextBtn = document.getElementById("rec-next-btn");
 				if (recCarousel && recPrevBtn && recNextBtn) {
 					recPrevBtn.addEventListener("click", () => {
-						recCarousel.scrollBy({ left: -window.innerWidth / 2, behavior: "smooth" });
+						const cardWidth = recCarousel.querySelector('.rec-card-wrapper').offsetWidth;
+						recCarousel.scrollBy({ left: -(cardWidth + 24), behavior: "smooth" });
 					});
 					recNextBtn.addEventListener("click", () => {
-						recCarousel.scrollBy({ left: window.innerWidth / 2, behavior: "smooth" });
+						const cardWidth = recCarousel.querySelector('.rec-card-wrapper').offsetWidth;
+						recCarousel.scrollBy({ left: (cardWidth + 24), behavior: "smooth" });
 					});
 				}
 
@@ -1230,6 +1242,10 @@
 					cvModal.classList.remove("hidden");
 					// Dynamically trigger image load only when the modal opens to avoid hidden mobile browser bugs
 					if (!cvImage.getAttribute('src') || cvImage.getAttribute('src') === "") {
+						document.getElementById('cv-loader').style.display = 'flex';
+						document.getElementById('cv-error-msg').style.display = 'none';
+						cvImage.classList.add('hidden');
+						cvImage.style.display = ''; 
 						cvImage.setAttribute('src', 'sourav-saha-resume.jpg');
 					}
 				}));
