@@ -1578,13 +1578,13 @@
 			function renderPosts(topic) {
 				const grid = document.getElementById("substack-posts-grid");
 				
-				// Show instantly if previously visited (No AI delay)
+				// Show instantly if previously visited (No delay)
 				if (cachedFeeds[topic]) {
 					grid.innerHTML = cachedFeeds[topic];
 					return;
 				}
 
-				grid.innerHTML = `<p class="col-span-full text-center py-10 font-mono font-bold text-brand-accent animate-pulse"><i class="fa-solid fa-wand-magic-sparkles mr-2"></i> AI curating...</p>`;
+				grid.innerHTML = `<p class="col-span-full text-center py-10 font-mono font-bold text-brand-accent animate-pulse"><i class="fa-solid fa-spinner fa-spin mr-2"></i> Updating feed...</p>`;
 				
 				setTimeout(() => { // slight delay for smooth transition UX
 					let filteredPosts = [...globalSubstackPosts];
@@ -1594,13 +1594,15 @@
 						filteredPosts = filteredPosts.sort(() => 0.5 - Math.random());
 					} else if (topic !== 'latest') {
 						const keywords = {
-							'tech': ['tech', 'technology', 'hardware', 'software', 'update', 'digital', 'cloud', 'data', 'it', 'gadget', 'app', 'system'],
-							'ai': ['ai', 'artificial', 'intelligence', 'machine learning', 'gpt', 'llm', 'neural', 'openai', 'gemini', 'chatgpt', 'prompt'],
-							'cybersecurity': ['cybersecurity', 'cyber', 'security', 'hack', 'privacy', 'malware', 'phishing', 'threat', 'breach', 'vulnerability', 'encryption']
+							'tech': ['tech', 'technology', 'hardware', 'software', 'update', 'digital', 'cloud', 'data', 'it', 'gadget', 'app', 'system', 'programming', 'web', 'developer', 'code'],
+							'ai': ['ai', 'artificial intelligence', 'machine learning', 'gpt', 'llm', 'neural', 'openai', 'gemini', 'chatgpt', 'prompt', 'deepseek', 'copilot'],
+							'cybersecurity': ['cybersecurity', 'cyber security', 'cyber', 'security', 'hack', 'privacy', 'malware', 'phishing', 'threat', 'breach', 'vulnerability', 'encryption']
 						}[topic] || [];
 
-						const strictlyMatching = filteredPosts.filter(post => {
-							const textToSearch = (post.title + " " + post.content).toLowerCase();
+						filteredPosts = filteredPosts.filter(post => {
+							// Strip HTML tags for clean text searching so we don't match code attributes
+							const cleanContent = (post.content || post.description || "").replace(/<[^>]*>?/gm, ' ');
+							const textToSearch = (post.title + " " + cleanContent).toLowerCase();
 							let match = false;
 							
 							if (post.categories && Array.isArray(post.categories)) {
@@ -1609,75 +1611,81 @@
 							
 							if (!match) {
 								match = keywords.some(kw => {
-									const regex = new RegExp('\\b' + kw + '\\b', 'gi');
-									return regex.test(textToSearch);
+									// Only use word boundary for very short keywords like 'ai' or 'it' to prevent false positives inside words like 'email'
+									if (kw.length <= 2) {
+										const regex = new RegExp('\\b' + kw + '\\b', 'gi');
+										return regex.test(textToSearch);
+									} else {
+										return textToSearch.includes(kw);
+									}
 								});
 							}
 							return match;
 						});
-
-						if (strictlyMatching.length > 0) {
-							filteredPosts = strictlyMatching;
-							// Pad with recent posts if less than 3 so layout doesn't break
-							if (filteredPosts.length < 3) {
-								const nonMatching = globalSubstackPosts.filter(p => !filteredPosts.includes(p));
-								filteredPosts = filteredPosts.concat(nonMatching.slice(0, 3 - filteredPosts.length));
-							}
-						}
-						// If nothing strictly matched, it safely falls back to displaying the latest posts
 					}
 
+					// We strictly take up to 3 posts. If there is only 1 or 2, we leave it as is without adding random filler posts!
 					const postsToShow = filteredPosts.slice(0, 3);
 					let resultHTML = "";
 
-					postsToShow.forEach(item => {
-						const t = document.createElement("div"); t.innerHTML = item.content || item.description || "";
-						
-						// Extract raw image URL
-						let rawImg = item.thumbnail || (item.enclosure && item.enclosure.link) || t.querySelector("img")?.src || "";
-						
-						let imageHTML = "";
-						if (rawImg && !rawImg.includes("placehold.co")) {
-							const optimizedImg = `https://wsrv.nl/?url=${encodeURIComponent(rawImg)}&w=600&h=400&fit=cover&output=webp&q=80`;
-							imageHTML = `<img src="${optimizedImg}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500 relative z-10" loading="lazy" decoding="async" onerror="this.style.display='none';">`;
-						} else if (rawImg) {
-							imageHTML = `<img src="${rawImg}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500 relative z-10" loading="lazy" decoding="async" onerror="this.style.display='none';">`;
-						}
-						
-						const snippet = t.textContent.trim().substring(0, 100) + "...";
-						resultHTML += `
-							<a href="${item.link}" target="_blank" rel="noopener noreferrer" class="glass-card rounded-3xl overflow-hidden flex flex-col h-full group border-[var(--card-border)]">
-								<div class="overflow-hidden h-48 sm:h-56 relative bg-[var(--bg-main)]">
-									
-									<!-- Animated Fallback -->
-									<div class="absolute inset-0 flex flex-col items-center justify-center p-4 text-center z-0">
-										<div class="absolute inset-0 opacity-20 bg-[radial-gradient(circle_at_center,var(--accent)_0%,transparent_70%)] animate-pulse"></div>
-										<i class="fa-solid fa-rss text-4xl text-brand-accent/50 mb-3 animate-bounce" style="animation-duration: 2s;"></i>
-										<span class="font-extrabold text-lg text-[var(--text-main)] relative z-10 tracking-wide">
-											TechTalk <br/><span class="text-brand-accent font-mono text-sm">with Sourav</span>
-										</span>
-									</div>
+					if (postsToShow.length === 0) {
+						resultHTML = `
+							<div class="col-span-full flex flex-col items-center justify-center py-12 text-center glass-card rounded-3xl border border-[var(--card-border)]">
+								<i class="fa-solid fa-folder-open text-4xl text-[var(--text-muted)] mb-3 opacity-50"></i>
+								<p class="font-extrabold text-[var(--text-main)] text-lg mb-1">No exact matches</p>
+								<p class="text-[var(--text-muted)] font-medium text-sm">I haven't written about this specific topic recently. Check back soon!</p>
+							</div>
+						`;
+					} else {
+						postsToShow.forEach(item => {
+							const t = document.createElement("div"); t.innerHTML = item.content || item.description || "";
+							
+							// Extract raw image URL
+							let rawImg = item.thumbnail || (item.enclosure && item.enclosure.link) || t.querySelector("img")?.src || "";
+							
+							let imageHTML = "";
+							if (rawImg && !rawImg.includes("placehold.co")) {
+								const optimizedImg = `https://wsrv.nl/?url=${encodeURIComponent(rawImg)}&w=600&h=400&fit=cover&output=webp&q=80`;
+								imageHTML = `<img src="${optimizedImg}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500 relative z-10" loading="lazy" decoding="async" onerror="this.style.display='none';">`;
+							} else if (rawImg) {
+								imageHTML = `<img src="${rawImg}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500 relative z-10" loading="lazy" decoding="async" onerror="this.style.display='none';">`;
+							}
+							
+							const snippet = t.textContent.trim().substring(0, 100) + "...";
+							resultHTML += `
+								<a href="${item.link}" target="_blank" rel="noopener noreferrer" class="glass-card rounded-3xl overflow-hidden flex flex-col h-full group border-[var(--card-border)]">
+									<div class="overflow-hidden h-48 sm:h-56 relative bg-[var(--bg-main)]">
+										
+										<!-- Animated Fallback -->
+										<div class="absolute inset-0 flex flex-col items-center justify-center p-4 text-center z-0">
+											<div class="absolute inset-0 opacity-20 bg-[radial-gradient(circle_at_center,var(--accent)_0%,transparent_70%)] animate-pulse"></div>
+											<i class="fa-solid fa-rss text-4xl text-brand-accent/50 mb-3 animate-bounce" style="animation-duration: 2s;"></i>
+											<span class="font-extrabold text-lg text-[var(--text-main)] relative z-10 tracking-wide">
+												TechTalk <br/><span class="text-brand-accent font-mono text-sm">with Sourav</span>
+											</span>
+										</div>
 
-									<div class="absolute inset-0 bg-brand-accent/20 opacity-0 group-hover:opacity-100 transition-opacity z-20 pointer-events-none"></div>
-									
-									${imageHTML}
-								</div>
-								<div class="p-6 sm:p-8 flex flex-col flex-grow bg-[var(--card-bg)] relative z-30">
-									<h3 class="text-xl font-extrabold mb-3 group-hover:text-brand-accent transition-colors leading-snug text-[var(--text-main)]">${item.title}</h3>
-									<p class="text-sm font-medium text-[var(--text-muted)] mb-5 flex-grow leading-relaxed">${snippet}</p>
-									<div class="flex justify-between items-center text-xs text-brand-accent font-mono font-bold mt-auto pt-4 border-t border-[var(--card-border)]">
-										<span>${new Date(item.pubDate).toLocaleDateString()}</span>
-										<span>Read <i class="fa-solid fa-arrow-right ml-1 -rotate-45 group-hover:rotate-0 transition-transform"></i></span>
+										<div class="absolute inset-0 bg-brand-accent/20 opacity-0 group-hover:opacity-100 transition-opacity z-20 pointer-events-none"></div>
+										
+										${imageHTML}
 									</div>
-								</div>
-							</a>`;
-					});
+									<div class="p-6 sm:p-8 flex flex-col flex-grow bg-[var(--card-bg)] relative z-30">
+										<h3 class="text-xl font-extrabold mb-3 group-hover:text-brand-accent transition-colors leading-snug text-[var(--text-main)]">${item.title}</h3>
+										<p class="text-sm font-medium text-[var(--text-muted)] mb-5 flex-grow leading-relaxed">${snippet}</p>
+										<div class="flex justify-between items-center text-xs text-brand-accent font-mono font-bold mt-auto pt-4 border-t border-[var(--card-border)]">
+											<span>${new Date(item.pubDate).toLocaleDateString()}</span>
+											<span>Read <i class="fa-solid fa-arrow-right ml-1 -rotate-45 group-hover:rotate-0 transition-transform"></i></span>
+										</div>
+									</div>
+								</a>`;
+						});
+					}
 
 					// Save generated HTML to cache and display
 					cachedFeeds[topic] = resultHTML;
 					grid.innerHTML = resultHTML;
 
-				}, 450); // slight AI delay
+				}, 400); // slight UI delay
 			}
 
 			function getLangColor(lang) {
