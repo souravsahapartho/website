@@ -1360,6 +1360,17 @@
 						const email = fd.get("email");
 						const ip = fd.get("Client IP Address");
 
+						// Check if already subscribed on this device
+						if (localStorage.getItem("subscribed_email") === email) {
+							document.getElementById("newsletter-status").innerHTML = `<span class="text-brand-accent font-bold">You are already subscribed with this email! 🚀</span>`;
+							setTimeout(() => { 
+								newsletterPopup.classList.replace("is-visible", "invisible"); 
+								newsletterPopup.style.opacity = '0'; 
+								document.getElementById("newsletter-status").innerHTML = "";
+							}, 3000);
+							return;
+						}
+
 						// Update UI to loading state
 						nSubmitBtn.disabled = true;
 						nSubmitText.innerHTML = 'Subscribing...';
@@ -1384,6 +1395,9 @@
 						// Wait for both promises to complete
 						Promise.all([googlePromise, web3Promise])
 						.then(() => {
+							// Save the email locally to prevent duplicate signups
+							localStorage.setItem("subscribed_email", email);
+							
 							document.getElementById("newsletter-status").innerHTML = `<span class="text-brand-accent">Access Granted. Welcome to the loop. 🌐</span>`;
 							newsletterForm.reset();
 							createConfettiEffect(['🗞️', '💡', '🔥']);
