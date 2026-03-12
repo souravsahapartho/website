@@ -18,6 +18,8 @@
 		<meta name="description" content="Sourav Saha is a Computer Science (CSE) student at United International University (UIU), Bangladesh and a technology enthusiast passionate about web development, SEO, and tech blogging.">
 		<meta name="keywords" content="Sourav Saha, Sourav Saha UIU, Sourav Saha CSE, Sourav Saha Bangladesh, Sourav Saha tech enthusiast, Sourav Saha computer science student, Sourav Saha developer, Sourav Saha portfolio, Sourav Saha website, Sourav Saha tech blog, UIU CSE student, United International University CSE student, CSE student UIU Bangladesh, Computer Science student UIU, Tech enthusiast Bangladesh, CSE student Bangladesh, Bangladesh technology blogger, HTML CSS developer student, C C++ programmer student, Java programming student, Web development learner, SEO learner Bangladesh, TechTalk with Sourav, technology blog Bangladesh, tech education blog, technology enthusiast from Bangladesh">
 		<meta name="author" content="Sourav Saha">
+		<meta name="application-name" content="Sourav Saha">
+		<meta name="apple-mobile-web-app-title" content="Sourav Saha">
 		<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
 		<meta name="theme-color" content="#0f172a" media="(prefers-color-scheme: dark)">
 		<meta name="theme-color" content="#f4f7fb" media="(prefers-color-scheme: light)">
@@ -28,8 +30,12 @@
 		<meta property="og:url" content="https://sourav.com.bd/" />
 		<meta property="og:title" content="Sourav Saha – CSE Student at UIU | Tech Enthusiast from Bangladesh" />
 		<meta property="og:description" content="Sourav Saha is a Computer Science (CSE) student at United International University (UIU), Bangladesh and a technology enthusiast passionate about web development, SEO, and tech blogging." />
-		<meta property="og:image" content="https://sourav.com.bd/image/share-card.jpg" />
-		<meta property="og:site_name" content="Sourav Saha Portfolio">
+		<!-- Fixed OG Image to use profile picture explicitly to guarantee rendering -->
+		<meta property="og:image" content="https://sourav.com.bd/Image/profile.jpg" />
+		<meta property="og:image:type" content="image/jpeg" />
+		<meta property="og:image:width" content="800" />
+		<meta property="og:image:height" content="800" />
+		<meta property="og:site_name" content="Sourav Saha">
 		<meta property="og:locale" content="en_US" />
 
 		<!-- Twitter -->
@@ -37,11 +43,14 @@
 		<meta property="twitter:url" content="https://sourav.com.bd/" />
 		<meta property="twitter:title" content="Sourav Saha – CSE Student at UIU | Tech Enthusiast from Bangladesh" />
 		<meta property="twitter:description" content="Sourav Saha is a Computer Science (CSE) student at United International University (UIU), Bangladesh and a technology enthusiast passionate about web development, SEO, and tech blogging." />
-		<meta property="twitter:image" content="https://sourav.com.bd/image/share-card.jpg" />
+		<meta property="twitter:image" content="https://sourav.com.bd/Image/profile.jpg" />
 		<meta property="twitter:creator" content="@souravpartho">
 
-		<!-- Favicon -->
-		<link rel="icon" href="https://placehold.co/32x32/00c2a9/ffffff?text=SS" type="image/png" />
+		<!-- Universal Favicon Setup -->
+		<link rel="icon" href="https://placehold.co/32x32/00c2a9/ffffff?text=SS" type="image/png" sizes="32x32" />
+		<link rel="icon" href="https://placehold.co/16x16/00c2a9/ffffff?text=S" type="image/png" sizes="16x16" />
+		<link rel="apple-touch-icon" href="https://placehold.co/180x180/00c2a9/ffffff?text=SS" sizes="180x180" />
+		<link rel="shortcut icon" href="https://placehold.co/192x192/00c2a9/ffffff?text=SS" type="image/png" />
 
 		<!-- Preconnect to external APIs for faster loading -->
 		<link rel="preconnect" href="https://ghchart.rshah.org" />
@@ -349,7 +358,7 @@
 						"@id": "https://sourav.com.bd/#person",
 						"name": "Sourav Saha",
 						"url": "https://sourav.com.bd/",
-						"image": "https://sourav.com.bd/image/profile.jpg",
+						"image": "https://sourav.com.bd/Image/profile.jpg",
 						"sameAs": [
 							"https://www.linkedin.com/in/souravsahapartho/",
 							"https://github.com/souravsahapartho",
@@ -369,7 +378,8 @@
 						"@type": "WebSite",
 						"@id": "https://sourav.com.bd/#website",
 						"url": "https://sourav.com.bd/",
-						"name": "Sourav Saha – CSE Student at UIU | Tech Enthusiast from Bangladesh",
+						"name": "Sourav Saha",
+						"alternateName": "Sourav Saha Portfolio",
 						"description": "The personal computer science student portfolio of Sourav Saha, showcasing projects, web development journey, and technology articles from TechTalk with Sourav.",
 						"publisher": { "@id": "https://sourav.com.bd/#person" }
 					}
@@ -914,9 +924,9 @@
 
 		<!-- Modals & Overlays -->
 		<div id="cv-modal" class="modal-overlay hidden">
-			<div class="modal-content">
-				<div class="p-4 sm:p-6 border-b border-[var(--card-border)] flex justify-between items-center bg-[var(--bg-main)] rounded-t-xl">
-					<h3 class="font-extrabold text-lg sm:text-xl text-[var(--text-main)]"><i class="fa-solid fa-file-pdf text-brand-accent mr-2"></i>Curriculum Vitae</h3>
+			<div class="modal-content h-[90%] sm:h-[85%] max-h-[900px] w-[95%] sm:w-[80%] max-w-4xl">
+				<div class="p-4 sm:p-6 border-b border-[var(--card-border)] flex justify-between items-center bg-[var(--bg-main)] rounded-t-xl shrink-0">
+					<h3 class="font-extrabold text-lg sm:text-xl text-[var(--text-main)]"><i class="fa-solid fa-file-image text-brand-accent mr-2"></i>Resume Preview</h3>
 					<div class="flex items-center gap-3 sm:gap-4">
 						<button id="download-cv-btn" class="bg-brand-accent text-white px-4 py-2 rounded-full text-xs sm:text-sm font-bold hover:bg-brand-accentHover transition-colors text-center shadow-glow">
 							Download <span class="hidden sm:inline">PDF</span>
@@ -924,8 +934,8 @@
 						<button id="close-cv-modal" class="text-3xl text-[var(--text-main)] hover:text-red-500 transition-colors leading-none" title="Close">&times;</button>
 					</div>
 				</div>
-				<div class="flex-grow p-2 sm:p-4 bg-[var(--bg-main)] rounded-b-xl">
-					<iframe src="sourav-saha-resume.pdf" class="w-full h-full rounded-lg border-none shadow-inner bg-white" loading="lazy" title="Resume"></iframe>
+				<div class="flex-grow p-4 bg-[var(--bg-main)] rounded-b-xl overflow-y-auto custom-scrollbar flex flex-col items-center">
+					<img src="sourav-saha-resume.jpg" alt="Sourav Saha Resume Preview" class="w-full max-w-3xl h-auto bg-white rounded shadow-md border border-[var(--card-border)]" onerror="this.onerror=null;this.src='https://placehold.co/800x1131/ffffff/00c2a9?text=Image+Preview+Not+Found+%0A(Please+upload+sourav-saha-resume.jpg)';">
 				</div>
 			</div>
 		</div>
@@ -1191,7 +1201,10 @@
 
 				// CV Modal & Download Confirmation Logic
 				const cvModal = document.getElementById("cv-modal");
-				document.querySelectorAll(".open-cv-btn").forEach(btn => btn.addEventListener("click", () => cvModal.classList.remove("hidden")));
+				document.querySelectorAll(".open-cv-btn").forEach(btn => btn.addEventListener("click", (e) => {
+					e.preventDefault();
+					cvModal.classList.remove("hidden");
+				}));
 				document.getElementById("close-cv-modal")?.addEventListener("click", () => cvModal.classList.add("hidden"));
 				cvModal?.addEventListener("click", e => { if (e.target === cvModal) cvModal.classList.add("hidden"); });
 
