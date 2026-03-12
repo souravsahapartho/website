@@ -532,19 +532,27 @@
 				<div class="container mx-auto relative z-10">
 					<div class="glass-card rounded-3xl p-6 sm:p-8 md:p-12 flex flex-col lg:flex-row items-center gap-8 md:gap-12 lg:gap-16" data-aos="fade-up">
 						
-						<div class="w-full lg:w-1/3 flex-shrink-0 relative group max-w-[280px] lg:max-w-none mx-auto">
-							<div class="absolute inset-0 bg-brand-accent/20 rounded-full blur-2xl group-hover:bg-brand-accent/40 transition-all duration-500"></div>
-							<img
-								id="profile-image-target"
-								src="Image/profile.jpg"
-								alt="Sourav Saha - Computer Science (CSE) student at UIU, Bangladesh"
-								class="relative rounded-full border-4 border-[var(--card-bg)] shadow-2xl w-48 h-48 sm:w-64 sm:h-64 lg:w-72 lg:h-72 mx-auto object-cover z-10"
-								onerror="this.onerror=null;this.src='https://placehold.co/300x300/0f172a/ffffff?text=Sourav+Saha';"
-								loading="lazy"
-							/>
+						<div class="w-full lg:w-1/3 flex-shrink-0 relative group max-w-[280px] lg:max-w-none mx-auto flex justify-center">
+							<div class="relative inline-block mx-auto">
+								<div class="absolute inset-0 bg-brand-accent/20 rounded-full blur-2xl group-hover:bg-brand-accent/40 transition-all duration-500"></div>
+								<img
+									id="profile-image-target"
+									src="Image/profile.jpg"
+									alt="Sourav Saha - Computer Science (CSE) student at UIU, Bangladesh"
+									class="relative rounded-full border-4 border-[var(--card-bg)] shadow-2xl w-48 h-48 sm:w-64 sm:h-64 lg:w-72 lg:h-72 object-cover z-10"
+									onerror="this.onerror=null;this.src='https://placehold.co/300x300/0f172a/ffffff?text=Sourav+Saha';"
+									loading="lazy"
+								/>
+								
+								<!-- GitHub Total Contributions Badge -->
+								<div class="absolute bottom-2 -right-2 sm:bottom-6 sm:-right-6 bg-[#0a0a0a] border border-white/10 rounded-2xl px-3 py-2 sm:px-4 sm:py-2.5 flex flex-col items-center justify-center shadow-[0_10px_25px_rgba(0,0,0,0.5),0_0_15px_rgba(0,194,169,0.3)] z-20 hover:scale-105 transition-transform" style="animation: floatOrb 4s infinite alternate ease-in-out;">
+									<span id="github-total-count" class="text-[#22c55e] font-extrabold text-lg sm:text-2xl font-mono leading-none drop-shadow-[0_0_8px_rgba(34,197,94,0.4)]">...</span>
+									<span class="text-slate-300 text-[9px] sm:text-[11px] font-bold uppercase tracking-wider mt-1 whitespace-nowrap">Contributions</span>
+								</div>
+							</div>
 						</div>
 						
-						<div class="w-full lg:w-2/3 text-center lg:text-left">
+						<div class="w-full lg:w-2/3 text-center lg:text-left mt-8 lg:mt-0">
 							<h2 id="about-me-title-target" class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold mb-6 text-glow cursor-pointer text-[var(--text-main)] whitespace-nowrap">
 								About Me
 							</h2>
@@ -1539,6 +1547,7 @@
 				fetchGithubProfile();
 				fetchGithubRepos();
 				fetchSubstackPosts();
+				fetchTotalContributions();
 				initEasterEggs();
 
 				// Network Recovery Logic (Auto reload if internet drops and reconnects)
@@ -1547,6 +1556,7 @@
 					fetchGithubProfile();
 					fetchGithubRepos();
 					fetchSubstackPosts();
+					fetchTotalContributions();
 
 					// 2. Find ALL images on the page and intelligently force reload them
 					document.querySelectorAll('img').forEach(img => {
@@ -1581,6 +1591,26 @@
 					document.getElementById('github-username').textContent = "Sourav Saha";
 					document.getElementById('follower-count').textContent = "Active";
 					document.getElementById('github-avatar').src = "Image/profile.jpg";
+				}
+			}
+
+			async function fetchTotalContributions() {
+				const countEl = document.getElementById('github-total-count');
+				if (!countEl) return;
+				try {
+					const res = await fetch(`https://github-contributions-api.jogruber.de/v4/${GITHUB_USERNAME}`);
+					const data = await res.json();
+					if (data && data.total) {
+						let total = 0;
+						for (const year in data.total) {
+							if (!isNaN(year)) total += data.total[year];
+						}
+						countEl.textContent = total.toLocaleString();
+					} else {
+						countEl.textContent = "N/A";
+					}
+				} catch (e) {
+					countEl.textContent = "N/A";
 				}
 			}
 
