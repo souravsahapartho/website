@@ -411,9 +411,9 @@
 						<i class="fa-solid fa-moon block dark:hidden"></i>
 					</button>
 
-					<button class="open-cv-btn bg-brand-accent text-white font-bold py-2 px-5 rounded-full text-sm hover:bg-brand-accentHover transition-all shadow-lg hover:shadow-brand-accent/50">
+					<a href="sourav-saha-resume.pdf" download="sourav-saha-resume.pdf" class="inline-block bg-brand-accent text-white font-bold py-2 px-5 rounded-full text-sm hover:bg-brand-accentHover transition-all shadow-lg hover:shadow-brand-accent/50">
 						Download CV
-					</button>
+					</a>
 				</div>
 
 				<div class="flex items-center gap-4 md:hidden">
@@ -438,9 +438,9 @@
 				<a href="#articles" class="block py-3 px-6 text-sm font-bold text-[var(--text-main)] hover:bg-brand-accent/10">Articles</a>
 				<a href="#contact" class="block py-3 px-6 text-sm font-bold text-[var(--text-main)] hover:bg-brand-accent/10">Contact</a>
 				<div class="px-6 py-4 border-t border-[var(--card-border)]">
-					<button class="open-cv-btn w-full text-center bg-brand-accent text-white font-bold py-2 px-5 rounded-full text-sm hover:bg-brand-accentHover transition-all">
+					<a href="sourav-saha-resume.pdf" download="sourav-saha-resume.pdf" class="block w-full text-center bg-brand-accent text-white font-bold py-2 px-5 rounded-full text-sm hover:bg-brand-accentHover transition-all">
 						Download CV
-					</button>
+					</a>
 				</div>
 			</div>
 		</header>
@@ -912,24 +912,6 @@
 			</div>
 		</footer>
 
-		<!-- Modals & Overlays -->
-		<div id="cv-modal" class="modal-overlay hidden">
-			<div class="modal-content">
-				<div class="p-4 sm:p-6 border-b border-[var(--card-border)] flex justify-between items-center bg-[var(--bg-main)] rounded-t-xl">
-					<h3 class="font-extrabold text-lg sm:text-xl text-[var(--text-main)]"><i class="fa-solid fa-file-pdf text-brand-accent mr-2"></i>Curriculum Vitae</h3>
-					<div class="flex items-center gap-3 sm:gap-4">
-						<a href="https://drive.google.com/uc?export=download&id=13JRAOI3YPpkQKVbBjvaA9gsetQSClzhb" id="download-cv-btn" target="_blank" rel="noopener noreferrer" class="bg-brand-accent text-white px-4 py-2 rounded-full text-xs sm:text-sm font-bold hover:bg-brand-accentHover transition-colors text-center">
-							Download <span class="hidden sm:inline">PDF</span>
-						</a>
-						<button id="close-cv-modal" class="text-3xl text-[var(--text-main)] hover:text-red-500 transition-colors leading-none" title="Close">&times;</button>
-					</div>
-				</div>
-				<div class="flex-grow p-2 sm:p-4 bg-[var(--bg-main)] rounded-b-xl">
-					<iframe src="https://drive.google.com/file/d/13JRAOI3YPpkQKVbBjvaA9gsetQSClzhb/preview" class="w-full h-full rounded-lg border-none shadow-inner" loading="lazy"></iframe>
-				</div>
-			</div>
-		</div>
-
 		<!-- Newsletter Popup -->
 		<div id="newsletter-popup" class="fixed bottom-4 sm:bottom-6 right-4 sm:right-6 w-[calc(100%-2rem)] sm:w-[calc(100%-3rem)] max-w-[400px] glass-card border-brand-accent/30 rounded-3xl shadow-2xl z-[999] opacity-0 translate-y-full invisible transition-all duration-500">
 			<button id="close-newsletter-popup" class="absolute top-4 right-4 w-8 h-8 flex items-center justify-center rounded-full bg-[var(--card-border)] hover:bg-brand-accent hover:text-white transition-colors text-[var(--text-main)]">&times;</button>
@@ -1198,12 +1180,6 @@
 						}, 3000);
 					}
 				}
-
-				// CV Modal
-				const cvModal = document.getElementById("cv-modal");
-				document.querySelectorAll(".open-cv-btn").forEach(btn => btn.addEventListener("click", () => cvModal.classList.remove("hidden")));
-				document.getElementById("close-cv-modal")?.addEventListener("click", () => cvModal.classList.add("hidden"));
-				cvModal?.addEventListener("click", e => { if (e.target === cvModal) cvModal.classList.add("hidden"); });
 
 				// Contact Form (Dual Submit: Google Sheets + Web3Forms)
 				const contactForm = document.getElementById("contact-form");
