@@ -810,18 +810,22 @@
 						</p>
 					</div>
 
-					<!-- AI Collaboration Ideator -->
+					<!-- LOCAL AI ASSISTANT (Chatbot) -->
 					<div class="glass-card rounded-3xl p-6 sm:p-8 md:p-10 mt-12 border-brand-accent/30 shadow-[0_10px_30px_rgba(0,194,169,0.15)] relative overflow-hidden" data-aos="fade-up">
-						<div class="absolute top-0 right-0 p-5 opacity-5 text-7xl"><i class="fa-solid fa-robot"></i></div>
-						<h3 class="text-xl font-extrabold mb-2 text-[var(--text-main)] flex items-center relative z-10"><i class="fa-solid fa-wand-magic-sparkles text-brand-accent mr-3"></i>AI Collaboration Ideator</h3>
-						<p class="text-[var(--text-muted)] font-medium text-sm mb-6 relative z-10">Want to build something together? Enter an industry or topic, and my AI will brainstorm a unique project idea utilizing my specific tech stack!</p>
-						<div class="flex flex-col sm:flex-row gap-3 relative z-10">
-							<input type="text" id="ai-collab-input" placeholder="e.g., EdTech, Healthcare, FinTech..." class="form-input flex-grow font-medium" />
-							<button id="ai-collab-btn" class="bg-gradient-to-r from-brand-accent to-blue-500 text-white font-bold py-3 px-6 rounded-xl hover:scale-105 transition-transform shadow-glow whitespace-nowrap flex items-center justify-center">
-								Brainstorm ✨
+						<div class="absolute top-0 right-0 p-5 opacity-5 text-7xl"><i class="fa-solid fa-microchip"></i></div>
+						<h3 class="text-xl font-extrabold mb-2 text-[var(--text-main)] flex items-center relative z-10"><i class="fa-solid fa-robot text-brand-accent mr-3"></i>Sourav-Bot (Local AI)</h3>
+						<p class="text-[var(--text-muted)] font-medium text-sm mb-6 relative z-10">Ask my local browser-based AI assistant anything about my skills, education, or experience. It works instantly and offline!</p>
+						
+						<div id="chat-window" class="h-48 overflow-y-auto mb-4 bg-slate-900 text-green-400 p-4 rounded-xl border border-[var(--card-border)] font-mono text-sm shadow-inner flex flex-col gap-3 custom-scrollbar relative z-10">
+							<div><span class="text-brand-accent">></span> System initialized. Hello! Ask me about Sourav's 'skills', 'university', 'contact', or 'projects'.</div>
+						</div>
+						
+						<div class="flex gap-3 relative z-10">
+							<input type="text" id="local-ai-input" placeholder="e.g., What are your skills?" class="form-input flex-grow font-mono text-sm bg-[var(--bg-main)]" />
+							<button id="local-ai-btn" class="bg-brand-accent text-white font-bold py-2 px-6 rounded-xl hover:bg-brand-accentHover transition-colors shadow-glow flex items-center justify-center whitespace-nowrap">
+								Send <i class="fa-solid fa-paper-plane ml-2"></i>
 							</button>
 						</div>
-						<div id="ai-collab-result" class="mt-4 text-sm text-[var(--text-main)] font-medium hidden p-5 bg-[var(--bg-main)] rounded-2xl border border-[var(--card-border)] leading-relaxed shadow-inner"></div>
 					</div>
 				</div>
 			</section>
@@ -941,13 +945,8 @@
 							</div>
 							
 							<div>
-								<div class="flex justify-between items-end mb-2">
-									<label for="message" class="form-label block"><i class="fa-solid fa-message mr-2 text-brand-accent"></i>Message Payload</label>
-									<button type="button" id="ai-draft-btn" class="text-xs font-bold text-brand-accent bg-brand-accent/10 px-3 py-1 rounded-lg hover:bg-brand-accent hover:text-white transition-all shadow-sm flex items-center">
-										Polish with AI ✨
-									</button>
-								</div>
-								<textarea name="message" id="message" rows="5" required class="form-textarea resize-none font-medium" placeholder="Type a few keywords (e.g. 'React freelance project') and click 'Polish with AI ✨', or write your full message here..." maxlength="500"></textarea>
+								<label for="message" class="form-label mb-2 block"><i class="fa-solid fa-message mr-2 text-brand-accent"></i>Message Payload</label>
+								<textarea name="message" id="message" rows="5" required class="form-textarea resize-none font-medium" placeholder="Hello Sourav, let's build something awesome..." maxlength="500"></textarea>
 							</div>
 							
 							<button type="submit" id="submit-btn" class="w-full bg-brand-accent text-white font-bold py-4 rounded-xl hover:bg-brand-accentHover transition-all shadow-[0_10px_20px_rgba(0,194,169,0.3)] flex justify-center items-center group text-lg disabled:opacity-75 disabled:cursor-wait">
@@ -1071,11 +1070,6 @@
 			const WEB3FORMS_ACCESS_KEY = "9f4ad3eb-6a2c-42a1-b06c-ec515d72da59"; // Web3Forms Access Key
 			const PRELOADER_DELAY = 1500;
 			const GITHUB_USERNAME = "souravsahapartho";
-			const GEMINI_API_KEY = ""; // Dynamic Execution API Key
-
-			// Global Variables for AI Personalization
-			let globalSubstackPosts = [];
-			let cachedFeeds = {}; // Caches the rendered HTML to show instantly on revisit
 
 			// Theme Logic
 			const themeToggleBtn = document.getElementById('theme-toggle');
@@ -1213,33 +1207,6 @@
 					const data = await response.json();
 					ipInputs.forEach(input => input.value = data.ip || 'Unknown');
 				} catch (e) { ipInputs.forEach(i => i.value = 'Fetch Failed'); }
-			}
-
-			// Gemini API Exponential Backoff Fetcher
-			async function callGeminiAPI(promptText) {
-				const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${GEMINI_API_KEY}`;
-				const payload = { contents: [{ parts: [{ text: promptText }] }] };
-				
-				let retries = 0;
-				const maxRetries = 5;
-				const delays = [1000, 2000, 4000, 8000, 16000];
-
-				while (retries < maxRetries) {
-					try {
-						const response = await fetch(url, {
-							method: "POST",
-							headers: { "Content-Type": "application/json" },
-							body: JSON.stringify(payload)
-						});
-						if (!response.ok) throw new Error("API Error");
-						const data = await response.json();
-						return data.candidates?.[0]?.content?.parts?.[0]?.text || "No response generated.";
-					} catch (error) {
-						if (retries === maxRetries - 1) throw error;
-						await new Promise(resolve => setTimeout(resolve, delays[retries]));
-						retries++;
-					}
-				}
 			}
 
 			document.addEventListener("DOMContentLoaded", () => {
@@ -1382,66 +1349,48 @@
 					}
 				}
 
-				// AI Feature 1: Collaboration Ideator (Portfolio Section)
-				const aiCollabBtn = document.getElementById("ai-collab-btn");
-				const aiCollabInput = document.getElementById("ai-collab-input");
-				const aiCollabResult = document.getElementById("ai-collab-result");
+				// Local AI Chatbot Logic
+				const chatWindow = document.getElementById("chat-window");
+				const localAiInput = document.getElementById("local-ai-input");
+				const localAiBtn = document.getElementById("local-ai-btn");
 
-				if (aiCollabBtn && aiCollabInput && aiCollabResult) {
-					aiCollabBtn.addEventListener("click", async () => {
-						const topic = aiCollabInput.value.trim();
-						if (!topic) return;
-						
-						aiCollabBtn.disabled = true;
-						aiCollabBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-2"></i> Thinking...';
-						aiCollabResult.classList.remove("hidden");
-						aiCollabResult.innerHTML = '<span class="animate-pulse text-brand-accent font-bold"><i class="fa-solid fa-wand-magic-sparkles mr-2"></i> Connecting to Gemini AI...</span>';
-						
-						const prompt = `You are an AI assistant integrated into Sourav Saha's portfolio website. Sourav is a Computer Science student and aspiring web developer skilled in C/C++, Java, JavaScript, React, MySQL, Python, and HTML/CSS/Tailwind. A visitor wants to collaborate on a project related to "${topic}". Propose ONE highly innovative, specific, and exciting 2-3 sentence project idea that combines their topic with Sourav's tech stack. Keep it enthusiastic and professional. Do not use markdown formatting.`;
-						
-						try {
-							const responseText = await callGeminiAPI(prompt);
-							aiCollabResult.innerHTML = `<strong><i class="fa-solid fa-lightbulb text-yellow-400 mr-2"></i> AI Suggestion:</strong> ${responseText}`;
-						} catch (e) {
-							aiCollabResult.innerHTML = `<span class="text-red-500">Failed to generate idea. Please ensure API limits are not exceeded and try again later.</span>`;
-						} finally {
-							aiCollabBtn.disabled = false;
-							aiCollabBtn.innerHTML = 'Brainstorm ✨';
-						}
-					});
-				}
+				if (localAiBtn && localAiInput && chatWindow) {
+					const handleChat = () => {
+						const userText = localAiInput.value.trim().toLowerCase();
+						if (!userText) return;
 
-				// AI Feature 2: Message Polisher (Contact Form)
-				const aiDraftBtn = document.getElementById("ai-draft-btn");
-				const messageBox = document.getElementById("message");
-				
-				if (aiDraftBtn && messageBox) {
-					aiDraftBtn.addEventListener("click", async () => {
-						const currentText = messageBox.value.trim();
-						
-						if (!currentText || currentText.length < 5) {
-							messageBox.value = "";
-							messageBox.placeholder = "Please type a few keywords here first (e.g. 'freelance react job' or 'mentorship request'), then click Polish with AI ✨";
-							messageBox.focus();
-							return;
-						}
-						
-						const originalHtml = aiDraftBtn.innerHTML;
-						aiDraftBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-1"></i> Polishing...';
-						aiDraftBtn.disabled = true;
-						
-						const prompt = `Rewrite the following rough notes into a short, professional, and friendly contact form message addressed to Sourav Saha (a CSE student and web developer). Keep the message concise (maximum 3 sentences) and leave placeholders like [Your Name] or [Company Name] if the identity is unclear. Do not use markdown formatting. Rough notes: "${currentText}"`;
-						
-						try {
-							const polishedMessage = await callGeminiAPI(prompt);
-							messageBox.value = polishedMessage;
-						} catch (e) {
-							messageBox.value = currentText; // Revert to original if fail
-							messageBox.placeholder = "AI Polish failed due to network error. You can still send your original message.";
-						} finally {
-							aiDraftBtn.innerHTML = originalHtml;
-							aiDraftBtn.disabled = false;
-						}
+						// Add user message
+						chatWindow.innerHTML += `<div><span class="text-blue-400">> User:</span> ${localAiInput.value}</div>`;
+						localAiInput.value = "";
+						chatWindow.scrollTop = chatWindow.scrollHeight;
+
+						// Simulate quick AI processing
+						setTimeout(() => {
+							let response = "";
+							if (userText.includes("skill") || userText.includes("tech") || userText.includes("stack")) {
+								response = "Sourav is highly skilled in C/C++, Java, JavaScript, React, MySQL, Python, and HTML/CSS/Tailwind.";
+							} else if (userText.includes("edu") || userText.includes("study") || userText.includes("uiu") || userText.includes("university")) {
+								response = "He is currently pursuing his B.Sc. in Computer Science & Engineering at United International University (UIU), Bangladesh.";
+							} else if (userText.includes("contact") || userText.includes("hire") || userText.includes("email") || userText.includes("reach")) {
+								response = "You can easily reach him via the secure Contact form below, or connect directly on LinkedIn!";
+							} else if (userText.includes("project") || userText.includes("work") || userText.includes("portfolio")) {
+								response = "Check out his Open Source projects right above! He builds responsive web apps, tech blogs, and practical tools.";
+							} else if (userText.includes("blog") || userText.includes("write") || userText.includes("article") || userText.includes("techtalk")) {
+								response = "He is the author of 'TechTalk with Sourav', a blog focusing on AI, programming, and tech insights.";
+							} else if (userText.includes("hi") || userText.includes("hello") || userText.includes("hey")) {
+								response = "Hello! I am Sourav's local AI assistant. Ask me about his 'skills', 'education', or 'projects'.";
+							} else {
+								response = "I am a local keyword-based AI. Try asking specifically about his 'skills', 'education', 'projects', or 'contact'!";
+							}
+							
+							chatWindow.innerHTML += `<div><span class="text-brand-accent">> Bot:</span> ${response}</div>`;
+							chatWindow.scrollTop = chatWindow.scrollHeight;
+						}, 400); // 400ms delay for realism
+					};
+
+					localAiBtn.addEventListener("click", handleChat);
+					localAiInput.addEventListener("keypress", (e) => {
+						if (e.key === 'Enter') handleChat();
 					});
 				}
 
