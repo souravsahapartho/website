@@ -1053,7 +1053,6 @@
 			const WEB3FORMS_ACCESS_KEY = "9f4ad3eb-6a2c-42a1-b06c-ec515d72da59"; // Web3Forms Access Key
 			const PRELOADER_DELAY = 1500;
 			const GITHUB_USERNAME = "souravsahapartho";
-			const GEMINI_API_KEY = ""; // Dynamic Execution API Key
 
 			// Global Variables for AI Personalization
 			let globalSubstackPosts = [];
@@ -1195,33 +1194,6 @@
 					const data = await response.json();
 					ipInputs.forEach(input => input.value = data.ip || 'Unknown');
 				} catch (e) { ipInputs.forEach(i => i.value = 'Fetch Failed'); }
-			}
-
-			// Gemini API Exponential Backoff Fetcher
-			async function callGeminiAPI(promptText) {
-				const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${GEMINI_API_KEY}`;
-				const payload = { contents: [{ parts: [{ text: promptText }] }] };
-				
-				let retries = 0;
-				const maxRetries = 5;
-				const delays = [1000, 2000, 4000, 8000, 16000];
-
-				while (retries < maxRetries) {
-					try {
-						const response = await fetch(url, {
-							method: "POST",
-							headers: { "Content-Type": "application/json" },
-							body: JSON.stringify(payload)
-						});
-						if (!response.ok) throw new Error("API Error");
-						const data = await response.json();
-						return data.candidates?.[0]?.content?.parts?.[0]?.text || "No response generated.";
-					} catch (error) {
-						if (retries === maxRetries - 1) throw error;
-						await new Promise(resolve => setTimeout(resolve, delays[retries]));
-						retries++;
-					}
-				}
 			}
 
 			document.addEventListener("DOMContentLoaded", () => {
@@ -1514,7 +1486,7 @@
 							entry.target.style.width = `${entry.target.getAttribute("data-progress")}%`;
 						}
 					});
-				}, { threshold: 0.2, rootMargin: "0px 0px -10% 0px" });
+				}, { threshold: 0.5 });
 				document.querySelectorAll(".progress-bar").forEach(bar => obsBar.observe(bar));
 
 				// Fetch APIs
