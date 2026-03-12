@@ -926,7 +926,7 @@
 		<div id="cv-modal" class="modal-overlay hidden">
 			<div class="modal-content h-[90%] sm:h-[85%] max-h-[900px] w-[95%] sm:w-[80%] max-w-4xl">
 				<div class="p-4 sm:p-6 border-b border-[var(--card-border)] flex justify-between items-center bg-[var(--bg-main)] rounded-t-xl shrink-0">
-					<h3 class="font-extrabold text-lg sm:text-xl text-[var(--text-main)]"><i class="fa-solid fa-file-pdf text-brand-accent mr-2"></i>Resume Preview</h3>
+					<h3 class="font-extrabold text-lg sm:text-xl text-[var(--text-main)]"><i class="fa-solid fa-file-image text-brand-accent mr-2"></i>Resume Preview</h3>
 					<div class="flex items-center gap-3 sm:gap-4">
 						<button id="download-cv-btn" class="bg-brand-accent text-white px-4 py-2 rounded-full text-xs sm:text-sm font-bold hover:bg-brand-accentHover transition-colors text-center shadow-glow">
 							Download <span class="hidden sm:inline">PDF</span>
@@ -934,9 +934,8 @@
 						<button id="close-cv-modal" class="text-3xl text-[var(--text-main)] hover:text-red-500 transition-colors leading-none" title="Close">&times;</button>
 					</div>
 				</div>
-				<div class="flex-grow p-2 sm:p-4 bg-[var(--bg-main)] rounded-b-xl overflow-hidden relative">
-					<!-- Dynamically injected PDF Viewer ensuring proper display on all devices -->
-					<iframe id="cv-preview-iframe" src="" class="w-full h-full min-h-[60vh] border-none bg-white rounded shadow-md border border-[var(--card-border)]" title="Resume Preview"></iframe>
+				<div class="flex-grow p-2 sm:p-4 bg-[var(--bg-main)] rounded-b-xl overflow-y-auto custom-scrollbar text-center relative">
+					<img src="sourav-saha-resume.jpg" alt="Sourav Saha Resume Preview" class="w-full max-w-3xl h-auto bg-white rounded shadow-md border border-[var(--card-border)] inline-block mx-auto" onerror="this.onerror=null;this.src='https://placehold.co/800x1131/ffffff/00c2a9?text=Resume+Not+Found';">
 				</div>
 			</div>
 		</div>
@@ -1217,24 +1216,10 @@
 
 				// CV Modal & Download Confirmation Logic
 				const cvModal = document.getElementById("cv-modal");
-				const cvIframe = document.getElementById("cv-preview-iframe");
 				
 				document.querySelectorAll(".open-cv-btn").forEach(btn => btn.addEventListener("click", (e) => {
 					e.preventDefault();
 					cvModal.classList.remove("hidden");
-					
-					// Dynamically trigger Mobile vs PC Viewer
-					if (!cvIframe.src || cvIframe.src === window.location.href) {
-						let pdfUrl = "sourav-saha-resume.pdf#view=FitH";
-						if (window.location.protocol.startsWith('http')) {
-							const absUrl = new URL("sourav-saha-resume.pdf", window.location.href).href;
-							// If on mobile device and on a server, use Google Docs viewer to force inline preview
-							if (/Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent)) {
-								pdfUrl = `https://docs.google.com/viewer?url=${encodeURIComponent(absUrl)}&embedded=true`;
-							}
-						}
-						cvIframe.src = pdfUrl;
-					}
 				}));
 				
 				document.getElementById("close-cv-modal")?.addEventListener("click", () => cvModal.classList.add("hidden"));
@@ -1472,12 +1457,14 @@
 						const desc = repo.description || "System logic module. No description available.";
 						const color = getLangColor(repo.language);
 						grid.innerHTML += `
-							<a href="${repo.html_url}" target="_blank" rel="noopener noreferrer" class="glass-card p-6 sm:p-8 rounded-3xl flex flex-col h-full group border-[var(--card-border)] relative">
-								<div class="flex justify-between items-start mb-3 gap-2">
-									<h3 class="text-xl font-extrabold group-hover:text-brand-accent transition-colors flex items-center text-[var(--text-main)] break-all"><i class="fa-solid fa-code-branch mr-2 opacity-50 shrink-0"></i>${repo.name}</h3>
-									${repo.language ? `<span class="shrink-0 flex items-center text-xs text-[var(--text-muted)] font-mono font-bold bg-[var(--bg-main)] px-2.5 py-1 rounded-lg border border-[var(--card-border)]"><span class="w-2.5 h-2.5 rounded-full mr-1.5" style="background-color: ${color};"></span>${repo.language}</span>` : ""}
-								</div>
+							<a href="${repo.html_url}" target="_blank" rel="noopener noreferrer" class="glass-card p-6 sm:p-8 rounded-3xl flex flex-col h-full group border-[var(--card-border)]">
+								<h3 class="text-xl font-extrabold mb-3 group-hover:text-brand-accent transition-colors flex items-center text-[var(--text-main)]"><i class="fa-solid fa-code-branch mr-2 opacity-50"></i>${repo.name}</h3>
 								<p class="text-sm text-[var(--text-muted)] font-medium mb-6 flex-grow font-mono leading-relaxed line-clamp-3">${desc.length > 120 ? desc.substring(0, 120) + "..." : desc}</p>
+								<div class="flex flex-wrap items-center text-xs text-[var(--text-muted)] font-mono font-bold mt-auto pt-4 border-t border-[var(--card-border)]">
+									${repo.language ? `<span class="mr-4 flex items-center mb-1"><span class="w-3 h-3 rounded-full mr-2" style="background-color: ${color};"></span>${repo.language}</span>` : ""}
+									<span class="mr-4 mb-1"><i class="fa-solid fa-star mr-1"></i>${repo.stargazers_count}</span>
+									<span class="mb-1"><i class="fa-solid fa-code-fork mr-1"></i>${repo.forks_count}</span>
+								</div>
 							</a>`;
 					});
 				} catch (e) { grid.innerHTML = "<p class='col-span-full text-center text-red-500 font-bold'>API Link severed.</p>"; }
