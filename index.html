@@ -249,19 +249,20 @@
 			.form-input::placeholder, .form-textarea::placeholder { color: var(--text-muted); opacity: 0.6; }
 			.form-input:focus, .form-textarea:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px rgba(0, 194, 169, 0.2); }
 			
-			/* Modals */
+			/* Modals - Smooth Fade & Scale */
 			.modal-overlay {
 				position: fixed; inset: 0; background-color: rgba(0, 0, 0, 0.7); backdrop-filter: blur(8px);
 				display: flex; justify-content: center; align-items: center; z-index: 1000;
-				opacity: 0; visibility: hidden; transition: opacity 0.3s ease, visibility 0.3s ease;
+				opacity: 0; visibility: hidden; pointer-events: none; transition: opacity 0.4s ease, visibility 0.4s ease;
 			}
-			.modal-overlay:not(.hidden) { opacity: 1; visibility: visible; }
+			.modal-overlay.is-active { opacity: 1; visibility: visible; pointer-events: auto; }
 			.modal-content {
 				background-color: var(--bg-main); border: 1px solid var(--card-border); border-radius: 1rem;
 				width: 95%; height: 90%; max-width: 1200px; display: flex; flex-direction: column;
-				position: relative; transform: scale(0.95); transition: transform 0.3s ease; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+				position: relative; transform: scale(0.95) translateY(15px); opacity: 0; 
+				transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.4s ease; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
 			}
-			.modal-overlay:not(.hidden) .modal-content { transform: scale(1); }
+			.modal-overlay.is-active .modal-content { transform: scale(1) translateY(0); opacity: 1; }
 
 			/* Preloader */
 			#preloader {
@@ -545,9 +546,9 @@
 								/>
 								
 								<!-- GitHub Total Contributions Badge -->
-								<div class="absolute bottom-2 -right-2 sm:bottom-6 sm:-right-6 bg-[#0a0a0a] border border-white/10 rounded-2xl px-3 py-2 sm:px-4 sm:py-2.5 flex flex-col items-center justify-center shadow-[0_10px_25px_rgba(0,0,0,0.5),0_0_15px_rgba(0,194,169,0.3)] z-20 hover:scale-105 transition-transform" style="animation: floatOrb 4s infinite alternate ease-in-out;">
-									<span id="github-total-count" class="text-[#22c55e] font-extrabold text-lg sm:text-2xl font-mono leading-none drop-shadow-[0_0_8px_rgba(34,197,94,0.4)]">...</span>
-									<span class="text-slate-300 text-[9px] sm:text-[11px] font-bold uppercase tracking-wider mt-1 whitespace-nowrap">Contributions</span>
+								<div class="glass-card absolute bottom-2 -right-2 sm:bottom-4 sm:-right-4 rounded-xl px-3 py-2 flex flex-col items-center justify-center z-20 shadow-lg">
+									<span class="text-brand-accent text-glow font-extrabold text-base sm:text-xl font-mono leading-none">1080+</span>
+									<span class="text-[var(--text-main)] text-[8px] sm:text-[10px] font-bold uppercase tracking-wider mt-1 whitespace-nowrap flex items-center gap-1"><i class="fa-brands fa-github opacity-75"></i> GitHub Contributions</span>
 								</div>
 							</div>
 						</div>
@@ -970,7 +971,7 @@
 
 		<!-- Modals & Overlays -->
 		<!-- More Articles Modal -->
-		<div id="more-articles-modal" class="modal-overlay hidden">
+		<div id="more-articles-modal" class="modal-overlay">
 			<div class="modal-content h-[90%] sm:h-[85%] max-h-[900px] w-[95%] sm:w-[80%] max-w-6xl">
 				<div class="p-4 sm:p-6 border-b border-[var(--card-border)] flex justify-between items-center bg-[var(--bg-main)] rounded-t-xl shrink-0">
 					<h3 class="font-extrabold text-lg sm:text-xl text-[var(--text-main)]"><i class="fa-solid fa-book-open text-brand-accent mr-2"></i>More Article Suggestions</h3>
@@ -992,7 +993,7 @@
 			</div>
 		</div>
 
-		<div id="cv-modal" class="modal-overlay hidden">
+		<div id="cv-modal" class="modal-overlay">
 			<div class="modal-content h-[90%] sm:h-[85%] max-h-[900px] w-[95%] sm:w-[80%] max-w-4xl">
 				<div class="p-4 sm:p-6 border-b border-[var(--card-border)] flex justify-between items-center bg-[var(--bg-main)] rounded-t-xl shrink-0">
 					<h3 class="font-extrabold text-lg sm:text-xl text-[var(--text-main)]"><i class="fa-solid fa-file-image text-brand-accent mr-2"></i>Resume Preview</h3>
@@ -1029,7 +1030,7 @@
 		</div>
 
 		<!-- Custom Confirm Download Modal -->
-		<div id="download-confirm-modal" class="modal-overlay hidden" style="z-index: 1050;">
+		<div id="download-confirm-modal" class="modal-overlay" style="z-index: 1050;">
 			<div class="glass-card max-w-sm w-[90%] p-6 sm:p-8 flex flex-col items-center text-center rounded-3xl border-brand-accent/50 relative shadow-2xl">
 				<div class="text-4xl text-brand-accent mb-4"><i class="fa-solid fa-cloud-arrow-down"></i></div>
 				<h3 class="text-xl font-extrabold text-[var(--text-main)] mb-2">Save to Device?</h3>
@@ -1065,7 +1066,7 @@
 		</button>
 
 		<!-- Easter Egg Modals -->
-		<div id="secret-message-modal" class="modal-overlay hidden">
+		<div id="secret-message-modal" class="modal-overlay">
 			<div class="glass-card max-w-sm p-8 flex flex-col items-center text-center rounded-3xl border-brand-accent/50 relative">
 				<button id="close-secret-modal" class="absolute top-4 right-4 text-3xl hover:text-red-500 transition-colors text-[var(--text-main)] leading-none">&times;</button>
 				<div class="text-5xl text-brand-accent mb-4"><i class="fa-solid fa-user-secret"></i></div>
@@ -1172,13 +1173,13 @@
 			const secretModal = document.getElementById('secret-message-modal');
 			const secretModalTitle = document.getElementById('secret-modal-title');
 			const secretModalBody = document.getElementById('secret-modal-body');
-			const closeModal = () => secretModal.classList.add('hidden');
+			const closeModal = () => secretModal.classList.remove('is-active');
 			
 			const showSecretModal = (title, message, isOneTime = false, flagName = '') => {
 				if (localStorage.getItem(flagName) === 'true' && isOneTime) return;
 				secretModalTitle.textContent = title;
 				secretModalBody.textContent = message;
-				secretModal.classList.remove('hidden');
+				secretModal.classList.add('is-active');
 				if (isOneTime) localStorage.setItem(flagName, 'true');
 				setTimeout(closeModal, 4000);
 			};
@@ -1311,7 +1312,7 @@
 				
 				document.querySelectorAll(".open-cv-btn").forEach(btn => btn.addEventListener("click", (e) => {
 					e.preventDefault();
-					cvModal.classList.remove("hidden");
+					cvModal.classList.add("is-active");
 					// Dynamically trigger image load only when the modal opens to avoid hidden mobile browser bugs
 					if (!cvImage.getAttribute('src') || cvImage.getAttribute('src') === "") {
 						document.getElementById('cv-loader').style.display = 'flex';
@@ -1322,17 +1323,17 @@
 					}
 				}));
 				
-				document.getElementById("close-cv-modal")?.addEventListener("click", () => cvModal.classList.add("hidden"));
-				cvModal?.addEventListener("click", e => { if (e.target === cvModal) cvModal.classList.add("hidden"); });
+				document.getElementById("close-cv-modal")?.addEventListener("click", () => cvModal.classList.remove("is-active"));
+				cvModal?.addEventListener("click", e => { if (e.target === cvModal) cvModal.classList.remove("is-active"); });
 
 				const downloadConfirmModal = document.getElementById("download-confirm-modal");
 				const downloadCvBtn = document.getElementById("download-cv-btn");
 				
 				if (downloadCvBtn && downloadConfirmModal) {
-					downloadCvBtn.addEventListener("click", () => downloadConfirmModal.classList.remove("hidden"));
-					document.getElementById("cancel-download-btn")?.addEventListener("click", () => downloadConfirmModal.classList.add("hidden"));
+					downloadCvBtn.addEventListener("click", () => downloadConfirmModal.classList.add("is-active"));
+					document.getElementById("cancel-download-btn")?.addEventListener("click", () => downloadConfirmModal.classList.remove("is-active"));
 					document.getElementById("confirm-download-btn")?.addEventListener("click", () => {
-						downloadConfirmModal.classList.add("hidden");
+						downloadConfirmModal.classList.remove("is-active");
 						const link = document.createElement("a");
 						link.href = "sourav-saha-resume.pdf";
 						link.download = "sourav-saha-resume.pdf";
@@ -1340,7 +1341,7 @@
 						link.click();
 						document.body.removeChild(link);
 					});
-					downloadConfirmModal.addEventListener("click", e => { if (e.target === downloadConfirmModal) downloadConfirmModal.classList.add("hidden"); });
+					downloadConfirmModal.addEventListener("click", e => { if (e.target === downloadConfirmModal) downloadConfirmModal.classList.remove("is-active"); });
 				}
 
 				// Rotating Text - SEO Integrated and Randomly Shuffled
@@ -1502,7 +1503,7 @@
 				if (openMoreArticlesBtn && moreArticlesModal) {
 					openMoreArticlesBtn.addEventListener("click", (e) => {
 						e.preventDefault();
-						moreArticlesModal.classList.remove("hidden");
+						moreArticlesModal.classList.add("is-active");
 						
 						// Render posts from index 3 to 8 (next 6 posts)
 						if (globalSubstackPosts && globalSubstackPosts.length > 3) {
@@ -1513,8 +1514,8 @@
 						}
 					});
 					
-					closeMoreArticlesBtn?.addEventListener("click", () => moreArticlesModal.classList.add("hidden"));
-					moreArticlesModal.addEventListener("click", e => { if (e.target === moreArticlesModal) moreArticlesModal.classList.add("hidden"); });
+					closeMoreArticlesBtn?.addEventListener("click", () => moreArticlesModal.classList.remove("is-active"));
+					moreArticlesModal.addEventListener("click", e => { if (e.target === moreArticlesModal) moreArticlesModal.classList.remove("is-active"); });
 				}
 
 				// Scroll triggers
@@ -1547,7 +1548,6 @@
 				fetchGithubProfile();
 				fetchGithubRepos();
 				fetchSubstackPosts();
-				fetchTotalContributions();
 				initEasterEggs();
 
 				// Network Recovery Logic (Auto reload if internet drops and reconnects)
@@ -1556,7 +1556,6 @@
 					fetchGithubProfile();
 					fetchGithubRepos();
 					fetchSubstackPosts();
-					fetchTotalContributions();
 
 					// 2. Find ALL images on the page and intelligently force reload them
 					document.querySelectorAll('img').forEach(img => {
@@ -1591,26 +1590,6 @@
 					document.getElementById('github-username').textContent = "Sourav Saha";
 					document.getElementById('follower-count').textContent = "Active";
 					document.getElementById('github-avatar').src = "Image/profile.jpg";
-				}
-			}
-
-			async function fetchTotalContributions() {
-				const countEl = document.getElementById('github-total-count');
-				if (!countEl) return;
-				try {
-					const res = await fetch(`https://github-contributions-api.jogruber.de/v4/${GITHUB_USERNAME}`);
-					const data = await res.json();
-					if (data && data.total) {
-						let total = 0;
-						for (const year in data.total) {
-							if (!isNaN(year)) total += data.total[year];
-						}
-						countEl.textContent = total.toLocaleString();
-					} else {
-						countEl.textContent = "N/A";
-					}
-				} catch (e) {
-					countEl.textContent = "N/A";
 				}
 			}
 
