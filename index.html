@@ -848,13 +848,20 @@
 				<div class="bg-anim-contact"></div> <!-- Reusing the wave animation for fluidity -->
 				
 				<div class="container mx-auto relative z-10" data-aos="fade-up">
-					<h2 class="text-2xl sm:text-3xl md:text-4xl font-extrabold text-center mb-12 text-glow text-[var(--text-main)] whitespace-nowrap">What Mentors Say</h2>
+					<h2 class="text-2xl sm:text-3xl md:text-4xl font-extrabold text-center mb-4 md:mb-12 text-glow text-[var(--text-main)] whitespace-nowrap">What Mentors Say</h2>
+					
+					<!-- Mobile Swipe Indicator -->
+					<div class="md:hidden flex justify-center items-center gap-3 mb-8 text-[var(--text-muted)] text-sm font-medium">
+						<i class="fa-solid fa-arrow-left-long text-brand-accent animate-pulse"></i>
+						<span>Swipe to explore</span>
+						<i class="fa-solid fa-arrow-right-long text-brand-accent animate-pulse"></i>
+					</div>
 					
 					<div class="relative max-w-5xl mx-auto group">
 						<div id="recommendations-carousel" class="flex snap-x snap-mandatory overflow-x-auto gap-4 sm:gap-6 pb-8 hide-scrollbar cursor-grab" style="scrollbar-width: none;">
 							
 							<!-- Card 1 -->
-							<div class="rec-card-wrapper w-full md:w-[calc(50%-12px)] flex-shrink-0 snap-center">
+							<div class="rec-card-wrapper w-[90%] sm:w-[80%] md:w-[calc(50%-12px)] flex-shrink-0 snap-center">
 								<div class="glass-card p-6 sm:p-8 rounded-3xl flex flex-col items-center text-center h-full">
 									<div class="text-brand-accent mb-6 text-4xl opacity-40"><i class="fa-solid fa-quote-left"></i></div>
 									<p class="text-base sm:text-lg italic flex-grow font-semibold leading-relaxed text-[var(--text-muted)]">"Sourav is a highly motivated and dedicated individual. His commitment to learning and his natural leadership skills make him an asset to any team. He's always eager to take on new challenges and consistently delivers high-quality work."</p>
@@ -866,7 +873,7 @@
 							</div>
 
 							<!-- Card 2 -->
-							<div class="rec-card-wrapper w-full md:w-[calc(50%-12px)] flex-shrink-0 snap-center">
+							<div class="rec-card-wrapper w-[90%] sm:w-[80%] md:w-[calc(50%-12px)] flex-shrink-0 snap-center">
 								<div class="glass-card p-6 sm:p-8 rounded-3xl flex flex-col items-center text-center h-full">
 									<div class="text-brand-accent mb-6 text-4xl opacity-40"><i class="fa-solid fa-quote-left"></i></div>
 									<p class="text-base sm:text-lg italic flex-grow font-semibold leading-relaxed text-[var(--text-muted)]">"His work ethic and ability to quickly grasp new concepts are truly impressive. Sourav's enthusiasm for technology is infectious, and he contributes positively to every project he's involved in."</p>
@@ -878,7 +885,7 @@
 							</div>
 
 							<!-- Card 3 -->
-							<div class="rec-card-wrapper w-full md:w-[calc(50%-12px)] flex-shrink-0 snap-center">
+							<div class="rec-card-wrapper w-[90%] sm:w-[80%] md:w-[calc(50%-12px)] flex-shrink-0 snap-center">
 								<div class="glass-card p-6 sm:p-8 rounded-3xl flex flex-col items-center text-center h-full">
 									<div class="text-brand-accent mb-6 text-4xl opacity-40"><i class="fa-solid fa-quote-left"></i></div>
 									<p class="text-base sm:text-lg italic flex-grow font-semibold leading-relaxed text-[var(--text-muted)]">"Sourav's passion for learning and his collaborative spirit are outstanding. He is an excellent team player who is always ready to share his knowledge and support others. I highly recommend him."</p>
