@@ -856,10 +856,10 @@
 						<style> .hide-scrollbar::-webkit-scrollbar { display: none; } </style>
 
 						<!-- Nav Buttons -->
-						<button type="button" id="rec-prev-btn" class="absolute top-1/2 -left-4 md:-left-12 -translate-y-1/2 w-10 h-10 rounded-full bg-brand-accent text-white shadow-lg hover:bg-brand-accentHover transition-colors z-[60] hidden md:flex items-center justify-center cursor-pointer border border-[var(--card-border)]">
+						<button type="button" id="rec-prev-btn" class="absolute top-1/2 -left-4 md:-left-12 -translate-y-1/2 w-10 h-10 rounded-full bg-brand-accent text-white shadow-lg hover:bg-brand-accentHover transition-colors z-[100] hidden md:flex items-center justify-center cursor-pointer border border-[var(--card-border)] pointer-events-auto">
 							<i class="fa-solid fa-chevron-left"></i>
 						</button>
-						<button type="button" id="rec-next-btn" class="absolute top-1/2 -right-4 md:-right-12 -translate-y-1/2 w-10 h-10 rounded-full bg-brand-accent text-white shadow-lg hover:bg-brand-accentHover transition-colors z-[60] hidden md:flex items-center justify-center cursor-pointer border border-[var(--card-border)]">
+						<button type="button" id="rec-next-btn" class="absolute top-1/2 -right-4 md:-right-12 -translate-y-1/2 w-10 h-10 rounded-full bg-brand-accent text-white shadow-lg hover:bg-brand-accentHover transition-colors z-[100] hidden md:flex items-center justify-center cursor-pointer border border-[var(--card-border)] pointer-events-auto">
 							<i class="fa-solid fa-chevron-right"></i>
 						</button>
 					</div>
@@ -934,9 +934,17 @@
 						<button id="close-cv-modal" class="text-3xl text-[var(--text-main)] hover:text-red-500 transition-colors leading-none" title="Close">&times;</button>
 					</div>
 				</div>
-				<div class="flex-grow p-2 sm:p-4 bg-[var(--bg-main)] rounded-b-xl overflow-y-auto custom-scrollbar text-center relative">
-					<!-- Reverted to highly robust Image Preview for foolproof mobile support -->
-					<img src="sourav-saha-resume.jpg" alt="Sourav Saha Resume Preview" class="w-full max-w-3xl h-auto bg-white rounded shadow-md border border-[var(--card-border)] inline-block mx-auto" onerror="this.onerror=null;this.src='https://placehold.co/800x1131/ffffff/00c2a9?text=Resume+Not+Found';">
+				<!-- Dynamically loaded robust image preview to bypass mobile hidden DOM bugs -->
+				<div class="flex-grow p-2 sm:p-4 bg-[var(--bg-main)] rounded-b-xl overflow-y-auto custom-scrollbar relative flex flex-col items-center justify-start min-h-[50vh]">
+					<!-- Loader showing behind the image while it fetches -->
+					<div id="cv-loader" class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex flex-col items-center justify-center text-[var(--text-muted)] font-mono z-0">
+						<i class="fa-solid fa-spinner fa-spin text-4xl text-brand-accent mb-4"></i>
+						<p>Loading document...</p>
+					</div>
+					<!-- Actual image injected dynamically via JS -->
+					<img id="cv-preview-image" alt="Sourav Saha Resume Preview" class="w-full max-w-3xl h-auto bg-white rounded shadow-2xl border border-[var(--card-border)] relative z-10 hidden" 
+					onload="this.classList.remove('hidden'); document.getElementById('cv-loader').style.display='none';" 
+					onerror="document.getElementById('cv-loader').innerHTML='<i class=\'fa-solid fa-file-circle-xmark text-4xl mb-4 opacity-50\'></i><p class=\'font-bold text-lg\'>Resume Not Found</p>'; this.style.display='none';">
 				</div>
 			</div>
 		</div>
@@ -1200,27 +1208,30 @@
 				}, { threshold: 0.3 });
 				sections.forEach(section => observerNav.observe(section));
 
-				// Mentors Carousel Logic (Fixed for proper clicking width)
+				// Mentors Carousel Logic
 				const recCarousel = document.getElementById("recommendations-carousel");
 				const recPrevBtn = document.getElementById("rec-prev-btn");
 				const recNextBtn = document.getElementById("rec-next-btn");
 				if (recCarousel && recPrevBtn && recNextBtn) {
 					recPrevBtn.addEventListener("click", () => {
-						const cardWidth = recCarousel.querySelector('.rec-card-wrapper').offsetWidth;
-						recCarousel.scrollBy({ left: -(cardWidth + 24), behavior: "smooth" });
+						recCarousel.scrollBy({ left: -window.innerWidth / 2, behavior: "smooth" });
 					});
 					recNextBtn.addEventListener("click", () => {
-						const cardWidth = recCarousel.querySelector('.rec-card-wrapper').offsetWidth;
-						recCarousel.scrollBy({ left: (cardWidth + 24), behavior: "smooth" });
+						recCarousel.scrollBy({ left: window.innerWidth / 2, behavior: "smooth" });
 					});
 				}
 
 				// CV Modal & Download Confirmation Logic
 				const cvModal = document.getElementById("cv-modal");
+				const cvImage = document.getElementById("cv-preview-image");
 				
 				document.querySelectorAll(".open-cv-btn").forEach(btn => btn.addEventListener("click", (e) => {
 					e.preventDefault();
 					cvModal.classList.remove("hidden");
+					// Dynamically trigger image load only when the modal opens to avoid hidden mobile browser bugs
+					if (!cvImage.getAttribute('src') || cvImage.getAttribute('src') === "") {
+						cvImage.setAttribute('src', 'sourav-saha-resume.jpg');
+					}
 				}));
 				
 				document.getElementById("close-cv-modal")?.addEventListener("click", () => cvModal.classList.add("hidden"));
