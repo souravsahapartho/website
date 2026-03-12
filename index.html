@@ -856,10 +856,10 @@
 						<style> .hide-scrollbar::-webkit-scrollbar { display: none; } </style>
 
 						<!-- Nav Buttons -->
-						<button id="rec-prev-btn" class="absolute top-1/2 -left-4 md:-left-12 -translate-y-1/2 w-10 h-10 rounded-full bg-brand-accent text-white shadow-lg hover:bg-brand-accentHover transition-colors z-10 hidden md:flex items-center justify-center">
+						<button type="button" id="rec-prev-btn" class="absolute top-1/2 -left-4 md:-left-12 -translate-y-1/2 w-10 h-10 rounded-full bg-brand-accent text-white shadow-lg hover:bg-brand-accentHover transition-colors z-50 hidden md:flex items-center justify-center cursor-pointer">
 							<i class="fa-solid fa-chevron-left"></i>
 						</button>
-						<button id="rec-next-btn" class="absolute top-1/2 -right-4 md:-right-12 -translate-y-1/2 w-10 h-10 rounded-full bg-brand-accent text-white shadow-lg hover:bg-brand-accentHover transition-colors z-10 hidden md:flex items-center justify-center">
+						<button type="button" id="rec-next-btn" class="absolute top-1/2 -right-4 md:-right-12 -translate-y-1/2 w-10 h-10 rounded-full bg-brand-accent text-white shadow-lg hover:bg-brand-accentHover transition-colors z-50 hidden md:flex items-center justify-center cursor-pointer">
 							<i class="fa-solid fa-chevron-right"></i>
 						</button>
 					</div>
@@ -935,16 +935,8 @@
 					</div>
 				</div>
 				<div class="flex-grow p-2 sm:p-4 bg-[var(--bg-main)] rounded-b-xl overflow-hidden relative">
-					<!-- Robust PDF Viewer using Object with iFrame fallback -->
-					<object data="sourav-saha-resume.pdf#view=FitH" type="application/pdf" class="w-full h-full min-h-[60vh] bg-white rounded shadow-md border border-[var(--card-border)]">
-						<iframe src="sourav-saha-resume.pdf#view=FitH" class="w-full h-full min-h-[60vh] border-none" title="Resume Preview">
-							<div class="flex flex-col items-center justify-center h-full w-full p-8 text-center mt-12">
-								<i class="fa-solid fa-file-pdf text-5xl text-brand-accent opacity-50 mb-4"></i>
-								<p class="text-[var(--text-main)] font-extrabold text-lg mb-2">Live Preview Not Supported</p>
-								<p class="text-[var(--text-muted)] font-medium text-sm">Your device's browser does not support inline PDF viewing.<br>Please use the download button above to save and view the resume.</p>
-							</div>
-						</iframe>
-					</object>
+					<!-- Dynamically injected PDF Viewer ensuring proper display on all devices -->
+					<iframe id="cv-preview-iframe" src="" class="w-full h-full min-h-[60vh] border-none bg-white rounded shadow-md border border-[var(--card-border)]" title="Resume Preview"></iframe>
 				</div>
 			</div>
 		</div>
@@ -1208,12 +1200,43 @@
 				}, { threshold: 0.3 });
 				sections.forEach(section => observerNav.observe(section));
 
+				// Mentors Carousel Logic
+				const recCarousel = document.getElementById("recommendations-carousel");
+				const recPrevBtn = document.getElementById("rec-prev-btn");
+				const recNextBtn = document.getElementById("rec-next-btn");
+				if (recCarousel && recPrevBtn && recNextBtn) {
+					recPrevBtn.addEventListener("click", () => {
+						const cardWidth = recCarousel.querySelector('.rec-card-wrapper').offsetWidth;
+						recCarousel.scrollBy({ left: -(cardWidth + 24), behavior: "smooth" });
+					});
+					recNextBtn.addEventListener("click", () => {
+						const cardWidth = recCarousel.querySelector('.rec-card-wrapper').offsetWidth;
+						recCarousel.scrollBy({ left: (cardWidth + 24), behavior: "smooth" });
+					});
+				}
+
 				// CV Modal & Download Confirmation Logic
 				const cvModal = document.getElementById("cv-modal");
+				const cvIframe = document.getElementById("cv-preview-iframe");
+				
 				document.querySelectorAll(".open-cv-btn").forEach(btn => btn.addEventListener("click", (e) => {
 					e.preventDefault();
 					cvModal.classList.remove("hidden");
+					
+					// Dynamically trigger Mobile vs PC Viewer
+					if (!cvIframe.src || cvIframe.src === window.location.href) {
+						let pdfUrl = "sourav-saha-resume.pdf#view=FitH";
+						if (window.location.protocol.startsWith('http')) {
+							const absUrl = new URL("sourav-saha-resume.pdf", window.location.href).href;
+							// If on mobile device and on a server, use Google Docs viewer to force inline preview
+							if (/Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent)) {
+								pdfUrl = `https://docs.google.com/viewer?url=${encodeURIComponent(absUrl)}&embedded=true`;
+							}
+						}
+						cvIframe.src = pdfUrl;
+					}
 				}));
+				
 				document.getElementById("close-cv-modal")?.addEventListener("click", () => cvModal.classList.add("hidden"));
 				cvModal?.addEventListener("click", e => { if (e.target === cvModal) cvModal.classList.add("hidden"); });
 
@@ -1449,14 +1472,12 @@
 						const desc = repo.description || "System logic module. No description available.";
 						const color = getLangColor(repo.language);
 						grid.innerHTML += `
-							<a href="${repo.html_url}" target="_blank" rel="noopener noreferrer" class="glass-card p-6 sm:p-8 rounded-3xl flex flex-col h-full group border-[var(--card-border)]">
-								<h3 class="text-xl font-extrabold mb-3 group-hover:text-brand-accent transition-colors flex items-center text-[var(--text-main)]"><i class="fa-solid fa-code-branch mr-2 opacity-50"></i>${repo.name}</h3>
-								<p class="text-sm text-[var(--text-muted)] font-medium mb-6 flex-grow font-mono leading-relaxed line-clamp-3">${desc.length > 120 ? desc.substring(0, 120) + "..." : desc}</p>
-								<div class="flex flex-wrap items-center text-xs text-[var(--text-muted)] font-mono font-bold mt-auto pt-4 border-t border-[var(--card-border)]">
-									${repo.language ? `<span class="mr-4 flex items-center mb-1"><span class="w-3 h-3 rounded-full mr-2" style="background-color: ${color};"></span>${repo.language}</span>` : ""}
-									<span class="mr-4 mb-1"><i class="fa-solid fa-star mr-1"></i>${repo.stargazers_count}</span>
-									<span class="mb-1"><i class="fa-solid fa-code-fork mr-1"></i>${repo.forks_count}</span>
+							<a href="${repo.html_url}" target="_blank" rel="noopener noreferrer" class="glass-card p-6 sm:p-8 rounded-3xl flex flex-col h-full group border-[var(--card-border)] relative">
+								<div class="flex justify-between items-start mb-3 gap-2">
+									<h3 class="text-xl font-extrabold group-hover:text-brand-accent transition-colors flex items-center text-[var(--text-main)] break-all"><i class="fa-solid fa-code-branch mr-2 opacity-50 shrink-0"></i>${repo.name}</h3>
+									${repo.language ? `<span class="shrink-0 flex items-center text-xs text-[var(--text-muted)] font-mono font-bold bg-[var(--bg-main)] px-2.5 py-1 rounded-lg border border-[var(--card-border)]"><span class="w-2.5 h-2.5 rounded-full mr-1.5" style="background-color: ${color};"></span>${repo.language}</span>` : ""}
 								</div>
+								<p class="text-sm text-[var(--text-muted)] font-medium mb-6 flex-grow font-mono leading-relaxed line-clamp-3">${desc.length > 120 ? desc.substring(0, 120) + "..." : desc}</p>
 							</a>`;
 					});
 				} catch (e) { grid.innerHTML = "<p class='col-span-full text-center text-red-500 font-bold'>API Link severed.</p>"; }
