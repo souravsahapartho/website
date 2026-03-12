@@ -546,7 +546,7 @@
 								/>
 								
 								<!-- GitHub Total Contributions Badge -->
-								<div class="glass-card absolute bottom-2 -right-2 sm:bottom-4 sm:-right-4 rounded-xl px-3 py-2 flex flex-col items-center justify-center z-20 shadow-lg">
+								<div class="glass-card absolute bottom-2 -right-4 sm:bottom-6 sm:-right-8 rounded-xl px-3 py-2 flex flex-col items-center justify-center z-20 shadow-[0_10px_25px_rgba(0,194,169,0.15)]">
 									<span class="text-brand-accent text-glow font-extrabold text-base sm:text-xl font-mono leading-none">1080+</span>
 									<span class="text-[var(--text-main)] text-[8px] sm:text-[10px] font-bold uppercase tracking-wider mt-1 whitespace-nowrap flex items-center gap-1"><i class="fa-brands fa-github opacity-75"></i> GitHub Contributions</span>
 								</div>
@@ -976,18 +976,21 @@
 				<div class="p-4 sm:p-6 border-b border-[var(--card-border)] flex justify-between items-center bg-[var(--bg-main)] rounded-t-xl shrink-0">
 					<h3 class="font-extrabold text-lg sm:text-xl text-[var(--text-main)]"><i class="fa-solid fa-book-open text-brand-accent mr-2"></i>More Article Suggestions</h3>
 					<div class="flex items-center gap-3 sm:gap-4">
-						<a href="https://blog.sourav.com.bd" target="_blank" rel="noopener noreferrer" class="bg-brand-accent text-white px-4 py-2 rounded-full text-xs sm:text-sm font-bold hover:bg-brand-accentHover transition-colors text-center shadow-glow flex items-center">
-							Visit Blog <i class="fa-solid fa-arrow-up-right-from-square ml-2 hidden sm:inline"></i>
+						<a href="https://blog.sourav.com.bd" target="_blank" rel="noopener noreferrer" class="bg-brand-accent text-white px-3 py-1.5 sm:px-4 sm:py-2 rounded-full text-xs sm:text-sm font-bold hover:bg-brand-accentHover transition-colors text-center shadow-glow flex items-center whitespace-nowrap">
+							Visit Blog <i class="fa-solid fa-arrow-up-right-from-square ml-1.5"></i>
 						</a>
 						<button id="close-more-articles-modal" class="text-3xl text-[var(--text-main)] hover:text-red-500 transition-colors leading-none" title="Close">&times;</button>
 					</div>
 				</div>
-				<div class="flex-grow p-4 sm:p-6 md:p-8 bg-[var(--bg-main)] rounded-b-xl overflow-y-auto custom-scrollbar relative">
-					<div id="more-articles-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+				<div class="flex-grow p-4 sm:p-6 md:p-8 bg-[var(--bg-main)] rounded-b-xl overflow-y-auto custom-scrollbar relative flex flex-col">
+					<div id="more-articles-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 flex-grow">
 						<!-- Articles injected here -->
 						<p class="col-span-full text-center py-10 font-mono font-bold text-[var(--text-muted)]">
 							<i class="fa-solid fa-spinner fa-spin mr-2"></i> Loading suggestions...
 						</p>
+					</div>
+					<div class="mt-8 text-center pt-6 border-t border-[var(--card-border)]">
+						<p class="text-sm font-bold text-brand-accent animate-pulse"><i class="fa-solid fa-sparkles mr-1.5"></i> More articles are waiting in blog.sourav.com.bd</p>
 					</div>
 				</div>
 			</div>
