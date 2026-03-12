@@ -813,7 +813,7 @@
 				<div class="container mx-auto relative z-10" data-aos="fade-up">
 					<h2 class="text-2xl sm:text-3xl md:text-4xl font-extrabold text-center mb-12 text-glow text-[var(--text-main)] whitespace-nowrap">What Mentors Say</h2>
 					
-					<div class="relative max-w-5xl mx-auto">
+					<div class="relative max-w-5xl mx-auto group">
 						<div id="recommendations-carousel" class="flex snap-x snap-mandatory overflow-x-auto gap-4 sm:gap-6 pb-8 hide-scrollbar cursor-grab" style="scrollbar-width: none;">
 							
 							<!-- Card 1 -->
@@ -856,10 +856,10 @@
 						<style> .hide-scrollbar::-webkit-scrollbar { display: none; } </style>
 
 						<!-- Nav Buttons -->
-						<button type="button" id="rec-prev-btn" class="absolute top-1/2 -left-4 md:-left-12 -translate-y-1/2 w-10 h-10 rounded-full bg-brand-accent text-white shadow-lg hover:bg-brand-accentHover transition-colors z-50 hidden md:flex items-center justify-center cursor-pointer">
+						<button type="button" id="rec-prev-btn" class="absolute top-1/2 -left-4 md:-left-12 -translate-y-1/2 w-10 h-10 rounded-full bg-brand-accent text-white shadow-lg hover:bg-brand-accentHover transition-colors z-[60] hidden md:flex items-center justify-center cursor-pointer border border-[var(--card-border)]">
 							<i class="fa-solid fa-chevron-left"></i>
 						</button>
-						<button type="button" id="rec-next-btn" class="absolute top-1/2 -right-4 md:-right-12 -translate-y-1/2 w-10 h-10 rounded-full bg-brand-accent text-white shadow-lg hover:bg-brand-accentHover transition-colors z-50 hidden md:flex items-center justify-center cursor-pointer">
+						<button type="button" id="rec-next-btn" class="absolute top-1/2 -right-4 md:-right-12 -translate-y-1/2 w-10 h-10 rounded-full bg-brand-accent text-white shadow-lg hover:bg-brand-accentHover transition-colors z-[60] hidden md:flex items-center justify-center cursor-pointer border border-[var(--card-border)]">
 							<i class="fa-solid fa-chevron-right"></i>
 						</button>
 					</div>
@@ -935,6 +935,7 @@
 					</div>
 				</div>
 				<div class="flex-grow p-2 sm:p-4 bg-[var(--bg-main)] rounded-b-xl overflow-y-auto custom-scrollbar text-center relative">
+					<!-- Reverted to highly robust Image Preview for foolproof mobile support -->
 					<img src="sourav-saha-resume.jpg" alt="Sourav Saha Resume Preview" class="w-full max-w-3xl h-auto bg-white rounded shadow-md border border-[var(--card-border)] inline-block mx-auto" onerror="this.onerror=null;this.src='https://placehold.co/800x1131/ffffff/00c2a9?text=Resume+Not+Found';">
 				</div>
 			</div>
@@ -1199,7 +1200,7 @@
 				}, { threshold: 0.3 });
 				sections.forEach(section => observerNav.observe(section));
 
-				// Mentors Carousel Logic
+				// Mentors Carousel Logic (Fixed for proper clicking width)
 				const recCarousel = document.getElementById("recommendations-carousel");
 				const recPrevBtn = document.getElementById("rec-prev-btn");
 				const recNextBtn = document.getElementById("rec-next-btn");
