@@ -411,9 +411,9 @@
 						<i class="fa-solid fa-moon block dark:hidden"></i>
 					</button>
 
-					<a href="sourav-saha-resume.pdf" download="sourav-saha-resume.pdf" class="inline-block bg-brand-accent text-white font-bold py-2 px-5 rounded-full text-sm hover:bg-brand-accentHover transition-all shadow-lg hover:shadow-brand-accent/50">
+					<button class="open-cv-btn bg-brand-accent text-white font-bold py-2 px-5 rounded-full text-sm hover:bg-brand-accentHover transition-all shadow-lg hover:shadow-brand-accent/50">
 						Download CV
-					</a>
+					</button>
 				</div>
 
 				<div class="flex items-center gap-4 md:hidden">
@@ -430,7 +430,7 @@
 			</nav>
 
 			<!-- Mobile Menu -->
-			<div id="mobile-menu" class="hidden md:hidden glass-card absolute w-full top-full left-0 border-t-0 rounded-b-xl shadow-xl">
+			<div id="mobile-menu" class="hidden md:hidden absolute w-full top-full left-0 border-b border-x border-[var(--card-border)] rounded-b-2xl shadow-2xl bg-[#f4f7fb]/85 dark:bg-[#0f172a]/85 backdrop-blur-xl transition-all duration-300">
 				<a href="#about" class="block py-3 px-6 text-sm font-bold text-[var(--text-main)] hover:bg-brand-accent/10">About</a>
 				<a href="#experience-education" class="block py-3 px-6 text-sm font-bold text-[var(--text-main)] hover:bg-brand-accent/10">Journey</a>
 				<a href="#skills" class="block py-3 px-6 text-sm font-bold text-[var(--text-main)] hover:bg-brand-accent/10">Skills</a>
@@ -438,9 +438,9 @@
 				<a href="#articles" class="block py-3 px-6 text-sm font-bold text-[var(--text-main)] hover:bg-brand-accent/10">Articles</a>
 				<a href="#contact" class="block py-3 px-6 text-sm font-bold text-[var(--text-main)] hover:bg-brand-accent/10">Contact</a>
 				<div class="px-6 py-4 border-t border-[var(--card-border)]">
-					<a href="sourav-saha-resume.pdf" download="sourav-saha-resume.pdf" class="block w-full text-center bg-brand-accent text-white font-bold py-2 px-5 rounded-full text-sm hover:bg-brand-accentHover transition-all">
+					<button class="open-cv-btn w-full text-center bg-brand-accent text-white font-bold py-2 px-5 rounded-full text-sm hover:bg-brand-accentHover transition-all">
 						Download CV
-					</a>
+					</button>
 				</div>
 			</div>
 		</header>
@@ -912,6 +912,37 @@
 			</div>
 		</footer>
 
+		<!-- Modals & Overlays -->
+		<div id="cv-modal" class="modal-overlay hidden">
+			<div class="modal-content">
+				<div class="p-4 sm:p-6 border-b border-[var(--card-border)] flex justify-between items-center bg-[var(--bg-main)] rounded-t-xl">
+					<h3 class="font-extrabold text-lg sm:text-xl text-[var(--text-main)]"><i class="fa-solid fa-file-pdf text-brand-accent mr-2"></i>Curriculum Vitae</h3>
+					<div class="flex items-center gap-3 sm:gap-4">
+						<button id="download-cv-btn" class="bg-brand-accent text-white px-4 py-2 rounded-full text-xs sm:text-sm font-bold hover:bg-brand-accentHover transition-colors text-center shadow-glow">
+							Download <span class="hidden sm:inline">PDF</span>
+						</button>
+						<button id="close-cv-modal" class="text-3xl text-[var(--text-main)] hover:text-red-500 transition-colors leading-none" title="Close">&times;</button>
+					</div>
+				</div>
+				<div class="flex-grow p-2 sm:p-4 bg-[var(--bg-main)] rounded-b-xl">
+					<iframe src="sourav-saha-resume.pdf" class="w-full h-full rounded-lg border-none shadow-inner bg-white" loading="lazy" title="Resume"></iframe>
+				</div>
+			</div>
+		</div>
+
+		<!-- Custom Confirm Download Modal -->
+		<div id="download-confirm-modal" class="modal-overlay hidden" style="z-index: 1050;">
+			<div class="glass-card max-w-sm w-[90%] p-6 sm:p-8 flex flex-col items-center text-center rounded-3xl border-brand-accent/50 relative shadow-2xl">
+				<div class="text-4xl text-brand-accent mb-4"><i class="fa-solid fa-cloud-arrow-down"></i></div>
+				<h3 class="text-xl font-extrabold text-[var(--text-main)] mb-2">Save to Device?</h3>
+				<p class="text-[var(--text-muted)] font-medium text-sm mb-6">You are about to download the resume file to your local device. Do you wish to proceed?</p>
+				<div class="flex gap-3 w-full">
+					<button id="cancel-download-btn" class="flex-1 py-2.5 px-4 rounded-xl font-bold text-[var(--text-main)] bg-[var(--bg-main)] border border-[var(--card-border)] hover:bg-[var(--card-border)] transition-colors">Cancel</button>
+					<button id="confirm-download-btn" class="flex-1 py-2.5 px-4 rounded-xl font-bold text-white bg-brand-accent hover:bg-brand-accentHover transition-colors shadow-glow">Yes, Download</button>
+				</div>
+			</div>
+		</div>
+
 		<!-- Newsletter Popup -->
 		<div id="newsletter-popup" class="fixed bottom-4 sm:bottom-6 right-4 sm:right-6 w-[calc(100%-2rem)] sm:w-[calc(100%-3rem)] max-w-[400px] glass-card border-brand-accent/30 rounded-3xl shadow-2xl z-[999] opacity-0 translate-y-full invisible transition-all duration-500">
 			<button id="close-newsletter-popup" class="absolute top-4 right-4 w-8 h-8 flex items-center justify-center rounded-full bg-[var(--card-border)] hover:bg-brand-accent hover:text-white transition-colors text-[var(--text-main)]">&times;</button>
@@ -1157,6 +1188,30 @@
 					});
 				}, { threshold: 0.3 });
 				sections.forEach(section => observerNav.observe(section));
+
+				// CV Modal & Download Confirmation Logic
+				const cvModal = document.getElementById("cv-modal");
+				document.querySelectorAll(".open-cv-btn").forEach(btn => btn.addEventListener("click", () => cvModal.classList.remove("hidden")));
+				document.getElementById("close-cv-modal")?.addEventListener("click", () => cvModal.classList.add("hidden"));
+				cvModal?.addEventListener("click", e => { if (e.target === cvModal) cvModal.classList.add("hidden"); });
+
+				const downloadConfirmModal = document.getElementById("download-confirm-modal");
+				const downloadCvBtn = document.getElementById("download-cv-btn");
+				
+				if (downloadCvBtn && downloadConfirmModal) {
+					downloadCvBtn.addEventListener("click", () => downloadConfirmModal.classList.remove("hidden"));
+					document.getElementById("cancel-download-btn")?.addEventListener("click", () => downloadConfirmModal.classList.add("hidden"));
+					document.getElementById("confirm-download-btn")?.addEventListener("click", () => {
+						downloadConfirmModal.classList.add("hidden");
+						const link = document.createElement("a");
+						link.href = "sourav-saha-resume.pdf";
+						link.download = "sourav-saha-resume.pdf";
+						document.body.appendChild(link);
+						link.click();
+						document.body.removeChild(link);
+					});
+					downloadConfirmModal.addEventListener("click", e => { if (e.target === downloadConfirmModal) downloadConfirmModal.classList.add("hidden"); });
+				}
 
 				// Rotating Text - SEO Integrated and Randomly Shuffled
 				const rotatingTextContainer = document.getElementById("rotating-text-container");
