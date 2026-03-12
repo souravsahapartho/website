@@ -792,13 +792,13 @@
 						<p class="text-base sm:text-lg font-medium max-w-2xl mx-auto text-[var(--text-muted)] mb-8">Explore my tech education blog featuring technology articles, programming insights, and the latest from a tech blogger in Bangladesh.</p>
 						
 						<!-- AI Feed Personalizer -->
-						<div class="glass-card inline-block p-2 rounded-2xl border-brand-accent/30 shadow-[0_5px_15px_rgba(0,194,169,0.1)] mb-4" data-aos="zoom-in">
-							<div class="flex items-center justify-center gap-1 sm:gap-2 flex-wrap">
-								<span class="text-xs sm:text-sm font-bold text-[var(--text-main)] px-2 sm:px-3 flex items-center whitespace-nowrap"><i class="fa-solid fa-wand-magic-sparkles text-brand-accent mr-2 animate-pulse"></i>AI Feed Filter:</span>
-								<button class="topic-btn bg-brand-accent text-white px-3 sm:px-4 py-1.5 rounded-xl text-xs sm:text-sm font-bold transition-all shadow-glow" data-topic="all">Latest</button>
-								<button class="topic-btn hover:bg-[var(--card-border)] px-3 sm:px-4 py-1.5 rounded-xl text-xs sm:text-sm font-bold transition-all text-[var(--text-muted)]" data-topic="dev">Web Dev</button>
-								<button class="topic-btn hover:bg-[var(--card-border)] px-3 sm:px-4 py-1.5 rounded-xl text-xs sm:text-sm font-bold transition-all text-[var(--text-muted)]" data-topic="seo">SEO</button>
-								<button class="topic-btn hover:bg-[var(--card-border)] px-3 sm:px-4 py-1.5 rounded-xl text-xs sm:text-sm font-bold transition-all text-[var(--text-muted)]" data-topic="tech">Tech</button>
+						<div class="glass-card mx-auto max-w-full overflow-x-auto hide-scrollbar p-2 rounded-2xl border-brand-accent/30 shadow-[0_5px_15px_rgba(0,194,169,0.1)] mb-4 inline-block" data-aos="zoom-in">
+							<div class="flex items-center gap-1 sm:gap-2 flex-nowrap w-max px-2">
+								<span class="text-xs sm:text-sm font-bold text-[var(--text-main)] pr-2 flex items-center whitespace-nowrap flex-shrink-0"><i class="fa-solid fa-wand-magic-sparkles text-brand-accent mr-2 animate-pulse"></i>AI Filter:</span>
+								<button class="topic-btn bg-brand-accent text-white px-3 sm:px-4 py-1.5 rounded-xl text-xs sm:text-sm font-bold transition-all shadow-glow flex-shrink-0 whitespace-nowrap" data-topic="all">Latest</button>
+								<button class="topic-btn hover:bg-[var(--card-border)] px-3 sm:px-4 py-1.5 rounded-xl text-xs sm:text-sm font-bold transition-all text-[var(--text-muted)] flex-shrink-0 whitespace-nowrap" data-topic="tech">Tech</button>
+								<button class="topic-btn hover:bg-[var(--card-border)] px-3 sm:px-4 py-1.5 rounded-xl text-xs sm:text-sm font-bold transition-all text-[var(--text-muted)] flex-shrink-0 whitespace-nowrap" data-topic="ai">AI</button>
+								<button class="topic-btn hover:bg-[var(--card-border)] px-3 sm:px-4 py-1.5 rounded-xl text-xs sm:text-sm font-bold transition-all text-[var(--text-muted)] flex-shrink-0 whitespace-nowrap" data-topic="cybersecurity">Cybersecurity</button>
 							</div>
 						</div>
 					</div>
@@ -1305,9 +1305,9 @@
 						
 						// Update Active Classes
 						document.querySelectorAll('.topic-btn').forEach(b => {
-							b.className = "topic-btn hover:bg-[var(--card-border)] px-3 sm:px-4 py-1.5 rounded-xl text-xs sm:text-sm font-bold transition-all text-[var(--text-muted)]";
+							b.className = "topic-btn hover:bg-[var(--card-border)] px-3 sm:px-4 py-1.5 rounded-xl text-xs sm:text-sm font-bold transition-all text-[var(--text-muted)] flex-shrink-0 whitespace-nowrap";
 						});
-						e.target.className = "topic-btn active bg-brand-accent text-white px-3 sm:px-4 py-1.5 rounded-xl text-xs sm:text-sm font-bold transition-all shadow-glow";
+						e.target.className = "topic-btn active bg-brand-accent text-white px-3 sm:px-4 py-1.5 rounded-xl text-xs sm:text-sm font-bold transition-all shadow-glow flex-shrink-0 whitespace-nowrap";
 
 						renderPersonalizedPosts(topic);
 					});
@@ -1547,9 +1547,9 @@
 						const savedPref = localStorage.getItem('ai_blog_pref') || 'all';
 						document.querySelectorAll('.topic-btn').forEach(btn => {
 							if (btn.getAttribute('data-topic') === savedPref) {
-								btn.className = "topic-btn active bg-brand-accent text-white px-3 sm:px-4 py-1.5 rounded-xl text-xs sm:text-sm font-bold transition-all shadow-glow";
+								btn.className = "topic-btn active bg-brand-accent text-white px-3 sm:px-4 py-1.5 rounded-xl text-xs sm:text-sm font-bold transition-all shadow-glow flex-shrink-0 whitespace-nowrap";
 							} else {
-								btn.className = "topic-btn hover:bg-[var(--card-border)] px-3 sm:px-4 py-1.5 rounded-xl text-xs sm:text-sm font-bold transition-all text-[var(--text-muted)]";
+								btn.className = "topic-btn hover:bg-[var(--card-border)] px-3 sm:px-4 py-1.5 rounded-xl text-xs sm:text-sm font-bold transition-all text-[var(--text-muted)] flex-shrink-0 whitespace-nowrap";
 							}
 						});
 						
@@ -1574,13 +1574,26 @@
 						const keywords = {
 							'dev': ['web', 'dev', 'code', 'html', 'css', 'js', 'react', 'java', 'programming', 'software'],
 							'seo': ['seo', 'search', 'ranking', 'google', 'marketing', 'keyword'],
-							'tech': ['tech', 'ai', 'future', 'news', 'gadget', 'update', 'cyber', 'data']
+							'tech': ['tech', 'hardware', 'software', 'update', 'digital', 'cloud', 'data', 'it'],
+							'ai': ['ai', 'artificial intelligence', 'machine learning', 'gpt', 'llm', 'neural', 'openai', 'gemini'],
+							'cybersecurity': ['cyber', 'security', 'hack', 'privacy', 'malware', 'phishing', 'threat', 'breach', 'vulnerability']
 						}[topic] || [];
 
 						// Simple AI Scoring based on keyword hits in title or content
 						filteredPosts.forEach(post => {
 							post.aiScore = 0;
 							const textToSearch = (post.title + " " + post.content).toLowerCase();
+							
+							// Score based on categories (strong match)
+							if (post.categories && Array.isArray(post.categories)) {
+								post.categories.forEach(cat => {
+									if (keywords.some(kw => cat.toLowerCase().includes(kw))) {
+										post.aiScore += 5; // Heavy weight for explicit categories
+									}
+								});
+							}
+
+							// Score based on text content
 							keywords.forEach(kw => {
 								if (textToSearch.includes(kw)) post.aiScore++;
 							});
