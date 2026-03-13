@@ -325,20 +325,6 @@
 			.letter-a-3 { animation: a-pulse-in 0.8s ease-out forwards; }
 			@keyframes a-pulse-in { 0% { opacity: 0; transform: scale(1.2); } 100% { opacity: 1; transform: scale(1); } }
 
-			/* Skill Progress Bars */
-			.progress-bar-container { width: 100%; background-color: var(--card-border); border-radius: 9999px; height: 8px; overflow: hidden; position: relative; }
-			.progress-bar { 
-				background-color: var(--accent); 
-				height: 100%; 
-				border-radius: 9999px; 
-				width: 0; 
-				transition: width 1.5s cubic-bezier(0.2, 0.8, 0.2, 1); 
-				cursor: pointer; 
-				box-shadow: var(--glow-shadow); 
-				will-change: width; 
-				transform: translateZ(0); 
-			}
-			
 			/* Confetti */
 			.confetti { position: fixed; inset: 0; pointer-events: none; z-index: 2000; overflow: hidden; }
 			.confetti.hidden { display: none; }
@@ -735,45 +721,108 @@
 				<div class="container mx-auto relative z-10" data-aos="fade-up">
 					<h2 class="text-2xl sm:text-3xl md:text-4xl font-extrabold text-center mb-12 text-glow text-[var(--text-main)] whitespace-nowrap">Technical Arsenal</h2>
 					
-					<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
-						<!-- Programming Block -->
+					<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6 sm:gap-8">
+						<!-- Developer Stack Block -->
 						<div class="glass-card p-6 sm:p-8 rounded-3xl relative overflow-hidden group">
 							<div class="absolute top-0 right-0 p-5 opacity-5 text-7xl group-hover:scale-110 group-hover:text-brand-accent group-hover:opacity-10 transition-all duration-500"><i class="fa-solid fa-code"></i></div>
-							<h3 class="text-xl sm:text-2xl font-extrabold mb-6 text-brand-accent border-b-2 border-brand-accent/20 pb-3 inline-block">💻 Programming</h3>
-							<div class="space-y-5">
-								<div class="skill-item" data-skill="C"><div class="flex justify-between mb-2 text-sm font-bold text-[var(--text-muted)]"><span class="skill-name">C / C++ Developer</span><span class="text-brand-accent font-mono">86%</span></div><div class="progress-bar-container"><div class="progress-bar" data-progress="86"></div></div></div>
-								<div class="skill-item" data-skill="Java"><div class="flex justify-between mb-2 text-sm font-bold text-[var(--text-muted)]"><span class="skill-name">Java Programming</span><span class="text-brand-accent font-mono">78%</span></div><div class="progress-bar-container"><div class="progress-bar" data-progress="78"></div></div></div>
-								<div class="skill-item" data-skill="JavaScript"><div class="flex justify-between mb-2 text-sm font-bold text-[var(--text-muted)]"><span class="skill-name">JavaScript</span><span class="text-brand-accent font-mono">80%</span></div><div class="progress-bar-container"><div class="progress-bar" data-progress="80"></div></div></div>
-								<div class="skill-item" data-skill="Python"><div class="flex justify-between mb-2 text-sm font-bold text-[var(--text-muted)]"><span class="skill-name">Python</span><span class="text-brand-accent font-mono">45%</span></div><div class="progress-bar-container"><div class="progress-bar" data-progress="45"></div></div></div>
-								<div class="skill-item" data-skill="React"><div class="flex justify-between mb-2 text-sm font-bold text-[var(--text-muted)]"><span class="skill-name">React</span><span class="text-brand-accent font-mono">70%</span></div><div class="progress-bar-container"><div class="progress-bar" data-progress="70"></div></div></div>
-								<div class="skill-item" data-skill="MySQL"><div class="flex justify-between mb-2 text-sm font-bold text-[var(--text-muted)]"><span class="skill-name">MySQL</span><span class="text-brand-accent font-mono">91%</span></div><div class="progress-bar-container"><div class="progress-bar" data-progress="91"></div></div></div>
-								<div class="skill-item" data-skill="CSS"><div class="flex justify-between mb-2 text-sm font-bold text-[var(--text-muted)]"><span class="skill-name">HTML CSS / Tailwind</span><span class="text-brand-accent font-mono">95%</span></div><div class="progress-bar-container"><div class="progress-bar" data-progress="95"></div></div></div>
+							<h3 class="text-xl sm:text-2xl font-extrabold mb-6 text-brand-accent border-b-2 border-brand-accent/20 pb-3 inline-block w-full">💻 Developer Stack</h3>
+							<div class="flex flex-wrap gap-3">
+								<div class="flex items-center gap-2 px-4 py-2 bg-[var(--bg-main)] border border-brand-accent/30 rounded-full text-sm font-semibold text-[var(--text-main)] hover:scale-105 hover:border-brand-accent hover:shadow-[0_0_15px_rgba(0,194,169,0.3)] transition-all duration-300 cursor-default">
+									<i class="fa-solid fa-c text-blue-500"></i>
+									<span>C / C++</span>
+								</div>
+								<div class="flex items-center gap-2 px-4 py-2 bg-[var(--bg-main)] border border-brand-accent/30 rounded-full text-sm font-semibold text-[var(--text-main)] hover:scale-105 hover:border-brand-accent hover:shadow-[0_0_15px_rgba(0,194,169,0.3)] transition-all duration-300 cursor-default">
+									<i class="fa-brands fa-java text-orange-500"></i>
+									<span>Java</span>
+								</div>
+								<div class="flex items-center gap-2 px-4 py-2 bg-[var(--bg-main)] border border-brand-accent/30 rounded-full text-sm font-semibold text-[var(--text-main)] hover:scale-105 hover:border-brand-accent hover:shadow-[0_0_15px_rgba(0,194,169,0.3)] transition-all duration-300 cursor-default">
+									<i class="fa-brands fa-python text-yellow-500"></i>
+									<span>Python</span>
+								</div>
+								<div class="flex items-center gap-2 px-4 py-2 bg-[var(--bg-main)] border border-brand-accent/30 rounded-full text-sm font-semibold text-[var(--text-main)] hover:scale-105 hover:border-brand-accent hover:shadow-[0_0_15px_rgba(0,194,169,0.3)] transition-all duration-300 cursor-default">
+									<i class="fa-solid fa-database text-blue-400"></i>
+									<span>MySQL</span>
+								</div>
+								<div class="flex items-center gap-2 px-4 py-2 bg-[var(--bg-main)] border border-brand-accent/30 rounded-full text-sm font-semibold text-[var(--text-main)] hover:scale-105 hover:border-brand-accent hover:shadow-[0_0_15px_rgba(0,194,169,0.3)] transition-all duration-300 cursor-default">
+									<i class="fa-solid fa-cube text-purple-400"></i>
+									<span>OOP Principles</span>
+								</div>
 							</div>
 						</div>
 
-						<!-- Core Tech Block -->
+						<!-- Web Technologies Block -->
 						<div class="glass-card p-6 sm:p-8 rounded-3xl relative overflow-hidden group">
-							<div class="absolute top-0 right-0 p-5 opacity-5 text-7xl group-hover:scale-110 group-hover:text-brand-accent group-hover:opacity-10 transition-all duration-500"><i class="fa-solid fa-microchip"></i></div>
-							<h3 class="text-xl sm:text-2xl font-extrabold mb-6 text-brand-accent border-b-2 border-brand-accent/20 pb-3 inline-block">🧠 Core Tech</h3>
-							<div class="space-y-5">
-								<div class="skill-item" data-skill="Content Writing"><div class="flex justify-between mb-2 text-sm font-bold text-[var(--text-muted)]"><span class="skill-name">Tech Blogger</span><span class="text-brand-accent font-mono">90%</span></div><div class="progress-bar-container"><div class="progress-bar" data-progress="90"></div></div></div>
-								<div class="skill-item" data-skill="RWD"><div class="flex justify-between mb-2 text-sm font-bold text-[var(--text-muted)]"><span class="skill-name">Responsive Design</span><span class="text-brand-accent font-mono">88%</span></div><div class="progress-bar-container"><div class="progress-bar" data-progress="88"></div></div></div>
-								<div class="skill-item" data-skill="OOP"><div class="flex justify-between mb-2 text-sm font-bold text-[var(--text-muted)]"><span class="skill-name">OOP Principles</span><span class="text-brand-accent font-mono">80%</span></div><div class="progress-bar-container"><div class="progress-bar" data-progress="80"></div></div></div>
-								<div class="skill-item" data-skill="MS Office"><div class="flex justify-between mb-2 text-sm font-bold text-[var(--text-muted)]"><span class="skill-name">Microsoft Office Suite</span><span class="text-brand-accent font-mono">82%</span></div><div class="progress-bar-container"><div class="progress-bar" data-progress="82"></div></div></div>
-								<div class="skill-item" data-skill="Email Marketing"><div class="flex justify-between mb-2 text-sm font-bold text-[var(--text-muted)]"><span class="skill-name">Email Marketing</span><span class="text-brand-accent font-mono">75%</span></div><div class="progress-bar-container"><div class="progress-bar" data-progress="75"></div></div></div>
+							<div class="absolute top-0 right-0 p-5 opacity-5 text-7xl group-hover:scale-110 group-hover:text-brand-accent group-hover:opacity-10 transition-all duration-500"><i class="fa-solid fa-globe"></i></div>
+							<h3 class="text-xl sm:text-2xl font-extrabold mb-6 text-brand-accent border-b-2 border-brand-accent/20 pb-3 inline-block w-full">🌐 Web Technologies</h3>
+							<div class="flex flex-wrap gap-3">
+								<div class="flex items-center gap-2 px-4 py-2 bg-[var(--bg-main)] border border-brand-accent/30 rounded-full text-sm font-semibold text-[var(--text-main)] hover:scale-105 hover:border-brand-accent hover:shadow-[0_0_15px_rgba(0,194,169,0.3)] transition-all duration-300 cursor-default">
+									<i class="fa-brands fa-html5 text-orange-500"></i>
+									<span>HTML / CSS</span>
+								</div>
+								<div class="flex items-center gap-2 px-4 py-2 bg-[var(--bg-main)] border border-brand-accent/30 rounded-full text-sm font-semibold text-[var(--text-main)] hover:scale-105 hover:border-brand-accent hover:shadow-[0_0_15px_rgba(0,194,169,0.3)] transition-all duration-300 cursor-default">
+									<i class="fa-brands fa-js text-yellow-400"></i>
+									<span>JavaScript</span>
+								</div>
+								<div class="flex items-center gap-2 px-4 py-2 bg-[var(--bg-main)] border border-brand-accent/30 rounded-full text-sm font-semibold text-[var(--text-main)] hover:scale-105 hover:border-brand-accent hover:shadow-[0_0_15px_rgba(0,194,169,0.3)] transition-all duration-300 cursor-default">
+									<i class="fa-brands fa-react text-cyan-400"></i>
+									<span>React</span>
+								</div>
+								<div class="flex items-center gap-2 px-4 py-2 bg-[var(--bg-main)] border border-brand-accent/30 rounded-full text-sm font-semibold text-[var(--text-main)] hover:scale-105 hover:border-brand-accent hover:shadow-[0_0_15px_rgba(0,194,169,0.3)] transition-all duration-300 cursor-default">
+									<i class="fa-solid fa-wind text-teal-400"></i>
+									<span>Tailwind CSS</span>
+								</div>
+								<div class="flex items-center gap-2 px-4 py-2 bg-[var(--bg-main)] border border-brand-accent/30 rounded-full text-sm font-semibold text-[var(--text-main)] hover:scale-105 hover:border-brand-accent hover:shadow-[0_0_15px_rgba(0,194,169,0.3)] transition-all duration-300 cursor-default">
+									<i class="fa-solid fa-mobile-screen text-indigo-400"></i>
+									<span>Responsive Design</span>
+								</div>
 							</div>
 						</div>
 
-						<!-- Soft Skills Block -->
+						<!-- Professional Tools Block -->
 						<div class="glass-card p-6 sm:p-8 rounded-3xl relative overflow-hidden group">
-							<div class="absolute top-0 right-0 p-5 opacity-5 text-7xl group-hover:scale-110 group-hover:text-brand-accent group-hover:opacity-10 transition-all duration-500"><i class="fa-solid fa-users"></i></div>
-							<h3 class="text-xl sm:text-2xl font-extrabold mb-6 text-brand-accent border-b-2 border-brand-accent/20 pb-3 inline-block">🎯 Soft Skills</h3>
-							<div class="space-y-5">
-								<div class="skill-item" data-skill="Communication"><div class="flex justify-between mb-2 text-sm font-bold text-[var(--text-muted)]"><span class="skill-name">Communication</span><span class="text-brand-accent font-mono">90%</span></div><div class="progress-bar-container"><div class="progress-bar" data-progress="90"></div></div></div>
-								<div class="skill-item" data-skill="Leadership"><div class="flex justify-between mb-2 text-sm font-bold text-[var(--text-muted)]"><span class="skill-name">Leadership</span><span class="text-brand-accent font-mono">85%</span></div><div class="progress-bar-container"><div class="progress-bar" data-progress="85"></div></div></div>
-								<div class="skill-item" data-skill="Teamwork"><div class="flex justify-between mb-2 text-sm font-bold text-[var(--text-muted)]"><span class="skill-name">Teamwork</span><span class="text-brand-accent font-mono">95%</span></div><div class="progress-bar-container"><div class="progress-bar" data-progress="95"></div></div></div>
-								<div class="skill-item" data-skill="Time Management"><div class="flex justify-between mb-2 text-sm font-bold text-[var(--text-muted)]"><span class="skill-name">Time Management</span><span class="text-brand-accent font-mono">87%</span></div><div class="progress-bar-container"><div class="progress-bar" data-progress="87"></div></div></div>
-								<div class="skill-item" data-skill="Public Speaking"><div class="flex justify-between mb-2 text-sm font-bold text-[var(--text-muted)]"><span class="skill-name">Public Speaking</span><span class="text-brand-accent font-mono">80%</span></div><div class="progress-bar-container"><div class="progress-bar" data-progress="80"></div></div></div>
+							<div class="absolute top-0 right-0 p-5 opacity-5 text-7xl group-hover:scale-110 group-hover:text-brand-accent group-hover:opacity-10 transition-all duration-500"><i class="fa-solid fa-screwdriver-wrench"></i></div>
+							<h3 class="text-xl sm:text-2xl font-extrabold mb-6 text-brand-accent border-b-2 border-brand-accent/20 pb-3 inline-block w-full">⚙️ Professional Tools</h3>
+							<div class="flex flex-wrap gap-3">
+								<div class="flex items-center gap-2 px-4 py-2 bg-[var(--bg-main)] border border-brand-accent/30 rounded-full text-sm font-semibold text-[var(--text-main)] hover:scale-105 hover:border-brand-accent hover:shadow-[0_0_15px_rgba(0,194,169,0.3)] transition-all duration-300 cursor-default">
+									<i class="fa-brands fa-microsoft text-blue-500"></i>
+									<span>Microsoft Office Suite</span>
+								</div>
+								<div class="flex items-center gap-2 px-4 py-2 bg-[var(--bg-main)] border border-brand-accent/30 rounded-full text-sm font-semibold text-[var(--text-main)] hover:scale-105 hover:border-brand-accent hover:shadow-[0_0_15px_rgba(0,194,169,0.3)] transition-all duration-300 cursor-default">
+									<i class="fa-solid fa-pen-nib text-pink-500"></i>
+									<span>Tech Blogger / Content Writing</span>
+								</div>
+								<div class="flex items-center gap-2 px-4 py-2 bg-[var(--bg-main)] border border-brand-accent/30 rounded-full text-sm font-semibold text-[var(--text-main)] hover:scale-105 hover:border-brand-accent hover:shadow-[0_0_15px_rgba(0,194,169,0.3)] transition-all duration-300 cursor-default">
+									<i class="fa-solid fa-envelope-open-text text-yellow-500"></i>
+									<span>Email Marketing</span>
+								</div>
+							</div>
+						</div>
+
+						<!-- Core Competencies Block -->
+						<div class="glass-card p-6 sm:p-8 rounded-3xl relative overflow-hidden group">
+							<div class="absolute top-0 right-0 p-5 opacity-5 text-7xl group-hover:scale-110 group-hover:text-brand-accent group-hover:opacity-10 transition-all duration-500"><i class="fa-solid fa-user-tie"></i></div>
+							<h3 class="text-xl sm:text-2xl font-extrabold mb-6 text-brand-accent border-b-2 border-brand-accent/20 pb-3 inline-block w-full">🎯 Core Competencies</h3>
+							<div class="flex flex-wrap gap-3">
+								<div class="flex items-center gap-2 px-4 py-2 bg-[var(--bg-main)] border border-brand-accent/30 rounded-full text-sm font-semibold text-[var(--text-main)] hover:scale-105 hover:border-brand-accent hover:shadow-[0_0_15px_rgba(0,194,169,0.3)] transition-all duration-300 cursor-default">
+									<i class="fa-solid fa-comments text-emerald-500"></i>
+									<span>Communication</span>
+								</div>
+								<div class="flex items-center gap-2 px-4 py-2 bg-[var(--bg-main)] border border-brand-accent/30 rounded-full text-sm font-semibold text-[var(--text-main)] hover:scale-105 hover:border-brand-accent hover:shadow-[0_0_15px_rgba(0,194,169,0.3)] transition-all duration-300 cursor-default">
+									<i class="fa-solid fa-crown text-amber-500"></i>
+									<span>Leadership</span>
+								</div>
+								<div class="flex items-center gap-2 px-4 py-2 bg-[var(--bg-main)] border border-brand-accent/30 rounded-full text-sm font-semibold text-[var(--text-main)] hover:scale-105 hover:border-brand-accent hover:shadow-[0_0_15px_rgba(0,194,169,0.3)] transition-all duration-300 cursor-default">
+									<i class="fa-solid fa-people-group text-blue-400"></i>
+									<span>Teamwork</span>
+								</div>
+								<div class="flex items-center gap-2 px-4 py-2 bg-[var(--bg-main)] border border-brand-accent/30 rounded-full text-sm font-semibold text-[var(--text-main)] hover:scale-105 hover:border-brand-accent hover:shadow-[0_0_15px_rgba(0,194,169,0.3)] transition-all duration-300 cursor-default">
+									<i class="fa-solid fa-hourglass-half text-purple-500"></i>
+									<span>Time Management</span>
+								</div>
+								<div class="flex items-center gap-2 px-4 py-2 bg-[var(--bg-main)] border border-brand-accent/30 rounded-full text-sm font-semibold text-[var(--text-main)] hover:scale-105 hover:border-brand-accent hover:shadow-[0_0_15px_rgba(0,194,169,0.3)] transition-all duration-300 cursor-default">
+									<i class="fa-solid fa-microphone-lines text-rose-500"></i>
+									<span>Public Speaking</span>
+								</div>
 							</div>
 						</div>
 					</div>
@@ -1545,16 +1594,6 @@
 					}
 				}, { passive: true });
 
-				// Progress Bars observer
-				const obsBar = new IntersectionObserver(entries => {
-					entries.forEach(entry => {
-						if (entry.isIntersecting) {
-							entry.target.style.width = `${entry.target.getAttribute("data-progress")}%`;
-						}
-					});
-				}, { threshold: 0.5 });
-				document.querySelectorAll(".progress-bar").forEach(bar => obsBar.observe(bar));
-
 				// Fetch APIs & Auto Updater
 				fetchGithubProfile();
 				fetchGithubRepos();
@@ -1750,20 +1789,10 @@
 				const skillMessages = {
 					'C': "Pointer references valid. Memory mapped.", 'JavaScript': "DOM Manipulated successfully.", 'React': "Virtual DOM completely reconciled.", 'CSS': "Box model perfectly aligned.", 'Python': "Indentation perfect. AI model trained.", 'MS Office': "Spreadsheets and docs perfectly formatted."
 				};
+				
+				// Removing event listeners from the old layout style just in case, but keeping the logic intact.
 				document.querySelectorAll('.skill-item').forEach(item => {
-					const bar = item.querySelector('.progress-bar');
-					const sName = item.getAttribute('data-skill');
-					if (bar && sName) {
-						const trigger = () => {
-							const el = item.querySelector('.skill-name');
-							const old = el.textContent;
-							el.textContent = skillMessages[sName] || "Skill limit break achieved!";
-							el.classList.add("text-brand-accent", "font-mono", "text-xs");
-							bar.style.boxShadow = "0 0 20px #00c2a9";
-							setTimeout(() => { el.textContent = old; el.classList.remove("text-brand-accent", "font-mono", "text-xs"); bar.style.boxShadow = "var(--glow-shadow)"; }, 3000);
-						};
-						bar.addEventListener('click', trigger);
-					}
+					// Logic removed to ensure no errors with new layout structure
 				});
 			}
 		</script>
