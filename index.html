@@ -1665,7 +1665,7 @@
 							if (!isNaN(year)) total += data.total[year];
 						}
 						// Fills exact data into the element
-						countEl.textContent = total + "+"; // Removed toLocaleString() and added +
+						countEl.textContent = total; 
 					}
 				} catch (e) {
 					console.error("Contributions API Error:", e);
