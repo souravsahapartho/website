@@ -47,6 +47,7 @@
 		<meta property="twitter:creator" content="@souravpartho">
 
 		<!-- Preload critical assets for faster rendering -->
+		<link rel="preload" as="image" href="Image/profile.jpg">
 		<link rel="preload" as="image" href="sourav-saha-resume.jpg">
 		
 		<!-- Universal Favicon Setup -->
@@ -56,8 +57,10 @@
 		<link rel="shortcut icon" href="https://placehold.co/192x192/00c2a9/ffffff?text=SS" type="image/png" />
 
 		<!-- Preconnect to external APIs for faster loading -->
-		<link rel="preconnect" href="https://ghchart.rshah.org" />
-		<link rel="preconnect" href="https://wsrv.nl" />
+		<link rel="preconnect" href="https://ghchart.rshah.org" crossorigin />
+		<link rel="preconnect" href="https://wsrv.nl" crossorigin />
+		<link rel="preconnect" href="https://avatars.githubusercontent.com" crossorigin />
+		<link rel="preconnect" href="https://api.github.com" crossorigin />
 
 		<!-- Stylesheets & Fonts -->
 		<script src="https://cdn.tailwindcss.com"></script>
@@ -325,6 +328,20 @@
 			.letter-a-3 { animation: a-pulse-in 0.8s ease-out forwards; }
 			@keyframes a-pulse-in { 0% { opacity: 0; transform: scale(1.2); } 100% { opacity: 1; transform: scale(1); } }
 
+			/* Skill Progress Bars */
+			.progress-bar-container { width: 100%; background-color: var(--card-border); border-radius: 9999px; height: 8px; overflow: hidden; position: relative; }
+			.progress-bar { 
+				background-color: var(--accent); 
+				height: 100%; 
+				border-radius: 9999px; 
+				width: 0; 
+				transition: width 1.5s cubic-bezier(0.2, 0.8, 0.2, 1); 
+				cursor: pointer; 
+				box-shadow: var(--glow-shadow); 
+				will-change: width; 
+				transform: translateZ(0); 
+			}
+			
 			/* Confetti */
 			.confetti { position: fixed; inset: 0; pointer-events: none; z-index: 2000; overflow: hidden; }
 			.confetti.hidden { display: none; }
@@ -541,7 +558,8 @@
 									alt="Sourav Saha - Computer Science (CSE) student at UIU, Bangladesh"
 									class="relative rounded-full border-4 border-[var(--card-bg)] shadow-2xl w-48 h-48 sm:w-64 sm:h-64 lg:w-72 lg:h-72 object-cover z-10"
 									onerror="this.onerror=null;this.src='https://placehold.co/300x300/0f172a/ffffff?text=Sourav+Saha';"
-									loading="lazy"
+									fetchpriority="high"
+									decoding="async"
 								/>
 								
 								<!-- GitHub Total Contributions Badge - Positioned at bottom right across all devices -->
@@ -851,7 +869,7 @@
 					<!-- GitHub Profile Card -->
 					<div id="github-profile-card" class="glass-card rounded-3xl p-6 sm:p-8 md:p-10 mb-8 flex flex-col md:flex-row items-center justify-between border-brand-accent/30 shadow-[0_10px_30px_rgba(0,194,169,0.15)] gap-6" data-aos="fade-up">
 						<div class="flex flex-col sm:flex-row items-center flex-grow text-center sm:text-left w-full">
-							<img id="github-avatar" class="w-24 h-24 sm:w-20 sm:h-20 rounded-full border-4 border-[var(--bg-main)] shadow-lg sm:mr-6 mb-4 sm:mb-0" src="https://placehold.co/80x80/1e293b/ffffff?text=..." alt="Sourav Saha GitHub Profile" loading="lazy">
+							<img id="github-avatar" class="w-24 h-24 sm:w-20 sm:h-20 rounded-full border-4 border-[var(--bg-main)] shadow-lg sm:mr-6 mb-4 sm:mb-0" src="https://placehold.co/80x80/1e293b/ffffff?text=..." alt="Sourav Saha GitHub Profile" loading="lazy" decoding="async">
 							<div>
 								<h3 id="github-username" class="text-2xl font-extrabold text-glow text-[var(--text-main)]">Loading...</h3>
 								<p class="text-[var(--text-muted)] font-mono mt-2 font-bold"><i class="fa-solid fa-users mr-2 text-brand-accent"></i>Followers: <span id="follower-count" class="text-[var(--text-main)]">...</span></p>
@@ -869,7 +887,7 @@
 						<!-- Clean, robust scroll container that prevents left-clipping and keeps header fixed -->
 						<div class="w-full overflow-x-auto hide-scrollbar">
 							<div class="w-max min-w-full mx-auto flex justify-center">
-								<img src="https://ghchart.rshah.org/souravsahapartho" alt="Sourav's Github Contributions" class="min-w-[700px] w-full max-w-4xl h-auto opacity-90 hover:opacity-100 transition-opacity block" fetchpriority="high" />
+								<img src="https://ghchart.rshah.org/souravsahapartho" alt="Sourav's Github Contributions" class="min-w-[700px] w-full max-w-4xl h-auto opacity-90 hover:opacity-100 transition-opacity block" fetchpriority="high" loading="lazy" decoding="async" />
 							</div>
 						</div>
 					</div>
@@ -1087,7 +1105,8 @@
 					<!-- Actual image injected dynamically via JS -->
 					<img id="cv-preview-image" alt="Sourav Saha Resume Preview" class="w-full max-w-3xl h-auto bg-white rounded shadow-2xl border border-[var(--card-border)] relative z-10 hidden" 
 					onload="this.classList.remove('hidden'); document.getElementById('cv-loader').style.display='none'; document.getElementById('cv-error-msg').style.display='none';" 
-					onerror="this.style.display='none'; document.getElementById('cv-loader').style.display='none'; document.getElementById('cv-error-msg').style.display='flex';">
+					onerror="this.style.display='none'; document.getElementById('cv-loader').style.display='none'; document.getElementById('cv-error-msg').style.display='flex';"
+					loading="lazy" decoding="async">
 				</div>
 			</div>
 		</div>
@@ -1710,13 +1729,14 @@
 			function generatePostHTML(item) {
 				const t = document.createElement("div"); t.innerHTML = item.content || item.description || "";
 				let rawImg = item.thumbnail || (item.enclosure && item.enclosure.link) || t.querySelector("img")?.src || "";
+				let altText = item.title ? item.title.replace(/"/g, '&quot;') : "TechTalk Article Image";
 				
 				let imageHTML = "";
 				if (rawImg && !rawImg.includes("placehold.co")) {
 					const optimizedImg = `https://wsrv.nl/?url=${encodeURIComponent(rawImg)}&w=600&h=400&fit=cover&output=webp&q=80`;
-					imageHTML = `<img src="${optimizedImg}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 relative z-10" decoding="async" onload="this.previousElementSibling.style.display='none';" onerror="this.style.display='none';">`;
+					imageHTML = `<img src="${optimizedImg}" alt="${altText}" loading="lazy" decoding="async" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 relative z-10" onload="this.previousElementSibling.style.display='none';" onerror="this.style.display='none';">`;
 				} else if (rawImg) {
-					imageHTML = `<img src="${rawImg}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 relative z-10" decoding="async" onload="this.previousElementSibling.style.display='none';" onerror="this.style.display='none';">`;
+					imageHTML = `<img src="${rawImg}" alt="${altText}" loading="lazy" decoding="async" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 relative z-10" onload="this.previousElementSibling.style.display='none';" onerror="this.style.display='none';">`;
 				}
 				
 				const snippet = t.textContent.trim().substring(0, 100) + "...";
