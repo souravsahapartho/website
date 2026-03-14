@@ -19,7 +19,7 @@
 		<meta name="description" content="Sourav Saha is a Computer Science (CSE) student at United International University (UIU) and a dedicated tech enthusiast from Bangladesh. Aspiring web developer, Python learner, and author of TechTalk.">
 		<meta name="keywords" content="Sourav Saha, Sourav, Sourav Saha UIU, Sourav Saha CSE, Sourav Saha Bangladesh, Sourav Saha tech enthusiast, Sourav Saha computer science student, Sourav Saha developer, Sourav Saha portfolio, Sourav Saha website, UIU CSE student, United International University CSE student, TechTalk with Sourav, Web Developer Bangladesh">
 		<meta name="author" content="Sourav Saha">
-		<meta name="application-name" content="Sourav Saha Portfolio">
+		<meta name="application-name" content="Sourav Saha">
 		<meta name="apple-mobile-web-app-title" content="Sourav Saha">
 		<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
 		<meta name="theme-color" content="#0f172a" media="(prefers-color-scheme: dark)">
@@ -30,6 +30,8 @@
 		<meta itemprop="name" content="Sourav Saha – CSE Student at UIU">
 		<meta itemprop="description" content="Sourav Saha is a Computer Science (CSE) student at United International University (UIU) and a dedicated tech enthusiast from Bangladesh.">
 		<meta itemprop="image" content="https://sourav.com.bd/Image/profile.jpg">
+		<meta name="thumbnail" content="https://sourav.com.bd/Image/profile.jpg" />
+		<link rel="image_src" href="https://sourav.com.bd/Image/profile.jpg" />
 
 		<!-- Open Graph / Facebook / WhatsApp / iMessage (Guarantees image rendering) -->
 		<meta property="og:type" content="profile" />
@@ -430,7 +432,10 @@
 						"name": "Sourav Saha",
 						"alternateName": ["Sourav Saha UIU", "Sourav Saha Partho", "Sourav"],
 						"url": "https://sourav.com.bd/",
-						"image": "https://sourav.com.bd/Image/profile.jpg",
+						"image": {
+							"@type": "ImageObject",
+							"url": "https://sourav.com.bd/Image/profile.jpg"
+						},
 						"sameAs": [
 							"https://www.linkedin.com/in/souravsahapartho/",
 							"https://github.com/souravsahapartho",
@@ -454,6 +459,18 @@
 						"alternateName": ["Sourav Saha Portfolio", "Sourav Saha UIU"],
 						"description": "The personal computer science student portfolio of Sourav Saha, showcasing projects, web development journey, and technology articles from TechTalk with Sourav.",
 						"publisher": { "@id": "https://sourav.com.bd/#person" }
+					},
+					{
+						"@type": "WebPage",
+						"@id": "https://sourav.com.bd/#webpage",
+						"url": "https://sourav.com.bd/",
+						"name": "Sourav Saha – CSE Student at UIU | Tech Enthusiast",
+						"isPartOf": { "@id": "https://sourav.com.bd/#website" },
+						"about": { "@id": "https://sourav.com.bd/#person" },
+						"primaryImageOfPage": {
+							"@type": "ImageObject",
+							"url": "https://sourav.com.bd/Image/profile.jpg"
+						}
 					}
 				]
 			}
