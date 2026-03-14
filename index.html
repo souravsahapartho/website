@@ -31,6 +31,8 @@
 		<meta property="og:title" content="Sourav Saha – CSE Student at UIU | Tech Enthusiast from Bangladesh" />
 		<meta property="og:description" content="Sourav Saha is a Computer Science (CSE) student at United International University (UIU) and a dedicated tech enthusiast from Bangladesh. As an aspiring web developer, Python & Machine Learning learner, and author of the TechTalk blog, he is a passionate leader crafting solutions through code. Explore his portfolio to discover how he is building tomorrow with technology, logic, and innovation." />
 		<!-- Fixed OG Image to use profile picture explicitly to guarantee rendering -->
+		<meta name="image" content="https://sourav.com.bd/Image/profile.jpg" />
+		<meta itemprop="image" content="https://sourav.com.bd/Image/profile.jpg" />
 		<meta property="og:image" content="https://sourav.com.bd/Image/profile.jpg" />
 		<meta property="og:image:type" content="image/jpeg" />
 		<meta property="og:image:width" content="800" />
@@ -47,8 +49,8 @@
 		<meta property="twitter:creator" content="@souravpartho">
 
 		<!-- Preload critical assets for faster rendering -->
-		<link rel="preload" as="image" href="Image/profile.jpg">
-		<link rel="preload" as="image" href="sourav-saha-resume.jpg">
+		<link rel="preload" as="image" href="Image/profile.jpg" fetchpriority="high">
+		<link rel="preload" as="image" href="sourav-saha-resume.jpg" fetchpriority="high">
 		
 		<!-- Universal Favicon Setup -->
 		<link rel="icon" href="https://placehold.co/32x32/00c2a9/ffffff?text=SS" type="image/png" sizes="32x32" />
@@ -56,11 +58,19 @@
 		<link rel="apple-touch-icon" href="https://placehold.co/180x180/00c2a9/ffffff?text=SS" sizes="180x180" />
 		<link rel="shortcut icon" href="https://placehold.co/192x192/00c2a9/ffffff?text=SS" type="image/png" />
 
-		<!-- Preconnect to external APIs for faster loading -->
+		<!-- Preconnect and DNS Prefetch to external APIs for ultra-fast loading -->
 		<link rel="preconnect" href="https://ghchart.rshah.org" crossorigin />
+		<link rel="dns-prefetch" href="https://ghchart.rshah.org" />
 		<link rel="preconnect" href="https://wsrv.nl" crossorigin />
+		<link rel="dns-prefetch" href="https://wsrv.nl" />
 		<link rel="preconnect" href="https://avatars.githubusercontent.com" crossorigin />
+		<link rel="dns-prefetch" href="https://avatars.githubusercontent.com" />
 		<link rel="preconnect" href="https://api.github.com" crossorigin />
+		<link rel="dns-prefetch" href="https://api.github.com" />
+		<link rel="preconnect" href="https://github-contributions-api.jogruber.de" crossorigin />
+		<link rel="dns-prefetch" href="https://github-contributions-api.jogruber.de" />
+		<link rel="preconnect" href="https://api.rss2json.com" crossorigin />
+		<link rel="dns-prefetch" href="https://api.rss2json.com" />
 
 		<!-- Stylesheets & Fonts -->
 		<script src="https://cdn.tailwindcss.com"></script>
@@ -560,6 +570,7 @@
 									onerror="this.onerror=null;this.src='https://placehold.co/300x300/0f172a/ffffff?text=Sourav+Saha';"
 									fetchpriority="high"
 									decoding="async"
+									loading="eager"
 								/>
 								
 								<!-- GitHub Total Contributions Badge - Positioned at bottom right across all devices -->
@@ -743,7 +754,7 @@
 						<!-- Developer Stack Block -->
 						<div class="glass-card p-6 sm:p-8 rounded-3xl relative overflow-hidden group">
 							<div class="absolute top-0 right-0 p-5 opacity-5 text-7xl group-hover:scale-110 group-hover:text-brand-accent group-hover:opacity-10 transition-all duration-500"><i class="fa-solid fa-code"></i></div>
-							<h3 class="text-xl sm:text-2xl font-extrabold mb-6 text-brand-accent border-b-2 border-brand-accent/20 pb-3 inline-block w-full">💻 Developer Stack</h3>
+							<h3 class="text-xl sm:text-2xl font-extrabold mb-6 text-brand-accent">💻 Developer Stack</h3>
 							<div class="flex flex-wrap gap-2 sm:gap-3">
 								<div class="flex items-center gap-1.5 sm:gap-2 px-3 py-1.5 sm:px-4 sm:py-2 bg-[var(--bg-main)] border border-brand-accent/30 rounded-full text-xs sm:text-sm font-semibold text-[var(--text-main)] hover:scale-105 hover:border-brand-accent hover:shadow-[0_0_15px_rgba(0,194,169,0.3)] transition-all duration-300 cursor-default w-fit">
 									<i class="fa-solid fa-c text-blue-500"></i>
@@ -771,8 +782,12 @@
 						<!-- Web Technologies Block -->
 						<div class="glass-card p-6 sm:p-8 rounded-3xl relative overflow-hidden group">
 							<div class="absolute top-0 right-0 p-5 opacity-5 text-7xl group-hover:scale-110 group-hover:text-brand-accent group-hover:opacity-10 transition-all duration-500"><i class="fa-solid fa-globe"></i></div>
-							<h3 class="text-xl sm:text-2xl font-extrabold mb-6 text-brand-accent border-b-2 border-brand-accent/20 pb-3 inline-block w-full">🌐 Web Technologies</h3>
+							<h3 class="text-xl sm:text-2xl font-extrabold mb-6 text-brand-accent">🌐 Web Technologies</h3>
 							<div class="flex flex-wrap gap-2 sm:gap-3">
+								<div class="flex items-center gap-1.5 sm:gap-2 px-3 py-1.5 sm:px-4 sm:py-2 bg-[var(--bg-main)] border border-brand-accent/30 rounded-full text-xs sm:text-sm font-semibold text-[var(--text-main)] hover:scale-105 hover:border-brand-accent hover:shadow-[0_0_15px_rgba(0,194,169,0.3)] transition-all duration-300 cursor-default w-fit">
+									<i class="fa-solid fa-mobile-screen text-indigo-400"></i>
+									<span>Responsive Design</span>
+								</div>
 								<div class="flex items-center gap-1.5 sm:gap-2 px-3 py-1.5 sm:px-4 sm:py-2 bg-[var(--bg-main)] border border-brand-accent/30 rounded-full text-xs sm:text-sm font-semibold text-[var(--text-main)] hover:scale-105 hover:border-brand-accent hover:shadow-[0_0_15px_rgba(0,194,169,0.3)] transition-all duration-300 cursor-default w-fit">
 									<i class="fa-brands fa-html5 text-orange-500"></i>
 									<span>HTML / CSS</span>
@@ -789,17 +804,13 @@
 									<i class="fa-solid fa-wind text-teal-400"></i>
 									<span>Tailwind CSS</span>
 								</div>
-								<div class="flex items-center gap-1.5 sm:gap-2 px-3 py-1.5 sm:px-4 sm:py-2 bg-[var(--bg-main)] border border-brand-accent/30 rounded-full text-xs sm:text-sm font-semibold text-[var(--text-main)] hover:scale-105 hover:border-brand-accent hover:shadow-[0_0_15px_rgba(0,194,169,0.3)] transition-all duration-300 cursor-default w-fit">
-									<i class="fa-solid fa-mobile-screen text-indigo-400"></i>
-									<span>Responsive Design</span>
-								</div>
 							</div>
 						</div>
 
 						<!-- Professional Tools Block -->
 						<div class="glass-card p-6 sm:p-8 rounded-3xl relative overflow-hidden group">
 							<div class="absolute top-0 right-0 p-5 opacity-5 text-7xl group-hover:scale-110 group-hover:text-brand-accent group-hover:opacity-10 transition-all duration-500"><i class="fa-solid fa-screwdriver-wrench"></i></div>
-							<h3 class="text-xl sm:text-2xl font-extrabold mb-6 text-brand-accent border-b-2 border-brand-accent/20 pb-3 inline-block w-full">⚙️ Professional Tools</h3>
+							<h3 class="text-xl sm:text-2xl font-extrabold mb-6 text-brand-accent">⚙️ Professional Tools</h3>
 							<div class="flex flex-wrap gap-2 sm:gap-3">
 								<div class="flex items-center gap-1.5 sm:gap-2 px-3 py-1.5 sm:px-4 sm:py-2 bg-[var(--bg-main)] border border-brand-accent/30 rounded-full text-xs sm:text-sm font-semibold text-[var(--text-main)] hover:scale-105 hover:border-brand-accent hover:shadow-[0_0_15px_rgba(0,194,169,0.3)] transition-all duration-300 cursor-default w-fit">
 									<i class="fa-brands fa-microsoft text-blue-500"></i>
@@ -819,7 +830,7 @@
 						<!-- Core Competencies Block -->
 						<div class="glass-card p-6 sm:p-8 rounded-3xl relative overflow-hidden group">
 							<div class="absolute top-0 right-0 p-5 opacity-5 text-7xl group-hover:scale-110 group-hover:text-brand-accent group-hover:opacity-10 transition-all duration-500"><i class="fa-solid fa-user-tie"></i></div>
-							<h3 class="text-xl sm:text-2xl font-extrabold mb-6 text-brand-accent border-b-2 border-brand-accent/20 pb-3 inline-block w-full">🎯 Core Competencies</h3>
+							<h3 class="text-xl sm:text-2xl font-extrabold mb-6 text-brand-accent">🎯 Core Competencies</h3>
 							<div class="flex flex-wrap gap-2 sm:gap-3">
 								<div class="flex items-center gap-1.5 sm:gap-2 px-3 py-1.5 sm:px-4 sm:py-2 bg-[var(--bg-main)] border border-brand-accent/30 rounded-full text-xs sm:text-sm font-semibold text-[var(--text-main)] hover:scale-105 hover:border-brand-accent hover:shadow-[0_0_15px_rgba(0,194,169,0.3)] transition-all duration-300 cursor-default w-fit">
 									<i class="fa-solid fa-comments text-emerald-500"></i>
@@ -1094,11 +1105,11 @@
 						<p class="text-[var(--text-muted)] font-medium text-sm sm:text-base max-w-sm mx-auto leading-relaxed">For some issues, CV preview showing is not possible right now. You may click the download button above and then view it easily.</p>
 					</div>
 
-					<!-- Actual image injected dynamically via JS -->
-					<img id="cv-preview-image" alt="Sourav Saha Resume Preview" class="w-full max-w-3xl h-auto bg-white rounded shadow-2xl border border-[var(--card-border)] relative z-10 hidden" 
+					<!-- Image loaded eagerly for instant preview -->
+					<img id="cv-preview-image" src="sourav-saha-resume.jpg" alt="Sourav Saha Resume Preview" class="w-full max-w-3xl h-auto bg-white rounded shadow-2xl border border-[var(--card-border)] relative z-10 hidden" 
 					onload="this.classList.remove('hidden'); document.getElementById('cv-loader').style.display='none'; document.getElementById('cv-error-msg').style.display='none';" 
 					onerror="this.style.display='none'; document.getElementById('cv-loader').style.display='none'; document.getElementById('cv-error-msg').style.display='flex';"
-					loading="lazy" decoding="async">
+					loading="eager" fetchpriority="high" decoding="sync">
 				</div>
 			</div>
 		</div>
@@ -1121,7 +1132,7 @@
 			<button id="close-newsletter-popup" class="absolute top-4 right-4 w-8 h-8 flex items-center justify-center rounded-full bg-[var(--card-border)] hover:bg-brand-accent hover:text-white transition-colors text-[var(--text-main)]">&times;</button>
 			<div class="p-6 sm:p-8">
 				<div class="w-12 h-12 bg-brand-accent/20 text-brand-accent rounded-full flex items-center justify-center text-2xl mb-4"><i class="fa-solid fa-envelope-open-text"></i></div>
-				<h3 class="font-extrabold text-xl mb-2 text-[var(--text-main)]">Subscribe to TechTalk</h3>
+				<h3 class="font-extrabold text-xl mb-2 text-[var(--text-main)]">Subscribe to Newsletter</h3>
 				<p class="text-[var(--text-muted)] font-medium text-sm mb-6">Get my latest tech articles, project updates, and industry insights delivered straight to your inbox.</p>
 				<form id="newsletter-form" class="space-y-4">
 					<input type="hidden" name="Client IP Address" id="newsletter-client-ip-address" class="ip-address-input" value="N/A" />
@@ -1606,24 +1617,36 @@
 				}, { passive: true });
 
 				// Fetch APIs & Auto Updater
-				fetchGithubRepos();
-				fetchSubstackPosts();
-				fetchTotalContributions();
+				const fetchAllData = () => {
+					fetchGithubRepos();
+					fetchSubstackPosts();
+					fetchTotalContributions();
+				};
 				
-				// Pre-assign CV image source so browser caches it immediately
-				if (cvImage) cvImage.src = 'sourav-saha-resume.jpg';
+				fetchAllData();
 				
-				// Set an interval to quietly fetch the exact data every 5 minutes (300000 ms)
-				setInterval(fetchTotalContributions, 300000); 
+				// Auto-update data from APIs every 3 minutes (180000 ms) to keep stars, forks, repos, and counts perfectly synced without page refresh
+				setInterval(fetchAllData, 180000); 
+
+				// Auto-update the relative time text locally every 60 seconds
+				setInterval(() => {
+					document.querySelectorAll('[data-timestamp]').forEach(el => {
+						const ts = el.getAttribute('data-timestamp');
+						if (ts) {
+							const icon = el.querySelector('i');
+							if (icon) {
+								el.innerHTML = icon.outerHTML + formatRelativeTime(ts);
+							}
+						}
+					});
+				}, 60000);
 				
 				initEasterEggs();
 
 				// Network Recovery Logic (Auto reload if internet drops and reconnects)
 				window.addEventListener('online', () => {
 					// 1. Retry dynamic API fetches
-					fetchGithubRepos();
-					fetchSubstackPosts();
-					fetchTotalContributions();
+					fetchAllData();
 
 					// 2. Find ALL images on the page and intelligently force reload them
 					document.querySelectorAll('img').forEach(img => {
@@ -1688,7 +1711,7 @@
 										<span class="flex items-center shrink-0"><i class="fa-solid fa-star mr-1 sm:mr-1.5"></i>${repo.stargazers_count}</span>
 										<span class="flex items-center shrink-0"><i class="fa-solid fa-code-fork mr-1 sm:mr-1.5"></i>${repo.forks_count}</span>
 									</div>
-									<span class="flex items-center shrink-0 ml-2 text-[9px] sm:text-[10px] opacity-60" title="Last Updated">
+									<span class="flex items-center shrink-0 ml-2 text-[9px] sm:text-[10px] opacity-60" title="Last Updated" data-timestamp="${repo.pushed_at || repo.updated_at}">
 										<i class="fa-regular fa-clock mr-1"></i>${lastUpdated}
 									</span>
 								</div>
@@ -1696,9 +1719,12 @@
 					});
 				} catch (e) { 
 					grid.innerHTML = `
-						<div class="col-span-full glass-card p-6 rounded-3xl text-center border-[var(--card-border)]">
-							<p class="text-brand-accent font-bold mb-2"><i class="fa-solid fa-triangle-exclamation mr-2"></i>GitHub API rate limit temporarily reached.</p>
-							<p class="text-[var(--text-muted)] font-medium text-sm">Please click "Explore My GitHub" above to view my repositories directly.</p>
+						<div class="col-span-full glass-card p-6 sm:p-8 rounded-3xl text-center border-[var(--card-border)]">
+							<div class="inline-flex items-center justify-center w-12 h-12 rounded-full bg-brand-accent/10 text-brand-accent mb-4">
+								<i class="fa-solid fa-satellite-dish text-xl"></i>
+							</div>
+							<p class="text-lg text-[var(--text-main)] font-extrabold mb-2">Sync Temporarily Unavailable</p>
+							<p class="text-[var(--text-muted)] font-medium text-sm max-w-md mx-auto leading-relaxed">Due to a temporary network synchronization issue, the live repository feed is currently unavailable here. However, you can still view all my active projects directly on my GitHub profile.</p>
 						</div>
 					`; 
 				}
@@ -1730,9 +1756,9 @@
 				let imageHTML = "";
 				if (rawImg && !rawImg.includes("placehold.co")) {
 					const optimizedImg = `https://wsrv.nl/?url=${encodeURIComponent(rawImg)}&w=600&h=400&fit=cover&output=webp&q=80`;
-					imageHTML = `<img src="${optimizedImg}" alt="${altText}" loading="lazy" decoding="async" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 relative z-10" onload="this.previousElementSibling.style.display='none';" onerror="this.style.display='none';">`;
+					imageHTML = `<img src="${optimizedImg}" alt="${altText}" fetchpriority="high" loading="eager" decoding="async" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 relative z-10" onload="this.previousElementSibling.style.display='none';" onerror="this.style.display='none';">`;
 				} else if (rawImg) {
-					imageHTML = `<img src="${rawImg}" alt="${altText}" loading="lazy" decoding="async" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 relative z-10" onload="this.previousElementSibling.style.display='none';" onerror="this.style.display='none';">`;
+					imageHTML = `<img src="${rawImg}" alt="${altText}" fetchpriority="high" loading="eager" decoding="async" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 relative z-10" onload="this.previousElementSibling.style.display='none';" onerror="this.style.display='none';">`;
 				}
 				
 				const snippet = t.textContent.trim().substring(0, 100) + "...";
@@ -1753,7 +1779,7 @@
 							<h3 class="text-xl font-extrabold mb-3 text-[var(--text-main)]">${item.title}</h3>
 							<p class="text-sm font-medium text-[var(--text-muted)] mb-5 flex-grow leading-relaxed">${snippet}</p>
 							<div class="flex justify-between items-center text-xs text-brand-accent font-mono font-bold mt-auto pt-4 border-t border-[var(--card-border)]">
-								<span class="flex items-center opacity-80" title="Published on ${new Date(item.pubDate).toLocaleDateString()}"><i class="fa-regular fa-clock mr-1.5"></i>${formatRelativeTime(item.pubDate)}</span>
+								<span class="flex items-center opacity-80" title="Published on ${new Date(item.pubDate).toLocaleDateString()}" data-timestamp="${item.pubDate}"><i class="fa-regular fa-clock mr-1.5"></i>${formatRelativeTime(item.pubDate)}</span>
 								<a href="${item.link}" target="_blank" rel="noopener noreferrer" class="hover:text-brand-accentHover transition-colors cursor-pointer px-2 py-1 -mr-2 z-40 relative" onclick="this.querySelector('.read-arrow-anim')?.classList.remove('read-arrow-anim');">
 									Read <i class="fa-solid fa-arrow-up-right-from-square ml-1 read-arrow-anim"></i>
 								</a>
