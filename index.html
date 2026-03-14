@@ -1176,7 +1176,7 @@
 		<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 		<script>
 			// Constants
-			const CONTACT_FORM_URL = "https://script.google.com/macros/s/AKfycbzMWfiGDExArJO8u3OUB1HubBnkrTVKL13XM49KByE2naa5rfi5jaytQbcDPRyz3_ROMQ/exec"; 
+			const CONTACT_FORM_URL = "https://script.google.com/macros/s/AKfycbxn3GvsyFelI-kMG5hZBOYNugiQSTMRn7qq_-Bp4h9NpCY9DuZuayzdVk_jMBEKy9fnHw/exec"; 
 			const NEWSLETTER_FORM_URL = "https://script.google.com/macros/s/AKfycbz75jSznR-_fgNrSHW3ctYtsY7FUX3gL6o_FJ27EC8gAX8NpoeId8v0QOhlaAjsZkb1XA/exec";
 			const WEB3FORMS_ACCESS_KEY = "9f4ad3eb-6a2c-42a1-b06c-ec515d72da59"; // Web3Forms Access Key
 			const PRELOADER_DELAY = 1500;
@@ -1476,8 +1476,12 @@
 						submitBtn.disabled = true;
 						submitBtnText.innerHTML = 'Transmitting... <i class="fa-solid fa-satellite-dish ml-2 animate-pulse"></i>';
 						
-						// 1. Send to Google Sheets
-						const googlePromise = fetch(CONTACT_FORM_URL, { method: "POST", mode: "no-cors", headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload) });
+						// 1. Send to Google Sheets (Using text/plain bypasses CORS preflight error)
+						const googlePromise = fetch(CONTACT_FORM_URL, { 
+							method: "POST", 
+							headers: { "Content-Type": "text/plain;charset=utf-8" }, 
+							body: JSON.stringify(payload) 
+						}).then(res => res.json()).catch(err => { console.error("Script Error:", err); return null; });
 						
 						// 2. Send to Web3Forms to receive an email notification
 						const web3Payload = {
@@ -1493,21 +1497,29 @@
 							method: "POST",
 							headers: { "Content-Type": "application/json", "Accept": "application/json" },
 							body: JSON.stringify(web3Payload)
-						});
+						}).catch(err => console.error("Web3Forms Error:", err));
 
 						// Wait for both promises to complete
 						Promise.all([googlePromise, web3Promise])
-						.then(() => {
-							document.getElementById("form-status").innerHTML = `<span class="text-brand-accent">Transmission successful, ${payload.fullName.split(' ')[0]}! 🚀</span>`;
+						.then(([googleData, web3Res]) => {
+							const firstName = payload.fullName.split(' ')[0];
+							if (googleData && googleData.token) {
+								document.getElementById("form-status").innerHTML = `<div class="text-brand-accent leading-relaxed font-bold text-lg">Thank you for your message, ${firstName}! 🚀<br><span class="text-sm font-mono opacity-90 mt-1 block text-[var(--text-main)]">Reference number: ${googleData.token}</span></div>`;
+							} else {
+								document.getElementById("form-status").innerHTML = `<div class="text-brand-accent leading-relaxed font-bold text-lg">Thank you for your message, ${firstName}! 🚀</div>`;
+							}
 							contactForm.reset();
 							createConfettiEffect(['💌', '🚀', '✨', '💻']);
 						})
-						.catch(() => document.getElementById("form-status").innerHTML = `<span class="text-red-500">Transmission Failed. Check connection.</span>`)
+						.catch(err => {
+							console.log(err);
+							document.getElementById("form-status").innerHTML = `<span class="text-red-500">Transmission Failed. Check connection.</span>`;
+						})
 						.finally(() => {
 							// Revert button state
 							submitBtnText.innerHTML = originalBtnHTML;
 							submitBtn.disabled = false;
-							setTimeout(() => { document.getElementById("form-status").innerHTML = ""; }, 5000);
+							setTimeout(() => { document.getElementById("form-status").innerHTML = ""; }, 8000);
 						});
 					});
 				}
@@ -1560,15 +1572,19 @@
 
 						// Wait for both promises to complete
 						Promise.all([googlePromise, web3Promise])
-						.then(() => {
-							// Save the email locally to prevent duplicate signups
-							localStorage.setItem("subscribed_email", email);
-							
-							document.getElementById("newsletter-status").innerHTML = `<span class="text-brand-accent">Access Granted. Welcome to the loop. 🌐</span>`;
-							newsletterForm.reset();
-							createConfettiEffect(['🗞️', '💡', '🔥']);
-							localStorage.setItem("newsletterClosed", 'true');
-							setTimeout(() => { newsletterPopup.classList.replace("is-visible", "invisible"); newsletterPopup.style.opacity = '0'; }, 3000);
+						.then(([googleData, web3Res]) => {
+							const firstName = payload.fullName.split(' ')[0];
+							if (googleData && googleData.token) {
+								document.getElementById("form-status").innerHTML = `<div class="text-brand-accent leading-relaxed">Thank you for your message, ${firstName}! 🚀<br><span class="text-xs font-mono opacity-80">Reference number: ${googleData.token}</span></div>`;
+							} else {
+								document.getElementById("form-status").innerHTML = `<div class="text-brand-accent leading-relaxed">Thank you for your message, ${firstName}! 🚀</div>`;
+							}
+							contactForm.reset();
+							createConfettiEffect(['💌', '🚀', '✨', '💻']);
+						})
+						.catch(err => {
+							console.log(err);
+							document.getElementById("form-status").innerHTML = `<span class="text-red-500">Transmission Failed. Check connection.</span>`;
 						})
 						.catch(() => {
 							document.getElementById("newsletter-status").innerHTML = `<span class="text-red-500">Subscription Failed. Please try again.</span>`;
