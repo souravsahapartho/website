@@ -1573,18 +1573,14 @@
 						// Wait for both promises to complete
 						Promise.all([googlePromise, web3Promise])
 						.then(([googleData, web3Res]) => {
-							const firstName = payload.fullName.split(' ')[0];
-							if (googleData && googleData.token) {
-								document.getElementById("form-status").innerHTML = `<div class="text-brand-accent leading-relaxed">Thank you for your message, ${firstName}! 🚀<br><span class="text-xs font-mono opacity-80">Reference number: ${googleData.token}</span></div>`;
-							} else {
-								document.getElementById("form-status").innerHTML = `<div class="text-brand-accent leading-relaxed">Thank you for your message, ${firstName}! 🚀</div>`;
-							}
-							contactForm.reset();
-							createConfettiEffect(['💌', '🚀', '✨', '💻']);
-						})
-						.catch(err => {
-							console.log(err);
-							document.getElementById("form-status").innerHTML = `<span class="text-red-500">Transmission Failed. Check connection.</span>`;
+							// Save the email locally to prevent duplicate signups
+							localStorage.setItem("subscribed_email", email);
+							
+							document.getElementById("newsletter-status").innerHTML = `<span class="text-brand-accent">Access Granted. Welcome to the loop. 🌐</span>`;
+							newsletterForm.reset();
+							createConfettiEffect(['🗞️', '💡', '🔥']);
+							localStorage.setItem("newsletterClosed", 'true');
+							setTimeout(() => { newsletterPopup.classList.replace("is-visible", "invisible"); newsletterPopup.style.opacity = '0'; }, 3000);
 						})
 						.catch(() => {
 							document.getElementById("newsletter-status").innerHTML = `<span class="text-red-500">Subscription Failed. Please try again.</span>`;
@@ -1662,8 +1658,8 @@
 				
 				fetchAllData();
 				
-				// Auto-update data from APIs every 3 minutes (180000 ms) to keep stars, forks, repos, and counts perfectly synced without page refresh
-				setInterval(fetchAllData, 180000); 
+				// Auto-update data from APIs every 1 minute (60000 ms) to keep stars, forks, repos, and counts perfectly synced without page refresh
+				setInterval(fetchAllData, 60000); 
 
 				// Auto-update the relative time text locally every 60 seconds
 				setInterval(() => {
@@ -1726,7 +1722,7 @@
 			async function fetchGithubRepos() {
 				const grid = document.getElementById("github-repos-grid");
 				try {
-					const res = await fetch(`https://api.github.com/users/${GITHUB_USERNAME}/repos?sort=pushed&per_page=6`);
+					const res = await fetch(`https://api.github.com/users/${GITHUB_USERNAME}/repos?sort=pushed&per_page=6&_=${new Date().getTime()}`);
 					const repos = await res.json();
 					
 					if (!Array.isArray(repos)) throw new Error("API Limit hit");
