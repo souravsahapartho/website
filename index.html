@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth dark">
 	<head>
-		<!-- Google tag (gtag.js) google -->
+		<!-- Google tag (gtag.js) -->
 		<script async src="https://www.googletagmanager.com/gtag/js?id=G-8KCF1FV861"></script>
 		<script>
 			window.dataLayer = window.dataLayer || [];
@@ -1743,30 +1743,104 @@
 					const repos = await res.json();
 					
 					if (!Array.isArray(repos)) throw new Error("API Limit hit");
-					
-					grid.innerHTML = "";
 
-					repos.forEach(repo => {
+					// FLIP Animation: 1. FIRST - Track current positions
+					const oldCards = Array.from(grid.querySelectorAll('.repo-card'));
+					const oldPositions = new Map();
+					oldCards.forEach(card => {
+						oldPositions.set(card.dataset.repoName, card.getBoundingClientRect());
+					});
+
+					// Create or update DOM elements
+					const newElements = repos.map(repo => {
 						const desc = repo.description || "System logic module. No description available.";
 						const color = getLangColor(repo.language);
 						const lastUpdated = formatRelativeTime(repo.pushed_at || repo.updated_at);
 						
-						grid.innerHTML += `
-							<a href="${repo.html_url}" target="_blank" rel="noopener noreferrer" class="glass-card p-6 sm:p-8 rounded-3xl flex flex-col h-full group border-[var(--card-border)]">
-								<h3 class="text-xl font-extrabold mb-3 group-hover:text-brand-accent transition-colors flex items-center text-[var(--text-main)] break-all"><i class="fa-solid fa-code-branch mr-2 opacity-50 shrink-0"></i>${repo.name}</h3>
-								<p class="text-sm text-[var(--text-muted)] font-medium mb-6 flex-grow font-mono leading-relaxed line-clamp-3">${desc.length > 120 ? desc.substring(0, 120) + "..." : desc}</p>
-								<div class="flex items-center justify-between w-full mt-auto pt-4 border-t border-[var(--card-border)] whitespace-nowrap text-[10px] sm:text-xs text-[var(--text-muted)] font-mono font-bold">
-									<div class="flex items-center gap-2 sm:gap-4 overflow-hidden">
-										${repo.language ? `<span class="flex items-center truncate"><span class="w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full mr-1 sm:mr-1.5 shrink-0" style="background-color: ${color};"></span><span class="truncate">${repo.language}</span></span>` : ""}
-										<span class="flex items-center shrink-0"><i class="fa-solid fa-star mr-1 sm:mr-1.5"></i>${repo.stargazers_count}</span>
-										<span class="flex items-center shrink-0"><i class="fa-solid fa-code-fork mr-1 sm:mr-1.5"></i>${repo.forks_count}</span>
-									</div>
-									<span class="flex items-center shrink-0 ml-2 text-[9px] sm:text-[10px] opacity-60" title="Last Updated" data-timestamp="${repo.pushed_at || repo.updated_at}">
-										<i class="fa-regular fa-clock mr-1"></i>${lastUpdated}
-									</span>
+						// Check if card already exists to preserve it for animation
+						let card = grid.querySelector(`[data-repo-name="${repo.name}"]`);
+						if (!card) {
+							card = document.createElement('a');
+							card.href = repo.html_url;
+							card.target = "_blank";
+							card.rel = "noopener noreferrer";
+							card.className = "glass-card p-6 sm:p-8 rounded-3xl flex flex-col h-full group border-[var(--card-border)] repo-card";
+							card.dataset.repoName = repo.name;
+						}
+						
+						// Update inner content seamlessly
+						card.innerHTML = `
+							<h3 class="text-xl font-extrabold mb-3 group-hover:text-brand-accent transition-colors flex items-center text-[var(--text-main)] break-all"><i class="fa-solid fa-code-branch mr-2 opacity-50 shrink-0"></i>${repo.name}</h3>
+							<p class="text-sm text-[var(--text-muted)] font-medium mb-6 flex-grow font-mono leading-relaxed line-clamp-3">${desc.length > 120 ? desc.substring(0, 120) + "..." : desc}</p>
+							<div class="flex items-center justify-between w-full mt-auto pt-4 border-t border-[var(--card-border)] whitespace-nowrap text-[10px] sm:text-xs text-[var(--text-muted)] font-mono font-bold">
+								<div class="flex items-center gap-2 sm:gap-4 overflow-hidden">
+									${repo.language ? `<span class="flex items-center truncate"><span class="w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full mr-1 sm:mr-1.5 shrink-0" style="background-color: ${color};"></span><span class="truncate">${repo.language}</span></span>` : ""}
+									<span class="flex items-center shrink-0"><i class="fa-solid fa-star mr-1 sm:mr-1.5"></i>${repo.stargazers_count}</span>
+									<span class="flex items-center shrink-0"><i class="fa-solid fa-code-fork mr-1 sm:mr-1.5"></i>${repo.forks_count}</span>
 								</div>
-							</a>`;
+								<span class="flex items-center shrink-0 ml-2 text-[9px] sm:text-[10px] opacity-60" title="Last Updated" data-timestamp="${repo.pushed_at || repo.updated_at}">
+									<i class="fa-regular fa-clock mr-1"></i>${lastUpdated}
+								</span>
+							</div>
+						`;
+						return card;
 					});
+
+					// Update DOM structure
+					if (oldCards.length === 0) {
+						grid.innerHTML = "";
+						newElements.forEach(el => grid.appendChild(el));
+						return;
+					}
+
+					// Clear existing and append in new order
+					while (grid.firstChild) {
+						grid.removeChild(grid.firstChild);
+					}
+					newElements.forEach(el => grid.appendChild(el));
+
+					// FLIP Animation: 2. LAST, INVERT, PLAY
+					newElements.forEach(card => {
+						const oldPos = oldPositions.get(card.dataset.repoName);
+						if (oldPos) {
+							const newPos = card.getBoundingClientRect();
+							const deltaX = oldPos.left - newPos.left;
+							const deltaY = oldPos.top - newPos.top;
+
+							// If card moved
+							if (deltaX !== 0 || deltaY !== 0) {
+								// INVERT: Move it back to old position instantly
+								card.style.transform = `translate3d(${deltaX}px, ${deltaY}px, 0)`;
+								card.style.transition = 'none';
+
+								// PLAY: Force repaint and animate to new position smoothly
+								requestAnimationFrame(() => {
+									card.getBoundingClientRect(); // Force layout recalculation
+									card.style.transform = 'translate3d(0, 0, 0)';
+									card.style.transition = 'transform 1s cubic-bezier(0.25, 1, 0.5, 1)';
+								});
+							}
+						} else {
+							// For completely new repos fade in gracefully
+							card.style.opacity = '0';
+							card.style.transform = 'scale(0.95)';
+							requestAnimationFrame(() => {
+								card.getBoundingClientRect();
+								card.style.transition = 'opacity 1s ease, transform 1s ease';
+								card.style.opacity = '1';
+								card.style.transform = 'scale(1)';
+							});
+						}
+					});
+
+					// Clean up inline styles after animation finishes to preserve hover effects
+					setTimeout(() => {
+						newElements.forEach(card => {
+							card.style.transform = '';
+							card.style.transition = '';
+						});
+					}, 1100);
+
 				} catch (e) { 
 					grid.innerHTML = `
 						<div class="col-span-full glass-card p-6 sm:p-8 rounded-3xl text-center border-[var(--card-border)]">
