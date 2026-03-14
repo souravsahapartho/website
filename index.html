@@ -558,7 +558,8 @@
 									alt="Sourav Saha - Computer Science (CSE) student at UIU, Bangladesh"
 									class="relative rounded-full border-4 border-[var(--card-bg)] shadow-2xl w-48 h-48 sm:w-64 sm:h-64 lg:w-72 lg:h-72 object-cover z-10"
 									onerror="this.onerror=null;this.src='https://placehold.co/300x300/0f172a/ffffff?text=Sourav+Saha';"
-									loading="lazy"
+									fetchpriority="high"
+									decoding="async"
 								/>
 								
 								<!-- GitHub Total Contributions Badge - Positioned at bottom right across all devices -->
@@ -806,7 +807,7 @@
 								</div>
 								<div class="flex items-center gap-1.5 sm:gap-2 px-3 py-1.5 sm:px-4 sm:py-2 bg-[var(--bg-main)] border border-brand-accent/30 rounded-full text-xs sm:text-sm font-semibold text-[var(--text-main)] hover:scale-105 hover:border-brand-accent hover:shadow-[0_0_15px_rgba(0,194,169,0.3)] transition-all duration-300 cursor-default">
 									<i class="fa-solid fa-pen-nib text-pink-500"></i>
-									<span>Tech Blogger / Content Writing</span>
+									<span>Content Writing</span>
 								</div>
 								<div class="flex items-center gap-1.5 sm:gap-2 px-3 py-1.5 sm:px-4 sm:py-2 bg-[var(--bg-main)] border border-brand-accent/30 rounded-full text-xs sm:text-sm font-semibold text-[var(--text-main)] hover:scale-105 hover:border-brand-accent hover:shadow-[0_0_15px_rgba(0,194,169,0.3)] transition-all duration-300 cursor-default">
 									<i class="fa-solid fa-envelope-open-text text-yellow-500"></i>
@@ -1811,10 +1812,6 @@
 						createConfettiEffect(['☕', '🚀', '🧠']);
 					}
 				});
-
-				const skillMessages = {
-					'C': "Pointer references valid. Memory mapped.", 'JavaScript': "DOM Manipulated successfully.", 'React': "Virtual DOM completely reconciled.", 'CSS': "Box model perfectly aligned.", 'Python': "Indentation perfect. AI model trained.", 'MS Office': "Spreadsheets and docs perfectly formatted."
-				};
 				
 				// Removing event listeners from the old layout style just in case, but keeping the logic intact.
 				document.querySelectorAll('.skill-item').forEach(item => {
