@@ -1658,10 +1658,10 @@
 				
 				fetchAllData();
 				
-				// Auto-update data from APIs every 1 minute (60000 ms) to keep stars, forks, repos, and counts perfectly synced without page refresh
-				setInterval(fetchAllData, 60000); 
+				// Auto-update data from APIs every 3 minutes (180000 ms) to keep stars, forks, repos, and counts perfectly synced without page refresh (Safe for rate limits)
+				setInterval(fetchAllData, 180000); 
 
-				// Auto-update the relative time text locally every 60 seconds
+				// Auto-update the relative time text locally every 60 seconds (No API calls, completely safe)
 				setInterval(() => {
 					document.querySelectorAll('[data-timestamp]').forEach(el => {
 						const ts = el.getAttribute('data-timestamp');
