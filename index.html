@@ -1723,8 +1723,9 @@
 				const countEl = document.getElementById('github-total-count');
 				if (!countEl) return;
 				try {
-					// Add cache-busting parameter to ensure we bypass browser cache for fresh data
-					const res = await fetch(`https://github-contributions-api.jogruber.de/v4/${GITHUB_USERNAME}?_=${new Date().getTime()}`);
+					// Removed cache-buster to prevent rate-limit/CORS blocks from the third-party API
+					const res = await fetch(`https://github-contributions-api.jogruber.de/v4/${GITHUB_USERNAME}`);
+					if (!res.ok) throw new Error("API response was not ok");
 					const data = await res.json();
 					if (data && data.total) {
 						let total = 0;
@@ -1735,7 +1736,7 @@
 						countEl.textContent = total; 
 					}
 				} catch (e) {
-					console.error("Contributions API Error:", e);
+					console.warn("Contributions API currently unavailable. Fallback applied.");
 					if(countEl.textContent === "0") countEl.textContent = "N/A";
 				}
 			}
